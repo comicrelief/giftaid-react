@@ -1,0 +1,7 @@
+node_modules/**
+build/**
+public/**
+config/**
+scripts/**
+src/registerServiceWorker.js
+cypress/**
