@@ -1,0 +1,13 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "func-names": ["error", "never"],
+    "no-param-reassign": "off",
+    "no-return-assign": "off",
+    "jsx-no-bind": 0,
+    "no-console": 0,
+    "prefer-template": "off",
+    "class-methods-use-this": "off",
+    "prefer-destructuring": "off"
+  }
+}
