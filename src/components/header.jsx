@@ -1,32 +1,25 @@
 /* eslint-env browser */
 import React, { Component } from 'react';
-import propTypes from 'prop-types';
+// import propTypes from 'prop-types';
 
 
 class Header extends Component {
-  renderHeaderCopy() {
-    return (
-      <div><h1>GiftAid</h1>  <p>yada yada</p></div>
-    );
-  }
-
   render() {
     return (
       <div>
-        <p>{ this.renderHeaderCopy() } </p>
-        <p>{ this.props.campaign } </p>
+        <a href="https://www.comicrelief.com"><img src="images/CR_logo.jpg" alt="Go to Comic Relief" /></a>
       </div>
 
     );
   }
 }
 
-Header.propTypes = {
-  campaign: propTypes.string,
-};
-
-Header.defaultProps = {
-  campaign: 'RedNoseDay',
-};
+// Header.propTypes = {
+//   campaign: propTypes.string,
+// };
+//
+// Header.defaultProps = {
+//   campaign: 'RedNoseDay',
+// };
 
 export default Header;
