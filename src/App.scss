@@ -11,6 +11,7 @@
 /* Pattern Lab Base theme components */
 @import "../node_modules/@comicrelief/pattern-lab/sass/base/components/typography/typography";
 @import "../node_modules/@comicrelief/pattern-lab/sass/base/components/buttons/buttons";
+@import "../node_modules/@comicrelief/pattern-lab/sass/base/components/header/base-header";
 @import "../node_modules/@comicrelief/pattern-lab/sass/base/components/promo-header/promo-header";
 /* Pattern Lab Comic Relief theme components */
 @import "../node_modules/@comicrelief/pattern-lab/sass/themes/cr/2017/components/typography/fonts";
@@ -19,6 +20,32 @@
 @import "../node_modules/@comicrelief/pattern-lab/sass/themes/cr/2017/components/buttons/buttons";
 @import "../node_modules/@comicrelief/pattern-lab/sass/themes/cr/2017/components/links/links";
 
+.header__inner-wrapper {
+  padding: 16px;
+  cursor: default;
+  .logo {
+    float: left;
+    display: block;
+
+    img {
+      height: 50px;
+    }
+  }
+  .cr-logo {
+    margin-right: 16px;
+  }
+  .campaign-logo {
+    float: right;
+  }
+  @include breakpoint($screen-md) {
+    .campaign-logo {
+      float: left;
+    }
+  }
+  @include breakpoint($desktop-nav-breakpoint) {
+    justify-content: flex-start;
+  }
+}
 .promo-header {
   h1 {
     height: 105px;
@@ -27,32 +54,4 @@
       height: 200px;
     }
   }
-}
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
