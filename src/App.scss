@@ -48,10 +48,29 @@
 }
 .promo-header {
   h1 {
-    height: 105px;
+    height: 125px;
     background: transparent url('./images/giftaid.png') center/contain no-repeat;
     @include breakpoint($screen-md) {
       height: 200px;
     }
+  }
+  h2, p:first-of-type {
+    font-size: 20px;
+    line-height: 26px;
+    @include breakpoint($screen-md) {
+      @include font-size($h3-font-size);
+    }
+  }
+  .promo-header__content-inner {
+    @include breakpoint($screen-md-max){
+      width: span(10);
+    }
+  }
+
+}
+.mobile-line-break {
+  display: block;
+  @include breakpoint($screen-md) {
+    display: none;
   }
 }
