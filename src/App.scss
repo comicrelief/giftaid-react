@@ -62,11 +62,10 @@
     }
   }
   .promo-header__content-inner {
-    @include breakpoint($screen-md-max){
+    @include breakpoint($screen-md-max) {
       width: span(10);
     }
   }
-
 }
 .mobile-line-break {
   display: block;
