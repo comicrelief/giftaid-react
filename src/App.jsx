@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import Header from './components/Header';
 import PromoHeader from './components/PromoHeader';
+import Footer from './components/Footer';
 import './App.scss';
 
 class App extends Component {
@@ -18,14 +19,15 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header
-          campaign="SportRelief"
-        />
+        <Header />
         <main role="main">
           <PromoHeader
             scrollToForm={this.scrollTo}
           />
         </main>
+        <Footer
+          campaign="comicrelief"
+        />
       </div>
     );
   }
