@@ -24,12 +24,4 @@ class Header extends Component {
   }
 }
 
-// Header.propTypes = {
-//   campaign: propTypes.string,
-// };
-//
-// Header.defaultProps = {
-//   campaign: 'RedNoseDay',
-// };
-
 export default Header;
