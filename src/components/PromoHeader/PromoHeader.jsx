@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
+import './PromoHeader.scss';
 
 
 class PromoHeader extends Component {

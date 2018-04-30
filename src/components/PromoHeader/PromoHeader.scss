@@ -1,0 +1,18 @@
+/* Pattern Lab Base theme variables */
+@import "../node_modules/@comicrelief/pattern-lab/sass/base/core";
+@import "../node_modules/@comicrelief/pattern-lab/sass/base/variables/grid";
+@import "../node_modules/@comicrelief/pattern-lab/sass/base/variables/colours";
+@import "../node_modules/@comicrelief/pattern-lab/sass/base/variables/lists";
+@import "../node_modules/@comicrelief/pattern-lab/sass/base/variables/typography";
+/* Pattern Lab Comic Relief theme variables */
+@import "../node_modules/@comicrelief/pattern-lab/sass/themes/cr/2017/variables/colours";
+@import "../node_modules/@comicrelief/pattern-lab/sass/themes/cr/2017/variables/typography";
+@import "../node_modules/@comicrelief/pattern-lab/sass/themes/cr/2017/variables/mixins";
+/* Pattern Lab Base theme components */
+@import "../node_modules/@comicrelief/pattern-lab/sass/base/components/typography/typography";
+@import "../node_modules/@comicrelief/pattern-lab/sass/base/components/promo-header/promo-header";
+/* Pattern Lab Comic Relief theme components */
+@import "../node_modules/@comicrelief/pattern-lab/sass/themes/cr/2017/components/typography/fonts";
+@import "../node_modules/@comicrelief/pattern-lab/sass/themes/cr/2017/components/typography/typography";
+@import "../node_modules/@comicrelief/pattern-lab/sass/themes/cr/2017/components/background-colours/background-colours";
+@import "../node_modules/@comicrelief/pattern-lab/sass/themes/cr/2017/components/links/links";
