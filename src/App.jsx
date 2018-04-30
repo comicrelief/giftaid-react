@@ -5,14 +5,14 @@ import PromoHeader from './components/PromoHeader';
 import './App.scss';
 
 class App extends Component {
-  scrollTo(target) {
-    let targetElementId = '';
+  scrollTo(event) {
+    let id;
+    event.preventDefault();
     // if target is an event by an anchor tag get the target id through the href
-    if (target.target.type === 'click') {
-      target.preventDefault();
-      targetElementId = target.target.getAttribute('href');
+    if (event.target.href !== undefined) {
+      id = event.target.getAttribute('href');
     }
-    const targetElement = document.querySelector(targetElementId);
+    const targetElement = document.querySelector(id);
     targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
   render() {
