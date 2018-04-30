@@ -1,8 +1,8 @@
 /* eslint-env browser */
+import Footer from '@comicrelief/storybook/src/components/Footer/Footer';
 import React, { Component } from 'react';
 import Header from './components/Header';
-import PromoHeader from './components/PromoHeader';
-import Footer from './components/Footer';
+import PromoHeader from './components/PromoHeader/PromoHeader';
 import './App.scss';
 
 class App extends Component {
@@ -25,9 +25,7 @@ class App extends Component {
             scrollToForm={this.scrollTo}
           />
         </main>
-        <Footer
-          campaign="comicrelief"
-        />
+        <Footer copy="copyright 2018" campaign="comicrelief" />
       </div>
     );
   }
