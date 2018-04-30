@@ -8,7 +8,7 @@ class App extends Component {
   scrollTo(target) {
     let targetElementId = '';
     // if target is an event by an anchor tag get the target id through the href
-    if (target.target.tagName === 'A') {
+    if (target.target.type === 'click') {
       target.preventDefault();
       targetElementId = target.target.getAttribute('href');
     }
