@@ -17,7 +17,7 @@ class PromoHeader extends Component {
               <a
                 aria-labelledby="giftaid-form"
                 className="link link--light-grey inline"
-                onClick={this.props.scrollToForm('form')}
+                onClick={this.props.scrollToForm}
                 href="#form"
               >
                 below

@@ -6,7 +6,14 @@ import './App.scss';
 
 class App extends Component {
   scrollTo(target) {
-    console.log('target', target);
+    let targetElementId = '';
+    // if target is an event by an anchor tag get the target id through the href
+    if (target.target.tagName === 'A') {
+      target.preventDefault();
+      targetElementId = target.target.getAttribute('href');
+    }
+    const targetElement = document.querySelector(targetElementId);
+    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
   render() {
     return (
