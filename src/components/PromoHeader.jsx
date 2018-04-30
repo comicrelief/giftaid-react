@@ -1,5 +1,6 @@
 /* eslint-env browser */
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 
 
 class PromoHeader extends Component {
@@ -16,6 +17,7 @@ class PromoHeader extends Component {
               <a
                 aria-labelledby="giftaid-form"
                 className="link link--light-grey inline"
+                onClick={this.props.scrollToForm('form')}
                 href="#form"
               >
                 below
@@ -49,5 +51,9 @@ class PromoHeader extends Component {
     );
   }
 }
+
+PromoHeader.propTypes = {
+  scrollToForm: propTypes.func.isRequired,
+};
 
 export default PromoHeader;

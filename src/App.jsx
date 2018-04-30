@@ -1,10 +1,13 @@
 /* eslint-env browser */
 import React, { Component } from 'react';
-import Header from './components/header';
-import PromoHeader from './components/promoHeader';
+import Header from './components/Header';
+import PromoHeader from './components/PromoHeader';
 import './App.scss';
 
 class App extends Component {
+  scrollTo(target) {
+    console.log('target', target);
+  }
   render() {
     return (
       <div className="App">
@@ -12,7 +15,9 @@ class App extends Component {
           campaign="SportRelief"
         />
         <main role="main">
-          <PromoHeader />
+          <PromoHeader
+            scrollToForm={this.scrollTo}
+          />
         </main>
       </div>
     );
