@@ -2,7 +2,16 @@
 import React, { Component } from 'react';
 import Header from './components/Header';
 import PromoHeader from './components/PromoHeader';
+import Form from './components/Form/Form';
 import './App.scss';
+
+const formFields = {
+  firstName: {
+    id: 'firstname',
+    label: 'First name',
+    required: true,
+  },
+};
 
 class App extends Component {
   scrollTo(event) {
@@ -25,6 +34,12 @@ class App extends Component {
           <PromoHeader
             scrollToForm={this.scrollTo}
           />
+          <section>
+            <Form
+              fields={formFields}
+            />
+          </section>
+
         </main>
       </div>
     );
