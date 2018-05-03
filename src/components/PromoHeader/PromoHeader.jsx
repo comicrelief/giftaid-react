@@ -1,6 +1,8 @@
 /* eslint-env browser */
+
 import React, { Component } from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import './PromoHeader.scss';
 
 
 class PromoHeader extends Component {
@@ -53,7 +55,7 @@ class PromoHeader extends Component {
 }
 
 PromoHeader.propTypes = {
-  scrollToForm: propTypes.func.isRequired,
+  scrollToForm: PropTypes.func.isRequired,
 };
 
 export default PromoHeader;

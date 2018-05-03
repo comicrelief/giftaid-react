@@ -1,7 +1,8 @@
 /* eslint-env browser */
 import React, { Component } from 'react';
-import logo from '../images/CR_logo.png';
-import campaignLogos from '../images/campaign_logos.png';
+import logo from './images/CR_logo.png';
+import campaignLogos from './images/campaign_logos.png';
+import './Header.scss';
 // import propTypes from 'prop-types';
 
 

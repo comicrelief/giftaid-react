@@ -1,0 +1,46 @@
+/* Pattern Lab Base theme variables */
+@import "~@comicrelief/pattern-lab/sass/base/core";
+@import "~@comicrelief/pattern-lab/sass/base/variables/grid";
+@import "~@comicrelief/pattern-lab/sass/base/variables/colours";
+@import "~@comicrelief/pattern-lab/sass/base/variables/lists";
+@import "~@comicrelief/pattern-lab/sass/base/variables/typography";
+/* Pattern Lab Comic Relief theme variables */
+@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/variables/colours";
+@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/variables/typography";
+@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/variables/mixins";
+/* Pattern Lab Base theme components */
+@import "~@comicrelief/pattern-lab/sass/base/components/typography/typography";
+@import "~@comicrelief/pattern-lab/sass/base/components/promo-header/promo-header";
+/* Pattern Lab Comic Relief theme components */
+@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/components/typography/fonts";
+@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/components/typography/typography";
+@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/components/background-colours/background-colours";
+@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/components/links/links";
+
+.promo-header {
+  h1 {
+    height: 125px;
+    background: transparent url('./images/giftaid.png') center/contain no-repeat;
+    @include breakpoint($screen-md) {
+      height: 200px;
+    }
+  }
+  h2, p:first-of-type {
+    font-size: 20px;
+    line-height: 26px;
+    @include breakpoint($screen-md) {
+      @include font-size($h3-font-size);
+    }
+  }
+  .promo-header__content-inner {
+    @include breakpoint($screen-md-max) {
+      width: span(10);
+    }
+  }
+}
+.mobile-line-break {
+  display: block;
+  @include breakpoint($screen-md) {
+    display: none;
+  }
+}

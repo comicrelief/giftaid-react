@@ -1,10 +1,9 @@
 /* eslint-env browser */
-import React, { Component } from 'react';
-import Header from './components/Header';
-import PromoHeader from './components/PromoHeader';
-import './App.scss';
 
-class App extends Component {
+import React, { Component } from 'react';
+import PromoHeader from '../../components/PromoHeader/PromoHeader';
+
+export default class Home extends Component {
   scrollTo(event) {
     let id;
     event.preventDefault();
@@ -17,18 +16,11 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
-        <Header
-          campaign="SportRelief"
+      <main role="main">
+        <PromoHeader
+          scrollToForm={this.scrollTo}
         />
-        <main role="main">
-          <PromoHeader
-            scrollToForm={this.scrollTo}
-          />
-        </main>
-      </div>
+      </main>
     );
   }
 }
-
-export default App;
