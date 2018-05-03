@@ -1,9 +1,8 @@
 /* eslint-env browser */
+
 import React, { Component } from 'react';
-import Header from './components/Header';
-import PromoHeader from './components/PromoHeader';
-import Form from './components/Form/Form';
-import './App.scss';
+import PromoHeader from '../../components/PromoHeader/PromoHeader';
+import Form from '../../components/Form/Form';
 
 const formFields = {
   firstName: {
@@ -13,7 +12,7 @@ const formFields = {
   },
 };
 
-class App extends Component {
+export default class Home extends Component {
   scrollTo(event) {
     let id;
     event.preventDefault();
@@ -26,24 +25,16 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
-        <Header
-          campaign="SportRelief"
+      <main role="main">
+        <PromoHeader
+          scrollToForm={this.scrollTo}
         />
-        <main role="main">
-          <PromoHeader
-            scrollToForm={this.scrollTo}
+        <section>
+          <Form
+            fields={formFields}
           />
-          <section>
-            <Form
-              fields={formFields}
-            />
-          </section>
-
-        </main>
-      </div>
+        </section>
+      </main>
     );
   }
 }
-
-export default App;
