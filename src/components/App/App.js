@@ -16,7 +16,7 @@ class App extends Component {
             <Route exact path="/" component={Home} />
           </div>
         </Router>
-        <Footer copy="copyright 2018" campaign="comicrelief" />
+        <Footer campaign="comicrelief" />
       </div>
     );
   }

@@ -2,13 +2,15 @@
 
 import React, { Component } from 'react';
 import PromoHeader from '../../components/PromoHeader/PromoHeader';
-import Form from '../../components/Form/Form';
+import GiftAidForm from '../../components/GiftAidForm/GiftAidForm';
 
-const formFields = {
+
+const inputFieldOverrides = {
   firstName: {
-    id: 'firstname',
-    label: 'First name',
-    required: true,
+    label: 'burre',
+  },
+  lastName: {
+    label: 'bliep',
   },
 };
 
@@ -30,9 +32,7 @@ export default class Home extends Component {
           scrollToForm={this.scrollTo}
         />
         <section>
-          <Form
-            fields={formFields}
-          />
+          <GiftAidForm {... { inputFieldOverrides }} />
         </section>
       </main>
     );
