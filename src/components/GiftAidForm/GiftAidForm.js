@@ -31,7 +31,7 @@ const defaultInputFieldProps = {
     required: true,
   },
 };
-
+let inputFieldsProps;
 /**
  * GiftAidForm class
  * Returns elements on this form with default properties.
@@ -44,6 +44,9 @@ const defaultInputFieldProps = {
  * }
  */
 class GiftAidForm extends Component {
+  componentWillMount() {
+    return inputFieldsProps = this.mergeInputFieldProps();
+  }
   /**
    * Merge default input field properties with overrides.
    * @return {object}
@@ -67,16 +70,16 @@ class GiftAidForm extends Component {
     return (
       <form id="form">
         <InputField
-          field={this.mergeInputFieldProps().giftaidCheck}
+          field={inputFieldsProps.giftaidCheck}
         />
         <InputField
-          field={this.mergeInputFieldProps().phoneNumber}
+          field={inputFieldsProps.phoneNumber}
         />
         <InputField
-          field={this.mergeInputFieldProps().firstName}
+          field={inputFieldsProps.firstName}
         />
         <InputField
-          field={this.mergeInputFieldProps().lastName}
+          field={inputFieldsProps.lastName}
         />
         {/* Postcode lookup component */}
         {/* Submit button component  */}
