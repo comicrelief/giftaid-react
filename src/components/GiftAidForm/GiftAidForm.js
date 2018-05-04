@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import InputField from '../InputField/InputField';
 
-const defaultInputFields = {
+const defaultInputFieldProps = {
   giftaidCheck: {
     id: 'giftaid',
     type: 'checkbox',
@@ -36,7 +36,7 @@ const defaultInputFields = {
  * GiftAidForm class
  * Returns elements on this form with default properties.
  * Input field properties can be overridden by passing in a inputFieldOverrides object with the
- * same structure as the defaultInputFields object above, e.g.:
+ * same structure as the defaultInputFieldProps object above, e.g.:
  * inputFieldOverrides = {
  *   firstName: {
  *     label: 'some text',
@@ -44,9 +44,13 @@ const defaultInputFields = {
  * }
  */
 class GiftAidForm extends Component {
-  mergeObjects() {
+  /**
+   * Merge default input field properties with overrides.
+   * @return {object}
+   */
+  mergeInputFieldProps() {
     // default props
-    const inputFields = defaultInputFields;
+    const inputFields = defaultInputFieldProps;
 
     // iterate through the overrides object passed in and
     // set the new value for items that need to be overridden
@@ -63,16 +67,16 @@ class GiftAidForm extends Component {
     return (
       <form id="form">
         <InputField
-          field={this.mergeObjects().giftaidCheck}
+          field={this.mergeInputFieldProps().giftaidCheck}
         />
         <InputField
-          field={this.mergeObjects().phoneNumber}
+          field={this.mergeInputFieldProps().phoneNumber}
         />
         <InputField
-          field={this.mergeObjects().firstName}
+          field={this.mergeInputFieldProps().firstName}
         />
         <InputField
-          field={this.mergeObjects().lastName}
+          field={this.mergeInputFieldProps().lastName}
         />
         {/* Postcode lookup component */}
         {/* Submit button component  */}
