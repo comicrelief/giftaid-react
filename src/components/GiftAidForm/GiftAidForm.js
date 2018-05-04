@@ -8,8 +8,6 @@ class Form extends Component {
   render() {
     return (
       <form id="form">
-        //iterate throught fields array and render an input field with its props for each field we need
-        // this won't be great for forms like donate though so rethink this...
         <InputField
           field={this.props.field}
         />
@@ -19,7 +17,7 @@ class Form extends Component {
 }
 
 Form.propTypes = {
-  fields: propTypes.shape.isRequired,
+  field: propTypes.shape.isRequired,
 };
 
 export default Form;
