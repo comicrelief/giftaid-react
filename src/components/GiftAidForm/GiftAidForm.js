@@ -18,7 +18,9 @@ const defaultInputFieldProps = {
     name: 'mobile number',
     label: 'Enter your mobile number',
     required: true,
+    pattern: '^[0-9 ]{11}$',
     helpText: '(The one you used for your text donation in the format of: 07...)',
+    invalidErrorText: 'Please enter a valid mobile phone number - it must be the same number that you used to make your donation.',
   },
   firstName: {
     id: 'firstname',
@@ -26,15 +28,30 @@ const defaultInputFieldProps = {
     name: 'first name',
     label: 'First name',
     required: true,
-    helpText: '',
     emptyFieldErrorText: 'zoooo stom',
   },
   lastName: {
     id: 'lastname',
-    type: 'number',
-    name: 'amount',
-    min: 1,
+    type: 'text',
+    name: 'last name',
     label: 'Last name',
+    required: true,
+  },
+  email: {
+    id: 'email',
+    type: 'email',
+    name: 'email address',
+    label: 'Email address',
+    required: true,
+    placeholder: 'name@example.ex',
+  },
+  amount: {
+    id: 'amount',
+    type: 'number',
+    name: 'donation amount',
+    label: 'Amount',
+    min: 1,
+    max: 5000,
     required: true,
   },
 };
@@ -87,6 +104,12 @@ class GiftAidForm extends Component {
         />
         <InputField
           field={inputFieldsProps.lastName}
+        />
+        <InputField
+          field={inputFieldsProps.email}
+        />
+        <InputField
+          field={inputFieldsProps.amount}
         />
         {/* Postcode lookup component */}
         {/* Submit button component  */}

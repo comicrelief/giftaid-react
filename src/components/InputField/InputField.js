@@ -2,8 +2,13 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 
-// const requiredFieldMsg = `Please fill in your ${this.props.name}`;
-// const invalidFieldMsg = '';
+
+const defaultValidationPatterns = {
+  tel: '^[0-9 ]+$',
+  number: '^[0-9]+$',
+  email: '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$',
+  text: '^[A-Za-z0-9]+$',
+};
 
 class InputField extends Component {
   constructor() {
@@ -15,84 +20,129 @@ class InputField extends Component {
       validationMessage: '',
     };
   }
-  getMessage() {
+
+  getEmptyFieldMessage() {
     let message;
-    switch (this.props.field.type) {
-      case 'number':
-        if (this.props.field.min && !this.props.field.max) {
-          message = 'Please enter a value above or equal to ' + this.props.field.min;
-        }
-        if (!this.props.field.min && this.props.field.max) {
-          message = 'Please enter a value below or equal to ' + this.props.field.max;
-        }
-        if (this.props.field.min && this.props.field.max) {
-          message = 'Please enter a value between ' + this.props.field.min + ' and ' + this.props.field.max;
-        }
-        break;
-      case 'checkbox':
-        message = 'Please check the ' + this.props.field.name + ' checkbox';
-        break;
-      default:
-        message = 'Please fill in your ' + this.props.field.name;
-        break;
+    if (this.props.field.emptyFieldErrorText === undefined) {
+      switch (this.props.field.type) {
+        case 'number':
+          if (this.props.field.min && !this.props.field.max) {
+            message = 'Please enter a value above or equal to ' + this.props.field.min;
+          }
+          if (!this.props.field.min && this.props.field.max) {
+            message = 'Please enter a value below or equal to ' + this.props.field.max;
+          }
+          if (this.props.field.min && this.props.field.max) {
+            message = 'Please enter a value between ' + this.props.field.min + ' and ' + this.props.field.max;
+          }
+          break;
+        case 'checkbox':
+          message = 'Please check the ' + this.props.field.name + ' checkbox';
+          break;
+        default:
+          message = 'Please fill in your ' + this.props.field.name;
+          break;
+      }
+    } else {
+      message = this.props.field.emptyFieldErrorText;
     }
     return message;
   }
+
   checkInputValue(value) {
-    let valid;
+    const validation = {
+      valid: null,
+      message: null,
+    };
+    let pattern =
+      this.props.field.pattern !== undefined ?
+        this.props.field.pattern : defaultValidationPatterns[this.props.field.type];
+    pattern = new RegExp(pattern);
+    const invalidMessage = this.props.field.invalidErrorText;
+    // switch between field types
     switch (this.props.field.type) {
       case 'number': {
+        console.log(pattern.test(value));
         const min = this.props.field.min;
         const max = this.props.field.max;
         if (((min && !max) && (value < min)) ||
             ((!min && max) && (value > max)) ||
-            ((min && max) && (value < min || value > max))
+            ((min && max) && (value < min || value > max)) ||
+              (pattern.test(value) === false)
         ) {
-          valid = false;
+          validation.valid = false;
+          validation.message = invalidMessage !== undefined ? invalidMessage : 'This field can only contain numbers';
+        } else {
+          validation.valid = true;
         }
         break;
       }
       case 'email': {
+        console.log(pattern.test(value));
+        if (pattern.test(value) === false) {
+          validation.valid = false;
+          validation.message = invalidMessage !== undefined ? invalidMessage : 'Please enter a valid email address';
+        } else {
+          validation.valid = true;
+        }
         break;
       }
       case 'tel': {
+        console.log(pattern);
+        console.log(pattern.test(value));
+        if (pattern.test(value) === false) {
+          validation.valid = false;
+          validation.message = invalidMessage !== undefined ? invalidMessage : 'Please enter a valid phone number';
+        } else {
+          validation.valid = true;
+        }
         break;
       }
-      default: {
-        console.log('bla');
+      case 'text': {
+        console.log(pattern);
+        console.log(pattern.test(value));
+        if (pattern.test(value) === false) {
+          validation.valid = false;
+          validation.message = invalidMessage !== undefined ? invalidMessage : 'This field only accepts alphanumeric characters';
+        } else {
+          validation.valid = true;
+        }
         break;
       }
+      default:
+        break;
     }
-    return valid;
+    return validation;
   }
-
+  /**
+   * Validate the input field.
+   * Updates the state with the validity of the field and the correct error message
+   */
   validateField() {
     const field = document.getElementById('field-input--' + this.props.field.id);
-    const message = this.getMessage();
-    console.log('message', message);
+    const value = field.value;
+    let validation = {
+      valid: null,
+      message: null,
+    };
+    // if field is checkbox set value to check against
     if (field.getAttribute('type') === 'checkbox') {
       field.value = field.checked;
-      console.log(field.value);
     }
-    if (!field.value || field.value === 'false') {
-      console.log('no value');
-      this.setState(() => ({
-        valid: false,
-        validationMessage: message,
-      }));
-    } else if (field.value && field.value !== 'false') {
-      console.log('value here');
-      const valid = this.checkInputValue(field.value);
-      this.setState(() => ({
-        valid,
-        validationMessage: message,
-      }));
+    // if field is empty
+    if (!value || value === 'false') {
+      validation.valid = false;
+      validation.message = this.getEmptyFieldMessage();
+    } else if (value && value !== 'false') {
+      validation = this.checkInputValue(value);
     } else {
-      this.setState({
-        valid: true,
-        validationMessage: '',
-      });
+      validation.valid = true;
+      validation.message = '';
     }
+    this.setState({
+      valid: validation.valid,
+      validationMessage: validation.message,
+    });
   }
 
   render() {
@@ -109,6 +159,7 @@ class InputField extends Component {
           id={`field-input--${this.props.field.id}`}
           className={`form__field form__field--${this.props.field.type}`}
           required={this.props.field.required && this.props.field.required}
+          placeholder={this.props.field.placeholder && this.props.field.placeholder}
           min={this.props.field.min && this.props.field.min}
           max={this.props.field.max && this.props.field.max}
           onBlur={this.props.field.required ? this.validateField : undefined}
@@ -120,8 +171,7 @@ class InputField extends Component {
         {this.state.valid === false &&
         <div id={`field-error--${this.props.field.id}`} className={`form__field-error-container form__field-error-container--${this.props.field.type}`}>
           <span className="form-error">
-            { /* eslint-disable max-len */ }
-            {this.props.field.emptyFieldErrorText ? this.props.field.emptyFieldErrorText : this.state.validationMessage}
+            {this.state.validationMessage}
           </span>
         </div>
       }
@@ -131,6 +181,7 @@ class InputField extends Component {
   }
 }
 
+
 InputField.propTypes = {
   field: propTypes.shape({
     id: propTypes.string.isRequired,
@@ -138,11 +189,14 @@ InputField.propTypes = {
     name: propTypes.string.isRequired,
     label: propTypes.string.isRequired,
     required: propTypes.bool.isRequired,
+    pattern: propTypes.string,
+    placeholder: propTypes.string,
     min: propTypes.number,
     max: propTypes.number,
     checked: propTypes.bool,
     helpText: propTypes.string,
     emptyFieldErrorText: propTypes.string,
+    invalidErrorText: propTypes.string,
   }).isRequired,
 };
 
