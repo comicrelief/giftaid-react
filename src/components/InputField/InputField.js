@@ -10,9 +10,11 @@ const defaultValidationPatterns = {
   text: '^[A-Za-z0-9]+$',
 };
 
+
 class InputField extends Component {
   constructor() {
     super();
+    this.inputField = React.createRef();
     this.validateField = this.validateField.bind(this);
 
     this.state = {
@@ -20,6 +22,12 @@ class InputField extends Component {
       validationMessage: '',
     };
   }
+
+  // getFieldValidation() {
+  //   const constraints = {
+  //     'tel': '',
+  //   };
+  // }
 
   getEmptyFieldMessage() {
     let message;
@@ -65,13 +73,21 @@ class InputField extends Component {
         console.log(pattern.test(value));
         const min = this.props.field.min;
         const max = this.props.field.max;
-        if (((min && !max) && (value < min)) ||
-            ((!min && max) && (value > max)) ||
-            ((min && max) && (value < min || value > max)) ||
-              (pattern.test(value) === false)
-        ) {
+        const valueIsNumber = pattern.test(value);
+        if ((((min && !max) && (value < min)) && (valueIsNumber === true)) ||
+            (valueIsNumber === false)) {
           validation.valid = false;
-          validation.message = invalidMessage !== undefined ? invalidMessage : 'This field can only contain numbers';
+          validation.message = invalidMessage !== undefined ? invalidMessage : 'This field can only contain numbers above ' + min;
+        } else if ((((!min && max) && (value > max)) && (valueIsNumber === true)) ||
+            (valueIsNumber === false)) {
+          validation.valid = false;
+          validation.message = invalidMessage !== undefined ? invalidMessage : 'This field can only contain numbers above ' + min;
+        } else if ((((min && max) && (value < min || value > max)) &&
+            (valueIsNumber === true))
+            || (valueIsNumber === false)) {
+          validation.valid = false;
+          validation.message = invalidMessage !== undefined ? invalidMessage :
+            'This field can only contain numbers between ' + min + ' and ' + max;
         } else {
           validation.valid = true;
         }
@@ -119,21 +135,24 @@ class InputField extends Component {
    * Updates the state with the validity of the field and the correct error message
    */
   validateField() {
-    const field = document.getElementById('field-input--' + this.props.field.id);
-    const value = field.value;
+    const field = this.inputField.current;
+    let value = field.value;
+    let checkbox = false;
     let validation = {
       valid: null,
       message: null,
     };
-    // if field is checkbox set value to check against
+    // cheboxes return 'on' as value so change it
     if (field.getAttribute('type') === 'checkbox') {
-      field.value = field.checked;
+      checkbox = true;
+      value = field.checked;
     }
-    // if field is empty
-    if (!value || value === 'false') {
+    // if field is required and empty or a unchecked checkbox get empty field message
+    // otherwise validate the input value
+    if (this.props.field.required && (!value || value === false)) {
       validation.valid = false;
       validation.message = this.getEmptyFieldMessage();
-    } else if (value && value !== 'false') {
+    } else if (value && checkbox === false) {
       validation = this.checkInputValue(value);
     } else {
       validation.valid = true;
@@ -155,14 +174,16 @@ class InputField extends Component {
           <span className="form-help-text">{this.props.field.helpText}</span>
         }
         <input
+          ref={this.inputField}
           type={this.props.field.type}
           id={`field-input--${this.props.field.id}`}
-          className={`form__field form__field--${this.props.field.type}`}
+          className={`form__field form__field--${this.props.field.type} ${this.state.valid ? '' : 'error'} `}
           required={this.props.field.required && this.props.field.required}
           placeholder={this.props.field.placeholder && this.props.field.placeholder}
           min={this.props.field.min && this.props.field.min}
           max={this.props.field.max && this.props.field.max}
-          onBlur={this.props.field.required ? this.validateField : undefined}
+          onBlur={this.props.field.type !== 'checkbox' ? this.validateField : undefined}
+          onChange={this.props.field.required && this.props.field.type === 'checkbox' ? this.validateField : undefined}
         />
         {this.props.field.type === 'checkbox' &&
           // span for checkbox styling

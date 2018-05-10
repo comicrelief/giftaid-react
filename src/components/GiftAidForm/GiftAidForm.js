@@ -10,7 +10,7 @@ const defaultInputFieldProps = {
     name: 'Gift Aid',
     label: 'Yes, I would like Comic Relief to claim Gift Aid on my donation',
     required: true,
-    checked: true,
+    checked: false,
   },
   phoneNumber: {
     id: 'mobile',
@@ -18,7 +18,7 @@ const defaultInputFieldProps = {
     name: 'mobile number',
     label: 'Enter your mobile number',
     required: true,
-    pattern: '^[0-9 ]{11}$',
+    pattern: '^07[0-9]{9}$',
     helpText: '(The one you used for your text donation in the format of: 07...)',
     invalidErrorText: 'Please enter a valid mobile phone number - it must be the same number that you used to make your donation.',
   },
@@ -35,7 +35,7 @@ const defaultInputFieldProps = {
     type: 'text',
     name: 'last name',
     label: 'Last name',
-    required: true,
+    required: false,
   },
   email: {
     id: 'email',
