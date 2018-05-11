@@ -93,6 +93,7 @@ class GiftAidForm extends Component {
   render() {
     return (
       <form id="form">
+        {/* to do iterate through see if you need polyfill for map */}
         <InputField
           field={inputFieldsProps.giftaidCheck}
         />
