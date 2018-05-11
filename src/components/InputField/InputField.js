@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 
 
+
 const defaultValidationPatterns = {
   tel: '^[0-9 ]+$',
   number: '^[0-9]+$',
@@ -170,6 +171,9 @@ class InputField extends Component {
         <label id={`field-label--${this.props.field.id}`} htmlFor={`field-input--${this.props.field.id}`} className={`form__field-label${this.props.field.required ? ' required' : ''}`}>
           {this.props.field.label}
         </label>
+        {!this.props.field.required &&
+        <span>&nbsp;(Optional)&nbsp;</span>
+        }
         {this.props.field.helpText !== undefined &&
           <span className="form-help-text">{this.props.field.helpText}</span>
         }
