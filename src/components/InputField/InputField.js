@@ -3,26 +3,22 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import fieldValidation from './validation';
 
-//
-// const defaultValidationPatterns = {
-//   tel: '^[0-9 ]+$',
-//   number: '^[0-9]+$',
-//   email: '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}$',
-//   text: '^[A-Za-z0-9]+$',
-// };
-
 
 class InputField extends Component {
   constructor() {
     super();
     this.inputField = React.createRef();
     this.validateField = this.validateField.bind(this);
-    // this.validateField = fieldValidation;
     this.state = {
       valid: null,
       message: '',
     };
   }
+
+  /**
+   * Calls helper function to validate the input field
+   * Sets the the state for the validation and valid message
+   */
   validateField() {
     const props = {
       field: this.inputField.current,
@@ -54,10 +50,8 @@ class InputField extends Component {
           placeholder={this.props.field.placeholder && this.props.field.placeholder}
           min={this.props.field.min && this.props.field.min}
           max={this.props.field.max && this.props.field.max}
-          // onBlur={this.props.field.type !== 'checkbox' ? this.validateField : undefined}
-          // onChange={this.props.field.required && this.props.field.type
-          // === 'checkbox' ? this.validateField : undefined}
-          onBlur={this.validateField}
+          onBlur={this.props.field.type !== 'checkbox' ? this.validateField : undefined}
+          onChange={this.props.field.required && this.props.field.type === 'checkbox' ? this.validateField : undefined}
         />
         {this.props.field.type === 'checkbox' &&
           // span for checkbox styling
