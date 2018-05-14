@@ -17,7 +17,7 @@ class InputField extends Component {
 
   /**
    * Calls helper function to validate the input field
-   * Sets the the state for the validation and valid message
+   * Sets the the state for the validation and validation message
    */
   validateField() {
     const props = {
