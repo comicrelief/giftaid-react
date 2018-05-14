@@ -3,7 +3,11 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import fieldValidation from './validation';
 
-
+/**
+ * InputField class
+ * Requires a shape containing required and optional items defining the type of input field.
+ * See propTypes below.
+ */
 class InputField extends Component {
   constructor() {
     super();
@@ -31,7 +35,7 @@ class InputField extends Component {
   }
   render() {
     return (
-      <div id={`field-wrapper--${this.props.field.id}`} className={`form__fieldset form__field-wrapper form__field-wrapper--${this.props.field.type}`}>
+      <div id={`field-wrapper--${this.props.field.id}`} className={`form__fieldset form__field-wrapper form__field-wrapper--${this.props.field.type} ${this.props.field.extraClass ? this.props.field.extraClass : ''}`}>
         <label id={`field-label--${this.props.field.id}`} htmlFor={`field-input--${this.props.field.id}`} className={`form__field-label${this.props.field.required ? ' required' : ''}`}>
           {this.props.field.label}
         </label>
@@ -45,7 +49,7 @@ class InputField extends Component {
           ref={this.inputField}
           type={this.props.field.type}
           id={`field-input--${this.props.field.id}`}
-          className={`form__field form__field--${this.props.field.type} ${this.state.valid ? '' : 'error'} `}
+          className={`form__field form__field--${this.props.field.type} ${this.state.valid ? '' : 'error'} ${this.props.field.extraClass ? this.props.field.extraClass : ''} `}
           required={this.props.field.required && this.props.field.required}
           placeholder={this.props.field.placeholder && this.props.field.placeholder}
           min={this.props.field.min && this.props.field.min}
@@ -85,6 +89,7 @@ InputField.propTypes = {
     min: propTypes.number,
     max: propTypes.number,
     checked: propTypes.bool,
+    extraClass: propTypes.string,
     helpText: propTypes.string,
     emptyFieldErrorText: propTypes.string,
     invalidErrorText: propTypes.string,
