@@ -25,44 +25,25 @@ class GiftAidForm extends Component {
   }
 
   /**
-   * Iterates through the new inputFieldsProps object
-   * to create an array of InputField instances for this form
-   * @returns {Array}
-   */
-  getInputFields() {
-    const fields = [];
-    Object.entries(inputFieldsProps).forEach(([key]) => {
-      // identifier key is needed for arrays in React
-      fields.push(<InputField key={key} field={inputFieldsProps[key]} />);
-    });
-    return fields;
-  }
-
-  /**
    * Merge default input field properties with overrides.
    * @returns {object}
    */
   mergeInputFieldProps() {
-    // default props
     const inputFields = defaultInputFieldProps;
-
-    // iterate through the overrides object passed in and
-    // set the new value for items that need to be overridden
-    if (Object.keys(this.props.inputFieldOverrides).length !== 0) {
-      Object.entries(this.props.inputFieldOverrides).forEach(([field, fieldDetails]) => {
-        Object.entries(fieldDetails).forEach(([key, value]) => {
-          inputFields[field][key] = value;
-        });
-      });
-    }
+    const overrides = this.props.inputFieldOverrides;
+    Object.entries(overrides).forEach(([key]) => {
+      Object.assign(inputFields[key], overrides[key]);
+    });
     return inputFields;
   }
   render() {
     return (
       <form id="form">
-        {this.getInputFields()}
-        {/* Postcode lookup component */}
-        {/* Submit button component  */}
+        { // iterate through the new fields object and render the InputFields
+          Object.keys(inputFieldsProps).map(key =>
+            <InputField key={key} field={inputFieldsProps[key]} />) }
+        {/* To do Postcode lookup component */}
+        {/* To do Submit button component  */}
       </form>
     );
   }

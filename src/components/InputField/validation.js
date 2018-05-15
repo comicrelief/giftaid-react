@@ -17,36 +17,50 @@ function isEmpty(value, required, type) {
 
 function isValidInput(type, fieldProps, value) {
   let valid;
-  // use pattern override if available otherwise use default pattern
+  // use pattern override if it's defined, otherwise use default pattern above
   const patternOverride = fieldProps.pattern;
   const pattern = patternOverride !== undefined ?
     new RegExp(patternOverride) : new RegExp(defaultValidationPatterns[type]);
-  // if field type is number check for min and max values
   if (type === 'number') {
+    // Number fields need to not only pass the regex test,
+    // but also pass min and max values allowed if they're set.
     const min = fieldProps.min;
     const max = fieldProps.max;
     const valueIsNumber = pattern.test(value);
     if (valueIsNumber === true) {
+      // Value passes regex test.
+      // Check if min or max or both exist and value passes accordingly
       if ((!min && max && value <= max) ||
       (min && !max && value >= min) ||
       (min && max && (value >= min && value <= max))) {
+        // value is within the min/max boundaries
         valid = true;
       } else {
+        // value is outside min/max boundaries
         valid = false;
       }
+    } else {
+      // value doesn't pass regex test
+      valid = false;
     }
   } else {
+    // Other input fields just have to pass the regex test
     valid = pattern.test(value);
   }
+
   return valid;
 }
 
 function getMessage(input, fieldProps, value) {
+  // Input can be empty or invalid.
+  // Use error message override if available otherwise use default empty/invalid message
   let message = input === 'empty' ? fieldProps.emptyFieldErrorText : fieldProps.invalidErrorText;
-  // use message override if available otherwise use default empty/invalid message
   if (message === undefined) {
+    // Default error messages are based on the type of input field
+    // and whether the input is empty or invalid
     switch (fieldProps.type) {
       case 'number': {
+        // Number field's error message contains min and max value messages if they're set
         const min = fieldProps.min;
         const max = fieldProps.max;
         if ((!min && max) && (input === 'empty' || value > max)) {
