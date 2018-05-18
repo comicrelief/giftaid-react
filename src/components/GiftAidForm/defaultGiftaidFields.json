@@ -5,7 +5,8 @@
     "name": "Gift Aid",
     "label": "Yes, I would like Comic Relief to claim Gift Aid on my donation",
     "required": true,
-    "defaultChecked": true
+    "defaultChecked": true,
+    "emptyFieldErrorText": "To Gift Aid your donation you need to tick the checkbox"
   },
   "phoneNumber": {
     "id": "mobile",
@@ -15,6 +16,7 @@
     "required": true,
     "pattern": "^07[0-9]{9}$",
     "helpText": "(The one you used for your text donation in the format of: 07...)",
+    "emptyFieldErrorText": "Please fill in your mobile number",
     "invalidErrorText": "Please enter a valid mobile phone number - it must be the same number that you used to make your donation."
   },
   "firstName": {
