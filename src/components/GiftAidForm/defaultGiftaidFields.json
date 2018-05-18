@@ -5,7 +5,7 @@
     "name": "Gift Aid",
     "label": "Yes, I would like Comic Relief to claim Gift Aid on my donation",
     "required": true,
-    "checked": false
+    "defaultChecked": true
   },
   "phoneNumber": {
     "id": "mobile",

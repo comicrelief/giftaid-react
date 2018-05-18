@@ -1,7 +1,7 @@
 /* eslint-env browser */
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
-import InputField from '../InputField/InputField';
+import InputField from '@comicrelief/storybook/src/components/InputField/InputField';
 
 
 const defaultInputFieldProps = require('./defaultGiftaidFields.json');
@@ -24,6 +24,25 @@ class GiftAidForm extends Component {
     return inputFieldsProps = this.mergeInputFieldProps();
   }
 
+  getInputFields(inputFields) {
+    Object.entries(inputFieldsProps).map(([field, props]) => inputFields.push(<InputField
+      key={field}
+      id={props.id}
+      type={props.type}
+      name={props.name}
+      label={props.label}
+      required={props.required}
+      pattern={props.pattern}
+      placeholder={props.placeholder}
+      min={props.min}
+      max={props.max}
+      defaultChecked={props.defaultChecked}
+      extraClass={props.extraClass}
+      helpText={props.helpText}
+      emptyFieldErrorText={props.emptyFieldErrorText}
+      invalidErrorText={props.invalidErrorText}
+    />));
+  }
   /**
    * Merge default input field properties with overrides.
    * @returns {object}
@@ -37,11 +56,11 @@ class GiftAidForm extends Component {
     return inputFields;
   }
   render() {
+    const inputFields = [];
+    this.getInputFields(inputFields);
     return (
       <form id="form">
-        { // iterate through the new fields object and render the InputFields
-          Object.keys(inputFieldsProps).map(key =>
-            <InputField key={key} field={inputFieldsProps[key]} />) }
+        { inputFields }
         {/* To do Postcode lookup component */}
         {/* To do Submit button component  */}
       </form>

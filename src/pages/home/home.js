@@ -4,6 +4,14 @@ import React, { Component } from 'react';
 import PromoHeader from '../../components/PromoHeader/PromoHeader';
 import GiftAidForm from '../../components/GiftAidForm/GiftAidForm';
 
+const inputFieldOverrides = {
+  firstName: {
+    label: 'burre',
+  },
+  lastName: {
+    label: 'bliep',
+  },
+};
 
 export default class Home extends Component {
   scrollTo(event) {
@@ -23,7 +31,7 @@ export default class Home extends Component {
           scrollToForm={this.scrollTo}
         />
         <section>
-          <GiftAidForm />
+          <GiftAidForm {... { inputFieldOverrides }} />
         </section>
       </main>
     );
