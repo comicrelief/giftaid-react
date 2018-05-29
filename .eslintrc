@@ -9,6 +9,7 @@
     "prefer-template": "off",
     "class-methods-use-this": "off",
     "prefer-destructuring": "off",
-    "react/prefer-stateless-function": "off"
+    "react/prefer-stateless-function": "off",
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
   }
 }

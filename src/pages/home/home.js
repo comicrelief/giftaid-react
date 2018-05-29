@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import PromoHeader from '../../components/PromoHeader/PromoHeader';
+import GiftAidForm from '../../components/GiftAidForm/GiftAidForm';
 
 export default class Home extends Component {
   scrollTo(event) {
@@ -20,6 +21,9 @@ export default class Home extends Component {
         <PromoHeader
           scrollToForm={this.scrollTo}
         />
+        <section>
+          <GiftAidForm />
+        </section>
       </main>
     );
   }

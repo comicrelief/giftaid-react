@@ -1,7 +1,7 @@
 /* eslint-env browser */
-import Footer from '@comicrelief/storybook/src/components/Footer/Footer';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Footer from '@comicrelief/storybook/src/components/Footer/Footer';
 import Home from '../../pages/home/home';
 import Header from '../Header/Header';
 import './App.scss';
@@ -16,7 +16,7 @@ class App extends Component {
             <Route exact path="/" component={Home} />
           </div>
         </Router>
-        <Footer copy="copyright 2018" campaign="comicrelief" />
+        <Footer campaign="comicrelief" />
       </div>
     );
   }
