@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import InputField from '@comicrelief/storybook/src/components/InputField/InputField';
+import SelectField from '../SelectField/SelectField';
 import defaultInputFieldsData from './defaultGiftaidFields.json';
 
 
@@ -73,6 +74,7 @@ class GiftAidForm extends Component {
     return (
       <form id="form">
         { this.createInputFields() }
+        <SelectField id="SelectTest" name="selectyup" label="Select something" required />
         {/* To do Postcode lookup component */}
         {/* To do Submit button component  */}
       </form>
