@@ -34,7 +34,7 @@ class GiftAidForm extends Component {
    * Map the input field properties to a new array containing the input field instances
    * @returns {Array}
    */
-  getInputFields() {
+  createInputFields() {
     const inputFields = [];
     Object.entries(this.state.inputFieldProps).map(([field, props]) => inputFields.push(<InputField
       key={field}
@@ -72,7 +72,7 @@ class GiftAidForm extends Component {
   render() {
     return (
       <form id="form">
-        { this.getInputFields() }
+        { this.createInputFields() }
         {/* To do Postcode lookup component */}
         {/* To do Submit button component  */}
       </form>
