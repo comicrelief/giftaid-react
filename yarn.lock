@@ -8,9 +8,9 @@
   dependencies:
     susy "^2.2.12"
 
-"@comicrelief/storybook@git://github.com/comicrelief/storybook/#3976f9f":
-  version "0.0.0-see.readme.for.releases"
-  resolved "git://github.com/comicrelief/storybook/#3976f9fdde66174490797fb3f50b58ca278c3a0d"
+"@comicrelief/storybook@1.8.4":
+  version "1.8.4"
+  resolved "https://registry.yarnpkg.com/@comicrelief/storybook/-/storybook-1.8.4.tgz#c5af5f3570a701f616ff600df88f6c8013fd622a"
   dependencies:
     "@comicrelief/pattern-lab" "*"
     "@storybook/addon-info" "3"
