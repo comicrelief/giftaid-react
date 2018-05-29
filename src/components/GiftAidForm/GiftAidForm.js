@@ -2,11 +2,8 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import InputField from '@comicrelief/storybook/src/components/InputField/InputField';
+import defaultInputFieldsData from './defaultGiftaidFields.json';
 
-
-const defaultInputFieldProps = require('./defaultGiftaidFields.json');
-
-let inputFieldsProps;
 
 /**
  * GiftAidForm class
@@ -20,12 +17,26 @@ let inputFieldsProps;
  * }
  */
 class GiftAidForm extends Component {
-  componentWillMount() {
-    return inputFieldsProps = this.mergeInputFieldProps();
+  constructor(props) {
+    super(props);
+    this.state = {
+      inputFieldProps: [],
+    };
   }
 
-  getInputFields(inputFields) {
-    Object.entries(inputFieldsProps).map(([field, props]) => inputFields.push(<InputField
+  componentWillMount() {
+    this.setState({
+      inputFieldProps: this.mergeInputFieldProps(defaultInputFieldsData),
+    });
+  }
+
+  /**
+   * Map the input field properties to a new array containing the input field instances
+   * @returns {Array}
+   */
+  getInputFields() {
+    const inputFields = [];
+    Object.entries(this.state.inputFieldProps).map(([field, props]) => inputFields.push(<InputField
       key={field}
       id={props.id}
       type={props.type}
@@ -42,25 +53,26 @@ class GiftAidForm extends Component {
       emptyFieldErrorText={props.emptyFieldErrorText}
       invalidErrorText={props.invalidErrorText}
     />));
+    return inputFields;
   }
+
   /**
    * Merge default input field properties with overrides.
    * @returns {object}
    */
-  mergeInputFieldProps() {
-    const inputFields = defaultInputFieldProps;
+  mergeInputFieldProps(defaultInputFieldsProps) {
+    const inputFields = defaultInputFieldsProps;
     const overrides = this.props.inputFieldOverrides;
     Object.entries(overrides).forEach(([key]) => {
       Object.assign(inputFields[key], overrides[key]);
     });
     return inputFields;
   }
+
   render() {
-    const inputFields = [];
-    this.getInputFields(inputFields);
     return (
       <form id="form">
-        { inputFields }
+        { this.getInputFields() }
         {/* To do Postcode lookup component */}
         {/* To do Submit button component  */}
       </form>
