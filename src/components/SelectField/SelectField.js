@@ -4,17 +4,35 @@ import propTypes from 'prop-types';
 
 
 class SelectField extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      defaultValue: this.getSelectedOption(),
+    };
+  }
+
+  getSelectedOption() {
+    const selected = this.props.options.find(item => item.selected === true);
+    return selected.value;
+  }
+  /**
+   * Create array with option tags from props.options
+   * @returns {Array}
+   */
   createOptions() {
     const options = [];
     this.props.options.map(item =>
       options.push(<option
         key={item.label}
         value={item.value}
-        selected={item.selected}
         disabled={item.disabled}
       >{item.label}</option>));
     return options;
   }
+  validateField(e) {
+    console.log(e.target);
+  }
+
   render() {
     return (
       <div id={`field-wrapper--${this.props.id}`} className={`form__fieldset form__field-wrapper form__field-wrapper--select ${this.props.extraClass ? this.props.extraClass : ''}`}>
@@ -27,7 +45,9 @@ class SelectField extends Component {
         <select
           id={`field-select--${this.props.id}`}
           name={this.props.name && this.props.name}
+          defaultValue={this.state.defaultValue}
           aria-describedby={`field-label--${this.props.id} field-error--${this.props.id}`}
+          onBlur={this.validateField}
         >
           { this.createOptions() }
         </select>
@@ -60,6 +80,7 @@ SelectField.propTypes = {
     disabled: propTypes.bool,
   }).isRequired).isRequired,
   extraClass: propTypes.string,
+
 
 };
 
