@@ -7,8 +7,10 @@ class SelectField extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      defaultValue: this.getSelectedOption(),
+      valid: null,
+      message: '',
     };
+    this.validateField = this.validateField.bind(this);
   }
 
   getSelectedOption() {
@@ -30,7 +32,22 @@ class SelectField extends Component {
     return options;
   }
   validateField(e) {
-    console.log(e.target);
+    // const index = e.target.selectedIndex;
+    // let value = e.target.options[index].getAttribute('value');
+    let value = e.target.value;
+    value = value && value.toLowerCase();
+    if (this.props.required === true && (!value || value === 'please select')) {
+      this.setState({
+        valid: false,
+        message: 'This field is required',
+      });
+    } else if (this.props.required === true && (value || value !== 'please select')) {
+      this.setState({
+        valid: true,
+        message: '',
+      });
+    }
+    console.log('value', e.target.value);
   }
 
   render() {
@@ -45,20 +62,24 @@ class SelectField extends Component {
         <select
           id={`field-select--${this.props.id}`}
           name={this.props.name && this.props.name}
-          defaultValue={this.state.defaultValue}
+          defaultValue={this.getSelectedOption()}
           aria-describedby={`field-label--${this.props.id} field-error--${this.props.id}`}
           onBlur={this.validateField}
         >
           { this.createOptions() }
         </select>
-        <div
-          id={`field-error--${this.props.id}`}
-          className="form__field-error-container form__field-error-container--select"
-          aria-live="assertive"
-          role="status"
-        >
-          <span className="form-error" />
-        </div>
+        { this.state.valid === false &&
+          <div
+            id={`field-error--${this.props.id}`}
+            className="form__field-error-container form__field-error-container--select"
+            aria-live="assertive"
+            role="status"
+          >
+            <span className="form-error">
+              {this.state.message}
+            </span>
+          </div>
+        }
       </div>
     );
   }

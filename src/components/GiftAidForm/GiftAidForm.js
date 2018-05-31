@@ -72,6 +72,7 @@ class GiftAidForm extends Component {
 
   render() {
     const options = [
+      { label: 'Please select', value: 'PLEase Select' },
       { label: 'item 1', value: 'itemone' },
       { label: '----------', disabled: true },
       { label: 'item 2', value: 'itemtwo', selected: true },
