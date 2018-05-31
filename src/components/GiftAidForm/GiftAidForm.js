@@ -71,10 +71,22 @@ class GiftAidForm extends Component {
   }
 
   render() {
+    const options = [
+      { label: 'item 1', value: 'itemone' },
+      { label: '----------', disabled: true },
+      { label: 'item 2', value: 'itemtwo', selected: true },
+      { label: 'item 3', value: 'itemthree' },
+    ];
     return (
       <form id="form">
         { this.createInputFields() }
-        <SelectField id="SelectTest" name="selectyup" label="Select something" required />
+        <SelectField
+          id="SelectTest"
+          name="selectyup"
+          label="Select something"
+          required
+          options={options}
+        />
         {/* To do Postcode lookup component */}
         {/* To do Submit button component  */}
       </form>
