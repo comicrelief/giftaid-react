@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import MetaTags from 'react-meta-tags';
 import TagManager from 'react-gtm-module';
+import Raven from 'react-raven';
 
 import Footer from '@comicrelief/storybook/src/components/Footer/Footer';
 import Home from '../../pages/home/home';
@@ -46,6 +47,8 @@ class App extends Component {
           <meta property="og:description" content={giftAidDescription} />
           <meta name="keywords" content={metaKeywords} />
         </MetaTags>
+
+        <Raven dsn="https://25f53d059e1f488f9d0f000ffd500585@sentry.io/1228720" />
 
         <Router>
           <div>
