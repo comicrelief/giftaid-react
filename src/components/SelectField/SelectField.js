@@ -9,8 +9,18 @@ class SelectField extends Component {
     this.state = {
       valid: null,
       message: '',
+      value: this.getSelectedOption(),
     };
     this.validateField = this.validateField.bind(this);
+    this.onChangeHandler = this.onChangeHandler.bind(this);
+  }
+
+  onChangeHandler(e) {
+    console.log(e.target.value);
+    this.setState({
+      value: e.target.value,
+    });
+    console.log(this.state.value);
   }
 
   getSelectedOption() {
@@ -50,6 +60,7 @@ class SelectField extends Component {
     console.log('value', e.target.value);
   }
 
+
   render() {
     return (
       <div id={`field-wrapper--${this.props.id}`} className={`form__fieldset form__field-wrapper form__field-wrapper--select ${this.props.extraClass ? this.props.extraClass : ''}`}>
@@ -65,6 +76,7 @@ class SelectField extends Component {
           defaultValue={this.getSelectedOption()}
           aria-describedby={`field-label--${this.props.id} field-error--${this.props.id}`}
           onBlur={this.validateField}
+          onChange={this.onChangeHandler}
         >
           { this.createOptions() }
         </select>
