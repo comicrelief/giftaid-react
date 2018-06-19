@@ -7750,6 +7750,10 @@ react-geolocated@2:
   dependencies:
     prop-types "^15.5.8"
 
+react-gtm-module@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-gtm-module/-/react-gtm-module-2.0.2.tgz#21e67c075f1910e9ec4ec5b9931f9044259e611a"
+
 react-highlighter@^0.4.0:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/react-highlighter/-/react-highlighter-0.4.2.tgz#a3a9a8f6eba4c40809d586ac3bf6bec3e04b1735"
@@ -7796,6 +7800,13 @@ react-is@^16.3.2:
 react-lifecycles-compat@^3.0.0:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.2.tgz#7279047275bd727a912e25f734c0559527e84eff"
+
+react-meta-tags@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/react-meta-tags/-/react-meta-tags-0.4.1.tgz#bbb2bc7a5b8b7faa73569b742517f9075d692db6"
+  dependencies:
+    babel-runtime "^6.26.0"
+    prop-types "^15.6.0"
 
 react-modal@^3.3.2:
   version "3.4.4"

@@ -44,6 +44,8 @@
     "react": "^16.3.1",
     "react-dev-utils": "^5.0.1",
     "react-dom": "^16.3.1",
+    "react-gtm-module": "^2.0.2",
+    "react-meta-tags": "^0.4.1",
     "react-router-dom": "^4.2.2",
     "resolve": "1.6.0",
     "sass-loader": "^6.0.7",
