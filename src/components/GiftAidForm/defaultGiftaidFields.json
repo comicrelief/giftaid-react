@@ -12,10 +12,11 @@
     "id": "mobile",
     "type": "tel",
     "name": "mobile number",
-    "label": "Enter your mobile number",
+    "placeholder": "In the format 0712345678",
+    "label": "Mobile number",
     "required": true,
     "pattern": "^07[0-9]{9}$",
-    "helpText": "(The one you used for your text donation in the format of: 07...)",
+    "helpText": "Enter the one you used for your text donation",
     "emptyFieldErrorText": "Please fill in your mobile number",
     "invalidErrorText": "Please enter a valid mobile phone number - it must be the same number that you used to make your donation."
   },
