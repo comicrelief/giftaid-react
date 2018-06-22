@@ -22,6 +22,7 @@ class GiftAidForm extends Component {
     super(props);
     this.state = {
       inputFieldProps: [],
+
     };
   }
 
@@ -87,6 +88,7 @@ class GiftAidForm extends Component {
           label="Select something"
           required
           options={options}
+          isValid={(valid, value, name) => { console.log('valid', valid, 'value', value, 'name', name); }}
         />
         {/* To do Postcode lookup component */}
         {/* To do Submit button component  */}
