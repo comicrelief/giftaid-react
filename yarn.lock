@@ -2,21 +2,15 @@
 # yarn lockfile v1
 
 
-"@comicrelief/pattern-lab@*":
-  version "7.44.1"
-  resolved "https://registry.yarnpkg.com/@comicrelief/pattern-lab/-/pattern-lab-7.44.1.tgz#5e5673ae4beb6ac3ab9088c2a9b89e64d0a1f86f"
+"@comicrelief/pattern-lab@*", "@comicrelief/pattern-lab@7.44.2":
+  version "7.44.2"
+  resolved "https://registry.yarnpkg.com/@comicrelief/pattern-lab/-/pattern-lab-7.44.2.tgz#95c0fdc8321b16eb568023c982cf4062bfb30b72"
   dependencies:
     susy "^2.2.12"
 
-"@comicrelief/pattern-lab@git://github.com/comicrelief/pattern-lab.git#b9fb7a3":
-  version "0.0.0-see.readme.for.releases"
-  resolved "git://github.com/comicrelief/pattern-lab.git#b9fb7a33fc40256a52087859629e2cd35c64686c"
-  dependencies:
-    susy "^2.2.12"
-
-"@comicrelief/storybook@git://github.com/comicrelief/storybook/#add_ability_set_background_checkbox":
-  version "0.0.0-see.readme.for.releases"
-  resolved "git://github.com/comicrelief/storybook/#53ee73c2ed0634a93b752335b1217f0387cf40ea"
+"@comicrelief/storybook@1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@comicrelief/storybook/-/storybook-1.9.0.tgz#eb7090bbee2a9c51696fcf07d82b3f344d92520e"
   dependencies:
     "@comicrelief/pattern-lab" "*"
     "@storybook/addon-info" "3"
