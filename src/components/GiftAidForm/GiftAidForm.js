@@ -1,9 +1,11 @@
+/* eslint-disable max-len */
 /* eslint-env browser */
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import InputField from '@comicrelief/storybook/src/components/InputField/InputField';
 import SelectField from '../SelectField/SelectField';
 import defaultInputFieldsData from './defaultGiftaidFields.json';
+import PostcodeLookup from '../PostcodeLookup/PostcodeLookup';
 
 
 /**
@@ -90,6 +92,7 @@ class GiftAidForm extends Component {
           options={options}
           isValid={(valid, value, name) => { console.log('valid', valid, 'value', value, 'name', name); }}
         />
+        <PostcodeLookup burre="bla" />
         {/* To do Postcode lookup component */}
         {/* To do Submit button component  */}
       </form>
