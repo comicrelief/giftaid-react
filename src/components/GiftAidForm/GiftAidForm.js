@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import InputField from '@comicrelief/storybook/src/components/InputField/InputField';
 import defaultInputFieldsData from './defaultGiftaidFields.json';
-
+import './GiftAidForm.scss';
 
 /**
  * GiftAidForm class
@@ -48,10 +48,10 @@ class GiftAidForm extends Component {
       min={props.min}
       max={props.max}
       defaultChecked={props.defaultChecked}
-      extraClass={props.extraClass}
       helpText={props.helpText}
       emptyFieldErrorText={props.emptyFieldErrorText}
       invalidErrorText={props.invalidErrorText}
+      setBackgroundColor={props.type === 'checkbox'}
     />));
     return inputFields;
   }
@@ -71,10 +71,10 @@ class GiftAidForm extends Component {
 
   render() {
     return (
-      <form id="form">
+      <form id="form" noValidate className="giftaid__form">
         { this.createInputFields() }
         {/* To do Postcode lookup component */}
-        {/* To do Submit button component  */}
+        <button type="submit" className="btn btn--red">Gift Aid your donation</button>
       </form>
     );
   }
