@@ -6,6 +6,7 @@ import TagManager from 'react-gtm-module';
 import Raven from 'react-raven';
 
 import Footer from '@comicrelief/storybook/src/components/Footer/Footer';
+import CookieConsentMessage from '@comicrelief/storybook/src/components/CookieConsentMessage/CookieConsentMessage';
 import Home from '../../pages/home/home';
 import Header from '../Header/Header';
 import './App.scss';
@@ -34,7 +35,7 @@ class App extends Component {
 
     return (
       <div className="App">
-
+        <CookieConsentMessage />
         <Header />
 
         <MetaTags>
