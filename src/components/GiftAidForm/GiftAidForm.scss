@@ -1,0 +1,39 @@
+// Define specific image path
+$image-path: "images/";
+
+@import "~@comicrelief/pattern-lab/sass/base/core";
+@import "~@comicrelief/pattern-lab/sass/base/variables/grid";
+@import "~@comicrelief/pattern-lab/sass/base/variables/colours";
+@import "~@comicrelief/pattern-lab/sass/base/variables/typography";
+
+/* Pattern Lab Comic Relief theme variables */
+@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/variables/colours";
+@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/variables/typography";
+@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/variables/mixins";
+
+/* Pattern Lab Comic Relief theme components */
+@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/components/buttons/buttons";
+@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/components/typography/fonts";
+@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/components/typography/typography";
+
+@import "~@comicrelief/pattern-lab/sass/base/components/form/standard-form";
+
+.giftaid__form {
+  @include container;
+  margin: 0 auto 90px; 
+  padding: 30px calc(3 * 1.25%);
+
+  @include breakpoint($screen-md) {
+    width: span(8);
+    padding: 40px calc(2 * 1.25%);
+  }
+
+  @include breakpoint($screen-lg) {
+    width: span(6);
+  }
+
+  .btn {
+    margin: 60px 0;
+    width: 100%;
+  } 
+}

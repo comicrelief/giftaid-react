@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@comicrelief/pattern-lab": "7.39.10",
-    "@comicrelief/storybook": "1.8.4",
+    "@comicrelief/pattern-lab": "7.44.2",
+    "@comicrelief/storybook": "1.9.0",
     "add": "^2.0.6",
     "autoprefixer": "7.1.6",
     "babel-polyfill": "^6.26.0",
@@ -12,6 +12,7 @@
     "chalk": "1.1.3",
     "classnames": "^2.2.5",
     "css-loader": "^0.28.10",
+    "cypress": "^3.0.1",
     "dotenv": "4.0.0",
     "dotenv-expand": "4.2.0",
     "extract-text-webpack-plugin": "3.0.2",
@@ -39,12 +40,18 @@
     "susy": "^3.0.3",
     "sw-precache-webpack-plugin": "0.11.4",
     "url-loader": "0.6.2",
-    "whatwg-fetch": "2.0.3"
+    "whatwg-fetch": "2.0.3",
+    "snyk": "^1.83.0"
   },
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "feature-test": "export NODE_ENV=development; node_modules/.bin/nightwatch --tag sanity --retries 2"
+    "feature-test": "export NODE_ENV=development; node_modules/.bin/nightwatch --tag sanity --retries 2",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open",
+    "test": "run-p --race start cy:run",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -110,5 +117,6 @@
     "webpack": "3.8.1",
     "webpack-dev-server": "2.9.4",
     "webpack-manifest-plugin": "1.3.2"
-  }
+  },
+  "snyk": true
 }
