@@ -6,7 +6,8 @@ import TagManager from 'react-gtm-module';
 import Raven from 'react-raven';
 
 import Footer from '@comicrelief/storybook/src/components/Footer/Footer';
-import Home from '../../pages/home/home';
+import Home from '../../pages/Home/Home';
+import Home from '../../pages/Success/Success';
 import Header from '../Header/Header';
 import './App.scss';
 
