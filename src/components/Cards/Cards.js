@@ -2,6 +2,7 @@ import React from 'react';
 import cardImageOne from './images/kevin-card.jpg';
 import cardImageTwo from './images/aziza-card.jpg';
 import cardImageThree from './images/georgia-card.jpg';
+import './Cards.scss';
 
 const Card = () => (
   <div className="cards cards--three-grid-centre">
@@ -12,7 +13,7 @@ const Card = () => (
         </div>
         <div className="cards__content-wrapper">
           <div className="cards__content">
-            <p><blockquote>If it wasn&#39;t for this place, I would be dead.</blockquote></p>
+            <p>&quot;If it wasn&#39;t for this place, I would be dead.&quot;</p>
             <p>
               <a className="link" href="https://www.sportrelief.com/where-your-money-goes/kevin" target="_blank" rel="noopener noreferrer">Kevin&#39;s story</a>
             </p>
@@ -25,7 +26,7 @@ const Card = () => (
         </div>
         <div className="cards__content-wrapper">
           <div className="cards__content">
-            <p className="font--large"><blockquote>Malaria impacts my daily life.</blockquote></p>
+            <p className="font--large">&quot;Malaria impacts my daily life.&quot;</p>
             <p>
               <a className="link" href="https://www.sportrelief.com/where-your-money-goes/aziza/" target="_blank" rel="noopener noreferrer">Aziza&#39;s story</a>
             </p>
@@ -38,7 +39,7 @@ const Card = () => (
         </div>
         <div className="cards__content-wrapper">
           <div className="cards__content">
-            <p><blockquote>I got really ill, I felt I was up to failure.</blockquote></p>
+            <p>&quot;I got really ill, I felt I was up to failure.&quot;</p>
             <p>
               <a className="link" href="https://www.sportrelief.com/where-your-money-goes/georgia" target="_blank" rel="noopener noreferrer">Georgia&#39;s story</a>
             </p>
@@ -46,6 +47,7 @@ const Card = () => (
         </div>
       </div>
     </div>
+    <a href="https://www.comicrelief.com/your-impact" className="btn btn--red">Read More</a>
   </div>
 );
 
