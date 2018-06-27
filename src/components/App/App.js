@@ -7,7 +7,7 @@ import Raven from 'react-raven';
 
 import Footer from '@comicrelief/storybook/src/components/Footer/Footer';
 import CookieConsentMessage from '@comicrelief/storybook/src/components/CookieConsentMessage/CookieConsentMessage';
-import Home from '../../pages/home/home';
+import Home from '../../pages/Home/home';
 import Header from '../Header/Header';
 import './App.scss';
 
