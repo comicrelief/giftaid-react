@@ -3,7 +3,7 @@ import CardData from './Cards.json';
 import './Cards.scss';
 
 const Card = () => (
-  <div className="cards cards--three-grid-centre">
+  <div className="cards cards--three-grid-centre cards--three-grid-unit">
     <div className="cards__wrapper">
       {
       CardData.map(element => (
