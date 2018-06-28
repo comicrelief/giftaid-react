@@ -4,10 +4,12 @@ $image-path: "images/";
 @import "~@comicrelief/pattern-lab/sass/base/variables/grid";
 @import "~@comicrelief/pattern-lab/sass/base/variables/colours";
 @import "~@comicrelief/pattern-lab/sass/base/variables/typography";
+@import "~@comicrelief/pattern-lab/sass/base/variables/lists";
 /* Pattern Lab Comic Relief theme variables */
 @import "~@comicrelief/pattern-lab/sass/themes/cr/2017/variables/colours";
 @import "~@comicrelief/pattern-lab/sass/themes/cr/2017/variables/typography";
 @import "~@comicrelief/pattern-lab/sass/themes/cr/2017/variables/mixins";
+@import "~@comicrelief/pattern-lab/sass/base/components/links/links";
 /* Pattern Lab Base theme components */
 @import "~@comicrelief/pattern-lab/sass/base/components/card-block/card";
 @import "~@comicrelief/pattern-lab/sass/base/components/cards/cards";
@@ -17,32 +19,3 @@ $image-path: "images/";
 @import "~@comicrelief/pattern-lab/sass/themes/cr/2017/components/links/links";
 
 @import "~@comicrelief/pattern-lab/sass/themes/donate/donate-cr/components/cards/cards";
-
-.cards {
- .cards__wrapper {
-  .cards__item {
-    width: 100%;
-      @include breakpoint($screen-md) {
-        width: 30%;
-      }
-    }
-  }
-}
-
-.cards__image {
-    background-size: 100%;
-    background-repeat: no-repeat;
-    width: 100%;
-    padding-top: 75%;
-    overflow: hidden;
-
-   &.cards__item--kevin-story {
-    background-image: url($image-path + "kevin-card.jpg");
-   }
-   &.cards__item--aziza-story{
-    background-image: url($image-path + "aziza-card.jpg");
-   }
-   &.cards__item--georgia-story{
-    background-image: url($image-path + "georgia-card.jpg");
-   }
-}

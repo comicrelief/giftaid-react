@@ -11,7 +11,7 @@ class Success extends Component {
         <PromoHeader />
         <div className="success-wrapper">
           <div className="success-wrapper--inner">
-            <h1>Thank you, <br />{formFieldName}</h1>
+            <h1>Thank you, <br />{formFieldName}!</h1>
             <p>
               We’ve registered your Gift Aid declaration, we’ll use it to pay for our operational
               costs.

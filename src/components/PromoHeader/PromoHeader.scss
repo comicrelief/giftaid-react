@@ -14,6 +14,7 @@ $image-path: "images/";
   &.promo-header--small {
     background: url($image-path + "thankyou-header.jpg") top center/100% no-repeat;
     min-height: 130px;
+    padding-top:30%;
   
     @include breakpoint($screen-md) {
       min-height: 300px;
@@ -21,6 +22,7 @@ $image-path: "images/";
 
     @include breakpoint($screen-lg) {
       min-height: 400px;
+      padding-top:20%;
     }
   }
 }

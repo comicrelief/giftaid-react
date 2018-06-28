@@ -15,7 +15,7 @@ const Card = () => (
               <p>
                 <a
                   href={element.urlsource}
-                  className="link"
+                  className="link link--black"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
