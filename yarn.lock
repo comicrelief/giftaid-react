@@ -28,9 +28,9 @@
   dependencies:
     susy "^2.2.12"
 
-"@comicrelief/storybook@git://github.com/comicrelief/storybook/#147_create_just_in_time_component":
-  version "0.0.0-see.readme.for.releases"
-  resolved "git://github.com/comicrelief/storybook/#7ed6115a531d5ac982d207d66f4c79de356b7cb9"
+"@comicrelief/storybook@1.12.0":
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/@comicrelief/storybook/-/storybook-1.12.0.tgz#a5d8dbd9f9aaaabfe76a2e5feeaa5079d59d0b24"
   dependencies:
     "@comicrelief/pattern-lab" "*"
     "@storybook/addon-info" "3"

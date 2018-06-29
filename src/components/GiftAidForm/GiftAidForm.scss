@@ -4,19 +4,15 @@ $image-path: "images/";
 @import "~@comicrelief/pattern-lab/sass/base/core";
 @import "~@comicrelief/pattern-lab/sass/base/variables/grid";
 @import "~@comicrelief/pattern-lab/sass/base/variables/colours";
-@import "~@comicrelief/pattern-lab/sass/base/variables/typography";
 
 /* Pattern Lab Comic Relief theme variables */
 @import "~@comicrelief/pattern-lab/sass/themes/cr/2017/variables/colours";
 @import "~@comicrelief/pattern-lab/sass/themes/cr/2017/variables/typography";
 @import "~@comicrelief/pattern-lab/sass/themes/cr/2017/variables/mixins";
+@import "~@comicrelief/pattern-lab/sass/base/components/form/standard-form";
 
 /* Pattern Lab Comic Relief theme components */
 @import "~@comicrelief/pattern-lab/sass/themes/cr/2017/components/buttons/buttons";
-@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/components/typography/fonts";
-@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/components/typography/typography";
-
-@import "~@comicrelief/pattern-lab/sass/base/components/form/standard-form";
 
 .giftaid__form {
   @include container;
@@ -41,11 +37,13 @@ $image-path: "images/";
 /* overriding styles for the just in time */ 
 .form__row--just-in-time-block {
   text-align: center;
+  font-family:$font-regular;
 
   .toggle-link, 
   .toggle-link:hover,
   .toggle-link:focus {
     border-width: 3px;
+    font-family:$font-regular;
   }
 
   .toggle-link {

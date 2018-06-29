@@ -82,7 +82,8 @@ class GiftAidForm extends Component {
           we need it to create a receipt for your payment and send it to you.
         </p>
         <p>
-          <strong>Phone number:</strong> we collect it in case there is an issue with gift aid
+          <strong>Phone number:</strong> we collect it in case there is an issue
+          with gift aid donation.
         </p>
       </JustInTime>
     );
