@@ -88,10 +88,25 @@ class GiftAidForm extends Component {
       </JustInTime>
     );
   }
+  renderFormHeader() {
+    return (
+      <div>
+        <h1 className="giftaid-title">
+          <span className="visually-hidden">
+            Giftaid it
+          </span>
+        </h1>
+        <p className="sub-title">
+          Gift aid your donation and the Government will give us 25% on top of it.
+        </p>
+      </div>
+    );
+  }
 
   render() {
     return (
       <form id="form" noValidate className="giftaid__form">
+        {this.renderFormHeader()}
         { this.createInputFields() }
         {/* To do Postcode lookup component */}
         <button type="submit" className="btn btn--red">Gift Aid your donation</button>
