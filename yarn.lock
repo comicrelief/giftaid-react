@@ -16,15 +16,9 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
-"@comicrelief/pattern-lab@*":
-  version "7.44.3"
-  resolved "https://registry.yarnpkg.com/@comicrelief/pattern-lab/-/pattern-lab-7.44.3.tgz#dc88a0ee625b9189ca0b365b7e033c98691d8f41"
-  dependencies:
-    susy "^2.2.12"
-
-"@comicrelief/pattern-lab@7.44.2":
-  version "7.44.2"
-  resolved "https://registry.yarnpkg.com/@comicrelief/pattern-lab/-/pattern-lab-7.44.2.tgz#95c0fdc8321b16eb568023c982cf4062bfb30b72"
+"@comicrelief/pattern-lab@*", "@comicrelief/pattern-lab@7.46.1":
+  version "7.46.1"
+  resolved "https://registry.yarnpkg.com/@comicrelief/pattern-lab/-/pattern-lab-7.46.1.tgz#7edfbdf12185f55eda737f819ff270c31b127af4"
   dependencies:
     susy "^2.2.12"
 
@@ -2263,12 +2257,12 @@ caniuse-api@^1.5.2:
     lodash.uniq "^4.5.0"
 
 caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
-  version "1.0.30000859"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000859.tgz#6e813a1757f19a93cb3675f6b5037aca80bea062"
+  version "1.0.30000860"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000860.tgz#5ceab253aae172b5f0acd0d5428ba501c4b08d41"
 
 caniuse-lite@^1.0.30000748, caniuse-lite@^1.0.30000792, caniuse-lite@^1.0.30000805, caniuse-lite@^1.0.30000844:
-  version "1.0.30000859"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000859.tgz#da974adc5348fffe94724877a7ef8cb5d6d3d777"
+  version "1.0.30000860"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000860.tgz#c902e3df3cc4303f631abc7a1579a3ce0a6153a3"
 
 capture-stack-trace@^1.0.0:
   version "1.0.0"
@@ -4133,8 +4127,8 @@ fast-levenshtein@~2.0.4:
   resolved "https://registry.yarnpkg.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
 
 fast-memoize@^2.2.7:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/fast-memoize/-/fast-memoize-2.4.0.tgz#2f79eca41c41112b0b70cf53ac3940e206574648"
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/fast-memoize/-/fast-memoize-2.5.1.tgz#c3519241e80552ce395e1a32dcdde8d1fd680f5d"
 
 fastparse@^1.1.1:
   version "1.1.1"
@@ -4907,6 +4901,10 @@ hmac-drbg@^1.0.0:
 hoek@2.x.x:
   version "2.16.3"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-2.16.3.tgz#20bb7403d3cea398e91dc4710a8ff1b8274a25ed"
+
+hoek@4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/hoek/-/hoek-4.2.1.tgz#9634502aa12c445dd5a7c5734b572bb8738aacbb"
 
 hoist-non-react-statics@1.x.x, hoist-non-react-statics@^1.2.0:
   version "1.2.0"
@@ -8137,7 +8135,7 @@ prop-types-extra@^1.0.1:
     react-is "^16.3.2"
     warning "^3.0.0"
 
-prop-types@15, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.0, prop-types@^15.6.1:
+prop-types@15, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   dependencies:
@@ -8541,7 +8539,7 @@ react-is@^16.3.2:
   version "16.4.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.4.1.tgz#d624c4650d2c65dbd52c72622bbf389435d9776e"
 
-react-lifecycles-compat@^3.0.0:
+react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
 
@@ -8706,12 +8704,13 @@ react-textarea-autosize@^5.2.1:
     prop-types "^15.6.0"
 
 react-transition-group@^2.0.0:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-2.3.1.tgz#31d611b33e143a5e0f2d94c348e026a0f3b474b6"
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-2.4.0.tgz#1d9391fabfd82e016f26fabd1eec329dbd922b5a"
   dependencies:
     dom-helpers "^3.3.1"
     loose-envify "^1.3.1"
-    prop-types "^15.6.1"
+    prop-types "^15.6.2"
+    react-lifecycles-compat "^3.0.4"
 
 react-treebeard@^2.1.0:
   version "2.1.0"
@@ -8725,8 +8724,8 @@ react-treebeard@^2.1.0:
     velocity-react "^1.3.1"
 
 react-vis@^1.9.1:
-  version "1.9.4"
-  resolved "https://registry.yarnpkg.com/react-vis/-/react-vis-1.9.4.tgz#367934fb8fc9bc53026e5d29a3ff810d97f72b03"
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/react-vis/-/react-vis-1.10.0.tgz#e6e268d14745d7207bfe4533a0e94451dbb6e4b1"
   dependencies:
     d3-array "^1.2.0"
     d3-collection "^1.0.3"
@@ -8742,6 +8741,7 @@ react-vis@^1.9.1:
     d3-voronoi "^1.1.2"
     deep-equal "^1.0.1"
     global "^4.3.1"
+    hoek "4.2.1"
     prop-types "^15.5.8"
     react-motion "^0.5.2"
 
@@ -9572,14 +9572,15 @@ snyk-config@2.1.0:
     debug "^3.1.0"
     nconf "^0.10.0"
 
-snyk-docker-plugin@1.9.0:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/snyk-docker-plugin/-/snyk-docker-plugin-1.9.0.tgz#7940fb03b07e2f2ce0f6cdafd4fec7585f0dedbc"
+snyk-docker-plugin@1.10.2:
+  version "1.10.2"
+  resolved "https://registry.yarnpkg.com/snyk-docker-plugin/-/snyk-docker-plugin-1.10.2.tgz#d31a6f91153e1370153cd4a17c3b55d70dc3c352"
   dependencies:
     debug "^3.1.0"
     fs-extra "^5.0.0"
     pkginfo "^0.4.1"
     request "^2.87.0"
+    temp-dir "^1.0.0"
 
 snyk-go-plugin@1.5.1:
   version "1.5.1"
@@ -9692,8 +9693,8 @@ snyk-try-require@1.3.1, snyk-try-require@^1.1.1:
     then-fs "^2.0.0"
 
 snyk@^1.52.0, snyk@^1.83.0:
-  version "1.85.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.85.0.tgz#dbe5b4bc3dee4c3d4c313b8e4d6e9a2275b1ac3b"
+  version "1.87.0"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.87.0.tgz#8d35801eddaca1ffc3ecc2da1c7ae2dab9bf97d3"
   dependencies:
     abbrev "^1.1.1"
     ansi-escapes "^3.1.0"
@@ -9711,7 +9712,7 @@ snyk@^1.52.0, snyk@^1.83.0:
     recursive-readdir "^2.2.2"
     semver "^5.5.0"
     snyk-config "2.1.0"
-    snyk-docker-plugin "1.9.0"
+    snyk-docker-plugin "1.10.2"
     snyk-go-plugin "1.5.1"
     snyk-gradle-plugin "1.3.0"
     snyk-module "1.8.2"
