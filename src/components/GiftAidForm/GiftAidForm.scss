@@ -37,3 +37,27 @@ $image-path: "images/";
     width: 100%;
   } 
 }
+
+/* overriding styles for the just in time */ 
+.form__row--just-in-time-block {
+  text-align: center;
+
+  .toggle-link, 
+  .toggle-link:hover,
+  .toggle-link:focus {
+    border-width: 3px;
+  }
+
+  .toggle-link {
+    &:after {
+      font-weight:bold;
+    }
+  }
+
+  .just-in-time--content {
+    p {
+      text-align: left;
+      color: #666;
+    }
+  }
+}

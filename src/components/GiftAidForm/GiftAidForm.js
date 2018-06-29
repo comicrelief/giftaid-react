@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import InputField from '@comicrelief/storybook/src/components/InputField/InputField';
+import JustInTime from '@comicrelief/storybook/src/components/JustInTime/JustInTime';
 import defaultInputFieldsData from './defaultGiftaidFields.json';
 import './GiftAidForm.scss';
 
@@ -69,12 +70,31 @@ class GiftAidForm extends Component {
     return inputFields;
   }
 
+  /**
+   * Renders out the just in time message
+   */
+  renderJustInTimeMessage() {
+    const justInTimeLinkText = 'Why do we collect this info?';
+    return (
+      <JustInTime linkText={justInTimeLinkText}>
+        <p>
+          <strong>Name, email and billing address: </strong>
+          we need it to create a receipt for your payment and send it to you.
+        </p>
+        <p>
+          <strong>Phone number:</strong> we collect it in case there is an issue with gift aid
+        </p>
+      </JustInTime>
+    );
+  }
+
   render() {
     return (
       <form id="form" noValidate className="giftaid__form">
         { this.createInputFields() }
         {/* To do Postcode lookup component */}
         <button type="submit" className="btn btn--red">Gift Aid your donation</button>
+        {this.renderJustInTimeMessage()}
       </form>
     );
   }
