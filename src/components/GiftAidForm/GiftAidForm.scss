@@ -14,6 +14,9 @@ $image-path: "images/";
 /* Pattern Lab Comic Relief theme components */
 @import "~@comicrelief/pattern-lab/sass/themes/cr/2017/components/buttons/buttons";
 
+$colour-dove-grey: #666666; 
+$colour-scorpion-grey: #595959; 
+
 .giftaid__form {
   @include container;
   margin: 0 auto 90px; 
@@ -44,6 +47,23 @@ $image-path: "images/";
   }
 }
 
+.form__field-additional-text {
+  color: $colour-scorpion-grey;
+  font-family:$font-regular;
+
+  .link.inline {
+    border-width: 3px;
+    border-color: $colour-scorpion-grey;
+    color: $colour-scorpion-grey;
+
+    &:hover, &:focus {
+      color: $colour-scorpion-grey;
+      border-width: 3px;
+    }
+  }
+
+}
+  
 /* overriding styles for the just in time */ 
 .form__row--just-in-time-block {
   text-align: center;
@@ -65,7 +85,7 @@ $image-path: "images/";
   .just-in-time--content {
     p {
       text-align: left;
-      color: #666;
+      color: $colour-dove-grey;
     }
   }
 }
@@ -82,4 +102,5 @@ $image-path: "images/";
     margin-bottom: 25px;
   }
 }
+
 

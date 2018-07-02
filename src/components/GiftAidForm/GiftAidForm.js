@@ -53,6 +53,7 @@ class GiftAidForm extends Component {
       emptyFieldErrorText={props.emptyFieldErrorText}
       invalidErrorText={props.invalidErrorText}
       setBackgroundColor={props.type === 'checkbox'}
+      additionalText={props.additionalText}
     />));
     return inputFields;
   }
