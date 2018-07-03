@@ -8,6 +8,10 @@
 @import "~@comicrelief/pattern-lab/sass/themes/cr/2017/variables/colours";
 @import "~@comicrelief/pattern-lab/sass/themes/cr/2017/variables/typography";
 @import "~@comicrelief/pattern-lab/sass/themes/cr/2017/variables/mixins";
+/* Pattern Lab Comic Relief theme components */
+@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/components/typography/fonts";
+@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/components/typography/typography";
+@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/components/links/links";
 
 
 .container {
@@ -29,6 +33,7 @@
 
     h2 {
       font-family:$font-bold;
+      @include font-size($p-xlarge-font-size);
     }
 
     .message-support-title {
