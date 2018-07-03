@@ -3,7 +3,7 @@
     "id": "giftaid",
     "type": "checkbox",
     "name": "Gift Aid",
-    "label": "Yes, I would like Comic Relief to claim Gift Aid on my donation",
+    "label": "Yes, I would like Comic Relief to claim Gift Aid on my donation *",
     "required": true,
     "defaultChecked": true,
     "emptyFieldErrorText": "To Gift Aid your donation you need to tick the checkbox",

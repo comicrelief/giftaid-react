@@ -98,7 +98,7 @@ class GiftAidForm extends Component {
           </span>
         </h1>
         <h2 className="sub-title">
-          Gift aid your donation and the Government will give us 25% on top of it.
+          Gift aid your donation and the <strong>Government will give us 25%</strong> on top of it.
         </h2>
       </div>
     );
