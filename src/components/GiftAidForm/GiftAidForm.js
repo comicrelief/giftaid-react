@@ -53,6 +53,7 @@ class GiftAidForm extends Component {
       emptyFieldErrorText={props.emptyFieldErrorText}
       invalidErrorText={props.invalidErrorText}
       setBackgroundColor={props.type === 'checkbox'}
+      additionalText={props.additionalText}
     />));
     return inputFields;
   }
@@ -88,10 +89,25 @@ class GiftAidForm extends Component {
       </JustInTime>
     );
   }
+  renderFormHeader() {
+    return (
+      <div>
+        <h1 className="giftaid-title">
+          <span className="visually-hidden">
+            Giftaid it
+          </span>
+        </h1>
+        <h2 className="sub-title">
+          Gift aid your donation and the <strong>Government will give us 25%</strong> on top of it.
+        </h2>
+      </div>
+    );
+  }
 
   render() {
     return (
       <form id="form" noValidate className="giftaid__form">
+        {this.renderFormHeader()}
         { this.createInputFields() }
         {/* To do Postcode lookup component */}
         <button type="submit" className="btn btn--red">Gift Aid your donation</button>

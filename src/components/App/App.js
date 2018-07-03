@@ -11,7 +11,6 @@ import Home from '../../pages/Home/Home';
 import Success from '../../pages/Success/Success';
 import Sorry from '../../pages/Sorry/Sorry';
 import Header from '../Header/Header';
-import './App.scss';
 
 class App extends Component {
   constructor() {
