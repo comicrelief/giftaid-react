@@ -10,7 +10,6 @@ import Footer from '@comicrelief/storybook/src/components/Footer/Footer';
 import Home from '../../pages/Home/Home';
 import Success from '../../pages/Success/Success';
 import Header from '../Header/Header';
-import './App.scss';
 
 class App extends Component {
   constructor() {
