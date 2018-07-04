@@ -1,7 +1,6 @@
 import React from 'react';
 import logo from './images/CR_logo.png';
 import campaignLogos from './images/campaign_logos.png';
-import './Header.scss';
 
 const Header = () => (
   <div>

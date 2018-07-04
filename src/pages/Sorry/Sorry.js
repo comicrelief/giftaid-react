@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './Sorry.scss';
+// import './Sorry.scss';
 
 class Sorry extends Component {
   render() {

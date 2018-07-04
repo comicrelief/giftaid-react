@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PromoHeader from '../../components/PromoHeader/PromoHeader';
 import Cards from '../../components/Cards/Cards';
-import './Success.scss';
+// import './Success.scss';
 
 class Success extends Component {
   render() {

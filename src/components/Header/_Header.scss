@@ -1,0 +1,22 @@
+.header__inner-wrapper {
+  padding: 16px;
+  cursor: default;
+  .logo {
+    float: left;
+    display: block;
+
+    img {
+      height: 50px;
+    }
+  }
+  .cr-logo {
+    margin-right: 16px;
+  }
+  .campaign-logo {
+    float: right;
+  }
+  
+  @include breakpoint($desktop-nav-breakpoint) {
+    justify-content: center;
+  }
+}
