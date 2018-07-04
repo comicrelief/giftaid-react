@@ -55,8 +55,8 @@ class App extends Component {
         <Router>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/success" component={Success} />
-            <Route exact path="/sorry" component={Sorry} />
+            <Route path="/success" component={Success} />
+            <Route path="/sorry" component={Sorry} />
             <Redirect push to="/" />
           </Switch>
         </Router>
