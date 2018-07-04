@@ -1,18 +1,3 @@
-/* Pattern Lab Base theme variables */
-@import "~@comicrelief/pattern-lab/sass/base/core";
-@import "~@comicrelief/pattern-lab/sass/base/variables/grid";
-@import "~@comicrelief/pattern-lab/sass/base/variables/colours";
-@import "~@comicrelief/pattern-lab/sass/base/variables/lists";
-@import "~@comicrelief/pattern-lab/sass/base/variables/typography";
-/* Pattern Lab Comic Relief theme variables */
-@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/variables/colours";
-@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/variables/typography";
-@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/variables/mixins";
-/* Pattern Lab Comic Relief theme components */
-@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/components/typography/fonts";
-@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/components/typography/typography";
-@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/components/links/links";
-
 
 .container {
   @include container;
@@ -21,6 +6,7 @@
     margin: 40px auto;
     width: span(11);
     text-align: center;
+    padding-top: 0;
 
     @include breakpoint($screen-md) {
       width: span(8);

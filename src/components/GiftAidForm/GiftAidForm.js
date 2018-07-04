@@ -4,7 +4,6 @@ import propTypes from 'prop-types';
 import InputField from '@comicrelief/storybook/src/components/InputField/InputField';
 import JustInTime from '@comicrelief/storybook/src/components/JustInTime/JustInTime';
 import defaultInputFieldsData from './defaultGiftaidFields.json';
-import './GiftAidForm.scss';
 
 /**
  * GiftAidForm class
