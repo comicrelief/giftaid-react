@@ -9,6 +9,7 @@ import CookieConsentMessage from '@comicrelief/storybook/src/components/CookieCo
 import Footer from '@comicrelief/storybook/src/components/Footer/Footer';
 import Home from '../../pages/Home/Home';
 import Success from '../../pages/Success/Success';
+import Sorry from '../../pages/Sorry/Sorry';
 import Header from '../Header/Header';
 
 class App extends Component {
@@ -55,6 +56,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/success" component={Success} />
+            <Route exact path="/sorry" component={Sorry} />
             <Redirect push to="/" />
           </Switch>
         </Router>
