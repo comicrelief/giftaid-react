@@ -29,8 +29,7 @@ $image-path: "./images/";
 
 
 /* Specific styles for giftaid app */
-@import "/components/Header/_Header";
-@import "/components/GiftAidForm/_GiftAidForm";
-@import "/components/PromoHeader/_PromoHeader";
-@import "/pages/Success/_Success";
-@import "/pages/Sorry/_Sorry";
+@import "/components/Header/Header.scss";
+@import "/components/GiftAidForm/GiftAidForm.scss";
+@import "/components/PromoHeader/PromoHeader.scss";
+@import "/pages/Sorry/Sorry.scss";
