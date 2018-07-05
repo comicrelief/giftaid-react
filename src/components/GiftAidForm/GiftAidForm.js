@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import InputField from '@comicrelief/storybook/src/components/InputField/InputField';
 import JustInTime from '@comicrelief/storybook/src/components/JustInTime/JustInTime';
+import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup/PostcodeLookup';
 import defaultInputFieldsData from './defaultGiftaidFields.json';
-import PostcodeLookup from '../PostcodeLookup/PostcodeLookup';
 import './GiftAidForm.scss';
 
 
