@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import InputField from '@comicrelief/storybook/src/components/InputField/InputField';
-import SelectField from '../SelectField/SelectField';
 import defaultInputFieldsData from './defaultGiftaidFields.json';
 import PostcodeLookup from '../PostcodeLookup/PostcodeLookup';
 
@@ -74,25 +73,10 @@ class GiftAidForm extends Component {
   }
 
   render() {
-    const options = [
-      { label: 'Please select', value: 'PLEase Select' },
-      { label: 'item 1', value: 'itemone' },
-      { label: '----------', disabled: true },
-      { label: 'item 2', value: 'itemtwo', selected: true },
-      { label: 'item 3', value: 'itemthree' },
-    ];
     return (
       <form id="form">
         { this.createInputFields() }
-        <SelectField
-          id="SelectTest"
-          name="selectyup"
-          label="Select something"
-          required
-          options={options}
-          isValid={(valid, value, name) => { console.log('valid', valid, 'value', value, 'name', name); }}
-        />
-        <PostcodeLookup burre="bla" />
+        <PostcodeLookup isAddressValid={validation => console.log(validation)} />
         {/* To do Postcode lookup component */}
         {/* To do Submit button component  */}
       </form>

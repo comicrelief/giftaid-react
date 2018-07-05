@@ -2,8 +2,9 @@
 /* eslint-env browser */
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
-import InputField from '@comicrelief/storybook/src/components/InputField/InputField';
 import SelectField from '../SelectField/SelectField';
+import InputField from '../InputField/InputField';
+import countries from './countries.json';
 
 
 class PostcodeLookup extends Component {
@@ -14,145 +15,241 @@ class PostcodeLookup extends Component {
     super();
     this.state = {
       addressDropdownList: [],
+      countryDropdownList: [],
       addressLookupData: false,
-      form: {
-        postcode: '',
-      },
       postcodeValidationMessage: false,
-
+      previousAddress: '',
+      validation: {
+        postcode: {
+          valid: null,
+          message: '',
+          value: '',
+        },
+        address1: {
+          valid: null,
+          message: '',
+          value: '',
+        },
+        address2: {
+          valid: null,
+          message: '',
+          value: '',
+        },
+        address3: {
+          valid: null,
+          message: '',
+          value: '',
+        },
+        town: {
+          valid: null,
+          message: '',
+          value: '',
+        },
+        country: {
+          valid: null,
+          message: '',
+          value: '',
+        },
+      },
     };
+    this.setAddressSelectRef = (element) => {
+      this.addressSelectRef = element;
+    };
+    this.setAddressDetailRef = (element) => {
+      this.addressDetailRef = element;
+    };
+    this.setCountrySelectRef = (element) => {
+      this.countrySelectRef = element;
+    };
+
     this.addressLookup = this.addressLookup.bind(this);
+    this.showAddressFields = this.showAddressFields.bind(this);
+  }
+
+  componentWillMount() {
+    this.createCountryDropdownList();
   }
 
   /**
-   * Lookup address
-   * @return {Promise<void>}
+   * Send validation to Parent
    */
-  async addressLookup() {
-    const response = await fetch(`https://lookups.sls.comicrelief.com/postcode/lookup?query=${this.state.form.postcode}`, {
-      method: 'get',
-      headers: { 'Content-Type': 'application/json' },
-    });
-    const responseData = await response.json();
-
-    if (responseData.addresses !== null && responseData.addresses.length >= 1) {
-      this.setState({
-        postcodeValidationMessage: false,
-        addressLookupData: responseData.addresses,
-      });
-      this.createAddressDropdownList();
-    } else {
-      this.setState({
-        postcodeValidationMessage: responseData.message,
-      });
+  componentDidUpdate() {
+    if (typeof this.props.isAddressValid === 'function') {
+      this.props.isAddressValid(this.state.validation);
     }
-    console.log(responseData);
-    console.log(this.state.postcodeValidationMessage);
-    console.log(this.state.addressLookupData);
   }
 
+  /**
+   * Update state with value and validity from child
+   * @param name
+   * @param valid
+   */
+  setValidity(name, valid) {
+    if ((this.state.validation[name].value === undefined || this.state.validation[name].value !== valid.value) ||
+      (this.state.validation[name].message !== valid.message)) {
+      this.setState({
+        validation: {
+          ...this.state.validation,
+          [name]: {
+            valid: valid.valid,
+            value: valid.value,
+            message: valid.message,
+          },
+        },
+      });
+    }
+  }
+
+  /**
+   * Fetch addresses from lookup API and update state
+   * @return {Promise}
+   */
+  addressLookup() {
+    return fetch(`https://lookups.sls.comicrelief.com/postcode/lookup?query=${this.state.validation.postcode.value}`, {
+      method: 'get',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then(response => response.json())
+      .then((response) => {
+        if (response.addresses !== null && response.addresses.length >= 1) {
+          this.setState({
+            postcodeValidationMessage: false,
+            addressLookupData: response.addresses,
+          });
+          this.createAddressDropdownList();
+        } else {
+          this.setState({
+            postcodeValidationMessage: response.message,
+          });
+        }
+      });
+  }
+
+  /**
+   * Creates object for address select field options.
+   * Updates state with new address object and shows address select field
+   */
   createAddressDropdownList() {
     const addresses = [{ label: 'Please select', value: null }];
     this.state.addressLookupData.map(item =>
-      addresses.push({ label: item.Line1, value: item.Line1 }));
-    console.log(addresses);
-    this.setState({ addressDropdownList: addresses });
+      addresses.push({ label: item.Line1, value: item }));
+    this.setState({
+      addressDropdownList: addresses,
+    });
+    // show address select field
+    const addressSelect = this.addressSelectRef.selectRef;
+    addressSelect.parentElement.classList.remove('visually-hidden');
   }
 
-  // createAddressFields() {
-  //   const addressFields = [];
-  //   this.state.addressLookupData.map(item =>(
-  //     <InputField id={} type={} name={} label={} required={}/>
-  //   ));
-  // }
-
-  updatePostcode(value) {
+  /**
+   * Creates object for country select field options from json file.
+   * Updates state with new country object.
+   */
+  createCountryDropdownList() {
+    const dropDownList = [
+      { label: 'United Kingdom', value: 'GB', selected: true },
+      { label: '-------------------', disabled: true },
+    ];
+    Object.keys(countries).map(key =>
+      dropDownList.push({ label: countries[key], value: key }));
     this.setState({
-      form: {
-        postcode: value,
+      countryDropdownList: dropDownList,
+      validation: {
+        ...this.state.validation,
+        country: {
+          valid: true,
+          message: '',
+          value: 'GB',
+        },
       },
     });
   }
 
-  // /**
-  //  * Test whether the form is valid
-  //  * @return {boolean}
-  //  */
-  // validateForm() {
-  //   const validation = this.state.validation;
-  //   let status = true;
-  //
-  //   // Test the postcode variable
-  //   if (!Validate.isString(this.state.form.postcode) || this.state.postcodeValidationMessage !== false ||
-  //     /^[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}$/i.test(this.state.form.postcode.replace(/\s/g, '')) === false) {
-  //     validation.postcode = false;
-  //     status = false;
-  //   } else {
-  //     validation.postcode = true;
-  //   }
-  //
-  //   // Test the first line of the address validity
-  //   if (!Validate.isString(this.state.form.address1) || this.state.form.address1.length < 2) {
-  //     validation.address1 = false;
-  //     status = false;
-  //   } else {
-  //     validation.address1 = true;
-  //   }
-  //
-  //   // Test the town validity
-  //   if (!Validate.isString(this.state.form.town) || this.state.form.town.length < 2) {
-  //     validation.town = false;
-  //     status = false;
-  //   } else {
-  //     validation.town = true;
-  //   }
-  //
-  //   this.setState({ validation }, this.updateParentState);
-  //
-  //   return status;
-  // }
+  /**
+   * Updates state with selected address values
+   * Shows address detail fields
+   * Changes country select field back to GB
+   * @param value
+   */
+  updateAddress(value) {
+    if (value.length >= 1) {
+      const address = JSON.parse(value);
+      if (address && (this.state.previousAddress === undefined || this.state.previousAddress !== address.Line1)) {
+        this.setState({
+          previousAddress: address.Line1,
+          validation: {
+            ...this.state.validation,
+            postcode: {
+              valid: true,
+              value: address.postcode,
+              message: '',
+            },
+            address1: {
+              valid: true,
+              value: address.Line1,
+              message: '',
+            },
+            address2: {
+              valid: true,
+              value: !address.Line2 ? '' : address.Line2,
+              message: '',
+            },
+            address3: {
+              valid: true,
+              value: !address.Line3 ? '' : address.Line3,
+              message: '',
+            },
+            town: {
+              valid: true,
+              value: address.posttown,
+              message: '',
+            },
+            country: {
+              valid: true,
+              value: 'GB',
+              message: '',
+            },
+          },
+        });
+        this.showAddressFields();
+        // change the country back to GB
+        this.countrySelectRef.selectRef.selectedIndex = 0;
+      }
+    }
+  }
 
-  // /**
-  //  * Update address fields with address
-  //  * @param event
-  //  */
-  // selectAddress(event) {
-  //   const address = this.state.addressLookupData[event.target.value];
-  //
-  //   this.setState({
-  //     addressLookupData: false,
-  //     form: {
-  //       ...this.state.form,
-  //       address1: address.Line1,
-  //       town: address.posttown,
-  //       country: 'GB',
-  //     },
-  //     showAddressFields: true,
-  //   }, this.validateForm);
-  // }
+  showAddressFields() {
+    this.addressDetailRef.classList.remove('visually-hidden');
+  }
 
-  // /**
-  //  * Update the parent state with required variables
-  //  */
-  // updateParentState() {
-  //   // Update the parent state with form values
-  //   this.props.parentStateUpdate(this.state.form);
-  //
-  //   // Update the validation status of the component to the parent
-  //   this.props.validationUpdate(this.state.validation.address1 === true &&
-  //     this.state.validation.postcode === true &&
-  //     this.state.validation.town);
-  // }
+  /**
+   * Gets validation info from state and returns it to child
+   * Everything works fine for the Town field, but not for Address1 :/
+   * @param id
+   * @return {*}
+   */
+  addressValue(id) {
+    let value = this.state.validation;
+    if (value[id] !== undefined) {
+      value = value[id];
+    }
+    return value;
+  }
+  returnPostcodeValidation() {
+    return this.state.postcodeValidationMessage !== false ? {
+      message: this.state.postcodeValidationMessage,
+      valid: false,
+      showErrorMessage: true,
+    } : '';
+  }
 
   /**
    * AddressLookup render
    * @return {*}
    */
   render() {
-    console.log(this.props.burre);
-    console.log('addressList state', this.state.addressList);
     return (
-      <div>
+      <div className="form__row form__row--billing-detail form__row--address-lookup">
         <InputField
           id="postcode"
           type="text"
@@ -161,29 +258,88 @@ class PostcodeLookup extends Component {
           required
           placeholder="SE1 7TP"
           pattern="[A-Za-z]{1,2}[0-9Rr][0-9A-Za-z]?( |)[0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}"
+          inlineButton
+          buttonValue="FIND ADDRESS"
           emptyFieldErrorText="Please enter your postcode"
           invalidErrorText="Please enter a valid postcode"
-          isValid={(valid, name, value) => { this.updatePostcode(value); }}
-
+          value={id => this.addressValue(id)}
+          isValid={(valid, name) => { this.setValidity(name, valid); }}
+          buttonClick={() => this.addressLookup().then(() => this.returnPostcodeValidation())}
+          showErrorMessage={false}
         />
-        <input
-          onClick={this.addressLookup}
-          type="button"
-          id="postcode_button"
-          name="btnPostcodeSearch"
-          className="btnPostcodeSearch postcode"
-          value="FIND ADDRESS"
+        <SelectField
+          ref={this.setAddressSelectRef}
+          id="addressSelect"
+          name="addressSelect"
+          label="Select your address"
+          required={false}
+          options={this.state.addressDropdownList}
+          extraClass="visually-hidden"
+          showErrorMessage={false}
+          isValid={(valid, name, value) => { this.updateAddress(value); }}
         />
-        <SelectField id="bliep" name="blaap" label="Select your address" required options={this.state.addressDropdownList} showErrorMessage={false} />
+        <button className="link" onClick={this.showAddressFields}>Or enter your address manually</button>
+        <div
+          ref={this.setAddressDetailRef}
+          id="address-detail"
+          className="form__fieldset form__field--address-detail visually-hidden"
+        >
+          <InputField
+            id="address1"
+            type="text"
+            name="address1"
+            label="Address line 1"
+            required
+            value={id => this.addressValue(id)}
+            isValid={(valid, name) => { this.setValidity(name, valid); }}
+          />
+          <InputField
+            id="address2"
+            type="text"
+            name="address2"
+            label="Address line 2"
+            value={id => this.addressValue(id)}
+            isValid={(valid, name) => { this.setValidity(name, valid); }}
+          />
+          <InputField
+            id="address3"
+            type="text"
+            name="address3"
+            label="Address line 3"
+            required={false}
+            isValid={(valid, name) => { this.setValidity(name, valid); }}
+          />
+          <InputField
+            id="town"
+            type="text"
+            name="town"
+            label="Town/City"
+            required
+            value={id => this.addressValue(id)}
+            isValid={(valid, name) => { this.setValidity(name, valid); }}
+          />
+          <SelectField
+            ref={this.setCountrySelectRef}
+            id="country"
+            name="country"
+            label="Country"
+            required
+            options={this.state.countryDropdownList}
+            value={() => this.state.validation.country.value}
+            isValid={(valid, name) => { this.setValidity(name, valid); }}
+          />
+        </div>
       </div>
-
-
     );
   }
 }
 
+
+PostcodeLookup.defaultProps = {
+  isAddressValid: null,
+};
 PostcodeLookup.propTypes = {
-  burre: propTypes.string.isRequired,
+  isAddressValid: propTypes.func,
 };
 
 export default PostcodeLookup;
