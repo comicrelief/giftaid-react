@@ -4,7 +4,7 @@ React Frontend for giftaid submissions.
 ## Deployment & Environments
 
 Pull requests are tested with circle ci, this will run code style and unit tests against the PR. Deployments are enacted
-using concourse, the pipeline can be seen [here](https://ci.apps.comicrelief.com/teams/comicrelief-team/pipelines/service-giftaid?groups=SPA).
+using concourse, the pipeline can be seen [here](https://ci.services.comicrelief.com/teams/main/pipelines/service-giftaid?groups=SPA).
 
 ## Domains
 

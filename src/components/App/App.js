@@ -1,14 +1,15 @@
 /* eslint-env browser */
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Redirect, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MetaTags from 'react-meta-tags';
 import TagManager from 'react-gtm-module';
 import Raven from 'react-raven';
 
+import CookieConsentMessage from '@comicrelief/storybook/src/components/CookieConsentMessage/CookieConsentMessage';
 import Footer from '@comicrelief/storybook/src/components/Footer/Footer';
-import Home from '../../pages/home/home';
+import Home from '../../pages/Home/Home';
+import Success from '../../pages/Success/Success';
 import Header from '../Header/Header';
-import './App.scss';
 
 class App extends Component {
   constructor() {
@@ -34,7 +35,7 @@ class App extends Component {
 
     return (
       <div className="App">
-
+        <CookieConsentMessage />
         <Header />
 
         <MetaTags>
@@ -51,9 +52,11 @@ class App extends Component {
         <Raven dsn="https://25f53d059e1f488f9d0f000ffd500585@sentry.io/1228720" />
 
         <Router>
-          <div>
+          <Switch>
             <Route exact path="/" component={Home} />
-          </div>
+            <Route exact path="/success" component={Success} />
+            <Redirect push to="/" />
+          </Switch>
         </Router>
 
         <Footer campaign="comicrelief" />

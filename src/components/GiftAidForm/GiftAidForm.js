@@ -3,8 +3,10 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import InputField from '@comicrelief/storybook/src/components/InputField/InputField';
+import JustInTime from '@comicrelief/storybook/src/components/JustInTime/JustInTime';
 import defaultInputFieldsData from './defaultGiftaidFields.json';
 import PostcodeLookup from '../PostcodeLookup/PostcodeLookup';
+import './GiftAidForm.scss';
 
 
 /**
@@ -51,10 +53,11 @@ class GiftAidForm extends Component {
       min={props.min}
       max={props.max}
       defaultChecked={props.defaultChecked}
-      extraClass={props.extraClass}
       helpText={props.helpText}
       emptyFieldErrorText={props.emptyFieldErrorText}
       invalidErrorText={props.invalidErrorText}
+      setBackgroundColor={props.type === 'checkbox'}
+      additionalText={props.additionalText}
     />));
     return inputFields;
   }
@@ -72,13 +75,48 @@ class GiftAidForm extends Component {
     return inputFields;
   }
 
+  /**
+   * Renders out the just in time message
+   */
+  renderJustInTimeMessage() {
+    const justInTimeLinkText = 'Why do we collect this info?';
+    return (
+      <JustInTime linkText={justInTimeLinkText}>
+        <p>
+          <strong>Name, email and billing address: </strong>
+          we need it to create a receipt for your payment and send it to you.
+        </p>
+        <p>
+          <strong>Phone number:</strong> we collect it in case there is an issue
+          with gift aid donation.
+        </p>
+      </JustInTime>
+    );
+  }
+  renderFormHeader() {
+    return (
+      <div>
+        <h1 className="giftaid-title">
+          <span className="visually-hidden">
+            Giftaid it
+          </span>
+        </h1>
+        <h2 className="sub-title">
+          Gift aid your donation and the <strong>Government will give us 25%</strong> on top of it.
+        </h2>
+      </div>
+    );
+  }
+
   render() {
     return (
-      <form id="form">
+      <form id="form" noValidate className="giftaid__form">
+        {this.renderFormHeader()}
         { this.createInputFields() }
         <PostcodeLookup isAddressValid={validation => console.log(validation)} />
         {/* To do Postcode lookup component */}
-        {/* To do Submit button component  */}
+        <button type="submit" className="btn btn--red">Gift Aid your donation</button>
+        {this.renderJustInTimeMessage()}
       </form>
     );
   }

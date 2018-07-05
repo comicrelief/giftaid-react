@@ -1,0 +1,20 @@
+[
+  {
+    "id": "kevin-story",
+    "title": "Kevin's story",
+    "description": "\" If it wasn't for this place, I would be dead.\"",
+    "urlsource": "https://www.sportrelief.com/where-your-money-goes/kevin"
+  },
+  {
+    "id": "aziza-story",
+    "title": "Aziza's story",
+    "description": "\" Malaria impacts my daily life.\"",
+    "urlsource": "https://www.sportrelief.com/where-your-money-goes/aziza/"
+  },
+  {
+    "id": "georgia-story",
+    "title": "Georgia's story",
+    "description": "\"I got really ill, I felt I was up to failure.\"",
+    "urlsource": "https://www.sportrelief.com/where-your-money-goes/georgia"
+  }
+]

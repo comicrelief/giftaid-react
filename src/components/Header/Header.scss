@@ -25,12 +25,8 @@
   .campaign-logo {
     float: right;
   }
-  @include breakpoint($screen-md) {
-    .campaign-logo {
-      float: left;
-    }
-  }
+  
   @include breakpoint($desktop-nav-breakpoint) {
-    justify-content: flex-start;
+    justify-content: center;
   }
 }
