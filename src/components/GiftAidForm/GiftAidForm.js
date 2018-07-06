@@ -6,7 +6,6 @@ import InputField from '@comicrelief/storybook/src/components/InputField/InputFi
 import JustInTime from '@comicrelief/storybook/src/components/JustInTime/JustInTime';
 import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup/PostcodeLookup';
 import defaultInputFieldsData from './defaultGiftaidFields.json';
-import './GiftAidForm.scss';
 
 
 /**
