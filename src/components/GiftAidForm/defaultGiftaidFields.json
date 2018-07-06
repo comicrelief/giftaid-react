@@ -13,7 +13,7 @@
     "id": "mobile",
     "type": "tel",
     "name": "mobile number",
-    "placeholder": "In the format 07123456780",
+    "placeholder": "In the format 07123456789",
     "label": "Mobile number",
     "required": true,
     "pattern": "^07[0-9]{9}$",
