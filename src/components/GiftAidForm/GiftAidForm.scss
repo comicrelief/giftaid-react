@@ -13,9 +13,10 @@ $image-path: "images/";
 @import "~@comicrelief/pattern-lab/sass/themes/cr/2017/variables/typography";
 @import "~@comicrelief/pattern-lab/sass/themes/cr/2017/variables/mixins";
 @import "~@comicrelief/pattern-lab/sass/base/components/form/standard-form";
+@import "~@comicrelief/pattern-lab/sass/base/components/postcode-lookup/postcode-lookup";
 
 /* Pattern Lab Comic Relief theme components */
-@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/components/buttons/buttons";
+// @import "~@comicrelief/pattern-lab/sass/themes/cr/2017/components/buttons/buttons";
 
 $colour-dove-grey: #666666; 
 $colour-scorpion-grey: #595959; 

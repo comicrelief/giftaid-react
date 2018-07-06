@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@comicrelief/pattern-lab": "7.46.1",
-    "@comicrelief/storybook": "git://github.com/comicrelief/storybook/#postcode_lookup_updates",
+    "@comicrelief/pattern-lab": "git://github.com/comicrelief/pattern-lab.git#671_giftaid_updates",
+    "@comicrelief/storybook": "git://github.com/comicrelief/storybook/#95a4f00",
     "add": "^2.0.6",
     "autoprefixer": "7.1.6",
     "babel-polyfill": "^6.26.0",

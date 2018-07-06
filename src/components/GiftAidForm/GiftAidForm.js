@@ -25,7 +25,7 @@ class GiftAidForm extends Component {
     super(props);
     this.state = {
       inputFieldProps: [],
-
+      firstUpdate: false,
     };
   }
 
@@ -33,6 +33,38 @@ class GiftAidForm extends Component {
     this.setState({
       inputFieldProps: this.mergeInputFieldProps(defaultInputFieldsData),
     });
+  }
+
+  componentDidMount() {
+    if (this.state.firstUpdate === false) {
+      this.setValidity();
+    }
+  }
+
+  setValidity(name, valid) {
+    console.log('val', this.state.firstUpdate, name, valid, this.state.validation);
+    if (name === undefined) {
+      this.setState({
+        ...this.state,
+        firstUpdate: true,
+      });
+    } else if (this.state.firstUpdate === true && valid !== undefined) {
+      console.log('valid', valid);
+    } else if (name !== undefined && this.state.firstUpdate === true &&
+      ((this.state.validation === undefined || (this.state.validation !== undefined && (this.state.validation[name].value !== valid.value)) ||
+      (this.state.validation[name].message !== valid.message)))) {
+      this.setState({
+        ...this.state,
+        validation: {
+          ...this.state.validation,
+          [name]: {
+            valid: valid.valid,
+            value: valid.value,
+            message: valid.message,
+          },
+        },
+      });
+    }
   }
 
   /**
@@ -58,6 +90,7 @@ class GiftAidForm extends Component {
       invalidErrorText={props.invalidErrorText}
       setBackgroundColor={props.type === 'checkbox'}
       additionalText={props.additionalText}
+      isValid={(valid, name) => { this.setValidity(name, valid); }}
     />));
     return inputFields;
   }
@@ -73,6 +106,12 @@ class GiftAidForm extends Component {
       Object.assign(inputFields[key], overrides[key]);
     });
     return inputFields;
+  }
+
+  validateForm(e) {
+    e.preventDefault();
+    this.setValidity();
+    console.log('submit', this.state.validation);
   }
 
   /**
@@ -108,14 +147,15 @@ class GiftAidForm extends Component {
     );
   }
 
+
   render() {
     return (
       <form id="form" noValidate className="giftaid__form">
         {this.renderFormHeader()}
         { this.createInputFields() }
-        <PostcodeLookup isAddressValid={validation => console.log(validation)} />
-        {/* To do Postcode lookup component */}
-        <button type="submit" className="btn btn--red">Gift Aid your donation</button>
+        <InputField id="firstname1" type="text" name="firstname1" label="firstname1" isValid={(valid, name) => this.setValidity(name, valid)} />
+        <PostcodeLookup label="Postal address" isAddressValid={(validation) => { Object.keys(validation).map(key => this.setValidity(key, validation[key])); }} />
+        <button type="submit" className="btn btn--red" onClick={e => this.validateForm(e)}>Gift Aid your donation</button>
         {this.renderJustInTimeMessage()}
       </form>
     );
