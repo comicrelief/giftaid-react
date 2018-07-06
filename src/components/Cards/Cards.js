@@ -1,6 +1,5 @@
 import React from 'react';
 import CardData from './Cards.json';
-import './Cards.scss';
 
 const Card = () => (
   <div className="cards cards--three-grid-centre cards--three-grid-unit">
