@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@comicrelief/pattern-lab": "git://github.com/comicrelief/pattern-lab.git#671_giftaid_updates",
-    "@comicrelief/storybook": "git://github.com/comicrelief/storybook/#95a4f00",
+    "@comicrelief/storybook": "git://github.com/comicrelief/storybook/#ade0894",
     "add": "^2.0.6",
     "autoprefixer": "7.1.6",
     "babel-polyfill": "^6.26.0",
