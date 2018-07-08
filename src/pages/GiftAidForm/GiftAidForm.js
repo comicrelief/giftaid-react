@@ -297,13 +297,17 @@ class GiftAidForm extends Component {
   render() {
     const { formDataSuccess, formDataError } = this.state;
     return (
-      <form id="form" noValidate className="giftaid__form" data-success={formDataSuccess} data-error={formDataError}>
-        {this.renderFormHeader()}
-        { this.createInputFields() }
-        <PostcodeLookup label="Postal address" showErrorMessages={this.state.showErrorMessages} isAddressValid={(validation) => { Object.keys(validation).map(key => this.setValidity(key, validation[key])); }} />
-        <button type="submit" className="btn btn--red" onClick={e => this.validateForm(e)}>Gift Aid your donation</button>
-        {this.renderJustInTimeMessage()}
-      </form>
+      <main role="main">
+        <section>
+          <form id="form" noValidate className="giftaid__form" data-success={formDataSuccess} data-error={formDataError}>
+            {this.renderFormHeader()}
+            { this.createInputFields() }
+            <PostcodeLookup label="Postal address" showErrorMessages={this.state.showErrorMessages} isAddressValid={(validation) => { Object.keys(validation).map(key => this.setValidity(key, validation[key])); }} />
+            <button type="submit" className="btn btn--red" onClick={e => this.validateForm(e)}>Gift Aid your donation</button>
+            {this.renderJustInTimeMessage()}
+          </form>
+        </section>
+      </main>
     );
   }
 }
