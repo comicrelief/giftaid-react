@@ -7,6 +7,7 @@
     "@comicrelief/storybook": "git://github.com/comicrelief/storybook/#ade0894",
     "add": "^2.0.6",
     "autoprefixer": "7.1.6",
+    "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "case-sensitive-paths-webpack-plugin": "2.1.1",
     "chalk": "1.1.3",
