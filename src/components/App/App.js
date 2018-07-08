@@ -7,10 +7,10 @@ import Raven from 'react-raven';
 
 import CookieConsentMessage from '@comicrelief/storybook/src/components/CookieConsentMessage/CookieConsentMessage';
 import Footer from '@comicrelief/storybook/src/components/Footer/Footer';
-import Home from '../../pages/Home/Home';
 import Success from '../../pages/Success/Success';
 import Sorry from '../../pages/Sorry/Sorry';
 import Header from '../Header/Header';
+import GiftAidForm from '../../pages/GiftAidForm/GiftAidForm';
 
 class App extends Component {
   constructor() {
@@ -54,7 +54,7 @@ class App extends Component {
 
         <Router>
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={GiftAidForm} />
             <Route path="/success" component={Success} />
             <Route path="/sorry" component={Sorry} />
             <Redirect push to="/" />

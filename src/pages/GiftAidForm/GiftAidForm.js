@@ -2,10 +2,15 @@
 /* eslint-env browser */
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
+import axios from 'axios';
 import InputField from '@comicrelief/storybook/src/components/InputField/InputField';
 import JustInTime from '@comicrelief/storybook/src/components/JustInTime/JustInTime';
 import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup/PostcodeLookup';
 import defaultInputFieldsData from './defaultGiftaidFields.json';
+
+const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
+const CAMPAIGN = 'CR';
+const TRANS_SOURCE = 'giftaid-react';
 
 
 /**
@@ -27,54 +32,56 @@ class GiftAidForm extends Component {
       firstUpdate: false,
       formValidity: false,
       showErrorMessages: false,
+      formDataError: null,
+      formDataSuccess: null,
       validation: {
         confirm: {
-          valid: null,
+          valid: false,
           value: undefined,
           message: '',
         },
         mobile: {
-          valid: null,
+          valid: false,
           value: undefined,
           message: '',
         },
         firstname: {
-          valid: null,
+          valid: false,
           value: undefined,
           message: '',
         },
         lastname: {
-          valid: null,
+          valid: false,
           value: undefined,
           message: '',
         },
         postcode: {
-          valid: null,
+          valid: false,
           value: undefined,
           message: '',
         },
         address1: {
-          valid: null,
+          valid: false,
           value: undefined,
           message: '',
         },
         address2: {
-          valid: null,
+          valid: true,
           value: undefined,
           message: '',
         },
         address3: {
-          valid: null,
+          valid: true,
           value: undefined,
           message: '',
         },
         town: {
-          valid: null,
+          valid: false,
           value: undefined,
           message: '',
         },
         country: {
-          valid: null,
+          valid: false,
           value: undefined,
           message: '',
         },
@@ -88,6 +95,30 @@ class GiftAidForm extends Component {
     });
   }
 
+  /**
+   * Gets the timestamp and format
+   * @return string
+   */
+  getTimestamp() {
+    const getTimeStamp = Math.round((new Date()).getTime() / 1000);
+    const timestamp = new Date(getTimeStamp * 1000);
+    return timestamp;
+  }
+
+  /**
+   * Gets the current hostname and replaces 'localhost' to a defualt or use the
+   * browser current url.
+   * @return string
+   */
+  getCurrentUrl() {
+    let url = null;
+    if (window.location.hostname === 'localhost') {
+      url = 'http://local.comicrelief.com';
+    } else {
+      url = window.location.href;
+    }
+    return url;
+  }
 
   /**
    * Update validation state
@@ -155,16 +186,78 @@ class GiftAidForm extends Component {
     });
     return inputFields;
   }
+  /**
+   * Creates formValues object and submits form
+   */
+  submitForm() {
+    // required settings to post to api endpoint
+    const settings = {
+      campaign: CAMPAIGN,
+      transSource: TRANS_SOURCE,
+      transSourceUrl: this.getCurrentUrl(),
+      transType: 'prefs',
+      timestamp: this.getTimestamp(),
+    };
 
+    // create field values
+    const fieldValues = {};
+    Object.keys(this.state.validation).forEach((key) => {
+      let value = this.state.validation[key].value;
+      // todo deal with the value output in InputField component
+      if (key === 'confirm') {
+        value = this.state.validation[key].value === true ? 1 : 0;
+      }
+      fieldValues[key] = value;
+    });
+
+    // Combine all form data and settings
+    const formValues = Object.assign({}, fieldValues, settings);
+
+    // post form data and settings to endpoint
+    axios.post(ENDPOINT_URL, formValues)
+      .then((response) => {
+        this.setState({
+          formDataSuccess: response.data.message,
+        });
+        this.props.history.push({
+          pathname: '/success',
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          formDataError: error,
+        });
+      });
+  }
+
+  /**
+   * Checks if any field is invalid.
+   * If invalid fields: shows error sets state to show errorMessages.
+   * If all fields valid: calls submitForm.
+   * @param e
+   */
   validateForm(e) {
     e.preventDefault();
-    if (this.state.formValidity === false) {
+    // check if there are any invalid fields
+    const fields = [];
+    Object.keys(this.state.validation).map(key =>
+      fields.push(this.state.validation[key].valid));
+    const invalidFields = fields.some(element => element === false);
+    // update state accordingly
+    if (invalidFields === false) {
       this.setState({
         ...this.state,
+        formValidity: true,
+      });
+      this.submitForm();
+    }
+    if (invalidFields === true) {
+      this.setState({
+        ...this.state,
+        formValidity: false,
         showErrorMessages: true,
       });
     }
-    console.log('submit', this.state.validation);
   }
 
   /**
@@ -202,8 +295,9 @@ class GiftAidForm extends Component {
 
 
   render() {
+    const { formDataSuccess, formDataError } = this.state;
     return (
-      <form id="form" noValidate className="giftaid__form">
+      <form id="form" noValidate className="giftaid__form" data-success={formDataSuccess} data-error={formDataError}>
         {this.renderFormHeader()}
         { this.createInputFields() }
         <PostcodeLookup label="Postal address" showErrorMessages={this.state.showErrorMessages} isAddressValid={(validation) => { Object.keys(validation).map(key => this.setValidity(key, validation[key])); }} />
@@ -216,10 +310,14 @@ class GiftAidForm extends Component {
 
 GiftAidForm.defaultProps = {
   inputFieldOverrides: {},
+  history: { push: { } },
 };
 
 GiftAidForm.propTypes = {
   inputFieldOverrides: propTypes.shape(propTypes.shape),
+  history: propTypes.shape({
+    push: propTypes.func,
+  }),
 };
 
 export default GiftAidForm;
