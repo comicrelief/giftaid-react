@@ -25,6 +25,60 @@ class GiftAidForm extends Component {
     this.state = {
       inputFieldProps: [],
       firstUpdate: false,
+      formValidity: false,
+      showErrorMessages: false,
+      validation: {
+        confirm: {
+          valid: null,
+          value: undefined,
+          message: '',
+        },
+        mobile: {
+          valid: null,
+          value: undefined,
+          message: '',
+        },
+        firstname: {
+          valid: null,
+          value: undefined,
+          message: '',
+        },
+        lastname: {
+          valid: null,
+          value: undefined,
+          message: '',
+        },
+        postcode: {
+          valid: null,
+          value: undefined,
+          message: '',
+        },
+        address1: {
+          valid: null,
+          value: undefined,
+          message: '',
+        },
+        address2: {
+          valid: null,
+          value: undefined,
+          message: '',
+        },
+        address3: {
+          valid: null,
+          value: undefined,
+          message: '',
+        },
+        town: {
+          valid: null,
+          value: undefined,
+          message: '',
+        },
+        country: {
+          valid: null,
+          value: undefined,
+          message: '',
+        },
+      },
     };
   }
 
@@ -34,37 +88,31 @@ class GiftAidForm extends Component {
     });
   }
 
-  componentDidMount() {
-    if (this.state.firstUpdate === false) {
-      this.setValidity();
+
+  /**
+   * Update validation state
+   * @param name
+   * @param valid
+   */
+  setValidity(name, valid) {
+    if (name && valid) {
+      this.setState((prevState) => {
+        let newState;
+        if (prevState.validation[name] !== undefined &&
+          (prevState.validation[name].value === undefined || prevState.validation[name].value !== valid.value)) {
+          newState = {
+            ...this.state,
+            validation: {
+              ...this.state.validation,
+              [name]: valid,
+            },
+          };
+        }
+        return newState;
+      });
     }
   }
 
-  setValidity(name, valid) {
-    console.log('val', this.state.firstUpdate, name, valid, this.state.validation);
-    if (name === undefined) {
-      this.setState({
-        ...this.state,
-        firstUpdate: true,
-      });
-    } else if (this.state.firstUpdate === true && valid !== undefined) {
-      console.log('valid', valid);
-    } else if (name !== undefined && this.state.firstUpdate === true &&
-      ((this.state.validation === undefined || (this.state.validation !== undefined && (this.state.validation[name].value !== valid.value)) ||
-      (this.state.validation[name].message !== valid.message)))) {
-      this.setState({
-        ...this.state,
-        validation: {
-          ...this.state.validation,
-          [name]: {
-            valid: valid.valid,
-            value: valid.value,
-            message: valid.message,
-          },
-        },
-      });
-    }
-  }
 
   /**
    * Map the input field properties to a new array containing the input field instances
@@ -89,6 +137,7 @@ class GiftAidForm extends Component {
       invalidErrorText={props.invalidErrorText}
       setBackgroundColor={props.type === 'checkbox'}
       additionalText={props.additionalText}
+      showErrorMessage={this.state.showErrorMessages}
       isValid={(valid, name) => { this.setValidity(name, valid); }}
     />));
     return inputFields;
@@ -109,7 +158,12 @@ class GiftAidForm extends Component {
 
   validateForm(e) {
     e.preventDefault();
-    this.setValidity();
+    if (this.state.formValidity === false) {
+      this.setState({
+        ...this.state,
+        showErrorMessages: true,
+      });
+    }
     console.log('submit', this.state.validation);
   }
 
@@ -152,8 +206,7 @@ class GiftAidForm extends Component {
       <form id="form" noValidate className="giftaid__form">
         {this.renderFormHeader()}
         { this.createInputFields() }
-        <InputField id="firstname1" type="text" name="firstname1" label="firstname1" isValid={(valid, name) => this.setValidity(name, valid)} />
-        <PostcodeLookup label="Postal address" isAddressValid={(validation) => { Object.keys(validation).map(key => this.setValidity(key, validation[key])); }} />
+        <PostcodeLookup label="Postal address" showErrorMessages={this.state.showErrorMessages} isAddressValid={(validation) => { Object.keys(validation).map(key => this.setValidity(key, validation[key])); }} />
         <button type="submit" className="btn btn--red" onClick={e => this.validateForm(e)}>Gift Aid your donation</button>
         {this.renderJustInTimeMessage()}
       </form>
