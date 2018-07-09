@@ -221,6 +221,7 @@ class GiftAidForm extends Component {
         });
         this.props.history.push({
           pathname: '/success',
+          state: { firstname: formValues.firstname },
         });
       })
       .catch((error) => {
@@ -299,7 +300,7 @@ class GiftAidForm extends Component {
     return (
       <main role="main">
         <section>
-          <form id="form" noValidate className="giftaid__form" data-success={formDataSuccess} data-error={formDataError}>
+          <form id="form" noValidate className="giftaid__form" method="post" data-success={formDataSuccess} data-error={formDataError}>
             {this.renderFormHeader()}
             { this.createInputFields() }
             <PostcodeLookup label="Postal address" showErrorMessages={this.state.showErrorMessages} isAddressValid={(validation) => { Object.keys(validation).map(key => this.setValidity(key, validation[key])); }} />
