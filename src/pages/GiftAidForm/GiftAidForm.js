@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-env browser */
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import axios from 'axios';
@@ -130,7 +128,8 @@ class GiftAidForm extends Component {
       this.setState((prevState) => {
         let newState;
         if (prevState.validation[name] !== undefined &&
-          (prevState.validation[name].value === undefined || prevState.validation[name].value !== valid.value)) {
+          (prevState.validation[name].value === undefined ||
+            prevState.validation[name].value !== valid.value)) {
           newState = {
             ...this.state,
             validation: {
@@ -300,11 +299,30 @@ class GiftAidForm extends Component {
     return (
       <main role="main">
         <section>
-          <form id="form" noValidate className="giftaid__form" method="post" data-success={formDataSuccess} data-error={formDataError}>
+          <form
+            id="form"
+            noValidate
+            className="giftaid__form"
+            data-success={formDataSuccess}
+            data-error={formDataError}
+          >
             {this.renderFormHeader()}
             { this.createInputFields() }
-            <PostcodeLookup label="Postal address" showErrorMessages={this.state.showErrorMessages} isAddressValid={(validation) => { Object.keys(validation).map(key => this.setValidity(key, validation[key])); }} />
-            <button type="submit" className="btn btn--red" onClick={e => this.validateForm(e)}>Gift Aid your donation</button>
+            <PostcodeLookup
+              label="Postal address"
+              showErrorMessages={this.state.showErrorMessages}
+              isAddressValid={
+                (validation) => {
+                  Object.keys(validation).map(key => this.setValidity(key, validation[key]));
+                }
+              }
+            />
+            <button
+              type="submit"
+              className="btn btn--red"
+              onClick={e => this.validateForm(e)}
+            >Gift Aid your donation
+            </button>
             {this.renderJustInTimeMessage()}
           </form>
         </section>
