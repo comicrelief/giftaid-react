@@ -18,7 +18,6 @@ $image-path: "./images/";
 @import "~@comicrelief/pattern-lab/sass/base/components/header/base-header";
 @import "~@comicrelief/pattern-lab/sass/base/components/promo-header/promo-header";
 @import "~@comicrelief/pattern-lab/sass/base/components/typography/typography";
-@import "~@comicrelief/pattern-lab/sass/base/components/form/_standard-form";
 
 /* Pattern Lab Comic Relief theme components */
 @import "~@comicrelief/pattern-lab/sass/themes/cr/2017/components/typography/fonts";
@@ -27,10 +26,13 @@ $image-path: "./images/";
 @import "~@comicrelief/pattern-lab/sass/themes/cr/2017/components/buttons/buttons";
 @import "~@comicrelief/pattern-lab/sass/themes/donate/donate-cr/components/cards/cards";
 
+@import "~@comicrelief/pattern-lab/sass/base/components/form/_standard-form";
+@import "~@comicrelief/pattern-lab/sass/base/components/postcode-lookup/postcode-lookup";
+
 
 /* Specific styles for giftaid app */
 @import "/components/Header/Header.scss";
-@import "/components/GiftAidForm/GiftAidForm.scss";
+@import "/pages/GiftAidForm/GiftAidForm.scss";
 @import "/components/PromoHeader/PromoHeader.scss";
 @import "/pages/Success/Success.scss";
 @import "/pages/Sorry/Sorry.scss";

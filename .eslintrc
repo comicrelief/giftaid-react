@@ -1,5 +1,8 @@
 {
   "extends": "airbnb",
+  "env": {
+    "browser": true
+  },
   "rules": {
     "func-names": ["error", "never"],
     "no-param-reassign": "off",
@@ -11,5 +14,6 @@
     "prefer-destructuring": "off",
     "react/prefer-stateless-function": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/prop-types": "off"
   }
 }

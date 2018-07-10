@@ -4,13 +4,15 @@ import { Redirect, BrowserRouter as Router, Route, Switch } from 'react-router-d
 import MetaTags from 'react-meta-tags';
 import TagManager from 'react-gtm-module';
 import Raven from 'react-raven';
-
 import CookieConsentMessage from '@comicrelief/storybook/src/components/CookieConsentMessage/CookieConsentMessage';
 import Footer from '@comicrelief/storybook/src/components/Footer/Footer';
-import Home from '../../pages/Home/Home';
+
+
+import ScrollToTop from './ScrollToTop/ScrollToTop';
 import Success from '../../pages/Success/Success';
 import Sorry from '../../pages/Sorry/Sorry';
 import Header from '../Header/Header';
+import GiftAidForm from '../../pages/GiftAidForm/GiftAidForm';
 
 class App extends Component {
   constructor() {
@@ -53,12 +55,15 @@ class App extends Component {
         <Raven dsn="https://25f53d059e1f488f9d0f000ffd500585@sentry.io/1228720" />
 
         <Router>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/success" component={Success} />
-            <Route path="/sorry" component={Sorry} />
-            <Redirect push to="/" />
-          </Switch>
+          <div>
+            <ScrollToTop />
+            <Switch>
+              <Route exact path="/" component={GiftAidForm} />
+              <Route path="/success" component={Success} />
+              <Route path="/sorry" component={Sorry} />
+              <Redirect push to="/" />
+            </Switch>
+          </div>
         </Router>
 
         <Footer campaign="comicrelief" />
