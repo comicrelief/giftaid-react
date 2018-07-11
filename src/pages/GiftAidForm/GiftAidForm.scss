@@ -7,12 +7,12 @@ $colour-scorpion-grey: #595959;
   padding: 30px calc(3 * 1.25%);
 
   @include breakpoint($screen-md) {
-    max-width: 45%;
+    max-width: 55%;
     padding: 40px calc(1 * 1.25%);
   }
 
-  @include breakpoint($screen-lg) {
-    max-width: 38%;
+  @include breakpoint($desktop-nav-breakpoint) {
+    max-width: 47%;
   }
 
   .btn {
@@ -86,7 +86,7 @@ $colour-scorpion-grey: #595959;
       }
     }
   }
-  
+
 }
 
 .form__field-additional-text {
@@ -109,6 +109,11 @@ $colour-scorpion-grey: #595959;
     margin: 50px 0;
   }
 
+}
+.search-box {
+  input[type="button"] {
+    background-color: purple;
+  }
 }
 
 
