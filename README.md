@@ -12,6 +12,6 @@ The domains for giftaid are as follows,
 
 ### Staging
 
-- [giftaid-staging.spa.comicrelief.com](https://giftaid-staging.comicrelief.com)
-- [giftaid-staging.spa.sportrelief.com](https://giftaid-staging.sportrelief.com)
-- [giftaid-staging.spa.rednoseday.com](https://giftaid-staging.rednoseday.com)
+- [giftaid-staging.spa.comicrelief.com](https://giftaid-staging.spa.comicrelief.com)
+- [giftaid-staging.spa.sportrelief.com](https://giftaid-staging.spa.sportrelief.com)
+- [giftaid-staging.spa.rednoseday.com](https://giftaid-staging.spa.rednoseday.com)
