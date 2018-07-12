@@ -27,7 +27,7 @@ const nightwatch = {
     },
   },
   test_workers: {
-    enabled: true,
+    enabled: false,
     workers: 'auto',
   }
 };
