@@ -22,9 +22,9 @@
   dependencies:
     susy "^2.2.12"
 
-"@comicrelief/pattern-lab@git://github.com/comicrelief/pattern-lab.git#5ff68cf":
-  version "0.0.0-see.readme.for.releases"
-  resolved "git://github.com/comicrelief/pattern-lab.git#5ff68cf27ce186283d3fce49394cb1368d2e04a8"
+"@comicrelief/pattern-lab@7.46.13":
+  version "7.46.13"
+  resolved "https://registry.yarnpkg.com/@comicrelief/pattern-lab/-/pattern-lab-7.46.13.tgz#650f0a91d9daa65ee8d4eaba715a3ab02aa51704"
   dependencies:
     susy "^2.2.12"
 
