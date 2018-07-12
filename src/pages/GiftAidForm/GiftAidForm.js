@@ -6,9 +6,11 @@ import JustInTime from '@comicrelief/storybook/src/components/JustInTime/JustInT
 import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup/PostcodeLookup';
 import defaultInputFieldsData from './defaultGiftaidFields.json';
 
+
 const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
 const CAMPAIGN = 'CR';
-const TRANS_SOURCE = 'giftaid-react';
+const TRANS_TYPE = 'GiftAid';
+const TRANS_SOURCE = `${CAMPAIGN}_${TRANS_TYPE}`;
 
 
 /**
@@ -194,7 +196,7 @@ class GiftAidForm extends Component {
       campaign: CAMPAIGN,
       transSource: TRANS_SOURCE,
       transSourceUrl: this.getCurrentUrl(),
-      transType: 'prefs',
+      transType: TRANS_TYPE,
       timestamp: this.getTimestamp(),
     };
 
