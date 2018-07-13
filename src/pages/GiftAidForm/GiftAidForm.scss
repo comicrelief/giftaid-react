@@ -61,32 +61,11 @@ $colour-scorpion-grey: #595959;
 
   /* overriding styles for the just in time */ 
   .form__row--just-in-time-block {
-    text-align: left;
-    font-family:$font-regular;
-
-    .toggle-link, 
-    .toggle-link:hover,
-    .toggle-link:focus {
-      border-width: 3px;
-      font-family:$font-regular;
-    }
-
+    font-family:$font-bold;
     .toggle-link {
-      font-weight:bold;
-      border-width: 3px;
-      &:after {
-        font-weight:bold;
-      }
-    }
-
-    .just-in-time--content {
-      p {
-        text-align: left;
-        color: $colour-dove-grey;
-      }
+      font-family:$font-bold;
     }
   }
-
 }
 
 .form__field-additional-text {
