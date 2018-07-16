@@ -113,7 +113,7 @@ class GiftAidForm extends Component {
   componentDidUpdate() {
     if (this.state.showErrorMessages === true && this.state.formValidity === false) {
       // timeout needed for error class names to appear
-      scrollTimeout = setTimeout(() => { this.scrollToError(); }, 500);
+      scrollTimeout = setTimeout(() => { this.scrollToError(); }, 2500);
       this.setErrorMessagesToFalse();
     }
     if (this.state.showErrorMessages === false && this.state.formValidity === true) {
@@ -144,6 +144,8 @@ class GiftAidForm extends Component {
       campaign = 'SR';
     } else if (url.includes('rednoseday')) {
       campaign = 'RND';
+    } else {
+      campaign = 'CR';
     }
     return campaign;
   }
