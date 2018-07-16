@@ -32,7 +32,7 @@ class GiftAidForm extends Component {
       validation: {
         confirm: {
           valid: true,
-          value: undefined,
+          value: true,
           message: '',
         },
         mobile: {
