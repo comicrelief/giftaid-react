@@ -7,8 +7,7 @@ import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup
 import defaultInputFieldsData from './defaultGiftaidFields.json';
 
 const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
-
-
+let scrollTimeout;
 /**
  * GiftAidForm class
  * Returns elements on this form with default properties.
@@ -83,12 +82,36 @@ class GiftAidForm extends Component {
         },
       },
     };
+    // Put the al the field refs from children into an array
+    const refs = [];
+    this.setRef = (element) => {
+      if (element) {
+        // fields from postcode lookup
+        if (element.fieldRefs) {
+          element.fieldRefs.forEach(item => refs.push(item));
+        } else {
+          // remaining input fields
+          refs.push(element.inputRef);
+        }
+        this.fieldRefs = refs;
+      }
+    };
   }
 
   componentWillMount() {
     this.setState({
       inputFieldProps: this.mergeInputFieldProps(defaultInputFieldsData),
     });
+  }
+
+  componentDidUpdate() {
+    if (this.state.showErrorMessages === true && this.state.formValidity === false) {
+      scrollTimeout = setTimeout(() => { this.scrollToError(); }, 500);
+      this.setErrorMessagesToFalse();
+    }
+    if (this.state.showErrorMessages === false && this.state.formValidity === true) {
+      this.submitForm();
+    }
   }
 
   /**
@@ -152,7 +175,34 @@ class GiftAidForm extends Component {
     }
   }
 
+  setErrorMessagesToFalse() {
+    this.setState({
+      ...this.state,
+      showErrorMessages: false,
+    });
+  }
 
+  /**
+   * Go through field refs, get the first erroring field and focus on it.
+   */
+  scrollToError() {
+    let item;
+    for (let i = 0; i <= this.fieldRefs.length; i += 1) {
+      if (this.fieldRefs[i].labels !== undefined) {
+        const classes = this.fieldRefs[i].labels[0].getAttribute('class');
+        if (classes.includes('error')) {
+          item = this.fieldRefs[i];
+          item.labels[0].scrollIntoView('smooth');
+          item.focus();
+          break;
+        }
+      } else {
+        document.querySelector('form').scrollIntoView();
+        break;
+      }
+    }
+    clearTimeout(scrollTimeout);
+  }
   /**
    * Map the input field properties to a new array containing the input field instances
    * @returns {Array}
@@ -160,6 +210,7 @@ class GiftAidForm extends Component {
   createInputFields() {
     const inputFields = [];
     Object.entries(this.state.inputFieldProps).map(([field, props]) => inputFields.push(<InputField
+      ref={this.setRef}
       key={field}
       id={props.id}
       type={props.type}
@@ -225,10 +276,7 @@ class GiftAidForm extends Component {
 
     // post form data and settings to endpoint
     axios.post(ENDPOINT_URL, formValues)
-      .then((response) => {
-        this.setState({
-          formDataSuccess: response.data.message,
-        });
+      .then(() => {
         this.props.history.push({
           pathname: '/success',
           state: { firstname: formValues.firstname },
@@ -253,14 +301,14 @@ class GiftAidForm extends Component {
     const fields = [];
     Object.keys(this.state.validation).map(key =>
       fields.push(this.state.validation[key].valid));
-    const invalidFields = fields.some(element => element === false);
+    // values can be null or empty strings so check for not true
+    const invalidFields = fields.some(element => element !== true);
     // update state accordingly
     if (invalidFields === false) {
       this.setState({
         ...this.state,
         formValidity: true,
       });
-      this.submitForm();
     }
     if (invalidFields === true) {
       this.setState({
@@ -320,6 +368,7 @@ class GiftAidForm extends Component {
             {this.renderFormHeader()}
             { this.createInputFields() }
             <PostcodeLookup
+              ref={this.setRef}
               label="Postal address"
               showErrorMessages={this.state.showErrorMessages}
               isAddressValid={
