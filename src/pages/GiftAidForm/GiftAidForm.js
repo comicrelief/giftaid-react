@@ -285,10 +285,10 @@ class GiftAidForm extends Component {
       }
       fieldValues[key] = value;
     });
-
     // Combine all form data and settings
     const formValues = Object.assign({}, fieldValues, settings);
-
+    console.log('submit env var', ENDPOINT_URL);
+    console.log('submit form val', formValues);
     // post form data and settings to endpoint
     axios.post(ENDPOINT_URL, formValues)
       .then(() => {
@@ -297,7 +297,8 @@ class GiftAidForm extends Component {
           state: { firstname: formValues.firstname },
         });
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log('error', e);
         this.props.history.push({
           pathname: '/sorry',
         });
