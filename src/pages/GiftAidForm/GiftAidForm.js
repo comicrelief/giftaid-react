@@ -282,9 +282,9 @@ class GiftAidForm extends Component {
           state: { firstname: formValues.firstname },
         });
       })
-      .catch((error) => {
-        this.setState({
-          formDataError: error,
+      .catch(() => {
+        this.props.history.push({
+          pathname: '/sorry',
         });
       });
   }
