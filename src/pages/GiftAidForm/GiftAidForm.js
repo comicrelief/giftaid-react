@@ -82,7 +82,7 @@ class GiftAidForm extends Component {
         },
       },
     };
-    // Put the al the field refs from children into an array
+    // Put the field refs from children into an array
     const refs = [];
     this.setRef = (element) => {
       if (element) {
@@ -98,14 +98,21 @@ class GiftAidForm extends Component {
     };
   }
 
+  /**
+   * Merges any overrides to the default input field data json with it
+   */
   componentWillMount() {
     this.setState({
       inputFieldProps: this.mergeInputFieldProps(defaultInputFieldsData),
     });
   }
 
+  /**
+   * Deals with component update after pressing submit button
+   */
   componentDidUpdate() {
     if (this.state.showErrorMessages === true && this.state.formValidity === false) {
+      // timeout needed for error class names to appear
       scrollTimeout = setTimeout(() => { this.scrollToError(); }, 500);
       this.setErrorMessagesToFalse();
     }
@@ -115,7 +122,7 @@ class GiftAidForm extends Component {
   }
 
   /**
-   * Gets the timestamp and format
+   * Gets the timestamp and formats it
    * @return string
    */
   getTimestamp() {
@@ -123,6 +130,12 @@ class GiftAidForm extends Component {
     const timestamp = new Date(getTimeStamp * 1000);
     return timestamp;
   }
+
+  /**
+   * Gets the campaign name based on the url
+   * @param url
+   * @return {*}
+   */
   getCampaign(url) {
     let campaign;
     if (url.includes('comicrelief')) {
@@ -136,8 +149,8 @@ class GiftAidForm extends Component {
   }
 
   /**
-   * Gets the current hostname and replaces 'localhost' to a defualt or use the
-   * browser current url.
+   * Gets the current hostname.
+   * Replaces 'localhost' to a default or uses the browser's current url.
    * @return string
    */
   getCurrentUrl() {
@@ -151,7 +164,7 @@ class GiftAidForm extends Component {
   }
 
   /**
-   * Update validation state
+   * Updates validation state
    * @param name
    * @param valid
    */
@@ -183,7 +196,8 @@ class GiftAidForm extends Component {
   }
 
   /**
-   * Go through field refs, get the first erroring field and focus on it.
+   * Goes through field refs, gets the first erroring field and focuses on it.
+   * If inputelement.labels is not supported: scrolls form into view
    */
   scrollToError() {
     let item;
@@ -203,8 +217,9 @@ class GiftAidForm extends Component {
     }
     clearTimeout(scrollTimeout);
   }
+
   /**
-   * Map the input field properties to a new array containing the input field instances
+   * Maps the input field properties to a new array containing the input field instances
    * @returns {Array}
    */
   createInputFields() {
@@ -292,12 +307,12 @@ class GiftAidForm extends Component {
   /**
    * Checks if any field is invalid.
    * If invalid fields: shows error sets state to show errorMessages.
-   * If all fields valid: calls submitForm.
+   * If all fields valid: sets form validity to true
    * @param e
    */
   validateForm(e) {
     e.preventDefault();
-    // check if there are any invalid fields
+    // Put field validation into new array to check for invalid fields
     const fields = [];
     Object.keys(this.state.validation).map(key =>
       fields.push(this.state.validation[key].valid));
