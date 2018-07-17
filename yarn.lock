@@ -16,15 +16,21 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
-"@comicrelief/pattern-lab@*", "@comicrelief/pattern-lab@7.46.13":
+"@comicrelief/pattern-lab@*":
   version "7.46.13"
   resolved "https://registry.yarnpkg.com/@comicrelief/pattern-lab/-/pattern-lab-7.46.13.tgz#650f0a91d9daa65ee8d4eaba715a3ab02aa51704"
   dependencies:
     susy "^2.2.12"
 
-"@comicrelief/storybook@git://github.com/comicrelief/storybook.git#master":
-  version "0.0.0-see.readme.for.releases"
-  resolved "git://github.com/comicrelief/storybook.git#9463bcf0df21fb934963d36884f61189cc9fbf2f"
+"@comicrelief/pattern-lab@7.47.1":
+  version "7.47.1"
+  resolved "https://registry.yarnpkg.com/@comicrelief/pattern-lab/-/pattern-lab-7.47.1.tgz#cefafd258a53cce38c60f4d82df160f47c32afbd"
+  dependencies:
+    susy "^2.2.12"
+
+"@comicrelief/storybook@1.13.4":
+  version "1.13.4"
+  resolved "https://registry.yarnpkg.com/@comicrelief/storybook/-/storybook-1.13.4.tgz#e9161a7c4672bf942871610c8931dea52d86fdf5"
   dependencies:
     "@comicrelief/pattern-lab" "*"
     "@storybook/addon-info" "3"

@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@comicrelief/pattern-lab": "7.46.13",
-    "@comicrelief/storybook": "git://github.com/comicrelief/storybook.git#master",
+    "@comicrelief/pattern-lab": "7.47.1",
+    "@comicrelief/storybook": "1.13.4",
     "add": "^2.0.6",
     "autoprefixer": "7.1.6",
     "axios": "^0.18.0",
