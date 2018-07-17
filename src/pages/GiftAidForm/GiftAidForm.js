@@ -7,8 +7,7 @@ import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup
 import defaultInputFieldsData from './defaultGiftaidFields.json';
 
 const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
-
-
+let scrollTimeout;
 /**
  * GiftAidForm class
  * Returns elements on this form with default properties.
@@ -32,8 +31,8 @@ class GiftAidForm extends Component {
       formDataSuccess: null,
       validation: {
         confirm: {
-          valid: false,
-          value: undefined,
+          valid: true,
+          value: true,
           message: '',
         },
         mobile: {
@@ -83,8 +82,25 @@ class GiftAidForm extends Component {
         },
       },
     };
+    // Put the field refs from children into an array
+    const refs = [];
+    this.setRef = (element) => {
+      if (element) {
+        // fields from postcode lookup
+        if (element.fieldRefs) {
+          element.fieldRefs.forEach(item => refs.push(item));
+        } else {
+          // remaining input fields
+          refs.push(element.inputRef);
+        }
+        this.fieldRefs = refs;
+      }
+    };
   }
 
+  /**
+   * Merges any overrides to the default input field data json with it
+   */
   componentWillMount() {
     this.setState({
       inputFieldProps: this.mergeInputFieldProps(defaultInputFieldsData),
@@ -92,7 +108,21 @@ class GiftAidForm extends Component {
   }
 
   /**
-   * Gets the timestamp and format
+   * Deals with component update after pressing submit button
+   */
+  componentDidUpdate() {
+    if (this.state.showErrorMessages === true && this.state.formValidity === false) {
+      // timeout needed for error class names to appear
+      scrollTimeout = setTimeout(() => { this.scrollToError(); }, 500);
+      this.setErrorMessagesToFalse();
+    }
+    if (this.state.showErrorMessages === false && this.state.formValidity === true) {
+      this.submitForm();
+    }
+  }
+
+  /**
+   * Gets the timestamp and formats it
    * @return string
    */
   getTimestamp() {
@@ -100,21 +130,27 @@ class GiftAidForm extends Component {
     const timestamp = new Date(getTimeStamp * 1000);
     return timestamp;
   }
+
+  /**
+   * Gets the campaign name based on the url
+   * @param url
+   * @return {*}
+   */
   getCampaign(url) {
     let campaign;
-    if (url.includes('comicrelief')) {
-      campaign = 'CR';
-    } else if (url.includes('sportrelief')) {
+    if (url.includes('sportrelief')) {
       campaign = 'SR';
     } else if (url.includes('rednoseday')) {
       campaign = 'RND';
+    } else {
+      campaign = 'CR';
     }
     return campaign;
   }
 
   /**
-   * Gets the current hostname and replaces 'localhost' to a defualt or use the
-   * browser current url.
+   * Gets the current hostname.
+   * Replaces 'localhost' to a default or uses the browser's current url.
    * @return string
    */
   getCurrentUrl() {
@@ -128,7 +164,7 @@ class GiftAidForm extends Component {
   }
 
   /**
-   * Update validation state
+   * Updates validation state
    * @param name
    * @param valid
    */
@@ -152,14 +188,44 @@ class GiftAidForm extends Component {
     }
   }
 
+  setErrorMessagesToFalse() {
+    this.setState({
+      ...this.state,
+      showErrorMessages: false,
+    });
+  }
 
   /**
-   * Map the input field properties to a new array containing the input field instances
+   * Goes through field refs, gets the first erroring field and focuses on it.
+   * If inputelement.labels is not supported: scrolls form into view
+   */
+  scrollToError() {
+    let item;
+    for (let i = 0; i <= this.fieldRefs.length; i += 1) {
+      if (this.fieldRefs[i].labels !== undefined) {
+        const classes = this.fieldRefs[i].labels[0].getAttribute('class');
+        if (classes.includes('error')) {
+          item = this.fieldRefs[i];
+          item.labels[0].scrollIntoView('smooth');
+          item.focus();
+          break;
+        }
+      } else {
+        document.querySelector('form').scrollIntoView();
+        break;
+      }
+    }
+    clearTimeout(scrollTimeout);
+  }
+
+  /**
+   * Maps the input field properties to a new array containing the input field instances
    * @returns {Array}
    */
   createInputFields() {
     const inputFields = [];
     Object.entries(this.state.inputFieldProps).map(([field, props]) => inputFields.push(<InputField
+      ref={this.setRef}
       key={field}
       id={props.id}
       type={props.type}
@@ -225,10 +291,7 @@ class GiftAidForm extends Component {
 
     // post form data and settings to endpoint
     axios.post(ENDPOINT_URL, formValues)
-      .then((response) => {
-        this.setState({
-          formDataSuccess: response.data.message,
-        });
+      .then(() => {
         this.props.history.push({
           pathname: '/success',
           state: { firstname: formValues.firstname },
@@ -244,23 +307,23 @@ class GiftAidForm extends Component {
   /**
    * Checks if any field is invalid.
    * If invalid fields: shows error sets state to show errorMessages.
-   * If all fields valid: calls submitForm.
+   * If all fields valid: sets form validity to true
    * @param e
    */
   validateForm(e) {
     e.preventDefault();
-    // check if there are any invalid fields
+    // Put field validation into new array to check for invalid fields
     const fields = [];
     Object.keys(this.state.validation).map(key =>
       fields.push(this.state.validation[key].valid));
-    const invalidFields = fields.some(element => element === false);
+    // values can be null or empty strings so check for not true
+    const invalidFields = fields.some(element => element !== true);
     // update state accordingly
     if (invalidFields === false) {
       this.setState({
         ...this.state,
         formValidity: true,
       });
-      this.submitForm();
     }
     if (invalidFields === true) {
       this.setState({
@@ -320,6 +383,7 @@ class GiftAidForm extends Component {
             {this.renderFormHeader()}
             { this.createInputFields() }
             <PostcodeLookup
+              ref={this.setRef}
               label="Postal address"
               showErrorMessages={this.state.showErrorMessages}
               isAddressValid={
