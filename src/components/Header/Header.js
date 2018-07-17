@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './images/CR_logo.png';
+import logo from './images/CR18-logo.svg';
 import campaignLogos from './images/campaign_logos.png';
 
 const Header = () => (
