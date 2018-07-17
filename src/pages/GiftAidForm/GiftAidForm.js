@@ -7,8 +7,6 @@ import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup
 import defaultInputFieldsData from './defaultGiftaidFields.json';
 
 const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
-const CAMPAIGN = 'CR';
-const TRANS_SOURCE = 'giftaid-react';
 
 
 /**
@@ -102,6 +100,17 @@ class GiftAidForm extends Component {
     const timestamp = new Date(getTimeStamp * 1000);
     return timestamp;
   }
+  getCampaign(url) {
+    let campaign;
+    if (url.includes('comicrelief')) {
+      campaign = 'CR';
+    } else if (url.includes('sportrelief')) {
+      campaign = 'SR';
+    } else if (url.includes('rednoseday')) {
+      campaign = 'RND';
+    }
+    return campaign;
+  }
 
   /**
    * Gets the current hostname and replaces 'localhost' to a defualt or use the
@@ -189,12 +198,14 @@ class GiftAidForm extends Component {
    * Creates formValues object and submits form
    */
   submitForm() {
+    const url = this.getCurrentUrl();
+    const campaign = this.getCampaign(url);
     // required settings to post to api endpoint
     const settings = {
-      campaign: CAMPAIGN,
-      transSource: TRANS_SOURCE,
-      transSourceUrl: this.getCurrentUrl(),
-      transType: 'prefs',
+      campaign,
+      transSource: `${campaign}_GiftAid`,
+      transSourceUrl: url,
+      transType: 'GiftAid',
       timestamp: this.getTimestamp(),
     };
 
@@ -223,9 +234,9 @@ class GiftAidForm extends Component {
           state: { firstname: formValues.firstname },
         });
       })
-      .catch((error) => {
-        this.setState({
-          formDataError: error,
+      .catch(() => {
+        this.props.history.push({
+          pathname: '/sorry',
         });
       });
   }
