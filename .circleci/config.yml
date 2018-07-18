@@ -6,7 +6,10 @@ version: 2
 jobs:
   build:
     docker:
-      - image: node:8
+      # See https://github.com/cypress-io/cypress-docker-images
+      - image: cypress/base:8
+        environment:
+          TERM: xterm
 
     working_directory: ~/repo
 
@@ -29,3 +32,13 @@ jobs:
           name: Test Code Style
           command: yarn eslint ./src/
 
+      # run tests!
+      - run:
+          name: Run cypress tests
+          command: yarn test
+
+      - store_artifacts:
+          path: cypress/videos
+
+      - store_artifacts:
+          path: cypress/screenshots
