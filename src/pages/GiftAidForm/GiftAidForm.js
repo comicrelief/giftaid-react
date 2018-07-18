@@ -139,9 +139,9 @@ class GiftAidForm extends Component {
   getCampaign(url) {
     let campaign;
     if (url.includes('sportrelief')) {
-      campaign = 'SR';
+      campaign = 'SR18';
     } else if (url.includes('rednoseday')) {
-      campaign = 'RND';
+      campaign = 'RND19';
     } else {
       campaign = 'CR';
     }
