@@ -35,6 +35,7 @@ module.exports = {
 
         client
             .click('#field-input--giftaid')
+            .click('#field-input--giftaid')
             .assert.containsText('#field-error--giftaid>span', 'To Gift Aid your donation you need to tick the checkbox')
             .click('#field-input--giftaid')
             .assert.elementNotPresent('#field-error--giftaid>span')
