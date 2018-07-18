@@ -31,8 +31,8 @@ class GiftAidForm extends Component {
       formDataSuccess: null,
       validation: {
         confirm: {
-          valid: true,
-          value: true,
+          valid: false,
+          value: undefined,
           message: '',
         },
         mobile: {
