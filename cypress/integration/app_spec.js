@@ -1,14 +1,9 @@
-//
-// **** App Tests ****
-
-// Please read our "Introduction to Cypress"
-// https://on.cypress.io/introduction-to-cypress
-
 describe('Giftaid form tests', () => {
 
   beforeEach(() =>  {
     cy.visit('/')
   })
+  
   const mobile = '07897997799';
   const firstname = 'Joe';
   const lastname = 'Smith';
@@ -16,7 +11,7 @@ describe('Giftaid form tests', () => {
   const addressLine1 = '89 ALBERT EMBANKMENT';
   const town = 'London';
 
-  
+
   context('Titles', () => {
     it('should have a page and form title', () => {
       cy.title().should('include', 'Gift Aid declaration')
