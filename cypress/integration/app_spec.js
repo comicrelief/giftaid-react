@@ -20,8 +20,9 @@ describe('Giftaid form tests', () => {
   })
 
   context('Form behaviour', () => {
-    it('should show the giftaid checkbox as checked by default and show error message if deselected', () => {
-      cy.get('#field-input--giftaid').should('be.checked');
+    it('should show the giftaid checkbox as unchecked by default and show error message if checked then unchecked', () => {
+      cy.get('#field-input--giftaid').should('be.unchecked');
+      cy.get('#field-input--giftaid').check();
       cy.get('#field-input--giftaid').uncheck();
       cy.get('#field-label--giftaid').should('have.class', 'error');
       cy.get('#field-error--giftaid').should('be.visible');
