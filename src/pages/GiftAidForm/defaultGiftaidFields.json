@@ -5,7 +5,6 @@
     "name": "confirm",
     "label": "Yes, I would like Comic Relief to claim Gift Aid on my donation *",
     "required": true,
-    "defaultChecked": true,
     "emptyFieldErrorText": "To Gift Aid your donation you need to tick the checkbox",
     "additionalText": "* By ticking I state I am a UK taxpayer making a personal donation and understand that if I pay less Income Tax and/or Capital Gains Tax than the amount of Gift Aid claimed on all my donations, it is my responsibility to pay any difference. <a href='https://www.comicrelief.com/frequently-asked-questions' class='link inline' target='_blank'>Find out more</a>"
   }, 
