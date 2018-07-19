@@ -128,6 +128,7 @@ describe('Giftaid form tests', () => {
       cy.get('#field-input--address1').type(addressLine1).should('have.value', addressLine1);
       cy.get('#field-input--town').type(town).should('have.value', town);
       cy.get('button[type="submit"]').click();
+      cy.wait(5000);
       cy.get('.success-wrapper--inner > h1').should('contain', 'Thank you, ' + firstname);
     })
   })
@@ -141,6 +142,7 @@ describe('Giftaid form tests', () => {
       cy.get('#postcode_button').click();
       cy.get('#field-select--addressSelect').select('85 ALBERT EMBANKMENT');
       cy.get('button[type="submit"]').click();
+      cy.wait(5000);
       cy.get('.success-wrapper--inner > h1').should('contain', 'Thank you, ' + firstname);
     })
   })
