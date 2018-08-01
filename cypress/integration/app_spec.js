@@ -20,8 +20,9 @@ describe('Giftaid form tests', () => {
   })
 
   context('Form behaviour', () => {
-    it('should show the giftaid checkbox as checked by default and show error message if deselected', () => {
-      cy.get('#field-input--giftaid').should('be.checked');
+    it('should show the giftaid checkbox as unchecked by default and show error message if checked then unchecked', () => {
+      cy.get('#field-input--giftaid').should('not.be.checked');
+      cy.get('#field-input--giftaid').check();
       cy.get('#field-input--giftaid').uncheck();
       cy.get('#field-label--giftaid').should('have.class', 'error');
       cy.get('#field-error--giftaid').should('be.visible');
@@ -127,6 +128,7 @@ describe('Giftaid form tests', () => {
       cy.get('#field-input--address1').type(addressLine1).should('have.value', addressLine1);
       cy.get('#field-input--town').type(town).should('have.value', town);
       cy.get('button[type="submit"]').click();
+      cy.wait(5000);
       cy.get('.success-wrapper--inner > h1').should('contain', 'Thank you, ' + firstname);
     })
   })
@@ -140,6 +142,7 @@ describe('Giftaid form tests', () => {
       cy.get('#postcode_button').click();
       cy.get('#field-select--addressSelect').select('85 ALBERT EMBANKMENT');
       cy.get('button[type="submit"]').click();
+      cy.wait(5000);
       cy.get('.success-wrapper--inner > h1').should('contain', 'Thank you, ' + firstname);
     })
   })
