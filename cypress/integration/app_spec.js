@@ -85,6 +85,8 @@ describe('Giftaid form tests', () => {
     })
   })
 
+
+
   context('submitting invalid form', () => {
     it('should fail submission and show error on mobile field if no field is filled in', () => {
       cy.get('button[type="submit"]').click();
@@ -115,6 +117,12 @@ describe('Giftaid form tests', () => {
     it('should only show error messages on required fields when submission fails', () => {
       cy.get('button[type="submit"]').click();
       cy.get('label').not('.required').not('.error');
+    })
+
+    it('verify Just In Time message', () => {
+      cy.get('.form__row--just-in-time-block>div>a').click();
+      cy.contains('Name, email and billing address: we need it to create a receipt for your payment and send it to you.');
+      cy.contains('Phone number: we collect it in case there is an issue with gift aid donation.');
     })
   })
 
