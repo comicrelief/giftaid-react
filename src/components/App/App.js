@@ -11,6 +11,7 @@ import Footer from '@comicrelief/storybook/src/components/Footer/Footer';
 import ScrollToTop from './ScrollToTop/ScrollToTop';
 import Success from '../../pages/Success/Success';
 import Sorry from '../../pages/Sorry/Sorry';
+import Update from '../../pages/Update/Update';
 import Header from '../Header/Header';
 import GiftAidForm from '../../pages/GiftAidForm/GiftAidForm';
 
@@ -61,6 +62,7 @@ class App extends Component {
               <Route exact path="/" component={GiftAidForm} />
               <Route path="/success" component={Success} />
               <Route path="/sorry" component={Sorry} />
+              <Route path="/update" component={Update} />
               <Redirect push to="/" />
             </Switch>
           </div>
