@@ -62,6 +62,9 @@ class App extends Component {
               <Route exact path="/" component={GiftAidForm} />
               <Route path="/success" component={Success} />
               <Route path="/sorry" component={Sorry} />
+
+              {/* Handle both scenarios */}
+              <Route path="/update/:transaction_id" component={Update} />
               <Route path="/update" component={Update} />
               <Redirect push to="/" />
             </Switch>
