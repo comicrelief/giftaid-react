@@ -4,6 +4,7 @@ import axios from 'axios';
 import InputField from '@comicrelief/storybook/src/components/InputField/InputField';
 import JustInTime from '@comicrelief/storybook/src/components/JustInTime/JustInTime';
 import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup/PostcodeLookup';
+import RadioButtons from '@comicrelief/storybook/src/components/RadioButtons/RadioButtons';
 import defaultInputFieldsData from './defaultUpdateFields.json';
 
 const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
@@ -379,6 +380,17 @@ class Update extends Component {
 
 
   render() {
+    const optionsArray1 = [
+      { label: 'Option 1', value: 'opt1' },
+      { label: 'Option 2', value: 'opt2', selected: true },
+      { label: 'Option 3', value: 'opt3' },
+    ];
+
+    const id1 = 'radioButtons1';
+    const name1 = 'radiobuttons1';
+    const label1 = 'Radio Buttons - preselected';
+    const required = true;
+
     const { formDataSuccess, formDataError } = this.state;
     return (
       <main role="main">
@@ -408,17 +420,12 @@ class Update extends Component {
               }
             />
 
-            {/* Broken-out from the inputfield array to position it here */}
-            <InputField
-              ref={this.setRef}
-              key="giftaid"
-              id="giftaid"
-              type="checkbox"
-              name="confirm"
-              label="Yes, I would like Comic Relief to claim Gift Aid on my donation *"
-              required="false"
-              emptyFieldErrorText="To Gift Aid your donation you need to tick the checkbox"
-              additionalText="* By ticking I state I am a UK taxpayer making a personal donation and understand that if I pay less Income Tax and/or Capital Gains Tax than the amount of Gift Aid claimed on all my donations, it is my responsibility to pay any difference. <a href='https://www.comicrelief.com/frequently-asked-questions' class='link inline' target='_blank'>Find out more</a>"
+            <RadioButtons
+              id={id1}
+              name={name1}
+              label={label1}
+              required={required}
+              options={optionsArray1}
             />
 
             <button
