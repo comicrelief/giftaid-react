@@ -82,6 +82,10 @@ class Update extends Component {
           message: '',
         },
       },
+      giftAidOptions: [
+        { label: 'Yes', value: 'opt1' },
+        { label: 'Option 2', value: 'opt2' },
+      ],
     };
     // Put the field refs from children into an array
     const refs = [];
@@ -380,17 +384,6 @@ class Update extends Component {
 
 
   render() {
-    const optionsArray1 = [
-      { label: 'Option 1', value: 'opt1' },
-      { label: 'Option 2', value: 'opt2', selected: true },
-      { label: 'Option 3', value: 'opt3' },
-    ];
-
-    const id1 = 'radioButtons1';
-    const name1 = 'radiobuttons1';
-    const label1 = 'Radio Buttons - preselected';
-    const required = true;
-
     const { formDataSuccess, formDataError } = this.state;
     return (
       <main role="main">
@@ -420,12 +413,16 @@ class Update extends Component {
               }
             />
 
+            <h3 className="form--update__title text-align-centre">
+              Your Gift Aid declaration
+            </h3>
+
             <RadioButtons
-              id={id1}
-              name={name1}
-              label={label1}
-              required={required}
-              options={optionsArray1}
+              id="radioButtons1"
+              name="radioButtons1"
+              label="Can we claim Gift Aid on your donation?"
+              required
+              options={this.state.giftAidOptions}
             />
 
             <button
