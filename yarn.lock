@@ -20,7 +20,7 @@
 
 "@comicrelief/storybook@git://github.com/comicrelief/storybook.git#208_componentise_radio_buttons":
   version "0.0.0-see.readme.for.releases"
-  resolved "git://github.com/comicrelief/storybook.git#41fe4ba4725f237c5362a99419cbdf84ce923426"
+  resolved "git://github.com/comicrelief/storybook.git#4354aff4272aa94d258b03bca45499987e6eb2d2"
   dependencies:
     "@comicrelief/pattern-lab" "*"
     "@storybook/addon-info" "3"

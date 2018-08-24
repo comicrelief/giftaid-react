@@ -83,8 +83,14 @@ class Update extends Component {
         },
       },
       giftAidOptions: [
-        { label: 'Yes', value: 'opt1' },
-        { label: 'Option 2', value: 'opt2' },
+        {
+          label: 'Yes, I would like Comic Relief to claim Gift Aid on my donation',
+          additionalText: '* By ticking I state I am a UK taxpayer making a personal donation and understand' +
+          'that if I pay less Income Tax and/or Capital Gains Tax than the amount of Gift Aid claimed on all my ' +
+          'donations, it is my responsibility to pay any difference. [Find out more](http://www.comicrelief.com)',
+          value: 'yes',
+        },
+        { label: 'No', value: 'no' },
       ],
     };
     // Put the field refs from children into an array
@@ -369,7 +375,8 @@ class Update extends Component {
         <h2 className="sub-title">
           Edit your Giftaid declaration
         </h2>
-        <p> We can claim Gift Aid from personal donations made by UK taxpayers:
+        <p className="text-align-centre">
+          We can claim Gift Aid from personal donations made by UK taxpayers:
           the Government gives us back 25% of their value.
         </p>
         { this.props.match.params.transaction_id ?
@@ -391,30 +398,33 @@ class Update extends Component {
           <form
             id="form"
             noValidate
-            className="giftaid__form"
+            className="update-giftaid__form"
             data-success={formDataSuccess}
             data-error={formDataError}
           >
             {this.renderFormHeader()}
-
             <h3 className="form--update__title text-align-centre">
               Who is changing their declaration?
             </h3>
+            <div className="form-fields--wrapper">
 
-            { this.createInputFields() }
-            <PostcodeLookup
-              ref={this.setRef}
-              label="Postal address"
-              showErrorMessages={this.state.showErrorMessages}
-              isAddressValid={
-                (validation) => {
-                  Object.keys(validation).map(key => this.setValidity(key, validation[key]));
+
+              { this.createInputFields() }
+              <PostcodeLookup
+                ref={this.setRef}
+                label="Postal address"
+                showErrorMessages={this.state.showErrorMessages}
+                isAddressValid={
+                  (validation) => {
+                    Object.keys(validation).map(key => this.setValidity(key, validation[key]));
+                  }
                 }
-              }
-            />
+              />
+
+            </div>
 
             <h3 className="form--update__title text-align-centre">
-              Your Gift Aid declaration
+                Your Gift Aid declaration
             </h3>
 
             <RadioButtons
@@ -432,6 +442,8 @@ class Update extends Component {
             >Update Gift Aid Declaration
             </button>
             {this.renderJustInTimeMessage()}
+
+
           </form>
         </section>
       </main>
