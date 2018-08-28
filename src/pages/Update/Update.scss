@@ -3,7 +3,7 @@ $colour-scorpion-grey: #595959;
 
 .update-giftaid__form {
   @include container;
-  margin: 0 auto 90px;
+  margin: 0 auto 20px;
   padding: 30px calc(3 * 1.25%);
 
   @include breakpoint($screen-md) {
@@ -18,7 +18,6 @@ $colour-scorpion-grey: #595959;
   .btn {
     margin: 60px 0;
     width: 100%;
-    line-height: 1.3;
   }
 
   .form__field-wrapper--checkbox label{
@@ -64,6 +63,8 @@ $colour-scorpion-grey: #595959;
   /* overriding styles for the just in time */
   .form__row--just-in-time-block {
     font-family:$font-bold;
+    text-align: center;
+
     .toggle-link {
       font-family:$font-bold;
     }
@@ -91,8 +92,11 @@ $colour-scorpion-grey: #595959;
   }
 }
 
-button[type="submit"] {
+button[type="submit"].btn.btn--red {
   font-size: 16px;
+  width: auto;
+  display: block;
+  margin: 25px auto;
 
   @include breakpoint($screen-md) {
     font-size: 18px;
@@ -104,6 +108,7 @@ button[type="submit"] {
 }
 
 .form--update__title {
+  @include span(12);
   margin: 40px 0;
 }
 
@@ -112,10 +117,31 @@ button[type="submit"] {
 }
 
 .form--update__title {
-  margin: 65px 0 25px;
+  margin: 60px 0 25px;
 }
 
 .form-fields--wrapper{
   @include span(8);
   @include push(2);
 }
+
+.form__row--address-lookup .search-box .form__field--postcode {
+  #field-input--postcode,
+  .form__btn {
+    width: 100%;
+    @include breakpoint($screen-lg) {
+      width: 50%;
+    }
+  }
+  #postcode_button {
+    width: 100%;
+    line-height: 1.4;
+  }
+}
+
+#field-wrapper--addressSelect {
+  .form__field--wrapper a.link {
+    background: red;
+  }
+}
+

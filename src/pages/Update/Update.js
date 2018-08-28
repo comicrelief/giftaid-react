@@ -373,7 +373,7 @@ class Update extends Component {
           </span>
         </h1>
         <h2 className="sub-title">
-          Edit your Giftaid declaration
+          Edit your Gift Aid declaration
         </h2>
         <p className="text-align-centre">
           We can claim Gift Aid from personal donations made by UK taxpayers:
