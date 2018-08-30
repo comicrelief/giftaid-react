@@ -5,10 +5,13 @@ $image-path: "/images/";
 @import "~@comicrelief/pattern-lab/sass/base/variables/colours";
 @import "~@comicrelief/pattern-lab/sass/base/variables/lists";
 @import "~@comicrelief/pattern-lab/sass/base/variables/typography";
+@import "~@comicrelief/pattern-lab/sass/themes/donate/donate-cr/variables/_colours";
+
 
 /* Pattern Lab Comic Relief theme variables */
 @import "~@comicrelief/pattern-lab/sass/themes/cr/2017/variables/typography";
 @import "~@comicrelief/pattern-lab/sass/themes/cr/2017/variables/colours";
+@import "~@comicrelief/pattern-lab/sass/themes/cr/2017/variables/mixins";
 @import "~@comicrelief/pattern-lab/sass/themes/cr/2017/variables/mixins";
 @import "~@comicrelief/pattern-lab/sass/base/components/links/links";
 
@@ -36,4 +39,4 @@ $image-path: "/images/";
 @import "/components/PromoHeader/PromoHeader.scss";
 @import "/pages/Success/Success.scss";
 @import "/pages/Sorry/Sorry.scss";
-@import "/pages/Update/Update.scss";
+@import "/pages/UpdateForm/UpdateForm.scss";

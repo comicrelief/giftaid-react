@@ -11,7 +11,7 @@ import Footer from '@comicrelief/storybook/src/components/Footer/Footer';
 import ScrollToTop from './ScrollToTop/ScrollToTop';
 import Success from '../../pages/Success/Success';
 import Sorry from '../../pages/Sorry/Sorry';
-import Update from '../../pages/Update/Update';
+import Update from '../../pages/UpdateForm/UpdateForm';
 import Header from '../Header/Header';
 import GiftAidForm from '../../pages/GiftAidForm/GiftAidForm';
 

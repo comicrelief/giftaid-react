@@ -121,8 +121,17 @@ button[type="submit"].btn.btn--red {
 }
 
 .form-fields--wrapper{
-  @include span(8);
-  @include push(2);
+  @include span(12);
+
+  @include breakpoint($screen-md) {
+    @include span(10);
+    @include push(1);
+  }
+
+  @include breakpoint($screen-lg) {
+    @include span(8);
+    @include push(2);
+  }
 }
 
 .form__row--address-lookup .search-box .form__field--postcode {
@@ -136,6 +145,9 @@ button[type="submit"].btn.btn--red {
   #postcode_button {
     width: 100%;
     line-height: 1.4;
+    // Ensure the small button can still align the copy properly
+    padding-left:0;
+    padding-right:0;
   }
 }
 

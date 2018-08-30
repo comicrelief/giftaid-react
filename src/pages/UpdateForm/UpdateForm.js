@@ -10,7 +10,7 @@ import defaultInputFieldsData from './defaultUpdateFields.json';
 const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
 let scrollTimeout;
 /**
- * GiftAidForm class
+ * UpdateForm class
  * Returns elements on this form with default properties.
  * Input field properties can be overridden by passing in a inputFieldOverrides object with the
  * same structure as the defaultInputFieldProps object, e.g.:
@@ -20,7 +20,7 @@ let scrollTimeout;
  *   },
  * }
  */
-class Update extends Component {
+class UpdateForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -392,6 +392,7 @@ class Update extends Component {
 
   render() {
     const { formDataSuccess, formDataError } = this.state;
+    const required = true;
     return (
       <main role="main">
         <section>
@@ -431,8 +432,9 @@ class Update extends Component {
               id="radioButtons1"
               name="radioButtons1"
               label="Can we claim Gift Aid on your donation?"
-              required
+              required={required}
               options={this.state.giftAidOptions}
+              showErrorMessage={required}
             />
 
             <button
@@ -451,16 +453,16 @@ class Update extends Component {
   }
 }
 
-Update.defaultProps = {
+UpdateForm.defaultProps = {
   inputFieldOverrides: {},
   history: { push: { } },
 };
 
-Update.propTypes = {
+UpdateForm.propTypes = {
   inputFieldOverrides: propTypes.shape(propTypes.shape),
   history: propTypes.shape({
     push: propTypes.func,
   }),
 };
 
-export default Update;
+export default UpdateForm;
