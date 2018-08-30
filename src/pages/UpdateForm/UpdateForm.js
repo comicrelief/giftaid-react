@@ -82,15 +82,18 @@ class UpdateForm extends Component {
           message: '',
         },
       },
-      giftAidOptions: [
+      radioButtonOptions: [
         {
           label: 'Yes, I would like Comic Relief to claim Gift Aid on my donation',
-          additionalText: '* By ticking I state I am a UK taxpayer making a personal donation and understand' +
+          additionalText: '``* By ticking I state I am a UK taxpayer making a personal donation and understand' +
           'that if I pay less Income Tax and/or Capital Gains Tax than the amount of Gift Aid claimed on all my ' +
           'donations, it is my responsibility to pay any difference. [Find out more](http://www.comicrelief.com)',
           value: 'yes',
         },
-        { label: 'No', value: 'no' },
+        {
+          label: 'No',
+          value: 'no',
+        },
       ],
     };
     // Put the field refs from children into an array
@@ -100,11 +103,14 @@ class UpdateForm extends Component {
         // fields from postcode lookup
         if (element.fieldRefs) {
           element.fieldRefs.forEach(item => refs.push(item));
-        } else {
+        } else if (element.inputRef) {
           // remaining input fields
           refs.push(element.inputRef);
+        } else {
+          refs.push(element.radioButtonRef);
         }
         this.fieldRefs = refs;
+        // console.log('this.fieldRefs', this.fieldRefs);
       }
     };
   }
@@ -122,6 +128,7 @@ class UpdateForm extends Component {
    * Deals with component update after pressing submit button
    */
   componentDidUpdate() {
+    console.log('* component did update');
     if (this.state.showErrorMessages === true && this.state.formValidity === false) {
       // timeout needed for error class names to appear
       scrollTimeout = setTimeout(() => { this.scrollToError(); }, 500);
@@ -180,6 +187,7 @@ class UpdateForm extends Component {
    * @param valid
    */
   setValidity(name, valid) {
+    console.log('setValidity');
     if (name && valid) {
       this.setState((prevState) => {
         let newState;
@@ -235,7 +243,7 @@ class UpdateForm extends Component {
    */
   createInputFields() {
     const inputFields = [];
-    console.log('this.state.inputFieldProps', this.state.inputFieldProps);
+    // console.log('this.state.inputFieldProps', this.state.inputFieldProps);
     Object.entries(this.state.inputFieldProps).map(([field, props]) => inputFields.push(<InputField
       ref={this.setRef}
       key={field}
@@ -323,6 +331,8 @@ class UpdateForm extends Component {
    * @param e
    */
   validateForm(e) {
+    // here
+    console.log('validateForm');
     e.preventDefault();
     // Put field validation into new array to check for invalid fields
     const fields = [];
@@ -409,8 +419,8 @@ class UpdateForm extends Component {
             </h3>
             <div className="form-fields--wrapper">
 
-
               { this.createInputFields() }
+
               <PostcodeLookup
                 ref={this.setRef}
                 label="Postal address"
@@ -433,8 +443,10 @@ class UpdateForm extends Component {
               name="radioButtons1"
               label="Can we claim Gift Aid on your donation?"
               required={required}
-              options={this.state.giftAidOptions}
+              options={this.state.radioButtonOptions}
               showErrorMessage={required}
+              ref={this.setRef}
+              isValid={(state, name, value) => { this.setValidity(state, name, value); }}
             />
 
             <button
