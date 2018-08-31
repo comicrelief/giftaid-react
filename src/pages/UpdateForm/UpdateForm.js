@@ -31,11 +31,6 @@ class UpdateForm extends Component {
       formDataError: null,
       formDataSuccess: null,
       validation: {
-        confirm: {
-          valid: false,
-          value: undefined,
-          message: '',
-        },
         firstname: {
           valid: false,
           value: undefined,
@@ -81,18 +76,23 @@ class UpdateForm extends Component {
           value: undefined,
           message: '',
         },
+        giftAidClaimChoice: {
+          valid: false,
+          value: undefined,
+          message: '',
+        },
       },
       radioButtonOptions: [
         {
           label: 'Yes, I would like Comic Relief to claim Gift Aid on my donation',
-          additionalText: '``* By ticking I state I am a UK taxpayer making a personal donation and understand' +
+          additionalText: '&#42; By ticking I state I am a UK taxpayer making a personal donation and understand' +
           'that if I pay less Income Tax and/or Capital Gains Tax than the amount of Gift Aid claimed on all my ' +
           'donations, it is my responsibility to pay any difference. [Find out more](http://www.comicrelief.com)',
-          value: 'yes',
+          value: 1,
         },
         {
           label: 'No',
-          value: 'no',
+          value: 0,
         },
       ],
     };
@@ -128,7 +128,7 @@ class UpdateForm extends Component {
    * Deals with component update after pressing submit button
    */
   componentDidUpdate() {
-    console.log('* component did update');
+    // console.log('* component did update');
     if (this.state.showErrorMessages === true && this.state.formValidity === false) {
       // timeout needed for error class names to appear
       scrollTimeout = setTimeout(() => { this.scrollToError(); }, 500);
@@ -186,19 +186,22 @@ class UpdateForm extends Component {
    * @param name
    * @param valid
    */
-  setValidity(name, valid) {
-    console.log('setValidity');
-    if (name && valid) {
+  setValidity(childState, name) {
+    if (name && childState) {
       this.setState((prevState) => {
         let newState;
+        // If we already have saved validation object for this field
         if (prevState.validation[name] !== undefined &&
+          // AND that object is empty OR the saved value isnt the same as our new childstate value
           (prevState.validation[name].value === undefined ||
-            prevState.validation[name].value !== valid.value)) {
+            prevState.validation[name].value !== childState.value)) {
+          // .. then create a new state object, copying the current state, adding the
+          // current validation state plus the new value
           newState = {
             ...this.state,
             validation: {
               ...this.state.validation,
-              [name]: valid,
+              [name]: childState,
             },
           };
         }
@@ -263,7 +266,7 @@ class UpdateForm extends Component {
       setBackgroundColor={props.type === 'checkbox'}
       additionalText={props.additionalText}
       showErrorMessage={this.state.showErrorMessages}
-      isValid={(valid, name) => { this.setValidity(name, valid); }}
+      isValid={(valid, name) => { this.setValidity(valid, name); }}
     />));
     return inputFields;
   }
@@ -331,23 +334,34 @@ class UpdateForm extends Component {
    * @param e
    */
   validateForm(e) {
-    // here
-    console.log('validateForm');
     e.preventDefault();
     // Put field validation into new array to check for invalid fields
-    const fields = [];
-    Object.keys(this.state.validation).map(key =>
-      fields.push(this.state.validation[key].valid));
-    // values can be null or empty strings so check for not true
-    const invalidFields = fields.some(element => element !== true);
-    // update state accordingly
-    if (invalidFields === false) {
+    const allFieldsToCheck = [];
+    const testObj = {};
+
+    Object.keys(this.state.validation).forEach((key) => {
+      console.log();
+      allFieldsToCheck.push(this.state.validation[key].valid);
+      testObj[key + '_is_valid'] = this.state.validation[key].valid;
+    });
+
+    console.log('allFieldsToCheck', allFieldsToCheck);
+    console.log('testObj', testObj);
+
+    // Values can be 'null' or empty strings, so check if our array contains a 'not true' value
+    const anyInvalidFields = allFieldsToCheck.some(element => element !== true);
+    console.log('anyInvalidFields', anyInvalidFields);
+
+    // Update state accordingly
+    if (anyInvalidFields === false) {
       this.setState({
         ...this.state,
         formValidity: true,
+        showErrorMessages: false,
       });
     }
-    if (invalidFields === true) {
+
+    if (anyInvalidFields === true) {
       this.setState({
         ...this.state,
         formValidity: false,
@@ -427,7 +441,7 @@ class UpdateForm extends Component {
                 showErrorMessages={this.state.showErrorMessages}
                 isAddressValid={
                   (validation) => {
-                    Object.keys(validation).map(key => this.setValidity(key, validation[key]));
+                    Object.keys(validation).map(key => this.setValidity(validation[key], key));
                   }
                 }
               />
@@ -439,14 +453,14 @@ class UpdateForm extends Component {
             </h3>
 
             <RadioButtons
-              id="radioButtons1"
-              name="radioButtons1"
+              id="giftAidClaimChoice"
+              name="giftAidClaimChoice"
               label="Can we claim Gift Aid on your donation?"
               required={required}
               options={this.state.radioButtonOptions}
-              showErrorMessage={required}
+              showErrorMessage={this.state.showErrorMessages}
               ref={this.setRef}
-              isValid={(state, name, value) => { this.setValidity(state, name, value); }}
+              isValid={(state, id) => { this.setValidity(state, id); }}
             />
 
             <button
