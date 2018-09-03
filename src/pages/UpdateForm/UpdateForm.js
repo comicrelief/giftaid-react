@@ -9,6 +9,7 @@ import defaultInputFieldsData from './defaultUpdateFields.json';
 
 const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
 let scrollTimeout;
+
 /**
  * UpdateForm class
  * Returns elements on this form with default properties.
@@ -30,6 +31,7 @@ class UpdateForm extends Component {
       showErrorMessages: false,
       formDataError: null,
       formDataSuccess: null,
+      transID: this.props.match.params.transaction_id,
       validation: {
         firstname: {
           valid: false,
@@ -82,7 +84,7 @@ class UpdateForm extends Component {
           message: '',
         },
       },
-      radioButtonOptions: [
+      giftAidButtonChoices: [
         {
           label: 'Yes, I would like Comic Relief to claim Gift Aid on my donation',
           additionalText: '&#42; By ticking I state I am a UK taxpayer making a personal donation and understand' +
@@ -94,6 +96,11 @@ class UpdateForm extends Component {
           label: 'No',
           value: 0,
         },
+      ],
+      donationTypeChoices: [
+        { label: 'SMS', value: 'sms' },
+        { label: 'Online', value: 'online' },
+        { label: 'Call centre', value: 'callcentre' },
       ],
     };
     // Put the field refs from children into an array
@@ -223,6 +230,7 @@ class UpdateForm extends Component {
    */
   scrollToError() {
     let item;
+    console.log(' this.fieldRefs', this.fieldRefs);
     for (let i = 0; i <= this.fieldRefs.length; i += 1) {
       if (this.fieldRefs[i].labels !== undefined) {
         const classes = this.fieldRefs[i].labels[0].getAttribute('class');
@@ -337,20 +345,14 @@ class UpdateForm extends Component {
     e.preventDefault();
     // Put field validation into new array to check for invalid fields
     const allFieldsToCheck = [];
-    const testObj = {};
 
     Object.keys(this.state.validation).forEach((key) => {
-      console.log();
       allFieldsToCheck.push(this.state.validation[key].valid);
-      testObj[key + '_is_valid'] = this.state.validation[key].valid;
     });
-
-    console.log('allFieldsToCheck', allFieldsToCheck);
-    console.log('testObj', testObj);
 
     // Values can be 'null' or empty strings, so check if our array contains a 'not true' value
     const anyInvalidFields = allFieldsToCheck.some(element => element !== true);
-    console.log('anyInvalidFields', anyInvalidFields);
+    // console.log('anyInvalidFields', anyInvalidFields);
 
     // Update state accordingly
     if (anyInvalidFields === false) {
@@ -378,12 +380,11 @@ class UpdateForm extends Component {
     return (
       <JustInTime linkText={justInTimeLinkText}>
         <p>
-          <strong>Name, email and billing address: </strong>
-          we need it to create a receipt for your payment and send it to you.
+          <strong>Name, email and address: </strong>
+          we need this information to identify your donation
+           and update the gift aid status on your donation.
         </p>
-        <p>
-          <strong>Phone number:</strong> we collect it in case there is an issue
-          with gift aid donation.
+        <p>We will only use your phone number to match your SMS donations to your gift aid status.
         </p>
       </JustInTime>
     );
@@ -403,16 +404,15 @@ class UpdateForm extends Component {
           We can claim Gift Aid from personal donations made by UK taxpayers:
           the Government gives us back 25% of their value.
         </p>
-        { this.props.match.params.transaction_id ?
+        { this.state.transID ?
           <p className="text-align-centre transaction-id">
-            Transaction ID: {this.props.match.params.transaction_id}
+            Transaction ID: {this.state.transID}
           </p>
           :
           null }
       </div>
     );
   }
-
 
   render() {
     const { formDataSuccess, formDataError } = this.state;
@@ -428,10 +428,26 @@ class UpdateForm extends Component {
             data-error={formDataError}
           >
             {this.renderFormHeader()}
-            <h3 className="form--update__title text-align-centre">
-              Who is changing their declaration?
-            </h3>
+
             <div className="form-fields--wrapper">
+
+              <h3 className="form--update__title form--update__title--donation text-align-centre">
+              How did you make the donation?
+              </h3>
+              <RadioButtons
+                id="donationType"
+                name="donationType"
+                label="How did you make your donation?"
+                required={required}
+                options={this.state.donationTypeChoices}
+                showErrorMessage={this.state.showErrorMessages}
+                ref={this.setRef}
+                isValid={(state, id) => { this.setValidity(state, id); }}
+              />
+
+              <h3 className="form--update__title form--update__title--giftaid text-align-centre">
+              Who is changing their declaration?
+              </h3>
 
               { this.createInputFields() }
 
@@ -457,7 +473,7 @@ class UpdateForm extends Component {
               name="giftAidClaimChoice"
               label="Can we claim Gift Aid on your donation?"
               required={required}
-              options={this.state.radioButtonOptions}
+              options={this.state.giftAidButtonChoices}
               showErrorMessage={this.state.showErrorMessages}
               ref={this.setRef}
               isValid={(state, id) => { this.setValidity(state, id); }}
