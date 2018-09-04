@@ -13,13 +13,6 @@ let scrollTimeout;
 /**
  * UpdateForm class
  * Returns elements on this form with default properties.
- * Input field properties can be overridden by passing in a inputFieldOverrides object with the
- * same structure as the defaultInputFieldProps object, e.g.:
- * inputFieldOverrides = {
- *   firstName: {
- *     label: 'some text',
- *   },
- * }
  */
 class UpdateForm extends Component {
   constructor(props) {
@@ -83,6 +76,11 @@ class UpdateForm extends Component {
           value: undefined,
           message: '',
         },
+        donationType: {
+          valid: false,
+          value: undefined,
+          message: '',
+        },
       },
       giftAidButtonChoices: [
         {
@@ -117,7 +115,6 @@ class UpdateForm extends Component {
           refs.push(element.radioButtonRef);
         }
         this.fieldRefs = refs;
-        // console.log('this.fieldRefs', this.fieldRefs);
       }
     };
   }
@@ -135,7 +132,6 @@ class UpdateForm extends Component {
    * Deals with component update after pressing submit button
    */
   componentDidUpdate() {
-    // console.log('* component did update');
     if (this.state.showErrorMessages === true && this.state.formValidity === false) {
       // timeout needed for error class names to appear
       scrollTimeout = setTimeout(() => { this.scrollToError(); }, 500);
@@ -230,7 +226,6 @@ class UpdateForm extends Component {
    */
   scrollToError() {
     let item;
-    // console.log(' this.fieldRefs', this.fieldRefs);
     for (let i = 0; i <= this.fieldRefs.length; i += 1) {
       if (this.fieldRefs[i].labels !== undefined) {
         const classes = this.fieldRefs[i].labels[0].getAttribute('class');
@@ -254,7 +249,6 @@ class UpdateForm extends Component {
    */
   createInputFields() {
     const inputFields = [];
-    // console.log('this.state.inputFieldProps', this.state.inputFieldProps);
     Object.entries(this.state.inputFieldProps).map(([field, props]) => inputFields.push(<InputField
       ref={this.setRef}
       key={field}
@@ -320,8 +314,6 @@ class UpdateForm extends Component {
     // Combine all form data and settings
     const formValues = Object.assign({}, fieldValues, settings);
 
-    console.log('formValues', formValues);
-
     // post form data and settings to endpoint
     axios.post(ENDPOINT_URL, formValues)
       .then(() => {
@@ -358,7 +350,6 @@ class UpdateForm extends Component {
 
     // Values can be 'null' or empty strings, so check if our array contains a 'not true' value
     const anyInvalidFields = allFieldsToCheck.some(element => element !== true);
-    // console.log('anyInvalidFields', anyInvalidFields);
 
     // Update state accordingly
     if (anyInvalidFields === false) {
@@ -465,7 +456,6 @@ class UpdateForm extends Component {
   }
 
   render() {
-    const { formDataSuccess, formDataError } = this.state;
     return (
       <main role="main">
         <section>
@@ -473,8 +463,6 @@ class UpdateForm extends Component {
             id="form"
             noValidate
             className="update-giftaid__form"
-            data-success={formDataSuccess}
-            data-error={formDataError}
           >
             {this.renderFormHeader()}
 
