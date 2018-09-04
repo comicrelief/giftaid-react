@@ -230,7 +230,7 @@ class UpdateForm extends Component {
    */
   scrollToError() {
     let item;
-    console.log(' this.fieldRefs', this.fieldRefs);
+    // console.log(' this.fieldRefs', this.fieldRefs);
     for (let i = 0; i <= this.fieldRefs.length; i += 1) {
       if (this.fieldRefs[i].labels !== undefined) {
         const classes = this.fieldRefs[i].labels[0].getAttribute('class');
@@ -320,16 +320,22 @@ class UpdateForm extends Component {
     // Combine all form data and settings
     const formValues = Object.assign({}, fieldValues, settings);
 
+    console.log('formValues', formValues);
+
     // post form data and settings to endpoint
     axios.post(ENDPOINT_URL, formValues)
       .then(() => {
         this.props.history.push({
-          pathname: '/success',
-          state: { firstname: formValues.firstname },
+          pathname: '/update/success',
+          state: {
+            firstname: formValues.firstname,
+            giftAidChoice: formValues.giftAidClaimChoice,
+          },
         });
       })
       .catch(() => {
         this.props.history.push({
+          // TODO: do we need a Update-specific Sorry page?
           pathname: '/sorry',
         });
       });
@@ -504,7 +510,6 @@ class UpdateForm extends Component {
             >Update Gift Aid Declaration
             </button>
             {this.renderJustInTimeMessage()}
-
 
           </form>
         </section>
