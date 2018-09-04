@@ -12,7 +12,8 @@ class Success extends Component {
     // HARDCODED DEBUG VALUES!
     const hasState = true;
     const firstName = 'Andy';
-    const giftAidChoice = 1;
+    let giftAidChoice = 0;
+    giftAidChoice = 1;
 
     return (
       <div>
@@ -36,7 +37,6 @@ class Success extends Component {
                 </p>
               </div>
               : null }
-
 
             <h2>Your donation makes a big difference</h2>
             <p>
