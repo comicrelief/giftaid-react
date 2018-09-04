@@ -414,9 +414,52 @@ class UpdateForm extends Component {
     );
   }
 
+  renderDonationTypeButtons() {
+    if (this.state.transID) {
+      return (
+        <div>
+          <h3 className="form--update__title form--update__title--donation text-align-centre">
+            How did you make the donation?
+          </h3>
+
+          <RadioButtons
+            id="donationType"
+            name="donationType"
+            label="How did you make your donation?"
+            required
+            options={this.state.donationTypeChoices}
+            showErrorMessage={this.state.showErrorMessages}
+            ref={this.setRef}
+            isValid={(state, id) => { this.setValidity(state, id); }}
+          />
+        </div>
+      );
+    } return null;
+  }
+
+  renderGiftAidClaimChoiceButtons() {
+    return (
+      <div>
+        <h3 className="form--update__title text-align-centre">
+            Your Gift Aid declaration
+        </h3>
+
+        <RadioButtons
+          id="giftAidClaimChoice"
+          name="giftAidClaimChoice"
+          label="Can we claim Gift Aid on your donation?"
+          required
+          options={this.state.giftAidButtonChoices}
+          showErrorMessage={this.state.showErrorMessages}
+          ref={this.setRef}
+          isValid={(state, id) => { this.setValidity(state, id); }}
+        />
+      </div>
+    );
+  }
+
   render() {
     const { formDataSuccess, formDataError } = this.state;
-    const required = true;
     return (
       <main role="main">
         <section>
@@ -431,19 +474,7 @@ class UpdateForm extends Component {
 
             <div className="form-fields--wrapper">
 
-              <h3 className="form--update__title form--update__title--donation text-align-centre">
-              How did you make the donation?
-              </h3>
-              <RadioButtons
-                id="donationType"
-                name="donationType"
-                label="How did you make your donation?"
-                required={required}
-                options={this.state.donationTypeChoices}
-                showErrorMessage={this.state.showErrorMessages}
-                ref={this.setRef}
-                isValid={(state, id) => { this.setValidity(state, id); }}
-              />
+              {this.renderDonationTypeButtons()}
 
               <h3 className="form--update__title form--update__title--giftaid text-align-centre">
               Who is changing their declaration?
@@ -464,20 +495,7 @@ class UpdateForm extends Component {
 
             </div>
 
-            <h3 className="form--update__title text-align-centre">
-                Your Gift Aid declaration
-            </h3>
-
-            <RadioButtons
-              id="giftAidClaimChoice"
-              name="giftAidClaimChoice"
-              label="Can we claim Gift Aid on your donation?"
-              required={required}
-              options={this.state.giftAidButtonChoices}
-              showErrorMessage={this.state.showErrorMessages}
-              ref={this.setRef}
-              isValid={(state, id) => { this.setValidity(state, id); }}
-            />
+            { this.renderGiftAidClaimChoiceButtons() }
 
             <button
               type="submit"

@@ -20,10 +20,6 @@ $colour-scorpion-grey: #595959;
     width: 100%;
   }
 
-  .form__field-wrapper--checkbox label{
-    font-weight: 700;
-  }
-
   .sub-title {
     margin-bottom:25px;
     text-align: center;
@@ -163,4 +159,8 @@ button[type="submit"].btn.btn--red {
 
 .form--update__title--donation {
   margin-bottom: 0;
+}
+
+.form__radio--inline .form__field-label {
+  padding-top: 4px;
 }
