@@ -1,4 +1,11 @@
 {
+  "transactionId": {
+    "id": "transactionid",
+    "type": "number",
+    "name": "transactionid",
+    "label": "Transaction ID",
+    "required": true
+  },
   "firstName": {
     "id": "firstname",
     "type": "text",

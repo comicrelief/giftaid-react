@@ -248,8 +248,15 @@ class UpdateForm extends Component {
    * @returns {Array}
    */
   createInputFields() {
+    const allFields = this.state.inputFieldProps;
+
+    // Remove the transaction id field if not value is present in the url
+    if (this.state.transID !== undefined && allFields.transactionId !== undefined) {
+      delete allFields.transactionId;
+    }
+
     const inputFields = [];
-    Object.entries(this.state.inputFieldProps).map(([field, props]) => inputFields.push(<InputField
+    Object.entries(allFields).map(([field, props]) => inputFields.push(<InputField
       ref={this.setRef}
       key={field}
       id={props.id}
