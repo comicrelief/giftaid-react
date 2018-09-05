@@ -4,7 +4,8 @@
     "type": "number",
     "name": "transactionid",
     "label": "Transaction ID",
-    "required": true
+    "required": true,
+    "min": 1
   },
   "firstName": {
     "id": "firstname",
