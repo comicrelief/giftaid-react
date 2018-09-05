@@ -18,7 +18,6 @@ class UpdateForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      inputFieldProps: [],
       firstUpdate: false,
       formValidity: false,
       showErrorMessages: false,
@@ -117,15 +116,6 @@ class UpdateForm extends Component {
         this.fieldRefs = refs;
       }
     };
-  }
-
-  /**
-   * Merges any overrides to the default input field data json with it
-   */
-  componentWillMount() {
-    this.setState({
-      inputFieldProps: defaultInputFieldsData,
-    });
   }
 
   /**
@@ -259,7 +249,7 @@ class UpdateForm extends Component {
    * @returns {Array}
    */
   createInputFields() {
-    const allFields = this.state.inputFieldProps;
+    const allFields = defaultInputFieldsData;
 
     // Remove the transaction id field if not value is present in the url
     if (this.state.transID !== undefined && allFields.transactionId !== undefined) {
