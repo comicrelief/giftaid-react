@@ -87,4 +87,10 @@ describe('e2e test', () => {
         cy.get('button[type=submit]').click().url('/success')
         cy.contains(`Thank you, ${fname}!`)
     })
+
+    // Update journey tests
+    it('Verify title and header', () => {
+        cy.visit('/update/')
+        cy.get('.update-giftaid__form .sub-title').should('contain', 'Edit your Gift Aid declaration')
+    })
 })

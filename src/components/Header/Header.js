@@ -6,7 +6,7 @@ const Header = () => (
     <header role="banner">
       <div className="header__inner-wrapper">
         <a href="https://www.comicrelief.com" className="logo cr-logo" title="Comic Relief">
-          <img src={logo} alt="Go to Comic Relief" />
+          <img src={logo} alt="Go to Comic Relief" width="60" />
         </a>
       </div>
     </header>
