@@ -124,7 +124,7 @@ class UpdateForm extends Component {
    */
   componentWillMount() {
     this.setState({
-      inputFieldProps: this.mergeInputFieldProps(defaultInputFieldsData),
+      inputFieldProps: defaultInputFieldsData,
     });
   }
 
@@ -227,14 +227,27 @@ class UpdateForm extends Component {
   scrollToError() {
     let item;
     for (let i = 0; i <= this.fieldRefs.length; i += 1) {
-      if (this.fieldRefs[i].labels !== undefined) {
+
+      item = this.fieldRefs[i];
+
+      // Customise this function for Radiobutton's markup
+      if (this.fieldRefs[i].nodeName === 'FIELDSET') {
+        // Gets the error div always added at the end
+        let lastChildErr = this.fieldRefs[i].children.length - 1;
+        lastChildErr = this.fieldRefs[i].children[lastChildErr].className.includes('error');
+        if (lastChildErr) {
+          item.scrollIntoView('smooth');
+          item.focus();
+          break;
+        }
+      } else if (this.fieldRefs[i].labels !== undefined) {
         const classes = this.fieldRefs[i].labels[0].getAttribute('class');
         if (classes.includes('error')) {
-          item = this.fieldRefs[i];
           item.labels[0].scrollIntoView('smooth');
           item.focus();
           break;
         }
+
       } else {
         document.querySelector('form').scrollIntoView();
         break;
@@ -280,18 +293,6 @@ class UpdateForm extends Component {
     return inputFields;
   }
 
-  /**
-   * Merge default input field properties with overrides.
-   * @returns {object}
-   */
-  mergeInputFieldProps(defaultInputFieldsProps) {
-    const inputFields = defaultInputFieldsProps;
-    const overrides = this.props.inputFieldOverrides;
-    Object.entries(overrides).forEach(([key]) => {
-      Object.assign(inputFields[key], overrides[key]);
-    });
-    return inputFields;
-  }
   /**
    * Creates formValues object and submits form
    */
@@ -386,7 +387,7 @@ class UpdateForm extends Component {
         <p>
           <strong>Name, email and address: </strong>
           we need this information to identify your donation
-           and update the gift aid status on your donation.
+          and update the gift aid status on your donation.
         </p>
         <p>We will only use your phone number to match your SMS donations to your gift aid status.
         </p>
@@ -445,7 +446,7 @@ class UpdateForm extends Component {
     return (
       <div>
         <h3 className="form--update__title text-align-centre">
-            Your Gift Aid declaration
+          Your Gift Aid declaration
         </h3>
 
         <RadioButtons
@@ -478,7 +479,7 @@ class UpdateForm extends Component {
               {this.renderDonationTypeButtons()}
 
               <h3 className="form--update__title form--update__title--giftaid text-align-centre">
-              Who is changing their declaration?
+                Who is changing their declaration?
               </h3>
 
               { this.createInputFields() }
@@ -514,12 +515,10 @@ class UpdateForm extends Component {
 }
 
 UpdateForm.defaultProps = {
-  inputFieldOverrides: {},
   history: { push: { } },
 };
 
 UpdateForm.propTypes = {
-  inputFieldOverrides: propTypes.shape(propTypes.shape),
   history: propTypes.shape({
     push: propTypes.func,
   }),
