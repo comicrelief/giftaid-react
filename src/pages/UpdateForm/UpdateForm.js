@@ -227,7 +227,6 @@ class UpdateForm extends Component {
   scrollToError() {
     let item;
     for (let i = 0; i <= this.fieldRefs.length; i += 1) {
-
       item = this.fieldRefs[i];
 
       // Customise this function for Radiobutton's markup
@@ -247,7 +246,6 @@ class UpdateForm extends Component {
           item.focus();
           break;
         }
-
       } else {
         document.querySelector('form').scrollIntoView();
         break;
