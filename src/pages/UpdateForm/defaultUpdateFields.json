@@ -1,11 +1,10 @@
 {
   "transactionId": {
     "id": "transactionid",
-    "type": "number",
+    "type": "text",
     "name": "transactionid",
     "label": "Transaction ID",
-    "required": true,
-    "min": 1
+    "required": true
   },
   "firstName": {
     "id": "firstname",
