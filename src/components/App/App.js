@@ -15,6 +15,7 @@ import Update from '../../pages/UpdateForm/UpdateForm';
 import Header from '../Header/Header';
 import GiftAidForm from '../../pages/GiftAidForm/GiftAidForm';
 import UpdateSuccess from '../../pages/UpdateSuccess/UpdateSuccess';
+import UpdateSorry from '../../pages/UpdateSorry/UpdateSorry';
 
 class App extends Component {
   constructor() {
@@ -65,6 +66,8 @@ class App extends Component {
               <Route path="/sorry" component={Sorry} />
 
               <Route path="/update/success" component={UpdateSuccess} />
+              <Route path="/update/sorry" component={UpdateSorry} />
+
               <Route path="/update/:transaction_id" component={Update} />
               <Route path="/update" component={Update} />
 
