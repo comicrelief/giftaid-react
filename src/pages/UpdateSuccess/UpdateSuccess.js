@@ -6,10 +6,9 @@ class Success extends Component {
   render() {
     const hasState = this.props.location.state;
     const firstName = this.props.location.state.firstname;
+
     // Because we know this is a 0/1 or boolean value, cast it
     const giftAidChoice = parseInt(this.props.location.state.giftAidChoice, 10);
-
-    console.log('giftaid choice', typeof giftAidChoice);
 
     return (
       <div>
