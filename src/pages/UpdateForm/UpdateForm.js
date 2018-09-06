@@ -228,8 +228,7 @@ class UpdateForm extends Component {
   }
 
   /**
-   * Goes through field refs, gets the first erroring field and focuses on it.
-   * If inputelement.labels is not supported: scrolls form into view
+   * Goes through field refs, gets the first erroring field and focuses on it
    */
   scrollToError() {
     let item;
@@ -237,7 +236,7 @@ class UpdateForm extends Component {
       item = this.fieldRefs[i];
 
       // Customise this function for Radiobutton's markup
-      if (this.fieldRefs[i].nodeName === 'FIELDSET' && this.fieldRefs[i].labels !== undefined) {
+      if (this.fieldRefs[i].nodeName === 'FIELDSET') {
         // Gets the error div always added at the end
         let lastChildErr = this.fieldRefs[i].children.length - 1;
         lastChildErr = this.fieldRefs[i].children[lastChildErr].className.includes('error');
