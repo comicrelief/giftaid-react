@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
-// import propTypes from 'prop-types';
 import PromoHeader from '../../components/PromoHeader/PromoHeader';
 import Cards from '../../components/Cards/Cards';
 
 class Success extends Component {
   render() {
-    /*    const hasState = this.props.location.state;
+    const hasState = this.props.location.state;
     const firstName = this.props.location.state.firstname;
-    const giftAidChoice = this.props.location.state.giftAidChoice; */
+    // Because we know this is a 0/1 or boolean value, cast it
+    const giftAidChoice = parseInt(this.props.location.state.giftAidChoice, 10);
 
-    // HARDCODED DEBUG VALUES!
-    const hasState = true;
-    const firstName = 'Andy';
-    let giftAidChoice = 0;
-    giftAidChoice = 1;
+    console.log('giftaid choice', typeof giftAidChoice);
 
     return (
       <div>
@@ -51,15 +47,5 @@ class Success extends Component {
     );
   }
 }
-
-/* Success.defaultProps = {
-  history: { push: { } },
-};
-
-Success.propTypes = {
-  history: propTypes.shape({
-    push: propTypes.func,
-  }),
-}; */
 
 export default Success;

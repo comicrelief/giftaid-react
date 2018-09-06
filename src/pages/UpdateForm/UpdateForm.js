@@ -80,7 +80,7 @@ class UpdateForm extends Component {
           value: undefined,
           message: '',
         },
-        transactionId: {
+        transactionid: {
           valid: false,
           value: undefined,
           message: '',
@@ -127,12 +127,9 @@ class UpdateForm extends Component {
    */
   componentWillMount() {
     // If we've a transID in the url, remove valid obj for the transID input that won't be rendered
-    if (this.state.urlTransID !== undefined) {
-      delete this.state.validation.transactionId;
-    } else {
-      // Else, do the same for the
-      delete this.state.validation.donationType;
-    }
+    if (this.state.urlTransID !== undefined) delete this.state.validation.transactionId;
+    // Else, do the same for the donation type radiobuttons
+    else delete this.state.validation.donationType;
   }
 
   /**
@@ -228,7 +225,8 @@ class UpdateForm extends Component {
   }
 
   /**
-   * Goes through field refs, gets the first erroring field and focuses on it
+   * Goes through field refs, gets the first erroring field and focuses on it.
+   * If inputelement.labels is not supported: scrolls form into view
    */
   scrollToError() {
     let item;
@@ -236,7 +234,7 @@ class UpdateForm extends Component {
       item = this.fieldRefs[i];
 
       // Customise this function for Radiobutton's markup
-      if (this.fieldRefs[i].nodeName === 'FIELDSET') {
+      if (this.fieldRefs[i].nodeName === 'FIELDSET' && this.fieldRefs[i].labels !== undefined) {
         // Gets the error div always added at the end
         let lastChildErr = this.fieldRefs[i].children.length - 1;
         lastChildErr = this.fieldRefs[i].children[lastChildErr].className.includes('error');
@@ -325,7 +323,6 @@ class UpdateForm extends Component {
 
     // Combine all form data and settings
     const formValues = Object.assign({}, fieldValues, settings);
-    console.log('formValues', formValues);
 
     // post form data and settings to endpoint
     /*    axios.post(ENDPOINT_URL, formValues)
