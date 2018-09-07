@@ -324,6 +324,7 @@ class UpdateForm extends Component {
     // Combine all form data and settings
     const formValues = Object.assign({}, fieldValues, settings);
 
+
     // post form data and settings to endpoint
     /*    axios.post(ENDPOINT_URL, formValues)
       .then(() => { */
@@ -356,7 +357,6 @@ class UpdateForm extends Component {
 
     Object.keys(this.state.validation).forEach((key) => {
       allFieldsToCheck.push(this.state.validation[key].valid);
-      console.log('validation:', key, this.state.validation[key].valid);
     });
 
     // Values can be 'null' or empty strings, so check if our array contains a 'not true' value
@@ -364,7 +364,6 @@ class UpdateForm extends Component {
 
     // Update state accordingly
     if (anyInvalidFields === false) {
-      console.log('form valid!');
       this.setState({
         ...this.state,
         formValidity: true,
@@ -373,7 +372,6 @@ class UpdateForm extends Component {
     }
 
     if (anyInvalidFields === true) {
-      console.log('form invalid');
       this.setState({
         ...this.state,
         formValidity: false,
