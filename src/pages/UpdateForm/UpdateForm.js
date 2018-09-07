@@ -7,7 +7,7 @@ import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup
 import RadioButtons from '@comicrelief/storybook/src/components/RadioButtons/RadioButtons';
 import defaultInputFieldsData from './defaultUpdateFields.json';
 
-// const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
+// const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL + 'update' ;
 let scrollTimeout;
 
 /**
@@ -302,13 +302,6 @@ class UpdateForm extends Component {
     const url = this.getCurrentUrl();
     const campaign = this.getCampaign(url);
     // required settings to post to api endpoint
-    const settings = {
-      campaign,
-      transSource: `${campaign}_GiftAid`,
-      transSourceUrl: url,
-      transType: 'GiftAid',
-      timestamp: this.getTimestamp(),
-    };
 
     // create field values
     const fieldValues = {};
@@ -321,9 +314,37 @@ class UpdateForm extends Component {
       fieldValues[key] = value;
     });
 
-    // Combine all form data and settings
-    const formValues = Object.assign({}, fieldValues, settings);
+    console.log('state', this.state.validation);
 
+    const formValues = {
+      donationID: this.state.validation.transactionid.value,
+      firstname: this.state.validation.firstname.value,
+      lastname: this.state.validation.lastname.value,
+      email: this.state.validation.emailaddress.value,
+
+      // TODO: is this required? DO we need a new field?
+      // mobile: this.state.validation.lastname.value,
+      address1: this.state.validation.address1.value,
+      address2: this.state.validation.address2.value,
+      address3: this.state.validation.address3.value,
+      town: this.state.validation.town.value,
+      postcode: this.state.validation.postcode.value,
+      country: this.state.validation.country.value,
+      campaign,
+      transSourceUrl: url,
+      // check w/Corin
+      transType: 'GiftAid_Update',
+      transSource: `${campaign}_GiftAid_Update`,
+      //
+      confirm: this.state.validation.giftAidClaimChoice.value,
+      // timestamp: this.getTimestamp(),
+
+      // TODO: what is this for?
+      status: '';
+
+    };
+
+    console.log('formValues', formValues);
 
     // post form data and settings to endpoint
     /*    axios.post(ENDPOINT_URL, formValues)
