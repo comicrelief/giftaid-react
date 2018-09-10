@@ -300,7 +300,7 @@ class UpdateForm extends Component {
   submitForm() {
     const url = this.getCurrentUrl();
     const campaign = this.getCampaign(url);
-    let donationId = '';
+    let donationID = '';
     let donationType = '';
 
     // create field values
@@ -314,11 +314,9 @@ class UpdateForm extends Component {
       fieldValues[key] = value;
     });
 
-    console.log('this.state.validation', this.state.validation);
-
     // Set this var depending on how the user has inputted their transID
-    if (this.state.validation.transactionId) donationId = this.state.validation.transactionId.value;
-    else donationId = this.state.urlTransID;
+    if (this.state.validation.transactionId) donationID = this.state.validation.transactionId.value;
+    else donationID = this.state.urlTransID;
 
     // Overwrite the empty string with the value if it exists
     if (this.state.validation.donationType) {
@@ -326,14 +324,17 @@ class UpdateForm extends Component {
     }
 
     const formValues = {
-      donationId,
+      donationID,
       donationType,
+      campaign,
       firstname: this.state.validation.firstname.value,
       lastname: this.state.validation.lastname.value,
       email: this.state.validation.emailaddress.value,
 
-      // TODO: is this required? DO we need a new field?
-      // mobile: this.state.validation.lastname.value,
+      // TODO: remove these from the BE?
+      mobile: '0123456789',
+      status: 'test-status-val',
+
       address1: this.state.validation.address1.value,
       address2: this.state.validation.address2.value,
       address3: this.state.validation.address3.value,
@@ -341,12 +342,9 @@ class UpdateForm extends Component {
       postcode: this.state.validation.postcode.value,
       country: this.state.validation.country.value,
       confirm: this.state.validation.giftAidClaimChoice.value,
-      campaign,
-      // check w/Corin
-      transType: 'GiftAid_Update',
-      transSource: `${campaign}_GiftAid_Update`,
+      transType: 'GiftAid',
+      transSource: `${campaign}_GiftAid`,
       transSourceUrl: url,
-      //
     };
 
     // post form data and settings to endpoint
@@ -361,7 +359,7 @@ class UpdateForm extends Component {
         });
       })
       .catch((error) => {
-        console.log(error.message);
+        console.log(error);
 
         this.props.history.push({
           pathname: '/update/sorry',
