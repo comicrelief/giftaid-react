@@ -340,7 +340,7 @@ class UpdateForm extends Component {
       // timestamp: this.getTimestamp(),
 
       // TODO: what is this for?
-      status: '';
+      status: '',
 
     };
 
