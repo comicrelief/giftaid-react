@@ -35,14 +35,14 @@ describe('e2e test', () => {
     })
 
     it('mobile no input field validation', () => {
-        cy.get('#field-input--mobile').clear()
+        cy.get('#field-input--mobile').type('sdf').clear().click()
+        cy.get('#field-error--mobile>span').should('contain','Please fill in your mobile number')
         cy.get('#field-input--mobile').type('sdf')
         cy.get('#field-error--mobile>span').should('contain', 'Please enter a valid mobile phone number - it must be the same number that you used to make your donation.')
         cy.get('#field-input--mobile').clear().type(faker.phone.phoneNumber('02########'))
         cy.get('#field-error--mobile>span').should('contain', 'Please enter a valid mobile phone number - it must be the same number that you used to make your donation.')
         cy.get('#field-input--mobile').clear().type(faker.phone.phoneNumber('07#########'))
         cy.get('#field-error--mobile>span').should('be.not.visible')
-
 
     })
 
@@ -71,7 +71,7 @@ describe('e2e test', () => {
         cy.get('#field-input--postcode').clear().type('s66')
         cy.get('#field-error--postcode>span').should('contain','Please enter a valid postcode')
         cy.get('#postcode_button').click()
-        cy.get('#field-error--postcode>span').should('contain', 'Search string is not a valid postcode: S66')
+        cy.get('#field-error--postcode>span').should('contain','Search string is not a valid postcode: s66')
         cy.get('#field-input--postcode').clear().type('hp2 6lq')
         cy.get('#postcode_button').click()
         cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
@@ -86,5 +86,11 @@ describe('e2e test', () => {
     it('verify success page', () => {
         cy.get('button[type=submit]').click().url('/success')
         cy.contains(`Thank you, ${fname}!`)
+    })
+
+    // Update journey tests
+    it('Verify title and header', () => {
+        cy.visit('/update/')
+        cy.get('.update-giftaid__form .sub-title').should('contain', 'Edit your Gift Aid declaration')
     })
 })

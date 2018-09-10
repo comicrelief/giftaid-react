@@ -15,7 +15,7 @@ And adapt `.env` to use a back-end of choice
 For local development please run
 
 ```bash
-serverless offline start
+yarn start
 ```
 
 ## Deployment & Environments
