@@ -342,8 +342,8 @@ class UpdateForm extends Component {
       postcode: this.state.validation.postcode.value,
       country: this.state.validation.country.value,
       confirm: this.state.validation.giftAidClaimChoice.value,
-      transType: 'GiftAid',
-      transSource: `${campaign}_GiftAid`,
+      transType: 'GiftAidUpdate',
+      transSource: `${campaign}_GiftAidUpdate`,
       transSourceUrl: url,
     };
 
