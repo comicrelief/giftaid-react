@@ -335,15 +335,16 @@ class UpdateForm extends Component {
       town: this.state.validation.town.value,
       postcode: this.state.validation.postcode.value,
       country: this.state.validation.country.value,
+      confirm: this.state.validation.giftAidClaimChoice.value,
+
       campaign,
       transSourceUrl: url,
       // check w/Corin
       transType: 'GiftAid_Update',
       transSource: `${campaign}_GiftAid_Update`,
       //
-      confirm: this.state.validation.giftAidClaimChoice.value,
     };
-    
+
     // post form data and settings to endpoint
     /*    axios.post(ENDPOINT_URL, formValues)
       .then(() => { */
