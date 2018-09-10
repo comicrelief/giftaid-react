@@ -1,8 +1,8 @@
 {
   "transactionId": {
-    "id": "transactionid",
+    "id": "transactionId",
     "type": "text",
-    "name": "transactionid",
+    "name": "transactionId",
     "label": "Transaction ID",
     "required": true
   },

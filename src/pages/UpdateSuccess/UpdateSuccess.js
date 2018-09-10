@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PromoHeader from '../../components/PromoHeader/PromoHeader';
 import Cards from '../../components/Cards/Cards';
 
-class Success extends Component {
+class UpdateSuccess extends Component {
   render() {
+    console.log('');
     const hasState = this.props.location.state;
     const firstName = this.props.location.state.firstname;
 
@@ -47,4 +48,4 @@ class Success extends Component {
   }
 }
 
-export default Success;
+export default UpdateSuccess;

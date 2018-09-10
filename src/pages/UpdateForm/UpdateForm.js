@@ -80,7 +80,7 @@ class UpdateForm extends Component {
           value: undefined,
           message: '',
         },
-        transactionid: {
+        transactionId: {
           valid: false,
           value: undefined,
           message: '',
@@ -232,9 +232,8 @@ class UpdateForm extends Component {
     let item;
     for (let i = 0; i <= this.fieldRefs.length; i += 1) {
       item = this.fieldRefs[i];
-
       // Customise this function for Radiobutton's markup
-      if (this.fieldRefs[i].nodeName === 'FIELDSET' && this.fieldRefs[i].labels !== undefined) {
+      if (this.fieldRefs[i].nodeName === 'FIELDSET') {
         // Gets the error div always added at the end
         let lastChildErr = this.fieldRefs[i].children.length - 1;
         lastChildErr = this.fieldRefs[i].children[lastChildErr].className.includes('error');
@@ -301,6 +300,7 @@ class UpdateForm extends Component {
   submitForm() {
     const url = this.getCurrentUrl();
     const campaign = this.getCampaign(url);
+    let donationId = '';
     // required settings to post to api endpoint
 
     // create field values
@@ -314,10 +314,15 @@ class UpdateForm extends Component {
       fieldValues[key] = value;
     });
 
-    console.log('state', this.state.validation);
+    // Set this var depending on how the user has inputted their transID
+    if (this.state.validation.transactionId) {
+      donationId = this.state.validation.transactionId.value;
+    } else {
+      donationId = this.state.urlTransID;
+    }
 
     const formValues = {
-      donationID: this.state.validation.transactionid.value,
+      donationID: donationId,
       firstname: this.state.validation.firstname.value,
       lastname: this.state.validation.lastname.value,
       email: this.state.validation.emailaddress.value,
@@ -337,15 +342,8 @@ class UpdateForm extends Component {
       transSource: `${campaign}_GiftAid_Update`,
       //
       confirm: this.state.validation.giftAidClaimChoice.value,
-      // timestamp: this.getTimestamp(),
-
-      // TODO: what is this for?
-      status: '',
-
     };
-
-    console.log('formValues', formValues);
-
+    
     // post form data and settings to endpoint
     /*    axios.post(ENDPOINT_URL, formValues)
       .then(() => { */
@@ -353,7 +351,7 @@ class UpdateForm extends Component {
       pathname: '/update/success',
       state: {
         firstname: formValues.firstname,
-        giftAidChoice: formValues.giftAidClaimChoice,
+        giftAidChoice: formValues.confirm,
       },
     });
     /*  })
