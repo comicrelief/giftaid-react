@@ -301,7 +301,7 @@ class UpdateForm extends Component {
     const url = this.getCurrentUrl();
     const campaign = this.getCampaign(url);
     let donationId = '';
-    // required settings to post to api endpoint
+    let donationType = '';
 
     // create field values
     const fieldValues = {};
@@ -314,15 +314,20 @@ class UpdateForm extends Component {
       fieldValues[key] = value;
     });
 
+    console.log('this.state.validation', this.state.validation);
+
     // Set this var depending on how the user has inputted their transID
-    if (this.state.validation.transactionId) {
-      donationId = this.state.validation.transactionId.value;
-    } else {
-      donationId = this.state.urlTransID;
+    if (this.state.validation.transactionId) donationId = this.state.validation.transactionId.value;
+    else donationId = this.state.urlTransID;
+
+    // Overwrite the empty string with the value if it exists
+    if (this.state.validation.donationType) {
+      donationType = this.state.validation.donationType.value;
     }
 
     const formValues = {
       donationId,
+      donationType,
       firstname: this.state.validation.firstname.value,
       lastname: this.state.validation.lastname.value,
       email: this.state.validation.emailaddress.value,
@@ -337,10 +342,10 @@ class UpdateForm extends Component {
       country: this.state.validation.country.value,
       confirm: this.state.validation.giftAidClaimChoice.value,
       campaign,
-      transSourceUrl: url,
       // check w/Corin
       transType: 'GiftAid_Update',
       transSource: `${campaign}_GiftAid_Update`,
+      transSourceUrl: url,
       //
     };
 
