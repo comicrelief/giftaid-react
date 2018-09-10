@@ -359,7 +359,6 @@ class UpdateForm extends Component {
         console.log(error.message);
 
         this.props.history.push({
-          // TODO: do we need a Update-specific Sorry page?
           pathname: '/update/sorry',
         });
       });
