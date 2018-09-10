@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
-// import axios from 'axios';
+import axios from 'axios';
 import InputField from '@comicrelief/storybook/src/components/InputField/InputField';
 import JustInTime from '@comicrelief/storybook/src/components/JustInTime/JustInTime';
 import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup/PostcodeLookup';
 import RadioButtons from '@comicrelief/storybook/src/components/RadioButtons/RadioButtons';
 import defaultInputFieldsData from './defaultUpdateFields.json';
 
-// const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL + 'update' ;
+const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL + '/update';
 let scrollTimeout;
 
 /**
@@ -322,7 +322,7 @@ class UpdateForm extends Component {
     }
 
     const formValues = {
-      donationID: donationId,
+      donationId,
       firstname: this.state.validation.firstname.value,
       lastname: this.state.validation.lastname.value,
       email: this.state.validation.emailaddress.value,
@@ -336,7 +336,6 @@ class UpdateForm extends Component {
       postcode: this.state.validation.postcode.value,
       country: this.state.validation.country.value,
       confirm: this.state.validation.giftAidClaimChoice.value,
-
       campaign,
       transSourceUrl: url,
       // check w/Corin
@@ -346,22 +345,24 @@ class UpdateForm extends Component {
     };
 
     // post form data and settings to endpoint
-    /*    axios.post(ENDPOINT_URL, formValues)
-      .then(() => { */
-    this.props.history.push({
-      pathname: '/update/success',
-      state: {
-        firstname: formValues.firstname,
-        giftAidChoice: formValues.confirm,
-      },
-    });
-    /*  })
-    .catch(() => {
-       this.props.history.push({
-         // TODO: do we need a Update-specific Sorry page?
-         pathname: '/sorry',
-       });
-     }); */
+    axios.post(ENDPOINT_URL, formValues)
+      .then(() => {
+        this.props.history.push({
+          pathname: '/update/success',
+          state: {
+            firstname: formValues.firstname,
+            giftAidChoice: formValues.confirm,
+          },
+        });
+      })
+      .catch((error) => {
+        console.log(error.message);
+
+        this.props.history.push({
+          // TODO: do we need a Update-specific Sorry page?
+          pathname: '/update/sorry',
+        });
+      });
   }
 
   /**
