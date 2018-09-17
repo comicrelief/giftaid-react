@@ -231,8 +231,9 @@ class UpdateForm extends Component {
    */
   scrollToError() {
     let item;
-    for (let i = 0; i <= this.fieldRefs.length; i += 1) {
+    for (let i = 0; i < this.fieldRefs.length; i += 1) {
       item = this.fieldRefs[i];
+
       // Customise this function for Radiobutton's markup
       if (this.fieldRefs[i].nodeName === 'FIELDSET') {
         // Gets the error div always added at the end
@@ -243,7 +244,7 @@ class UpdateForm extends Component {
           item.focus();
           break;
         }
-      } else if (this.fieldRefs[i].labels !== undefined) {
+      } if (this.fieldRefs[i].labels !== undefined) {
         const classes = this.fieldRefs[i].labels[0].getAttribute('class');
         if (classes.includes('error')) {
           item.labels[0].scrollIntoView('smooth');
@@ -251,7 +252,7 @@ class UpdateForm extends Component {
           break;
         }
       } else {
-        document.querySelector('form').scrollIntoView();
+        document.querySelector('.error').scrollIntoView();
         break;
       }
     }
