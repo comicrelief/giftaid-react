@@ -56,3 +56,9 @@
     }
   }
 }
+
+.form__fieldset.form__field--wrapper.form__field-wrapper--text {
+  label.form__field-label.required.error + div input {
+    border: 1px solid $colour-red;
+  }
+}
