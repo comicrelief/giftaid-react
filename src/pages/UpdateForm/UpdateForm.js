@@ -358,8 +358,8 @@ class UpdateForm extends Component {
           },
         });
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((error, response) => {
+        console.log(error, response);
 
         this.props.history.push({
           pathname: '/update/sorry',

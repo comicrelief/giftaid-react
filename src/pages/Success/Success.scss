@@ -44,3 +44,15 @@
         }
     }
 }
+
+.update-success-wrapper {
+  .cards.cards--three-grid-centre.cards--three-grid-unit {
+    text-align: center;
+    .btn {
+      @include breakpoint($screen-md) {
+        width: auto;
+        display: inline-block;
+      }
+    }
+  }
+}

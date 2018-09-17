@@ -13,7 +13,7 @@ class UpdateSuccess extends Component {
     return (
       <div>
         <PromoHeader />
-        <div className="success-wrapper">
+        <div className="success-wrapper update-success-wrapper">
           <div className="success-wrapper--inner">
 
             {hasState && firstName !== undefined && giftAidChoice === 1 ?
