@@ -24,6 +24,7 @@ class UpdateForm extends Component {
       formDataError: null,
       formDataSuccess: null,
       urlTransID: this.props.match.params.transaction_id,
+      postCodePattern: '[A-Za-z]{1,2}[0-9Rr][0-9A-Za-z]?( |)[0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}',
       validation: {
         firstname: {
           valid: false,
@@ -514,11 +515,12 @@ class UpdateForm extends Component {
                 ref={this.setRef}
                 label="Postal address"
                 showErrorMessages={this.state.showErrorMessages}
+                pattern={this.state.postCodePattern}
                 isAddressValid={
-                  (validation) => {
-                    Object.keys(validation).map(key => this.setValidity(validation[key], key));
+                    (validation) => {
+                      Object.keys(validation).map(key => this.setValidity(validation[key], key));
+                    }
                   }
-                }
               />
 
             </div>
