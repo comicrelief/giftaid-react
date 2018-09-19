@@ -132,13 +132,9 @@ button[type="submit"].btn.btn--red {
 .form__row--address-lookup .search-box .form__field--postcode {
   #field-input--postcode,
   .form__btn {
-    width: 100%;
-    @include breakpoint($screen-lg) {
-      width: 50%;
-    }
+    width: 50%;
   }
   #postcode_button {
-    width: 100%;
     line-height: 1.4;
     // Ensure the small button can still align the copy properly
     padding-left:0;
