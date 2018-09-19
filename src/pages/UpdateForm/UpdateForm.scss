@@ -23,6 +23,7 @@ $colour-scorpion-grey: #595959;
   .sub-title {
     margin-bottom:25px;
     text-align: center;
+    color: $colour-dark-purple;
 
     @include font-size($h2-font-size);
     font-family: $font-regular;
@@ -55,6 +56,10 @@ $colour-scorpion-grey: #595959;
     }
   }
 
+  label {
+    color: $colour-dark-purple;
+  }
+
   /* overriding styles for the just in time */
   .form__row--just-in-time-block {
     font-family:$font-bold;
@@ -71,6 +76,13 @@ $colour-scorpion-grey: #595959;
   line-height: 1.6;
   color: $colour-scorpion-grey;
   font-family:$font-regular;
+
+  p {
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+  }
 
   .link.inline {
     border-width: 3px;
@@ -146,6 +158,10 @@ button[type="submit"].btn.btn--red {
   .form__field--wrapper a.link {
     background: red;
   }
+
+  select {
+    color: $colour-dark-purple;
+  }
 }
 
 #donationType {
@@ -159,4 +175,21 @@ button[type="submit"].btn.btn--red {
 
 .form__radio--inline .form__field-label {
   padding-top: 4px;
+  color: $colour-dark-purple
+}
+
+legend {
+  color: $colour-dark-purple;
+}
+
+input[type="email"],
+input[type="number"],
+input[type="date"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea  {
+  border-color: $colour-dark-purple;
 }
