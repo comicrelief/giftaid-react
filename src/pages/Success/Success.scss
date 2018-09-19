@@ -57,7 +57,7 @@
   }
 }
 
-.form__fieldset.form__field--wrapper.form__field-wrapper--text {
+.form__fieldset.form__field--wrapper {
   label.form__field-label.required.error + div input {
     border: 1px solid $colour-red;
   }
