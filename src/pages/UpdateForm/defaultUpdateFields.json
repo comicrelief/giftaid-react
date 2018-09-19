@@ -5,7 +5,8 @@
     "name": "transactionId",
     "label": "Transaction ID",
     "required": true,
-    "pattern": "^([A-Za-z0-9]{1}(-)[A-Za-z0-9]{7}|[A-Za-z0-9]{8}(-)[A-Za-z0-9]{4}(-)[A-Za-z0-9]{4}(-)[A-Za-z0-9]{4}(-)[A-Za-z0-9]{12})"
+    "invalidErrorText": "Please fill in your transaction ID exactly as it appears in our correspondence",
+    "pattern": "^([A-Za-z0-9]{1}(-)[A-Za-z0-9]{7}|[A-Za-z0-9]{8}(-)[A-Za-z0-9]{4}(-)[A-Za-z0-9]{4}(-)[A-Za-z0-9]{4}(-)[A-Za-z0-9]{12})$"
   },
   "firstName": {
     "id": "firstname",
