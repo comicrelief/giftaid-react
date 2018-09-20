@@ -18,9 +18,9 @@
   dependencies:
     susy "^2.2.12"
 
-"@comicrelief/storybook@1.17.11":
-  version "1.17.11"
-  resolved "https://registry.yarnpkg.com/@comicrelief/storybook/-/storybook-1.17.11.tgz#a2d755adf5e275d5d0a49d6ee9e4fb4c940829c7"
+"@comicrelief/storybook@1.17.12":
+  version "1.17.12"
+  resolved "https://registry.yarnpkg.com/@comicrelief/storybook/-/storybook-1.17.12.tgz#aebe294e503e813cf9777830022d956b6c66f4ef"
   dependencies:
     "@comicrelief/pattern-lab" "*"
     "@storybook/addon-info" "3"
