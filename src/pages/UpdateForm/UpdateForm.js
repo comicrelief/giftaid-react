@@ -532,7 +532,7 @@ class UpdateForm extends Component {
               type="submit"
               className="btn btn--red"
               onClick={e => this.validateForm(e)}
-            >Update Gift Aid Declaration
+            >Update Declaration
             </button>
             {this.renderJustInTimeMessage()}
 
