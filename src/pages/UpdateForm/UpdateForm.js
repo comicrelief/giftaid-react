@@ -253,6 +253,7 @@ class UpdateForm extends Component {
         }
       } else {
         document.querySelector('.error').scrollIntoView();
+        document.querySelector('.error').focus();
         break;
       }
     }
