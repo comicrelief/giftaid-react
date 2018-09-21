@@ -241,19 +241,19 @@ class UpdateForm extends Component {
         lastChildErr = this.fieldRefs[i].children[lastChildErr].className.includes('error');
         if (lastChildErr) {
           item.scrollIntoView('smooth');
-          item.focus();
+          document.querySelector('#' + item.id).focus();
           break;
         }
       } if (this.fieldRefs[i].labels !== undefined) {
         const classes = this.fieldRefs[i].labels[0].getAttribute('class');
         if (classes.includes('error')) {
           item.labels[0].scrollIntoView('smooth');
-          item.focus();
+          document.querySelector('#' + item.id).focus();
           break;
         }
       } else {
         document.querySelector('.error').scrollIntoView();
-        document.querySelector('.error').focus();
+        document.querySelector('.error + div > input').focus();
         break;
       }
     }
