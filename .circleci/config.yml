@@ -23,9 +23,19 @@ jobs:
           key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
+            - /root/.cache/Cypress
 
       # run tests!
       - run:
           name: Test Code Style
           command: yarn eslint ./src/
 
+      - run:
+          name: Run e2e test
+          command: yarn test
+
+      - store_artifacts:
+          path: cypress/videos
+
+      - store_artifacts:
+          path: cypress/screenshots
