@@ -201,10 +201,10 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
     })
 
     it('verify social links', () => {
-        cy.get('div.footer__social-links > ul > li:nth-child(1) > a')
-        cy.get('div.footer__social-links > ul > li:nth-child(2) > a')
-        cy.get('div.footer__social-links > ul > li:nth-child(3) > a')
-        cy.get('div.footer__social-links > ul > li:nth-child(4) > a')
+        cy.get('footer li a[title=facebook]')
+        cy.get('footer li a[title=twitter]')
+        cy.get('footer li a[title=youtube]')
+        cy.get('footer li a[title=instagram]')
     })
 
     it('verify footer menu', () => {
