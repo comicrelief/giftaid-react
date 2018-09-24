@@ -20,15 +20,17 @@ module.exports = {
 
         client
             .assert.title('Gift Aid declaration | Comic Relief')
-            .assert.elementPresent('#field-input--giftaid')
-            .assert.elementPresent('#field-input--mobile')
+            .assert.elementPresent('#field-input--transactionId')
             .assert.elementPresent('#field-input--firstname')
             .assert.elementPresent('#field-input--lastname')
+            .assert.elementPresent('#field-input--emailaddress')
             .assert.elementPresent('#field-input--postcode')
             .assert.elementPresent('#postcode_button')
+            .assert.elementPresent('a[aria-describedby=field-error--addressDetails]')
+            .assert.elementPresent('#giftAidClaimChoice > div:nth-child(2) > span')
+            .assert.elementPresent('#giftAidClaimChoice > div:nth-child(3) > span')
+            .assert.elementPresent('.form__row--just-in-time-block')
             .assert.elementPresent('button[type=submit]')
-            .assert.elementPresent('.form__row--just-in-time-block');
-
     },
 
     // 'Verify input field error message': function (client) {
