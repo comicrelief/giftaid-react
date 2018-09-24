@@ -1,0 +1,30 @@
+{
+  "transactionId": {
+    "id": "transactionid",
+    "type": "text",
+    "name": "transactionid",
+    "label": "Transaction ID",
+    "required": true
+  },
+  "firstName": {
+    "id": "firstname",
+    "type": "text",
+    "name": "firstname",
+    "label": "First name",
+    "required": true
+  },
+  "lastName": {
+    "id": "lastname",
+    "type": "text",
+    "name": "lastname",
+    "label": "Last name",
+    "required": true
+  },
+  "emailAddress": {
+    "id": "emailaddress",
+    "type": "email",
+    "name": "emailaddress",
+    "label": "Email address",
+    "required": true
+  }
+}

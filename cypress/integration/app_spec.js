@@ -226,4 +226,10 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
     it('Verify footer copyright', () => {
         cy.get('div.footer__copyright > p').should('contain','Comic Relief 2018. Comic Relief, registered charity 326568 (England/Wales); SC039730 (Scotland)')
     })
+
+    // Update journey tests
+    it('Verify title and header', () => {
+        cy.visit('/update/')
+        cy.get('.update-giftaid__form .sub-title').should('contain', 'Edit your Gift Aid declaration')
+    })
 })
