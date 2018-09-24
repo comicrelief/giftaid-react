@@ -110,18 +110,31 @@ class UpdateForm extends Component {
     const refs = [];
     this.setRef = (element) => {
       if (element) {
+        /* eslint-disable */
+
+
         // fields from postcode lookup
         if (element.fieldRefs) {
+          console.log('setRef if', element.fieldRefs);
           element.fieldRefs.forEach(item => refs.push(item));
-        } else if (element.inputRef) {
+        }
+
+        else if (element.inputRef) {
           // remaining input fields
+          console.log('setRef elseif', element.inputRef);
           refs.push(element.inputRef);
-        } else {
+        }
+
+        else {
+          console.log('setRef else', element.radioButtonRef);
           refs.push(element.radioButtonRef);
         }
+
+        /* eslint-enable */
         this.fieldRefs = refs;
       }
     };
+    console.log('refs', refs);
   }
   /**
    * Updates our validation object accordingly, so we're not trying to validate nonexistent fields
@@ -252,8 +265,9 @@ class UpdateForm extends Component {
           break;
         }
       } else {
-        document.querySelector('.error').scrollIntoView();
-        document.querySelector('.error + div > input').focus();
+        console.log('ELSE!');
+        // document.querySelector('.error').scrollIntoView();
+        // document.querySelector('.error + div > input').focus();
         break;
       }
     }
@@ -383,6 +397,7 @@ class UpdateForm extends Component {
 
     Object.keys(this.state.validation).forEach((key) => {
       allFieldsToCheck.push(this.state.validation[key].valid);
+      console.log('valid - ', key, this.state.validation[key].valid === true);
     });
 
     // Values can be 'null' or empty strings, so check if our array contains a 'not true' value
