@@ -1,3 +1,3 @@
-{   //this is the temp envt, should change this to localhost later
-    "baseUrl": "https://5ba4dbef1f12b704899145bd--giftaid-react.netlify.com/update"
+{
+    "baseUrl": "http://localhost:3000/"
 }
