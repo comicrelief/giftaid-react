@@ -12,15 +12,15 @@
   dependencies:
     susy "^2.2.12"
 
-"@comicrelief/pattern-lab@7.47.20":
-  version "7.47.20"
-  resolved "https://registry.yarnpkg.com/@comicrelief/pattern-lab/-/pattern-lab-7.47.20.tgz#4d71b9a348696457f559e8a04bfaf35b3253d18a"
+"@comicrelief/pattern-lab@7.48.5":
+  version "7.48.5"
+  resolved "https://registry.yarnpkg.com/@comicrelief/pattern-lab/-/pattern-lab-7.48.5.tgz#24d9cef6246ebec5cbca1be1a09c34b044fbcb4b"
   dependencies:
     susy "^2.2.12"
 
-"@comicrelief/storybook@1.17.12":
-  version "1.17.12"
-  resolved "https://registry.yarnpkg.com/@comicrelief/storybook/-/storybook-1.17.12.tgz#aebe294e503e813cf9777830022d956b6c66f4ef"
+"@comicrelief/storybook@1.17.14":
+  version "1.17.14"
+  resolved "https://registry.yarnpkg.com/@comicrelief/storybook/-/storybook-1.17.14.tgz#b4dd3e69f24adfb6bfa73eedb6a0fc28c1a0bcc4"
   dependencies:
     "@comicrelief/pattern-lab" "*"
     "@storybook/addon-info" "3"

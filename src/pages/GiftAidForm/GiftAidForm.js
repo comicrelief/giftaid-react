@@ -114,7 +114,6 @@ class GiftAidForm extends Component {
     if (this.state.showErrorMessages === true && this.state.formValidity === false) {
       // timeout needed for error class names to appear
       scrollTimeout = setTimeout(() => { this.scrollToError(); }, 500);
-      this.setErrorMessagesToFalse();
     }
     if (this.state.showErrorMessages === false && this.state.formValidity === true) {
       this.submitForm();
@@ -186,13 +185,6 @@ class GiftAidForm extends Component {
         return newState;
       });
     }
-  }
-
-  setErrorMessagesToFalse() {
-    this.setState({
-      ...this.state,
-      showErrorMessages: false,
-    });
   }
 
   /**
