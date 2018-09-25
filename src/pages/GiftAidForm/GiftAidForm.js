@@ -81,6 +81,7 @@ class GiftAidForm extends Component {
           message: '',
         },
       },
+      hiddenFields: ['address', 'town', 'country'],
     };
     // Put the field refs from children into an array
     const refs = [];
@@ -193,18 +194,24 @@ class GiftAidForm extends Component {
    */
   scrollToError() {
     let item;
-    for (let i = 0; i <= this.fieldRefs.length; i += 1) {
+
+    for (let i = 0; i < this.fieldRefs.length; i += 1) {
+      item = this.fieldRefs[i];
+
       if (this.fieldRefs[i].labels !== undefined) {
         const classes = this.fieldRefs[i].labels[0].getAttribute('class');
         if (classes.includes('error')) {
-          item = this.fieldRefs[i];
-          item.labels[0].scrollIntoView('smooth');
-          item.focus();
+          /* Edgecase fix for when a hidden PCLU field is erroring */
+          /* eslint-disable no-loop-func */
+          if (document.querySelector('#address-detail .hide')
+            && this.state.hiddenFields.some(key => item.id.indexOf(key) > -1)) {
+            document.querySelector('#field-wrapper--postcode').scrollIntoView('smooth');
+          } else {
+            item.labels[0].scrollIntoView('smooth');
+            document.querySelector('#' + item.id).focus();
+          }
           break;
         }
-      } else {
-        document.querySelector('form').scrollIntoView();
-        break;
       }
     }
     clearTimeout(scrollTimeout);

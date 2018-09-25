@@ -105,36 +105,25 @@ class UpdateForm extends Component {
         { label: 'Online', value: 'online' },
         { label: 'Call centre', value: 'callcentre' },
       ],
+      hiddenFields: ['address', 'town', 'country'],
     };
     // Put the field refs from children into an array
     const refs = [];
     this.setRef = (element) => {
       if (element) {
-        /* eslint-disable */
-
-
         // fields from postcode lookup
         if (element.fieldRefs) {
-          console.log('setRef if', element.fieldRefs);
           element.fieldRefs.forEach(item => refs.push(item));
-        }
-
-        else if (element.inputRef) {
+        } else if (element.inputRef) {
           // remaining input fields
-          console.log('setRef elseif', element.inputRef);
           refs.push(element.inputRef);
-        }
-
-        else {
-          console.log('setRef else', element.radioButtonRef);
+        } else {
           refs.push(element.radioButtonRef);
         }
 
-        /* eslint-enable */
         this.fieldRefs = refs;
       }
     };
-    console.log('refs', refs);
   }
   /**
    * Updates our validation object accordingly, so we're not trying to validate nonexistent fields
@@ -153,7 +142,6 @@ class UpdateForm extends Component {
     if (this.state.showErrorMessages === true && this.state.formValidity === false) {
       // timeout needed for error class names to appear
       scrollTimeout = setTimeout(() => { this.scrollToError(); }, 500);
-      this.setErrorMessagesToFalse();
     }
     if (this.state.showErrorMessages === false && this.state.formValidity === true) {
       this.submitForm();
@@ -244,10 +232,11 @@ class UpdateForm extends Component {
    */
   scrollToError() {
     let item;
+
     for (let i = 0; i < this.fieldRefs.length; i += 1) {
       item = this.fieldRefs[i];
 
-      // Customise this function for Radiobutton's markup
+      /* Customised for Radiobutton's markup */
       if (this.fieldRefs[i].nodeName === 'FIELDSET') {
         // Gets the error div always added at the end
         let lastChildErr = this.fieldRefs[i].children.length - 1;
@@ -257,18 +246,22 @@ class UpdateForm extends Component {
           document.querySelector('#' + item.id).focus();
           break;
         }
-      } if (this.fieldRefs[i].labels !== undefined) {
+      }
+
+      if (this.fieldRefs[i].labels !== undefined) {
         const classes = this.fieldRefs[i].labels[0].getAttribute('class');
         if (classes.includes('error')) {
-          item.labels[0].scrollIntoView('smooth');
-          document.querySelector('#' + item.id).focus();
+          /* Edgecase fix for when a hidden PCLU field is erroring */
+          /* eslint-disable no-loop-func */
+          if (document.querySelector('#address-detail .hide')
+            && this.state.hiddenFields.some(key => item.id.indexOf(key) > -1)) {
+            document.querySelector('#field-wrapper--postcode').scrollIntoView('smooth');
+          } else {
+            item.labels[0].scrollIntoView('smooth');
+            document.querySelector('#' + item.id).focus();
+          }
           break;
         }
-      } else {
-        console.log('ELSE!');
-        // document.querySelector('.error').scrollIntoView();
-        // document.querySelector('.error + div > input').focus();
-        break;
       }
     }
     clearTimeout(scrollTimeout);
@@ -397,7 +390,6 @@ class UpdateForm extends Component {
 
     Object.keys(this.state.validation).forEach((key) => {
       allFieldsToCheck.push(this.state.validation[key].valid);
-      console.log('valid - ', key, this.state.validation[key].valid === true);
     });
 
     // Values can be 'null' or empty strings, so check if our array contains a 'not true' value
