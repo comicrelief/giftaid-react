@@ -219,13 +219,6 @@ class UpdateForm extends Component {
     }
   }
 
-  setErrorMessagesToFalse() {
-    this.setState({
-      ...this.state,
-      showErrorMessages: false,
-    });
-  }
-
   /**
    * Goes through field refs, gets the first erroring field and focuses on it.
    * If inputelement.labels is not supported: scrolls form into view
