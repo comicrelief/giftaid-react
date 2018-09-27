@@ -9,7 +9,7 @@ var fname
 describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on donation', () => {
 
     it('Verify title and header', () => {
-        cy.visit('/')
+        cy.visit('/update')
         cy.title().should('eq', 'Gift Aid declaration | Comic Relief')
         cy.get('.giftaid-title>span').should('contain', 'Giftaid it')
         cy.get('#form > div:nth-child(1) > h2').should('contain', 'Edit your Gift Aid declaration')
@@ -77,18 +77,21 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
     })
 
     it('postcode field validation', () => {
-        cy.get('#field-input--postcode').clear()
-        cy.get('#postcode_button').click()
-        cy.get('#field-error--postcode>span').should('contain','No postcode provided')
+        cy.get('#field-input--postcode').clear().click()
+        cy.get('#field-error--postcode>span').should('contain','Please enter your postcode')
         cy.get('#field-input--postcode').clear().type('s66%')
         cy.get('#field-error--postcode>span').should('contain','Please enter a valid postcode')
         cy.get('#field-input--postcode').clear().type('s66')
         cy.get('#postcode_button').click()
         cy.get('#field-error--postcode>span').should('contain','Search string is not a valid postcode: s66')
+        cy.get('#field-input--postcode').clear().type('se1 7tp')
+        cy.get('button[type=submit]').click()
+        cy.get('#field-error--addressDetails > span').should('contain','Please fill in your address')
+        cy.get('#postcode_button').click()
+        cy.get('#field-error--addressSelect > span').should('contain','Please select your address')
         cy.get('#field-input--postcode').clear().type('hp2 6lq')
         cy.get('#postcode_button').click()
         cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
-        //TODO add select your address validation
     })
 
     it('address fields validation', () => {
@@ -107,7 +110,10 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
     it('verify Your Gift Aid declaration',() => {
         cy.get('#form > div:nth-child(3) > h3').should('contain','Your Gift Aid declaration')
         cy.get('#giftAidClaimChoice > legend').should('contain','Can we claim Gift Aid on your donation?')
+        cy.get('button[type=submit]').click()
+        cy.get('#field-error--giftAidClaimChoice > span').should('contain','This field is required')
         cy.get('input[type="radio"]').check('1').should('be.checked')
+        cy.get('#field-error--giftAidClaimChoice > span').should('be.not.visible')
     })
 
     it('verify JIT', () => {
@@ -126,7 +132,7 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
 describe('e2e test typing transaction ID and choosing "No" to claim gift aid on donation', () => {
 
     it('verify copy on thank yoy page when user declares no on giftaid declaration', () => {
-        cy.visit('/')
+        cy.visit('/update')
         cy.get('#field-input--transactionId').clear().type('2D487A59-716B-440D-BD43-50ED301DD9BA')
         cy.get('#field-input--firstname').clear().type(fname = faker.name.firstName())
         cy.get('#field-input--lastname').clear().type(faker.name.lastName())
@@ -145,7 +151,7 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
 
     //sms
     it('e2e test when user comes from sms', () => {
-        cy.visit('/3D787A59-716B-440D-BD23-50ED301DD9BA')
+        cy.visit('/update/3D787A59-716B-440D-BD23-50ED301DD9BA')
         cy.get('#form > div:nth-child(1) > h2').should('contain','Edit your Gift Aid declaration')
         cy.get('p.transaction-id').should('contain','Transaction ID: 3D787A59-716B-440D-BD23-50ED301DD9BA')
         cy.get('h3.form--update__title--donation').should('contain','How did you make the donation?')
@@ -164,7 +170,7 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
 
     //online
     it('e2e test when user comes from online', () => {
-        cy.visit('/F22453C4-964C-4C11-9748-CAA81A37696C')
+        cy.visit('/update/F22453C4-964C-4C11-9748-CAA81A37696C')
         cy.get('#form > div:nth-child(1) > h2').should('contain','Edit your Gift Aid declaration')
         cy.get('p.transaction-id').should('contain','Transaction ID: F22453C4-964C-4C11-9748-CAA81A37696C')
         cy.get('h3.form--update__title--donation').should('contain','How did you make the donation?')
@@ -183,7 +189,7 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
 
     //call centre
     it('e2e test when user comes from call centre', () => {
-        cy.visit('/A6E33246-5E5D-44BB-9717-2A828CF2D0E4')
+        cy.visit('/update/A6E33246-5E5D-44BB-9717-2A828CF2D0E4')
         cy.get('#form > div:nth-child(1) > h2').should('contain','Edit your Gift Aid declaration')
         cy.get('p.transaction-id').should('contain','Transaction ID: A6E33246-5E5D-44BB-9717-2A828CF2D0E4')
         cy.get('h3.form--update__title--donation').should('contain','How did you make the donation?')
