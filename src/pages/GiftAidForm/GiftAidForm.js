@@ -198,6 +198,7 @@ class GiftAidForm extends Component {
     for (let i = 0; i < this.fieldRefs.length; i += 1) {
       item = this.fieldRefs[i];
 
+
       if (this.fieldRefs[i].labels !== undefined) {
         const classes = this.fieldRefs[i].labels[0].getAttribute('class');
         if (classes.includes('error')) {

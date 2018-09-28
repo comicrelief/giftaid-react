@@ -231,12 +231,16 @@ class UpdateForm extends Component {
       validating: false,
     });
 
-    let item;
+    // let item;
 
     for (let i = 0; i < this.fieldRefs.length; i += 1) {
-      item = this.fieldRefs[i];
+      // item = this.fieldRefs[i];
 
-      /* Customised for Radiobutton's markup */
+      document.querySelector('.form__field--erroring').scrollIntoView('smooth');
+
+      // TODO: sort out focus stuff
+
+      /*      /!* Customised for Radiobutton's markup *!/
       if (this.fieldRefs[i].nodeName === 'FIELDSET') {
         // Gets the error div always added at the end
         let lastChildErr = this.fieldRefs[i].children.length - 1;
@@ -251,8 +255,8 @@ class UpdateForm extends Component {
       if (this.fieldRefs[i].labels !== undefined) {
         const classes = this.fieldRefs[i].labels[0].getAttribute('class');
         if (classes.includes('error')) {
-          /* Edge-case fix for when a hidden PCLU field is erroring */
-          /* eslint-disable no-loop-func */
+          /!* Edge-case fix for when a hidden PCLU field is erroring *!/
+          /!* eslint-disable no-loop-func *!/
           if (document.querySelector('#address-detail .hide')
             && this.state.hiddenFields.some(key => item.id.indexOf(key) > -1)) {
             console.log('BBB');
@@ -273,7 +277,7 @@ class UpdateForm extends Component {
           console.log('else');
         }
         break;
-      }
+      } */
     }
     clearTimeout(scrollTimeout);
   }
