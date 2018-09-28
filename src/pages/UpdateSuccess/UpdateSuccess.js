@@ -1,24 +1,19 @@
 import React, { Component } from 'react';
-// import propTypes from 'prop-types';
 import PromoHeader from '../../components/PromoHeader/PromoHeader';
 import Cards from '../../components/Cards/Cards';
 
-class Success extends Component {
+class UpdateSuccess extends Component {
   render() {
-    /*    const hasState = this.props.location.state;
+    const hasState = this.props.location.state;
     const firstName = this.props.location.state.firstname;
-    const giftAidChoice = this.props.location.state.giftAidChoice; */
 
-    // HARDCODED DEBUG VALUES!
-    const hasState = true;
-    const firstName = 'Andy';
-    let giftAidChoice = 0;
-    giftAidChoice = 1;
+    // Since this is a string representation of a boolean value in this example, cast it
+    const giftAidChoice = parseInt(this.props.location.state.giftAidChoice, 10);
 
     return (
       <div>
         <PromoHeader />
-        <div className="success-wrapper">
+        <div className="success-wrapper update-success-wrapper">
           <div className="success-wrapper--inner">
 
             {hasState && firstName !== undefined && giftAidChoice === 1 ?
@@ -52,14 +47,4 @@ class Success extends Component {
   }
 }
 
-/* Success.defaultProps = {
-  history: { push: { } },
-};
-
-Success.propTypes = {
-  history: propTypes.shape({
-    push: propTypes.func,
-  }),
-}; */
-
-export default Success;
+export default UpdateSuccess;
