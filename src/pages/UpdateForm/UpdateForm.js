@@ -18,6 +18,7 @@ class UpdateForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      validating: false,
       firstUpdate: false,
       formValidity: false,
       showErrorMessages: false,
@@ -139,10 +140,11 @@ class UpdateForm extends Component {
    * Deals with component update after pressing submit button
    */
   componentDidUpdate() {
-    if (this.state.showErrorMessages === true && this.state.formValidity === false) {
+    if (this.state.showErrorMessages && !this.state.formValidity && this.state.validating) {
       // timeout needed for error class names to appear
       scrollTimeout = setTimeout(() => { this.scrollToError(); }, 500);
     }
+
     if (this.state.showErrorMessages === false && this.state.formValidity === true) {
       this.submitForm();
     }
@@ -224,6 +226,11 @@ class UpdateForm extends Component {
    * If inputelement.labels is not supported: scrolls form into view
    */
   scrollToError() {
+    this.setState({
+      ...this.state,
+      validating: false,
+    });
+
     let item;
 
     for (let i = 0; i < this.fieldRefs.length; i += 1) {
@@ -244,17 +251,28 @@ class UpdateForm extends Component {
       if (this.fieldRefs[i].labels !== undefined) {
         const classes = this.fieldRefs[i].labels[0].getAttribute('class');
         if (classes.includes('error')) {
-          /* Edgecase fix for when a hidden PCLU field is erroring */
+          /* Edge-case fix for when a hidden PCLU field is erroring */
           /* eslint-disable no-loop-func */
           if (document.querySelector('#address-detail .hide')
             && this.state.hiddenFields.some(key => item.id.indexOf(key) > -1)) {
+            console.log('BBB');
             document.querySelector('#field-wrapper--postcode').scrollIntoView('smooth');
           } else {
+            console.log('CCC');
             item.labels[0].scrollIntoView('smooth');
             document.querySelector('#' + item.id).focus();
           }
           break;
         }
+      } else {
+        // Fallback for IE11 and Edge that doesnt use 'labels'
+        console.log('DDD');
+        if (document.querySelector('.error')) {
+          document.querySelector('.error').scrollIntoView();
+        } else {
+          alert('fuck off');
+        }
+        break;
       }
     }
     clearTimeout(scrollTimeout);
@@ -394,6 +412,7 @@ class UpdateForm extends Component {
         ...this.state,
         formValidity: true,
         showErrorMessages: false,
+        validating: false,
       });
     }
 
@@ -402,6 +421,7 @@ class UpdateForm extends Component {
         ...this.state,
         formValidity: false,
         showErrorMessages: true,
+        validating: true,
       });
     }
   }
