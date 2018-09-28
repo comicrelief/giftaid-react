@@ -270,7 +270,7 @@ class UpdateForm extends Component {
         if (document.querySelector('.error')) {
           document.querySelector('.error').scrollIntoView();
         } else {
-          alert('else');
+          console.log('else');
         }
         break;
       }
