@@ -77,6 +77,8 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
     })
 
     it('postcode field validation', () => {
+        cy.get('#postcode_button').click()
+        cy.get('#field-error--postcode>span').should('contain','No postcode provided')
         cy.get('#field-input--postcode').clear().click()
         cy.get('#field-error--postcode>span').should('contain','Please enter your postcode')
         cy.get('#field-input--postcode').clear().type('s66%')
