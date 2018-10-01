@@ -241,15 +241,10 @@ class UpdateForm extends Component {
       item = this.fieldRefs[i];
       allClasses = item.className;
 
-      console.log('allclasses', allClasses);
-
-      /* eslint-disable no-loop-func */
-
       // If we find 'error' in THIS item's classes:
       if (allClasses.indexOf('error-outline') > -1 || allClasses.indexOf('erroring') > -1) {
-        console.log(item.id, ' is erroring!');
-
         // If this id matches one of our hidden fields...
+        /* eslint-disable no-loop-func */
         if (this.state.hiddenFields.some(key => item.id.indexOf(key) > -1)
           && document.querySelector('#address-detail .hide')) {
           console.log('- A: hidden PCLU field');
@@ -264,7 +259,6 @@ class UpdateForm extends Component {
           errorWrapper.scrollIntoView('smooth');
           document.querySelector('#' + item.id).focus();
         }
-
         break;
       }
     }
