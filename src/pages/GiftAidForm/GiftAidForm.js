@@ -23,6 +23,7 @@ class GiftAidForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      validating: false,
       inputFieldProps: [],
       firstUpdate: false,
       formValidity: false,
@@ -81,7 +82,7 @@ class GiftAidForm extends Component {
           message: '',
         },
       },
-      hiddenFields: ['address', 'town', 'country'],
+      hiddenFields: ['field-input--address1', 'field-input--town', 'field-wrapper--country'],
     };
     // Put the field refs from children into an array
     const refs = [];
@@ -112,7 +113,7 @@ class GiftAidForm extends Component {
    * Deals with component update after pressing submit button
    */
   componentDidUpdate() {
-    if (this.state.showErrorMessages === true && this.state.formValidity === false) {
+    if (this.state.showErrorMessages && !this.state.formValidity && this.state.validating) {
       // timeout needed for error class names to appear
       scrollTimeout = setTimeout(() => { this.scrollToError(); }, 500);
     }
@@ -189,30 +190,41 @@ class GiftAidForm extends Component {
   }
 
   /**
-   * Goes through field refs, gets the first erroring field and focuses on it.
-   * If inputelement.labels is not supported: scrolls form into view
+   * Goes through field refs, gets the first erroring field and focuses on it,
+   * uses additional to checks to suit specifc compnents
    */
   scrollToError() {
+    this.setState({
+      ...this.state,
+      validating: false,
+    });
+
     let item;
+    let allClasses;
+
+    // Scroll to the first erroring field
+    const errorWrapper = document.querySelectorAll('.form__field--erroring')[0];
 
     for (let i = 0; i < this.fieldRefs.length; i += 1) {
       item = this.fieldRefs[i];
+      allClasses = item.className;
 
-
-      if (this.fieldRefs[i].labels !== undefined) {
-        const classes = this.fieldRefs[i].labels[0].getAttribute('class');
-        if (classes.includes('error')) {
-          /* Edgecase fix for when a hidden PCLU field is erroring */
-          /* eslint-disable no-loop-func */
-          if (document.querySelector('#address-detail .hide')
-            && this.state.hiddenFields.some(key => item.id.indexOf(key) > -1)) {
-            document.querySelector('#field-wrapper--postcode').scrollIntoView('smooth');
-          } else {
-            item.labels[0].scrollIntoView('smooth');
-            document.querySelector('#' + item.id).focus();
-          }
-          break;
+      // If we find 'error' in THIS item's classes:
+      if (allClasses.indexOf('error-outline') > -1 || allClasses.indexOf('erroring') > -1) {
+        // If this id matches one of our hidden fields...
+        /* eslint-disable no-loop-func */
+        if (this.state.hiddenFields.some(key => item.id.indexOf(key) > -1)
+          && document.querySelector('#address-detail .hide')) {
+          document.querySelector('#field-wrapper--postcode').scrollIntoView('smooth');
+        } else if (this.fieldRefs[i].nodeName === 'FIELDSET') {
+          // Else, if this is a radio button...
+          errorWrapper.scrollIntoView('smooth');
+        } else {
+          // Otherwise, this is a normal text input field
+          errorWrapper.scrollIntoView('smooth');
+          document.querySelector('#' + item.id).focus();
         }
+        break;
       }
     }
     clearTimeout(scrollTimeout);
@@ -323,6 +335,8 @@ class GiftAidForm extends Component {
       this.setState({
         ...this.state,
         formValidity: true,
+        showErrorMessages: false,
+        validating: false,
       });
     }
     if (invalidFields === true) {
@@ -330,6 +344,7 @@ class GiftAidForm extends Component {
         ...this.state,
         formValidity: false,
         showErrorMessages: true,
+        validating: true,
       });
     }
   }

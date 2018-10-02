@@ -222,8 +222,8 @@ class UpdateForm extends Component {
   }
 
   /**
-   * Goes through field refs, gets the first erroring field and focuses on it.
-   * If inputelement.labels is not supported: scrolls form into view
+   * Goes through field refs, gets the first erroring field and focuses on it,
+   * uses additional to checks to suit specifc compnents
    */
   scrollToError() {
     this.setState({
@@ -247,15 +247,12 @@ class UpdateForm extends Component {
         /* eslint-disable no-loop-func */
         if (this.state.hiddenFields.some(key => item.id.indexOf(key) > -1)
           && document.querySelector('#address-detail .hide')) {
-          console.log('- A: hidden PCLU field');
           document.querySelector('#field-wrapper--postcode').scrollIntoView('smooth');
         } else if (this.fieldRefs[i].nodeName === 'FIELDSET') {
           // Else, if this is a radio button...
-          console.log('- B: radio button error');
-          document.querySelector('#' + item.id).scrollIntoView('smooth');
+          errorWrapper.scrollIntoView('smooth');
         } else {
           // Otherwise, this is a normal text input field
-          console.log('- C: normal field');
           errorWrapper.scrollIntoView('smooth');
           document.querySelector('#' + item.id).focus();
         }
