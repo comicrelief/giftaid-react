@@ -494,7 +494,6 @@ class UpdateForm extends Component {
             >Update Gift Aid Declaration
             </button>
             {this.renderJustInTimeMessage()}
-
           </form>
         </section>
       </main>
