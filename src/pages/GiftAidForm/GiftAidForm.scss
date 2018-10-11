@@ -61,6 +61,7 @@ $colour-scorpion-grey: #595959;
 
   /* overriding styles for the just in time */ 
   .form__row--just-in-time-block {
+    text-align: center;
     font-family:$font-bold;
     .toggle-link {
       font-family:$font-bold;
