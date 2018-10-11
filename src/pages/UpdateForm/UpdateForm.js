@@ -540,7 +540,6 @@ class UpdateForm extends Component {
             >Update Declaration
             </button>
             {this.renderJustInTimeMessage()}
-
           </form>
         </section>
       </main>
