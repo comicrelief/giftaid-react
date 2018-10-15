@@ -8,6 +8,7 @@ import RadioButtons from '@comicrelief/storybook/src/components/RadioButtons/Rad
 import defaultInputFieldsData from './defaultUpdateFields.json';
 
 const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL + 'update';
+
 let scrollTimeout;
 
 /**
@@ -436,7 +437,7 @@ class UpdateForm extends Component {
           </span>
         </h1>
         <h2 className="sub-title">
-          Edit your Gift Aid declaration
+          Edit your Gift Aid declaration - { ENDPOINT_URL }
         </h2>
         <p className="text-align-centre">
           We can claim Gift Aid from personal donations made by UK taxpayers:

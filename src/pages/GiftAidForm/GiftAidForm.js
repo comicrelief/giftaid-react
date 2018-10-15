@@ -7,6 +7,7 @@ import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup
 import defaultInputFieldsData from './defaultGiftaidFields.json';
 
 const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
+
 let scrollTimeout;
 /**
  * GiftAidForm class
@@ -377,6 +378,8 @@ class GiftAidForm extends Component {
         </h1>
         <h2 className="sub-title">
           Gift aid your donation and the <strong>Government will give us 25%</strong> on top of it.
+
+          - { ENDPOINT_URL }
         </h2>
       </div>
     );
