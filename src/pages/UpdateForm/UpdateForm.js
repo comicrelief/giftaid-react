@@ -7,7 +7,7 @@ import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup
 import RadioButtons from '@comicrelief/storybook/src/components/RadioButtons/RadioButtons';
 import defaultInputFieldsData from './defaultUpdateFields.json';
 
-const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL + '/update';
+const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL + 'update';
 let scrollTimeout;
 
 /**
@@ -106,7 +106,7 @@ class UpdateForm extends Component {
         { label: 'Online', value: 'online' },
         { label: 'Call centre', value: 'callcentre' },
       ],
-      hiddenFields: ['address', 'town', 'country'],
+      hiddenFields: ['field-input--address1', 'field-input--town', 'field-wrapper--country'],
     };
     // Put the field refs from children into an array
     const refs = [];
@@ -222,8 +222,8 @@ class UpdateForm extends Component {
   }
 
   /**
-   * Goes through field refs, gets the first erroring field and focuses on it.
-   * If inputelement.labels is not supported: scrolls form into view
+   * Goes through field refs, gets the first erroring field and focuses on it,
+   * uses additional to checks to suit specifc compnents
    */
   scrollToError() {
     this.setState({
@@ -232,45 +232,29 @@ class UpdateForm extends Component {
     });
 
     let item;
+    let allClasses;
+
+    // Scroll to the first erroring field
+    const errorWrapper = document.querySelectorAll('.form__field--erroring')[0];
 
     for (let i = 0; i < this.fieldRefs.length; i += 1) {
       item = this.fieldRefs[i];
+      allClasses = item.className;
 
-      /* Customised for Radiobutton's markup */
-      if (this.fieldRefs[i].nodeName === 'FIELDSET') {
-        // Gets the error div always added at the end
-        let lastChildErr = this.fieldRefs[i].children.length - 1;
-        lastChildErr = this.fieldRefs[i].children[lastChildErr].className.includes('error');
-        if (lastChildErr) {
-          item.scrollIntoView('smooth');
-          document.querySelector('#' + item.id).focus();
-          break;
-        }
-      }
-
-      if (this.fieldRefs[i].labels !== undefined) {
-        const classes = this.fieldRefs[i].labels[0].getAttribute('class');
-        if (classes.includes('error')) {
-          /* Edge-case fix for when a hidden PCLU field is erroring */
-          /* eslint-disable no-loop-func */
-          if (document.querySelector('#address-detail .hide')
-            && this.state.hiddenFields.some(key => item.id.indexOf(key) > -1)) {
-            console.log('BBB');
-            document.querySelector('#field-wrapper--postcode').scrollIntoView('smooth');
-          } else {
-            console.log('CCC');
-            item.labels[0].scrollIntoView('smooth');
-            document.querySelector('#' + item.id).focus();
-          }
-          break;
-        }
-      } else {
-        // Fallback for IE11 and Edge that doesnt use 'labels'
-        console.log('DDD');
-        if (document.querySelector('.error')) {
-          document.querySelector('.error').scrollIntoView();
+      // If we find 'error' in THIS item's classes:
+      if (allClasses.indexOf('error-outline') > -1 || allClasses.indexOf('erroring') > -1) {
+        // If this id matches one of our hidden fields...
+        /* eslint-disable no-loop-func */
+        if (this.state.hiddenFields.some(key => item.id.indexOf(key) > -1)
+          && document.querySelector('#address-detail .hide')) {
+          document.querySelector('#field-wrapper--postcode').scrollIntoView('smooth');
+        } else if (this.fieldRefs[i].nodeName === 'FIELDSET') {
+          // Else, if this is a radio button...
+          errorWrapper.scrollIntoView('smooth');
         } else {
-          console.log('else');
+          // Otherwise, this is a normal text input field
+          errorWrapper.scrollIntoView('smooth');
+          document.querySelector('#' + item.id).focus();
         }
         break;
       }
@@ -556,7 +540,6 @@ class UpdateForm extends Component {
             >Update Declaration
             </button>
             {this.renderJustInTimeMessage()}
-
           </form>
         </section>
       </main>
