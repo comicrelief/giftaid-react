@@ -437,7 +437,7 @@ class UpdateForm extends Component {
           </span>
         </h1>
         <h2 className="sub-title">
-          Edit your Gift Aid declaration - { ENDPOINT_URL }
+          Edit your Gift Aid declaration
         </h2>
         <p className="text-align-centre">
           We can claim Gift Aid from personal donations made by UK taxpayers:
