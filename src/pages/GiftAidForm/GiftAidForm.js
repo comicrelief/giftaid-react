@@ -7,6 +7,7 @@ import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup
 import defaultInputFieldsData from './defaultGiftaidFields.json';
 
 const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
+
 let scrollTimeout;
 /**
  * GiftAidForm class

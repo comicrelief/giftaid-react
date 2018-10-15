@@ -8,6 +8,7 @@ import RadioButtons from '@comicrelief/storybook/src/components/RadioButtons/Rad
 import defaultInputFieldsData from './defaultUpdateFields.json';
 
 const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL + 'update';
+
 let scrollTimeout;
 
 /**
