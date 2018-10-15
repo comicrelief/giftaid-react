@@ -4,7 +4,8 @@
 */
 
 const faker = require('faker')
-var fname
+const firstName = faker.name.firstName();
+const lastName = faker.name.lastName();
 
 describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on donation', () => {
 
@@ -52,7 +53,7 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
         cy.get('#field-error--firstname>span').should('contain', 'Please fill in your first name')
         cy.get('#field-input--firstname').clear().type('test$%')
         cy.get('#field-error--firstname>span').should('contain', 'This field only accepts alphanumeric characters and \' . - & _')
-        cy.get('#field-input--firstname').clear().type(fname=faker.name.firstName())
+        cy.get('#field-input--firstname').clear().type(firstName)
         cy.get('#field-error--firstname>span').should('be.not.visible')
     })
 
@@ -62,7 +63,7 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
         cy.get('#field-error--lastname>span').should('contain', 'Please fill in your last name')
         cy.get('#field-input--lastname').clear().type('test$%')
         cy.get('#field-error--lastname>span').should('contain', 'This field only accepts alphanumeric characters and \' . - & _')
-        cy.get('#field-input--lastname').clear().type(faker.name.lastName())
+        cy.get('#field-input--lastname').clear().type(lastName)
         cy.get('#field-error--lastname>span').should('be.not.visible')
     })
 
@@ -123,7 +124,7 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
 
     it('verify success page', () => {
         cy.get('button[type=submit]').click().url('/success')
-        cy.contains(`Thank you, ${fname}!`)
+        cy.contains(`Thank you, ${firstName}!`)
         cy.get('div.success-wrapper--inner > div > p').should('contain','We’ve registered your Gift Aid declaration, we’ll use it to pay for our operational costs.')
     })
  })
@@ -133,8 +134,8 @@ describe('e2e test typing transaction ID and choosing "No" to claim gift aid on 
     it('verify copy on thank yoy page when user declares no on giftaid declaration', () => {
         cy.visit('/update')
         cy.get('#field-input--transactionId').clear().type('2D487A59-716B-440D-BD43-50ED301DD9BA')
-        cy.get('#field-input--firstname').clear().type(fname = faker.name.firstName())
-        cy.get('#field-input--lastname').clear().type(faker.name.lastName())
+        cy.get('#field-input--firstname').clear().type(firstName)
+        cy.get('#field-input--lastname').clear().type(lastName)
         cy.get('#field-input--emailaddress').clear().type('test@comicrelief.com')
         cy.get('#field-input--postcode').clear().type('hp2 6lq')
         cy.get('#postcode_button').click()
@@ -155,15 +156,15 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
         cy.get('p.transaction-id').should('contain','Transaction ID: 3D787A59-716B-440D-BD23-50ED301DD9BA')
         cy.get('h3.form--update__title--donation').should('contain','How did you make the donation?')
         cy.get('input[type="radio"]').check('sms').should('be.checked')
-        cy.get('#field-input--firstname').clear().type(fname = faker.name.firstName())
-        cy.get('#field-input--lastname').clear().type(faker.name.lastName())
+        cy.get('#field-input--firstname').clear().type(firstName)
+        cy.get('#field-input--lastname').clear().type(lastName)
         cy.get('#field-input--emailaddress').clear().type('test@comicrelief.com')
         cy.get('#field-input--postcode').clear().type('hp2 6lq')
         cy.get('#postcode_button').click()
         cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
         cy.get('input[type="radio"]').check('1').should('be.checked')
         cy.get('button[type=submit]').click().url('/success')
-        cy.contains(`Thank you, ${fname}!`)
+        cy.contains(`Thank you, ${firstName}!`)
         cy.get('div.success-wrapper--inner > div > p').should('contain','We’ve registered your Gift Aid declaration, we’ll use it to pay for our operational costs.')
     })
 
@@ -174,15 +175,15 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
         cy.get('p.transaction-id').should('contain','Transaction ID: F22453C4-964C-4C11-9748-CAA81A37696C')
         cy.get('h3.form--update__title--donation').should('contain','How did you make the donation?')
         cy.get('input[type="radio"]').check('online').should('be.checked')
-        cy.get('#field-input--firstname').clear().type(fname = faker.name.firstName())
-        cy.get('#field-input--lastname').clear().type(faker.name.lastName())
+        cy.get('#field-input--firstname').clear().type(firstName)
+        cy.get('#field-input--lastname').clear().type(lastName)
         cy.get('#field-input--emailaddress').clear().type('test@comicrelief.com')
         cy.get('#field-input--postcode').clear().type('hp2 6lq')
         cy.get('#postcode_button').click()
         cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
         cy.get('input[type="radio"]').check('1').should('be.checked')
         cy.get('button[type=submit]').click().url('/success')
-        cy.contains(`Thank you, ${fname}!`)
+        cy.contains(`Thank you, ${firstName}!`)
         cy.get('div.success-wrapper--inner > div > p').should('contain','We’ve registered your Gift Aid declaration, we’ll use it to pay for our operational costs.')
     })
 
@@ -193,15 +194,15 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
         cy.get('p.transaction-id').should('contain','Transaction ID: A6E33246-5E5D-44BB-9717-2A828CF2D0E4')
         cy.get('h3.form--update__title--donation').should('contain','How did you make the donation?')
         cy.get('input[type="radio"]').check('callcentre').should('be.checked')
-        cy.get('#field-input--firstname').clear().type(fname = faker.name.firstName())
-        cy.get('#field-input--lastname').clear().type(faker.name.lastName())
+        cy.get('#field-input--firstname').clear().type(firstName)
+        cy.get('#field-input--lastname').clear().type(lastName)
         cy.get('#field-input--emailaddress').clear().type('test@comicrelief.com')
         cy.get('#field-input--postcode').clear().type('hp2 6lq')
         cy.get('#postcode_button').click()
         cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
         cy.get('input[type="radio"]').check('1').should('be.checked')
         cy.get('button[type=submit]').click().url('/success')
-        cy.contains(`Thank you, ${fname}!`)
+        cy.contains(`Thank you, ${firstName}!`)
         cy.get('div.success-wrapper--inner > div > p').should('contain','We’ve registered your Gift Aid declaration, we’ll use it to pay for our operational costs.')
     })
 

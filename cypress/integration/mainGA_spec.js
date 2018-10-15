@@ -1,5 +1,6 @@
 const faker = require('faker')
-var fname
+const firstName = faker.name.firstName();
+const lastName = faker.name.lastName();
 
 describe('e2e test', () => {
 
@@ -45,7 +46,7 @@ describe('e2e test', () => {
         cy.get('#field-input--firstname').clear()
         cy.get('#field-input--lastname').click()
         cy.get('#field-error--firstname>span').should('contain', 'Please fill in your first name')
-        cy.get('#field-input--firstname').type(fname=faker.name.firstName())
+        cy.get('#field-input--firstname').type(firstName)
         cy.get('#field-error--firstname>span').should('be.not.visible')
 
     })
@@ -54,7 +55,7 @@ describe('e2e test', () => {
         cy.get('#field-input--lastname').clear()
         cy.get('#field-input--firstname').click()
         cy.get('#field-error--lastname>span').should('contain', 'Please fill in your last name')
-        cy.get('#field-input--lastname').type(faker.name.lastName())
+        cy.get('#field-input--lastname').type(lastName)
         cy.get('#field-error--lastname>span').should('be.not.visible')
 
     })
@@ -81,6 +82,6 @@ describe('e2e test', () => {
 
     it('verify success page', () => {
         cy.get('button[type=submit]').click().url('/success')
-        cy.contains(`Thank you, ${fname}!`)
+        cy.contains(`Thank you, ${firstName}!`)
     })
 })
