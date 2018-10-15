@@ -77,9 +77,6 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
     })
 
     it('postcode field validation', () => {
-        cy.get('#postcode_button').click()
-        cy.get('#field-error--postcode>span').should('contain','No postcode provided')
-        cy.get('#field-input--postcode').clear().click()
         cy.get('#field-error--postcode>span').should('contain','Please enter your postcode')
         cy.get('#field-input--postcode').clear().type('s66%')
         cy.get('#field-error--postcode>span').should('contain','Please enter a valid postcode')
@@ -88,9 +85,9 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
         cy.get('#field-error--postcode>span').should('contain','Search string is not a valid postcode: s66')
         cy.get('#field-input--postcode').clear().type('se1 7tp')
         cy.get('button[type=submit]').click()
+
         cy.get('#field-error--addressDetails > span').should('contain','Please fill in your address')
-        cy.get('#postcode_button').click()
-        cy.get('#field-error--addressSelect > span').should('contain','Please select your address')
+
         cy.get('#field-input--postcode').clear().type('hp2 6lq')
         cy.get('#postcode_button').click()
         cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
