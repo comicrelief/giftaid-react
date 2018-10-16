@@ -29,7 +29,7 @@ const nightwatch = {
   test_workers: {
     enabled: true,
     workers: 'auto',
-  }
+  },
 };
 
 module.exports = nightwatch;
