@@ -1,36 +1,30 @@
-var faker = require('faker/locale/en_GB');
-var fname;
+
 
 module.exports = {
 
-    '@tags': ['sanity'],
+    '@tags': ['sanity', 'main'],
 
-    before : function(client) {
-        client
-            .url(process.env.BASE_URL)
-            .maximizeWindow()
-            .waitForElementVisible('body', 1000);
-    },
+    'User completes main giftaid journey': function (client) {
+    client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
+    client.page.form().fillForm();
+        // .click('#field-input--giftaid')
+        // .setValue('#field-input--mobile', '07123456789')
+        // .setValue('#field-input--firstname', 'test')
+        // .setValue('#field-input--lastname', 'user')
+        // .setValue('#field-input--postcode', 'se1 7tp')
+        // .click('a[aria-describedby=field-error--addressDetails]')
+        // .pause(200)
+        // .setValue('#field-input--address1', '21 test road')
+        // .setValue('#field-input--town', 'London')
+        // .click('button[type=submit]')
+        // .pause(5000);
+    client.waitForElementVisible('div.success-wrapper--inner > h1', 1000);
 
-    after : function(client) {
-        client.end();
-    },
+    client.expect.element('div > div.success-wrapper--inner > h1').text.to.equal('Thank you,\n' + 'test!');
 
-    'Verify all the elements present': function (client) {
 
-        client
-            .assert.title('Gift Aid declaration | Comic Relief')
-            .assert.elementPresent('#field-input--transactionId')
-            .assert.elementPresent('#field-input--firstname')
-            .assert.elementPresent('#field-input--lastname')
-            .assert.elementPresent('#field-input--emailaddress')
-            .assert.elementPresent('#field-input--postcode')
-            .assert.elementPresent('#postcode_button')
-            .assert.elementPresent('a[aria-describedby=field-error--addressDetails]')
-            .assert.elementPresent('#giftAidClaimChoice > div:nth-child(2) > span')
-            .assert.elementPresent('#giftAidClaimChoice > div:nth-child(3) > span')
-            .assert.elementPresent('.form__row--just-in-time-block')
-            .assert.elementPresent('button[type=submit]')
+    client.end();
+
     },
 
     // 'Verify input field error message': function (client) {
