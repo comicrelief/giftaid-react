@@ -307,7 +307,7 @@ class UpdateForm extends Component {
     const url = this.getCurrentUrl();
     const campaign = this.getCampaign(url);
     let donationID = '';
-    let donationType = '';
+    let donationType = ' ';
 
     // create field values
     const fieldValues = {};
@@ -330,27 +330,21 @@ class UpdateForm extends Component {
     }
 
     const formValues = {
+      campaign,
+      transSource: `${campaign}_GiftAidUpdate`,
+      transSourceUrl: url,
+      transType: 'GiftAidUpdate',
+      timestamp: this.getTimestamp(),
+      email: this.state.validation.emailaddress.value,
+      postcode: this.state.validation.postcode.value,
       donationID,
       donationType,
-      campaign,
-      firstname: this.state.validation.firstname.value,
-      lastname: this.state.validation.lastname.value,
-      email: this.state.validation.emailaddress.value,
-
-      // TODO: remove these from the BE?
-      mobile: '0123456789',
-      status: 'test-status-val',
-
       address1: this.state.validation.address1.value,
       address2: this.state.validation.address2.value,
       address3: this.state.validation.address3.value,
       town: this.state.validation.town.value,
-      postcode: this.state.validation.postcode.value,
       country: this.state.validation.country.value,
       confirm: this.state.validation.giftAidClaimChoice.value,
-      transType: 'GiftAidUpdate',
-      transSource: `${campaign}_GiftAidUpdate`,
-      transSourceUrl: url,
     };
 
     // post form data and settings to endpoint
@@ -359,7 +353,7 @@ class UpdateForm extends Component {
         this.props.history.push({
           pathname: '/update/success',
           state: {
-            firstname: formValues.firstname,
+            firstname: this.state.validation.firstname.value,
             giftAidChoice: formValues.confirm,
           },
         });
