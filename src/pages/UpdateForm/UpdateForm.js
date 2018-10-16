@@ -80,7 +80,7 @@ class UpdateForm extends Component {
         },
         donationType: {
           valid: false,
-          value: ' ',
+          value: undefined,
           message: '',
         },
         transactionId: {
