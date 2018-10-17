@@ -1,6 +1,6 @@
 const nightwatch = {
   src_folders: ['tests/feature'],
-  custom_commands_path: 'tests/commands',
+  page_objects_path: 'tests/commands',
   selenium: {
     start_process: false,
   },
