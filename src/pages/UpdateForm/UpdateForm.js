@@ -339,6 +339,8 @@ class UpdateForm extends Component {
       postcode: this.state.validation.postcode.value,
       donationID,
       donationType,
+      firstname: this.state.validation.firstname.value,
+      lastname: this.state.validation.lastname.value,
       address1: this.state.validation.address1.value,
       address2: this.state.validation.address2.value,
       address3: this.state.validation.address3.value,
