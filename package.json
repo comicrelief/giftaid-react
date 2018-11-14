@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@comicrelief/pattern-lab": "7.48.5",
-    "@comicrelief/storybook": "1.17.23",
+    "@comicrelief/pattern-lab": "7.51.0",
+    "@comicrelief/storybook": "1.17.28",
     "add": "^2.0.6",
     "autoprefixer": "7.1.6",
     "axios": "^0.18.0",

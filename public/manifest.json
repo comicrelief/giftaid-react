@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "name": "Comic Relief",
+  "short_name": "Gift Aid declaration",
   "icons": [
     {
       "src": "favicon.ico",
