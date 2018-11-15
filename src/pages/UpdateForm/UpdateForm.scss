@@ -23,6 +23,7 @@ $colour-scorpion-grey: #595959;
   .sub-title {
     margin-bottom:25px;
     text-align: center;
+    color: $colour-dark-purple;
 
     @include font-size($h2-font-size);
     font-family: $font-regular;
@@ -55,6 +56,10 @@ $colour-scorpion-grey: #595959;
     }
   }
 
+  label {
+    color: $colour-dark-purple;
+  }
+
   /* overriding styles for the just in time */
   .form__row--just-in-time-block {
     font-family:$font-bold;
@@ -71,6 +76,13 @@ $colour-scorpion-grey: #595959;
   line-height: 1.6;
   color: $colour-scorpion-grey;
   font-family:$font-regular;
+
+  p {
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+  }
 
   .link.inline {
     border-width: 3px;
@@ -92,6 +104,14 @@ button[type="submit"].btn.btn--red {
   width: auto;
   display: block;
   margin: 25px auto;
+
+  &:focus {
+    // IE, FF etc.
+    outline: 1px dotted black;
+    // Chrome etc.
+    outline: -webkit-focus-ring-color auto 5px;
+    outline-offset: 0px;
+  }
 
   @include breakpoint($screen-md) {
     font-size: 18px;
@@ -132,13 +152,9 @@ button[type="submit"].btn.btn--red {
 .form__row--address-lookup .search-box .form__field--postcode {
   #field-input--postcode,
   .form__btn {
-    width: 100%;
-    @include breakpoint($screen-lg) {
-      width: 50%;
-    }
+    width: 50%;
   }
   #postcode_button {
-    width: 100%;
     line-height: 1.4;
     // Ensure the small button can still align the copy properly
     padding-left:0;
@@ -149,6 +165,10 @@ button[type="submit"].btn.btn--red {
 #field-wrapper--addressSelect {
   .form__field--wrapper a.link {
     background: red;
+  }
+
+  select {
+    color: $colour-dark-purple;
   }
 }
 
@@ -163,4 +183,30 @@ button[type="submit"].btn.btn--red {
 
 .form__radio--inline .form__field-label {
   padding-top: 4px;
+  color: $colour-dark-purple
+}
+
+legend {
+  color: $colour-dark-purple;
+}
+
+input[type="email"],
+input[type="number"],
+input[type="date"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea  {
+  border-color: $colour-dark-purple;
+}
+
+.cookie-consent.cc_container .btn {
+  &:hover,
+  &:focus {
+    background: #9e9e9e;
+    color: white;
+    font-weight: bold;
+  }
 }

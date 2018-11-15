@@ -7,7 +7,8 @@ import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup
 import RadioButtons from '@comicrelief/storybook/src/components/RadioButtons/RadioButtons';
 import defaultInputFieldsData from './defaultUpdateFields.json';
 
-const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
+const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL + 'update';
+
 let scrollTimeout;
 
 /**
@@ -18,12 +19,14 @@ class UpdateForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      validating: false,
       firstUpdate: false,
       formValidity: false,
       showErrorMessages: false,
       formDataError: null,
       formDataSuccess: null,
-      transID: this.props.match.params.transaction_id,
+      urlTransID: this.props.match.params.transaction_id,
+      postCodePattern: '[A-Za-z]{1,2}[0-9Rr][0-9A-Za-z]?( |)[0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}',
       validation: {
         firstname: {
           valid: false,
@@ -80,6 +83,11 @@ class UpdateForm extends Component {
           value: undefined,
           message: '',
         },
+        transactionId: {
+          valid: false,
+          value: undefined,
+          message: '',
+        },
       },
       giftAidButtonChoices: [
         {
@@ -99,6 +107,7 @@ class UpdateForm extends Component {
         { label: 'Online', value: 'online' },
         { label: 'Call centre', value: 'callcentre' },
       ],
+      hiddenFields: ['field-input--address1', 'field-input--town', 'field-wrapper--country'],
     };
     // Put the field refs from children into an array
     const refs = [];
@@ -113,20 +122,30 @@ class UpdateForm extends Component {
         } else {
           refs.push(element.radioButtonRef);
         }
+
         this.fieldRefs = refs;
       }
     };
+  }
+  /**
+   * Updates our validation object accordingly, so we're not trying to validate nonexistent fields
+   */
+  componentWillMount() {
+    // If we've a transID in the url, remove valid obj for the transID input that won't be rendered
+    if (this.state.urlTransID !== undefined) delete this.state.validation.transactionId;
+    // Else, do the same for the donation type radiobuttons
+    else delete this.state.validation.donationType;
   }
 
   /**
    * Deals with component update after pressing submit button
    */
   componentDidUpdate() {
-    if (this.state.showErrorMessages === true && this.state.formValidity === false) {
+    if (this.state.showErrorMessages && !this.state.formValidity && this.state.validating) {
       // timeout needed for error class names to appear
       scrollTimeout = setTimeout(() => { this.scrollToError(); }, 500);
-      this.setErrorMessagesToFalse();
     }
+
     if (this.state.showErrorMessages === false && this.state.formValidity === true) {
       this.submitForm();
     }
@@ -203,41 +222,41 @@ class UpdateForm extends Component {
     }
   }
 
-  setErrorMessagesToFalse() {
-    this.setState({
-      ...this.state,
-      showErrorMessages: false,
-    });
-  }
-
   /**
-   * Goes through field refs, gets the first erroring field and focuses on it.
-   * If inputelement.labels is not supported: scrolls form into view
+   * Goes through field refs, gets the first erroring field and focuses on it,
+   * uses additional to checks to suit specifc compnents
    */
   scrollToError() {
-    let item;
-    for (let i = 0; i <= this.fieldRefs.length; i += 1) {
-      item = this.fieldRefs[i];
+    this.setState({
+      ...this.state,
+      validating: false,
+    });
 
-      // Customise this function for Radiobutton's markup
-      if (this.fieldRefs[i].nodeName === 'FIELDSET') {
-        // Gets the error div always added at the end
-        let lastChildErr = this.fieldRefs[i].children.length - 1;
-        lastChildErr = this.fieldRefs[i].children[lastChildErr].className.includes('error');
-        if (lastChildErr) {
-          item.scrollIntoView('smooth');
-          item.focus();
-          break;
+    let item;
+    let allClasses;
+
+    // Scroll to the first erroring field
+    const errorWrapper = document.querySelectorAll('.form__field--erroring')[0];
+
+    for (let i = 0; i < this.fieldRefs.length; i += 1) {
+      item = this.fieldRefs[i];
+      allClasses = item.className;
+
+      // If we find 'error' in THIS item's classes:
+      if (allClasses.indexOf('error-outline') > -1 || allClasses.indexOf('erroring') > -1) {
+        // If this id matches one of our hidden fields...
+        /* eslint-disable no-loop-func */
+        if (this.state.hiddenFields.some(key => item.id.indexOf(key) > -1)
+          && document.querySelector('#address-detail .hide')) {
+          document.querySelector('#field-wrapper--postcode').scrollIntoView('smooth');
+        } else if (this.fieldRefs[i].nodeName === 'FIELDSET') {
+          // Else, if this is a radio button...
+          errorWrapper.scrollIntoView('smooth');
+        } else {
+          // Otherwise, this is a normal text input field
+          errorWrapper.scrollIntoView('smooth');
+          document.querySelector('#' + item.id).focus();
         }
-      } else if (this.fieldRefs[i].labels !== undefined) {
-        const classes = this.fieldRefs[i].labels[0].getAttribute('class');
-        if (classes.includes('error')) {
-          item.labels[0].scrollIntoView('smooth');
-          item.focus();
-          break;
-        }
-      } else {
-        document.querySelector('form').scrollIntoView();
         break;
       }
     }
@@ -252,7 +271,7 @@ class UpdateForm extends Component {
     const allFields = defaultInputFieldsData;
 
     // Remove the transaction id field if not value is present in the url
-    if (this.state.transID !== undefined && allFields.transactionId !== undefined) {
+    if (this.state.urlTransID !== undefined && allFields.transactionId !== undefined) {
       delete allFields.transactionId;
     }
 
@@ -287,14 +306,8 @@ class UpdateForm extends Component {
   submitForm() {
     const url = this.getCurrentUrl();
     const campaign = this.getCampaign(url);
-    // required settings to post to api endpoint
-    const settings = {
-      campaign,
-      transSource: `${campaign}_GiftAid`,
-      transSourceUrl: url,
-      transType: 'GiftAid',
-      timestamp: this.getTimestamp(),
-    };
+    let donationID = '';
+    let donationType = ' ';
 
     // create field values
     const fieldValues = {};
@@ -307,8 +320,34 @@ class UpdateForm extends Component {
       fieldValues[key] = value;
     });
 
-    // Combine all form data and settings
-    const formValues = Object.assign({}, fieldValues, settings);
+    // Set this var depending on how the user has inputted their transID
+    if (this.state.validation.transactionId) donationID = this.state.validation.transactionId.value;
+    else donationID = this.state.urlTransID;
+
+    // Overwrite the empty string with the value if it exists
+    if (this.state.validation.donationType) {
+      donationType = this.state.validation.donationType.value;
+    }
+
+    const formValues = {
+      campaign,
+      transSource: `${campaign}_GiftAidUpdate`,
+      transSourceUrl: url,
+      transType: 'GiftAidUpdate',
+      timestamp: this.getTimestamp(),
+      email: this.state.validation.emailaddress.value,
+      postcode: this.state.validation.postcode.value,
+      donationID,
+      donationType,
+      firstname: this.state.validation.firstname.value,
+      lastname: this.state.validation.lastname.value,
+      address1: this.state.validation.address1.value,
+      address2: this.state.validation.address2.value,
+      address3: this.state.validation.address3.value,
+      town: this.state.validation.town.value,
+      country: this.state.validation.country.value,
+      confirm: this.state.validation.giftAidClaimChoice.value,
+    };
 
     // post form data and settings to endpoint
     axios.post(ENDPOINT_URL, formValues)
@@ -316,15 +355,16 @@ class UpdateForm extends Component {
         this.props.history.push({
           pathname: '/update/success',
           state: {
-            firstname: formValues.firstname,
-            giftAidChoice: formValues.giftAidClaimChoice,
+            firstname: this.state.validation.firstname.value,
+            giftAidChoice: formValues.confirm,
           },
         });
       })
-      .catch(() => {
+      .catch((error, response) => {
+        console.log(error, response);
+
         this.props.history.push({
-          // TODO: do we need a Update-specific Sorry page?
-          pathname: '/sorry',
+          pathname: '/update/sorry',
         });
       });
   }
@@ -353,6 +393,7 @@ class UpdateForm extends Component {
         ...this.state,
         formValidity: true,
         showErrorMessages: false,
+        validating: false,
       });
     }
 
@@ -361,6 +402,7 @@ class UpdateForm extends Component {
         ...this.state,
         formValidity: false,
         showErrorMessages: true,
+        validating: true,
       });
     }
   }
@@ -397,9 +439,9 @@ class UpdateForm extends Component {
           We can claim Gift Aid from personal donations made by UK taxpayers:
           the Government gives us back 25% of their value.
         </p>
-        { this.state.transID ?
+        { this.state.urlTransID ?
           <p className="text-align-centre transaction-id">
-            Transaction ID: {this.state.transID}
+            Transaction ID: {this.state.urlTransID}
           </p>
           :
           null }
@@ -408,7 +450,7 @@ class UpdateForm extends Component {
   }
 
   renderDonationTypeButtons() {
-    if (this.state.transID) {
+    if (this.state.urlTransID) {
       return (
         <div>
           <h3 className="form--update__title form--update__title--donation text-align-centre">
@@ -476,11 +518,12 @@ class UpdateForm extends Component {
                 ref={this.setRef}
                 label="Postal address"
                 showErrorMessages={this.state.showErrorMessages}
+                pattern={this.state.postCodePattern}
                 isAddressValid={
-                  (validation) => {
-                    Object.keys(validation).map(key => this.setValidity(validation[key], key));
+                    (validation) => {
+                      Object.keys(validation).map(key => this.setValidity(validation[key], key));
+                    }
                   }
-                }
               />
 
             </div>
@@ -491,10 +534,9 @@ class UpdateForm extends Component {
               type="submit"
               className="btn btn--red"
               onClick={e => this.validateForm(e)}
-            >Update Gift Aid Declaration
+            >Update Declaration
             </button>
             {this.renderJustInTimeMessage()}
-
           </form>
         </section>
       </main>
