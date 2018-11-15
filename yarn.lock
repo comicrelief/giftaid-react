@@ -3,8 +3,8 @@
 
 
 "@babel/parser@^7.1.3":
-  version "7.1.5"
-  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.1.5.tgz#20b7d5e7e1811ba996f8a868962ea7dd2bfcd2fc"
+  version "7.1.6"
+  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.1.6.tgz#16e97aca1ec1062324a01c5a6a7d0df8dd189854"
 
 "@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2":
   version "7.1.5"
@@ -12,9 +12,9 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
-"@comicrelief/pattern-lab@*", "@comicrelief/pattern-lab@7.51.0":
-  version "7.51.0"
-  resolved "https://registry.yarnpkg.com/@comicrelief/pattern-lab/-/pattern-lab-7.51.0.tgz#f1549c8d18b0b9b5279e9f226bdd77ca3a5a6911"
+"@comicrelief/pattern-lab@*", "@comicrelief/pattern-lab@7.51.1":
+  version "7.51.1"
+  resolved "https://registry.yarnpkg.com/@comicrelief/pattern-lab/-/pattern-lab-7.51.1.tgz#7f72b9c8c12a793d073f4dda9e738a5ae3bd09f3"
   dependencies:
     susy "^2.2.12"
 

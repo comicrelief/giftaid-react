@@ -27,11 +27,15 @@ $image-path: "/images/";
 
 @import "~@comicrelief/pattern-lab/sass/themes/donate/variables/_colours";
 @import "~@comicrelief/pattern-lab/sass/themes/donate/components/cards/cards";
+@import "~@comicrelief/pattern-lab/sass/themes/donate/components/header/header";
 
 /* Specific styles for giftaid app */
-@import "/components/Header/Header.scss";
 @import "/pages/GiftAidForm/GiftAidForm.scss";
 @import "/components/PromoHeader/PromoHeader.scss";
 @import "/pages/Success/Success.scss";
 @import "/pages/Sorry/Sorry.scss";
 @import "/pages/UpdateForm/UpdateForm.scss";
+
+footer[role=contentinfo] {
+  background: #29022c!important;
+}
