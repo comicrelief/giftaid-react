@@ -76,7 +76,7 @@ class App extends Component {
           </div>
         </Router>
 
-        <Footer campaign="comicrelief" />
+        <Footer campaign="comicrelief" copy="copyright 2018" />
 
       </div>
     );
