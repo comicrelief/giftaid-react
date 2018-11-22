@@ -105,7 +105,7 @@ class UpdateForm extends Component {
       donationTypeChoices: [
         { label: 'SMS', value: 'sms' },
         { label: 'Online', value: 'online' },
-        { label: 'Call centre', value: 'callcentre' },
+        { label: 'Call centre', value: 'contact centre' },
       ],
       hiddenFields: ['field-input--address1', 'field-input--town', 'field-wrapper--country'],
     };
