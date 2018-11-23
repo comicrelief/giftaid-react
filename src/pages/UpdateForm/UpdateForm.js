@@ -14,7 +14,7 @@ let scrollTimeout;
 const DONATION_TYPES = {
   SMS: 'sms',
   ONLINE: 'online',
-  CALL_CENTRE: 'contact centre',
+  CALL_CENTRE: 'call centre',
 };
 
 /**

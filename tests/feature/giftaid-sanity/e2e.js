@@ -60,7 +60,7 @@ module.exports = {
     'User completes giftaid update journey from call centre': function (client) {
         client.url(process.env.BASE_URL + 'update/3D487A59-716B-440D-BD43-50ED301DD9BA').maximizeWindow().waitForElementVisible('body', 1000);
 
-        client.click('input[type="radio"][value="contact centre"]');
+        client.click('input[type="radio"][value="call centre"]');
 
         client.page.updateGA().fillFormUpdateYes(client);
 

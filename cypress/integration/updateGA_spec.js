@@ -193,7 +193,7 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
         cy.get('#form > div:nth-child(1) > h2').should('contain','Edit your Gift Aid declaration')
         cy.get('p.transaction-id').should('contain','Transaction ID: A6E33246-5E5D-44BB-9717-2A828CF2D0E4')
         cy.get('h3.form--update__title--donation').should('contain','How did you make the donation?')
-        cy.get('input[type="radio"]').check('contact centre').should('be.checked')
+        cy.get('input[type="radio"]').check('call centre').should('be.checked')
         cy.get('#field-input--firstname').clear().type(firstName)
         cy.get('#field-input--lastname').clear().type(lastName)
         cy.get('#field-input--emailaddress').clear().type('test@comicrelief.com')
