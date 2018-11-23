@@ -30,7 +30,7 @@ module.exports = {
     },
 
     'User completes giftaid update journey from sms': function (client) {
-        client.url(process.env.BASE_URL + 'update/transID').maximizeWindow().waitForElementVisible('body', 1000);
+        client.url(process.env.BASE_URL + 'update/3D487A59-716B-440D-BD43-50ED301DD9BA').maximizeWindow().waitForElementVisible('body', 1000);
 
         client.click('input[type="radio"][value="sms"]');
 
@@ -44,7 +44,7 @@ module.exports = {
     },
 
     'User completes giftaid update journey from online': function (client) {
-        client.url(process.env.BASE_URL + 'update/transID').maximizeWindow().waitForElementVisible('body', 1000);
+        client.url(process.env.BASE_URL + 'update/3D487A59-716B-440D-BD43-50ED301DD9BA').maximizeWindow().waitForElementVisible('body', 1000);
 
         client.click('input[type="radio"][value="online"]');
 
@@ -58,7 +58,7 @@ module.exports = {
     },
 
     'User completes giftaid update journey from call centre': function (client) {
-        client.url(process.env.BASE_URL + 'update/transID').maximizeWindow().waitForElementVisible('body', 1000);
+        client.url(process.env.BASE_URL + 'update/3D487A59-716B-440D-BD43-50ED301DD9BA').maximizeWindow().waitForElementVisible('body', 1000);
 
         client.click('input[type="radio"][value="callcentre"]');
 
