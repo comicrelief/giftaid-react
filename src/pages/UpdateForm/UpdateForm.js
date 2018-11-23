@@ -11,6 +11,12 @@ const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL + 'update';
 
 let scrollTimeout;
 
+const DONATION_TYPES = {
+  SMS: 'sms',
+  ONLINE: 'online',
+  CALL_CENTRE: 'contact centre',
+};
+
 /**
  * UpdateForm class
  * Returns elements on this form with default properties.
@@ -103,9 +109,9 @@ class UpdateForm extends Component {
         },
       ],
       donationTypeChoices: [
-        { label: 'SMS', value: 'sms' },
-        { label: 'Online', value: 'online' },
-        { label: 'Call centre', value: 'contact centre' },
+        { label: 'SMS', value: DONATION_TYPES.SMS },
+        { label: 'Online', value: DONATION_TYPES.ONLINE },
+        { label: 'Call centre', value: DONATION_TYPES.CALL_CENTRE },
       ],
       hiddenFields: ['field-input--address1', 'field-input--town', 'field-wrapper--country'],
     };
@@ -307,25 +313,14 @@ class UpdateForm extends Component {
     const url = this.getCurrentUrl();
     const campaign = this.getCampaign(url);
     let donationID = '';
-    let donationType = ' ';
-
-    // create field values
-    const fieldValues = {};
-    Object.keys(this.state.validation).forEach((key) => {
-      let value = this.state.validation[key].value;
-      // todo deal with the value output in InputField component
-      if (key === 'confirm') {
-        value = this.state.validation[key].value === true ? 1 : 0;
-      }
-      fieldValues[key] = value;
-    });
+    let donationType = DONATION_TYPES.ONLINE;
 
     // Set this var depending on how the user has inputted their transID
     if (this.state.validation.transactionId) donationID = this.state.validation.transactionId.value;
     else donationID = this.state.urlTransID;
 
     // Overwrite the empty string with the value if it exists
-    if (this.state.validation.donationType) {
+    if (typeof this.state.validation.donationType !== 'undefined') {
       donationType = this.state.validation.donationType.value;
     }
 

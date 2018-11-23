@@ -6,7 +6,7 @@
     "label": "Transaction ID",
     "required": true,
     "invalidErrorText": "This does not match a transaction ID in our system, please check your donation confirmation email or letter",
-    "pattern": "^([A-Z]{1}(-)[A-Z]{3}[0-9]{4}|[A-Z0-9]{8}(-)[A-Z0-9]{4}(-)[A-Z0-9]{4}(-)[A-Z0-9]{4}(-)[A-Z0-9]{12})$"
+    "pattern": "^([a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12})$"
   },
   "firstName": {
     "id": "firstname",
