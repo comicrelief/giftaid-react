@@ -230,6 +230,6 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
     })
 
     it('Verify footer copyright', () => {
-        cy.get('div.footer__copyright > p').should('contain','Comic Relief 2018. Comic Relief, registered charity 326568 (England/Wales); SC039730 (Scotland)')
+        cy.get('div.footer__copyright > p').should('contain','Comic Relief is the trading name of Charity Projects, a registered charity in England and Wales (326568) and Scotland (SC039730), which is a company limited by guarantee registered in England and Wales (01806414). Registered address: Hanover House, 14 Hanover Square, London, W1S 1HP.')
     })
 })
