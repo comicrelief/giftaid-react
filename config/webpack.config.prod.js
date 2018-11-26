@@ -301,11 +301,10 @@ new webpack.DefinePlugin(env.stringified),
     }
   ]),
   new ImageminPlugin({ 
-    test: /\.(jpe?g|png|gif|svg)$/i,
+    test: /\.(jpe?g|png|gif)$/i,
     pngquant: {
       quality: '95-100'
     },
-    svgo: null,
     plugins: [
       imageminMozjpeg ({
         quality: 75,
@@ -315,7 +314,7 @@ new webpack.DefinePlugin(env.stringified),
         interlaced: true, 
         optimizationLevel: 3 
       }), 
-    ]
+    ],
   }),
   // Moment.js is an extremely popular library that bundles large locale files
   // by default due to how Webpack interprets its code. This is a practical
