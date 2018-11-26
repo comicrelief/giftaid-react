@@ -9,6 +9,11 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
+const imageminMozjpeg = require('imagemin-mozjpeg');
+const imageminGifsicle = require('imagemin-gifsicle');
+
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
 
@@ -288,6 +293,28 @@ new webpack.DefinePlugin(env.stringified),
     navigateFallbackWhitelist: [/^(?!\/__).*/],
     // Don't precache sourcemaps (they're large) and build asset manifest:
     staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+  }),
+  new CopyWebpackPlugin([
+    {
+      from: path.resolve(paths.appPublic, 'images'),
+      to: 'images'
+    }
+  ]),
+  new ImageminPlugin({ 
+    test: /\.(jpe?g|png|gif)$/i,
+    pngquant: {
+      quality: '95-100'
+    },
+    plugins: [
+      imageminMozjpeg ({
+        quality: 75,
+        progressive: true
+      }),
+      imageminGifsicle({ 
+        interlaced: true, 
+        optimizationLevel: 3 
+      }), 
+    ],
   }),
   // Moment.js is an extremely popular library that bundles large locale files
   // by default due to how Webpack interprets its code. This is a practical

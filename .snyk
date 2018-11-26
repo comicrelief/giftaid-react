@@ -1,14 +1,23 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.12.0
-ignore: {}
+version: v1.13.1
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-JS-WEBPACKDEVSERVER-72405:
+    - '@comicrelief/storybook > react-scripts > webpack-dev-server':
+        reason: None given
+        expires: '2018-12-20T15:42:22.722Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
-  'npm:hoek:20180212':
-    - cypress > request > hawk > hoek:
-        patched: '2018-06-25T09:39:23.514Z'
-    - cypress > request > hawk > boom > hoek:
-        patched: '2018-06-25T09:39:23.514Z'
-    - cypress > request > hawk > sntp > hoek:
-        patched: '2018-06-25T09:39:23.514Z'
-    - cypress > request > hawk > cryptiles > boom > hoek:
-        patched: '2018-06-25T09:39:23.514Z'
+  'npm:tunnel-agent:20170305':
+    - imagemin-webpack-plugin > imagemin-gifsicle > gifsicle > bin-build > download > caw > tunnel-agent:
+        patched: '2018-11-20T15:39:30.684Z'
+    - imagemin-webpack-plugin > imagemin-jpegtran > jpegtran-bin > bin-build > download > caw > tunnel-agent:
+        patched: '2018-11-20T15:39:30.684Z'
+    - imagemin-webpack-plugin > imagemin-optipng > optipng-bin > bin-build > download > caw > tunnel-agent:
+        patched: '2018-11-20T15:39:30.684Z'
+    - imagemin-webpack-plugin > imagemin-gifsicle > gifsicle > bin-wrapper > download > caw > tunnel-agent:
+        patched: '2018-11-20T15:39:30.684Z'
+    - imagemin-webpack-plugin > imagemin-jpegtran > jpegtran-bin > bin-wrapper > download > caw > tunnel-agent:
+        patched: '2018-11-20T15:39:30.684Z'
+    - imagemin-webpack-plugin > imagemin-optipng > optipng-bin > bin-wrapper > download > caw > tunnel-agent:
+        patched: '2018-11-20T15:39:30.684Z'
