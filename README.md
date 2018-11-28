@@ -17,7 +17,6 @@ For local development please run
 ```bash
 yarn start
 ```
-
 ## Deployment & Environments
 
 Pull requests are tested with circle ci, this will run code style and unit tests against the PR. Deployments are enacted
