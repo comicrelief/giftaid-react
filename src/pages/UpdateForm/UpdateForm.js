@@ -521,10 +521,10 @@ We will only use your phone number to match your SMS donations to your gift aid 
                 showErrorMessages={this.state.showErrorMessages}
                 pattern={this.state.postCodePattern}
                 isAddressValid={
-                    (validation) => {
-                      Object.keys(validation).map(key => this.setValidity(validation[key], key));
-                    }
+                  (validation) => {
+                    Object.keys(validation).map(key => this.setValidity(validation[key], key));
                   }
+                }
               />
 
             </div>
