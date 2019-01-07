@@ -209,12 +209,6 @@ module.exports = {
     ],
   },
   plugins: [
-    // Makes some environment variables available in index.html.
-    // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
-    // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    // In production, it will be an empty string unless you specify "homepage"
-    // in `package.json`, in which case it will be the pathname of that URL.
-    new InterpolateHtmlPlugin(env.raw),
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
       inject: true,
@@ -231,6 +225,13 @@ module.exports = {
         minifyURLs: true,
       },
     }),
+    // Makes some environment variables available in index.html.
+    // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
+    // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    // In production, it will be an empty string unless you specify "homepage"
+    // in `package.json`, in which case it will be the pathname of that URL.
+    new InterpolateHtmlPlugin(env.raw),
+
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
 // It is absolutely essential that NODE_ENV was set to production here.
@@ -300,7 +301,7 @@ new webpack.DefinePlugin(env.stringified),
       to: 'images'
     }
   ]),
-  new ImageminPlugin({ 
+  new ImageminPlugin({
     test: /\.(jpe?g|png|gif)$/i,
     pngquant: {
       quality: '95-100'
@@ -310,10 +311,10 @@ new webpack.DefinePlugin(env.stringified),
         quality: 75,
         progressive: true
       }),
-      imageminGifsicle({ 
-        interlaced: true, 
-        optimizationLevel: 3 
-      }), 
+      imageminGifsicle({
+        interlaced: true,
+        optimizationLevel: 3
+      }),
     ],
   }),
   // Moment.js is an extremely popular library that bundles large locale files

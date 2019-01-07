@@ -147,11 +147,11 @@ module.exports = {
     ],
   },
   plugins: [
-    new InterpolateHtmlPlugin(env.raw),
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
     }),
+    new InterpolateHtmlPlugin(env.raw),
     new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin(env.stringified),
     new webpack.HotModuleReplacementPlugin(),
