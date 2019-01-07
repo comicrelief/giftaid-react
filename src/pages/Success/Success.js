@@ -9,10 +9,16 @@ class Success extends Component {
         <PromoHeader />
         <div className="success-wrapper">
           <div className="success-wrapper--inner">
-            {this.props.location.state && this.props.location.state.firstname !== undefined ?
-              <h1>Thank you, <br />{this.props.location.state.firstname}!</h1>
-              :
-              <h1>Thank you!</h1>
+            {this.props.location.state && this.props.location.state.firstname !== undefined
+              ? (
+                <h1>
+                  Thank you,
+                  <br />
+                  {this.props.location.state.firstname}
+                  !
+                </h1>
+              )
+              : <h1>Thank you!</h1>
             }
             <p>
               We’ve registered your Gift Aid declaration, we’ll use it to pay for our operational

@@ -1,6 +1,8 @@
 /* eslint-env browser */
 import React, { Component } from 'react';
-import { Redirect, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  Redirect, BrowserRouter as Router, Route, Switch,
+} from 'react-router-dom';
 import MetaTags from 'react-meta-tags';
 import TagManager from 'react-gtm-module';
 import Raven from 'react-raven';
@@ -35,8 +37,8 @@ class App extends Component {
   }
 
   render() {
-    const giftAidDescription = 'Gift aid your text donation and the UK Government will give Comic Relief 25% on top of ' +
-      'your donation. It doesn\t cost you a penny, and helps to keep us going.';
+    const giftAidDescription = 'Gift aid your text donation and the UK Government will give Comic Relief 25% on top of '
+      + 'your donation. It doesn\t cost you a penny, and helps to keep us going.';
     const metaKeywords = 'Comic Relief Giftaid, Sport Relief Giftaid, Red Nose Day Giftaid';
 
     return (
