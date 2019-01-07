@@ -358,14 +358,18 @@ class GiftAidForm extends Component {
     return (
       <JustInTime linkText={justInTimeLinkText}>
         <p>
-          <strong>Name, email and billing address: </strong>
+          <strong>
+            Name, email and billing address:
+            {' '}
+          </strong>
           we need it to create a receipt for your payment and send it to you.
         </p>
         <p>
-          <strong>Phone number:</strong>
+          <strong>
+            Phone number:
+          </strong>
           {' '}
-we collect it in case there is an issue
-          with gift aid donation.
+            we collect it in case there is an issue with gift aid donation.
         </p>
       </JustInTime>
     );
@@ -382,9 +386,11 @@ we collect it in case there is an issue
         <h2 className="sub-title">
           Gift aid your donation and the
           {' '}
-          <strong>Government will give us 25%</strong>
+          <strong>
+            Government will give us 25%
+          </strong>
           {' '}
-on top of it.
+            on top of it.
         </h2>
       </div>
     );

@@ -17,8 +17,7 @@ const Sorry = () => (
         address:
         {' '}
         <a href="http://giftaid.rednoseday.com" className="link link--black">giftaid.rednoseday.com</a>
-        {' '}
-and please try again in a few hours.
+        {' '} and please try again in a few hours.
       </p>
       <p className="message-support-title">
         Thanks for your support.

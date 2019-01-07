@@ -1,8 +1,6 @@
 /* eslint-env browser */
 import React, { Component } from 'react';
-import {
-  Redirect, BrowserRouter as Router, Route, Switch,
-} from 'react-router-dom';
+import { Redirect, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MetaTags from 'react-meta-tags';
 import TagManager from 'react-gtm-module';
 import Raven from 'react-raven';
@@ -47,7 +45,9 @@ class App extends Component {
         <Header />
 
         <MetaTags>
-          <title>Gift Aid declaration | Comic Relief</title>
+          <title>
+            Gift Aid declaration | Comic Relief
+          </title>
           <meta name="description" content={giftAidDescription} />
           <meta property="og:title" content="Gift Aid your donation" />
           <meta property="og:image" content="/images/thank-you-mob.jpg" />

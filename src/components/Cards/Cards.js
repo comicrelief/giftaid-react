@@ -10,7 +10,9 @@ const Card = () => (
           <div className={`cards__image cards__item--${element.id}`} />
           <div className="cards__content-wrapper">
             <div className="cards__content">
-              <p>{element.description}</p>
+              <p>
+                {element.description}
+              </p>
               <p>
                 <a
                   href={element.urlsource}
@@ -29,7 +31,9 @@ const Card = () => (
     }
 
     </div>
-    <a href="https://www.comicrelief.com/your-impact" className="btn btn--red">Read More</a>
+    <a href="https://www.comicrelief.com/your-impact" className="btn btn--red">
+      Read More
+    </a>
   </div>
 );
 
