@@ -11,12 +11,7 @@ class Success extends Component {
           <div className="success-wrapper--inner">
             {this.props.location.state && this.props.location.state.firstname !== undefined
               ? (
-                <h1>
-                  Thank you,
-                  <br />
-                  {this.props.location.state.firstname}
-                  !
-                </h1>
+                <h1>Thank you, {this.props.location.state.firstname}!</h1>
               )
               : <h1>Thank you!</h1>
             }
