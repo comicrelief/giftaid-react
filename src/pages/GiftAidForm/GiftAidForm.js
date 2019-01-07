@@ -104,10 +104,8 @@ class GiftAidForm extends Component {
   /**
    * Merges any overrides to the default input field data json with it
    */
-  componentWillMount() {
-    this.setState({
-      inputFieldProps: this.mergeInputFieldProps(defaultInputFieldsData),
-    });
+  componentDidMount() {
+    this.setInputField();
   }
 
   /**
@@ -123,6 +121,11 @@ class GiftAidForm extends Component {
     }
   }
 
+  setInputField() {
+    this.setState({
+      inputFieldProps: this.mergeInputFieldProps(defaultInputFieldsData),
+    });
+  }
   /**
    * Gets the timestamp and formats it
    * @return string
