@@ -19,7 +19,7 @@ class UpdateSuccess extends Component {
             {hasState && firstName !== undefined && giftAidChoice === 1
               ? (
                 <div>
-                  <h1>Thank you, {firstName}!</h1>
+                  <h1>Thank you, <br /> {firstName}!</h1>
                   <p>
                     We’ve registered your Gift Aid declaration,
                    we’ll use it to pay for our operational costs.

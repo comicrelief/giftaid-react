@@ -123,8 +123,8 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
     })
 
     it('verify success page', () => {
-        cy.get('button[type=submit]').click().url('/success')
-        cy.contains(`Thank you, ${firstName}!`)
+        cy.get('button[type=submit]').click().url('/success').wait(1000)
+        cy.get('.success-wrapper').should('contain', 'Thank you,').and('contain', `${firstName}!`)
         cy.get('div.success-wrapper--inner > div > p').should('contain','We’ve registered your Gift Aid declaration, we’ll use it to pay for our operational costs.')
     })
  })
@@ -164,7 +164,7 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
         cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
         cy.get('input[type="radio"]').check('1').should('be.checked')
         cy.get('button[type=submit]').click().url('/success')
-        cy.contains(`Thank you, ${firstName}!`)
+        cy.get('.success-wrapper').should('contain', 'Thank you,').and('contain', `${firstName}!`)
         cy.get('div.success-wrapper--inner > div > p').should('contain','We’ve registered your Gift Aid declaration, we’ll use it to pay for our operational costs.')
     })
 
@@ -183,7 +183,7 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
         cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
         cy.get('input[type="radio"]').check('1').should('be.checked')
         cy.get('button[type=submit]').click().url('/success')
-        cy.contains(`Thank you, ${firstName}!`)
+        cy.get('.success-wrapper').should('contain', 'Thank you,').and('contain', `${firstName}!`)
         cy.get('div.success-wrapper--inner > div > p').should('contain','We’ve registered your Gift Aid declaration, we’ll use it to pay for our operational costs.')
     })
 
@@ -202,7 +202,7 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
         cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
         cy.get('input[type="radio"]').check('1').should('be.checked')
         cy.get('button[type=submit]').click().url('/success')
-        cy.contains(`Thank you, ${firstName}!`)
+        cy.get('.success-wrapper').should('contain', 'Thank you,').and('contain', `${firstName}!`)
         cy.get('div.success-wrapper--inner > div > p').should('contain','We’ve registered your Gift Aid declaration, we’ll use it to pay for our operational costs.')
     })
 
