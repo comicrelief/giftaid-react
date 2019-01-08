@@ -20,7 +20,7 @@ const nightwatch = {
         os: 'Windows',
         os_version: '10',
         browser: 'Chrome',
-        browser_version: '62.0',
+        browser_version: '70.0',
         resolution: '1024x768',
         name: 'Giftaid - Sanity',
       },
