@@ -83,6 +83,6 @@ describe('e2e test', () => {
     it('verify success page', () => {
       console.log(firstName);
         cy.get('button[type=submit]').click().url('/success')
-        cy.contains(`Thank you, ${firstName}!`)
+        cy.get('.success-wrapper').should('contain', 'Thank you,').and('contain', `${firstName}!`)
     })
 })
