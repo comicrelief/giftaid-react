@@ -5,6 +5,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
@@ -17,6 +18,7 @@ const publicUrl = '';
 const env = getClientEnvironment(publicUrl);
 
 module.exports = {
+  mode: 'development',
   devtool: 'cheap-module-source-map',
   entry: [
     require.resolve('react-dev-utils/webpackHotDevClient'),
@@ -33,18 +35,35 @@ module.exports = {
     devtoolModuleFilenameTemplate: info =>
       path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
   },
+  optimization: {
+    // Automatically split vendor and commons
+    // https://twitter.com/wSokra/status/969633336732905474
+    // https://medium.com/webpack/webpack-4-code-splitting-chunk-graph-and-the-splitchunks-optimization-be739a861366
+    splitChunks: {
+      chunks: 'all',
+      name: 'vendors',
+    },
+    // Keep the runtime chunk seperated to enable long term caching
+    // https://twitter.com/wSokra/status/969679223278505985
+    runtimeChunk: true,
+  },
   resolve: {
     modules: ['node_modules', paths.appNodeModules].concat(
       process.env.NODE_PATH.split(path.delimiter).filter(Boolean)
     ),
     extensions: ['.web.js', '.js', '.json', '.web.jsx', '.jsx'],
     alias: {
+      '@babel/runtime': path.dirname(
+        require.resolve('@babel/runtime/package.json')
+      ),
       'react-native': 'react-native-web',
     },
   },
   module: {
     strictExportPresence: true,
     rules: [
+      // Disable require.ensure as it's not a standard language feature.
+      { parser: { requireEnsure: false } },
       {
         test: /\.(js|jsx)$/,
         enforce: 'pre',
@@ -53,7 +72,6 @@ module.exports = {
             options: {
               formatter: eslintFormatter,
               eslintPath: require.resolve('eslint'),
-
             },
             loader: require.resolve('eslint-loader'),
           },
@@ -147,23 +165,28 @@ module.exports = {
     ],
   },
   plugins: [
-    new InterpolateHtmlPlugin(env.raw),
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
     }),
+    new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
     new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin(env.stringified),
     new webpack.HotModuleReplacementPlugin(),
     new CaseSensitivePathsPlugin(),
     new WatchMissingNodeModulesPlugin(paths.appNodeModules),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new ManifestPlugin({
+      fileName: 'asset-manifest.json',
+      publicPath: publicPath,
+    }),
   ],
   node: {
     dgram: 'empty',
     fs: 'empty',
     net: 'empty',
     tls: 'empty',
+    child_process: 'empty',
   },
   performance: {
     hints: false,

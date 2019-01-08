@@ -104,10 +104,8 @@ class GiftAidForm extends Component {
   /**
    * Merges any overrides to the default input field data json with it
    */
-  componentWillMount() {
-    this.setState({
-      inputFieldProps: this.mergeInputFieldProps(defaultInputFieldsData),
-    });
+  componentDidMount() {
+    this.setInputField();
   }
 
   /**
@@ -123,6 +121,11 @@ class GiftAidForm extends Component {
     }
   }
 
+  setInputField() {
+    this.setState({
+      inputFieldProps: this.mergeInputFieldProps(defaultInputFieldsData),
+    });
+  }
   /**
    * Gets the timestamp and formats it
    * @return string
@@ -174,9 +177,9 @@ class GiftAidForm extends Component {
     if (name && valid) {
       this.setState((prevState) => {
         let newState;
-        if (prevState.validation[name] !== undefined &&
-          (prevState.validation[name].value === undefined ||
-            prevState.validation[name].value !== valid.value)) {
+        if (prevState.validation[name] !== undefined
+          && (prevState.validation[name].value === undefined
+            || prevState.validation[name].value !== valid.value)) {
           newState = {
             ...this.state,
             validation: {
@@ -273,6 +276,7 @@ class GiftAidForm extends Component {
     });
     return inputFields;
   }
+
   /**
    * Creates formValues object and submits form
    */
@@ -327,8 +331,7 @@ class GiftAidForm extends Component {
     e.preventDefault();
     // Put field validation into new array to check for invalid fields
     const fields = [];
-    Object.keys(this.state.validation).map(key =>
-      fields.push(this.state.validation[key].valid));
+    Object.keys(this.state.validation).map(key => fields.push(this.state.validation[key].valid));
     // values can be null or empty strings so check for not true
     const invalidFields = fields.some(element => element !== true);
     // update state accordingly
@@ -358,16 +361,23 @@ class GiftAidForm extends Component {
     return (
       <JustInTime linkText={justInTimeLinkText}>
         <p>
-          <strong>Name, email and billing address: </strong>
+          <strong>
+            Name, email and billing address:
+            {' '}
+          </strong>
           we need it to create a receipt for your payment and send it to you.
         </p>
         <p>
-          <strong>Phone number:</strong> we collect it in case there is an issue
-          with gift aid donation.
+          <strong>
+            Phone number:
+          </strong>
+          {' '}
+            we collect it in case there is an issue with gift aid donation.
         </p>
       </JustInTime>
     );
   }
+
   renderFormHeader() {
     return (
       <div>
@@ -377,7 +387,13 @@ class GiftAidForm extends Component {
           </span>
         </h1>
         <h2 className="sub-title">
-          Gift aid your donation and the <strong>Government will give us 25%</strong> on top of it.
+          Gift aid your donation and the
+          {' '}
+          <strong>
+            Government will give us 25%
+          </strong>
+          {' '}
+            on top of it.
         </h2>
       </div>
     );
@@ -412,7 +428,8 @@ class GiftAidForm extends Component {
               type="submit"
               className="btn btn--red"
               onClick={e => this.validateForm(e)}
-            >Gift Aid your donation
+            >
+Gift Aid your donation
             </button>
             {this.renderJustInTimeMessage()}
           </form>
