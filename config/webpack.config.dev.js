@@ -9,7 +9,6 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
-const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getClientEnvironment = require('./env');
 const paths = require('./paths');
 
@@ -59,14 +58,6 @@ module.exports = {
       ),
       'react-native': 'react-native-web',
     },
-    plugins: [
-      // Prevents users from importing files from outside of src/ (or node_modules/).
-      // This often causes confusion because we only process files within src/ with babel.
-      // To fix this, we prevent you from importing files out of src/ -- if you'd like to,
-      // please link the files into your node_modules/ and let module-resolution kick in.
-      // Make sure your source files are compiled, as they will not be processed in any way.
-      new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
-    ],
   },
   module: {
     strictExportPresence: true,
@@ -74,18 +65,13 @@ module.exports = {
       // Disable require.ensure as it's not a standard language feature.
       { parser: { requireEnsure: false } },
       {
-        test: /\.(js|jsx|mjs)$/,
+        test: /\.(js|jsx)$/,
         enforce: 'pre',
         use: [
           {
             options: {
               formatter: eslintFormatter,
               eslintPath: require.resolve('eslint'),
-              baseConfig: {
-                extends: [require.resolve('eslint-config-react-app')],
-              },
-              ignore: false,
-              useEslintrc: false,
             },
             loader: require.resolve('eslint-loader'),
           },
@@ -126,7 +112,7 @@ module.exports = {
             },
           },
           {
-            test: /\.(js|jsx|mjs)$/,
+            test: /\.(js|jsx)$/,
             include: [
               paths.appSrc,
               path.resolve(paths.appNodeModules, '@comicrelief/pattern-lab'),
@@ -134,22 +120,7 @@ module.exports = {
             ],
             loader: require.resolve('babel-loader'),
             options: {
-              babelrc: false,
-              presets: [require.resolve('babel-preset-react-app')],
-              plugins: [
-                [
-                  require.resolve('babel-plugin-named-asset-import'),
-                  {
-                    loaderMap: {
-                      svg: {
-                        ReactComponent: 'svgr/webpack![path]',
-                      },
-                    },
-                  },
-                ],
-              ],
               cacheDirectory: true,
-              highlightCode: true,
             },
           },
           {
@@ -183,7 +154,7 @@ module.exports = {
             ],
           },
           {
-            exclude: [/\.(js|jsx|mjs)$/, /\.html$/, /\.json$/,/\.sass$/,/\.scss$/],
+            exclude: [/\.js$/, /\.html$/, /\.json$/,/\.sass$/,/\.scss$/],
             loader: require.resolve('file-loader'),
             options: {
               name: 'static/media/[name].[hash:8].[ext]',
