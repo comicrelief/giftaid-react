@@ -14,7 +14,10 @@ const Sorry = () => (
       </p>
       <p>
         If it’s been longer than 15 minutes please make a note of the website
-        address: <a href="http://giftaid.rednoseday.com" className="link link--black">giftaid.rednoseday.com</a> and please try again in a few hours.
+        address:
+        {' '}
+        <a href="http://giftaid.rednoseday.com" className="link link--black">giftaid.rednoseday.com</a>
+        {' '} and please try again in a few hours.
       </p>
       <p className="message-support-title">
         Thanks for your support.

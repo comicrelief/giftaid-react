@@ -16,21 +16,27 @@ class UpdateSuccess extends Component {
         <div className="success-wrapper update-success-wrapper">
           <div className="success-wrapper--inner">
 
-            {hasState && firstName !== undefined && giftAidChoice === 1 ?
-              <div>
-                <h1>Thank you, <br />{firstName}!</h1>
-                <p>We’ve registered your Gift Aid declaration,
+            {hasState && firstName !== undefined && giftAidChoice === 1
+              ? (
+                <div>
+                  <h1>Thank you, <br /> {firstName}!</h1>
+                  <p>
+                    We’ve registered your Gift Aid declaration,
                    we’ll use it to pay for our operational costs.
-                </p>
-              </div>
+                  </p>
+                </div>
+              )
               : null }
 
-            {hasState && giftAidChoice === 0 ?
-              <div>
-                <h1>Thanks for letting us know</h1>
-                <p>We won’t claim Gift Aid for your donation
-                </p>
-              </div>
+            {hasState && giftAidChoice === 0
+              ? (
+                <div>
+                  <h1>Thanks for letting us know</h1>
+                  <p>
+                    We won’t claim Gift Aid for your donation
+                  </p>
+                </div>
+              )
               : null }
 
             <h2>Your donation makes a big difference</h2>

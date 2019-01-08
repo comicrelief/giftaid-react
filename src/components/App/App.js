@@ -35,8 +35,8 @@ class App extends Component {
   }
 
   render() {
-    const giftAidDescription = 'Gift aid your text donation and the UK Government will give Comic Relief 25% on top of ' +
-      'your donation. It doesn\t cost you a penny, and helps to keep us going.';
+    const giftAidDescription = 'Gift aid your text donation and the UK Government will give Comic Relief 25% on top of '
+      + 'your donation. It doesn\t cost you a penny, and helps to keep us going.';
     const metaKeywords = 'Comic Relief Giftaid, Sport Relief Giftaid, Red Nose Day Giftaid';
 
     return (
@@ -45,7 +45,9 @@ class App extends Component {
         <Header />
 
         <MetaTags>
-          <title>Gift Aid declaration | Comic Relief</title>
+          <title>
+            Gift Aid declaration | Comic Relief
+          </title>
           <meta name="description" content={giftAidDescription} />
           <meta property="og:title" content="Gift Aid your donation" />
           <meta property="og:image" content="/images/thank-you-mob.jpg" />
