@@ -67,18 +67,16 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
         cy.get('#field-error--lastname>span').should('be.not.visible')
     })
 
-    it('Email input field validation', () => {
-        cy.get('#field-input--emailaddress').clear().click()
-        cy.get('#field-input--postcode').click()
-        cy.get('#field-error--emailaddress > span').should('contain','Please fill in your email address')
-        cy.get('#field-input--emailaddress').clear().type('test-@%comicrelief.com')
-        cy.get('#field-error--emailaddress > span').should('contain','Please fill in a valid email address')
-        cy.get('#field-input--emailaddress').clear().type('test@comicrelief.com')
-        cy.get('#field-error--emailaddress > span').should('be.not.visible')
+    it('email input field validation', () => {
+      cy.get('#field-input--emailaddress').clear().type('test-@%comicrelief.com')
+      cy.get('#field-error--emailaddress > span').should('contain','Please fill in a valid email address')
+      cy.get('#field-input--emailaddress').clear().type('test@comicrelief.com')
+      cy.get('#field-error--emailaddress > span').should('be.not.visible')
     })
 
     it('postcode field validation', () => {
-        cy.get('#field-error--postcode>span').should('contain','Please enter your postcode')
+        cy.get('#postcode_button').click()
+        cy.get('#field-error--postcode>span').should('contain','No postcode provided')
         cy.get('#field-input--postcode').clear().type('s66%')
         cy.get('#field-error--postcode>span').should('contain','Please enter a valid postcode')
         cy.get('#field-input--postcode').clear().type('s66')
@@ -120,6 +118,10 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
         cy.get('.form__row--just-in-time-block>div>a').click()
         cy.contains('Name, email and address: we need this information to identify your donation and update the gift aid status on your donation.')
         cy.contains('We will only use your phone number to match your SMS donations to your gift aid status.')
+    })
+
+    it('clear email field', () => {
+      cy.get('#field-input--emailaddress').clear()
     })
 
     it('verify success page', () => {
