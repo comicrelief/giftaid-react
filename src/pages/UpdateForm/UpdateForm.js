@@ -98,9 +98,9 @@ class UpdateForm extends Component {
       giftAidButtonChoices: [
         {
           label: 'Yes, I would like Comic Relief to claim Gift Aid on my donation',
-          additionalText: '&#42; By ticking I state I am a UK taxpayer making a personal donation and understand'
-          + 'that if I pay less Income Tax and/or Capital Gains Tax than the amount of Gift Aid claimed on all my '
-          + 'donations, it is my responsibility to pay any difference. [Find out more](http://www.comicrelief.com)',
+          additionalText: '&#42; By ticking I state I am a UK taxpayer making a personal donation and understand' +
+            'that if I pay less Income Tax and/or Capital Gains Tax than the amount of Gift Aid claimed on all my ' +
+            'donations, it is my responsibility to pay any difference. [Find out more](http://www.comicrelief.com)',
           value: 1,
         },
         {
@@ -132,12 +132,14 @@ class UpdateForm extends Component {
         this.fieldRefs = refs;
       }
     };
+    this.url = null;
+    this.timestamp = null;
+    this.campaign = null;
   }
-
   /**
    * Updates our validation object accordingly, so we're not trying to validate nonexistent fields
    */
-  componentDidMount() {
+  componentWillMount() {
     // If we've a transID in the url, remove valid obj for the transID input that won't be rendered
     if (this.state.urlTransID !== undefined) delete this.state.validation.transactionId;
     // Else, do the same for the donation type radiobuttons
@@ -164,8 +166,8 @@ class UpdateForm extends Component {
    */
   getTimestamp() {
     const getTimeStamp = Math.round((new Date()).getTime() / 1000);
-    const timestamp = new Date(getTimeStamp * 1000);
-    return timestamp;
+    this.timestamp = new Date(getTimeStamp * 1000);
+    return this.timestamp;
   }
 
   /**
@@ -174,15 +176,15 @@ class UpdateForm extends Component {
    * @return {*}
    */
   getCampaign(url) {
-    let campaign;
+    // let campaign;
     if (url.includes('sportrelief')) {
-      campaign = 'SR18';
+      this.campaign = 'SR18';
     } else if (url.includes('rednoseday')) {
-      campaign = 'RND19';
+      this.campaign = 'RND19';
     } else {
-      campaign = 'CR';
+      this.campaign = 'CR';
     }
-    return campaign;
+    return this.campaign;
   }
 
   /**
@@ -191,29 +193,29 @@ class UpdateForm extends Component {
    * @return string
    */
   getCurrentUrl() {
-    let url = null;
+    // let url = null;
     if (window.location.hostname === 'localhost') {
-      url = 'http://local.comicrelief.com';
+      this.url = 'http://local.comicrelief.com';
     } else {
-      url = window.location.href;
+      this.url = window.location.href;
     }
-    return url;
+    return this.url;
   }
 
   /**
    * Updates validation state
+   * @param childState
    * @param name
-   * @param valid
    */
   setValidity(childState, name) {
     if (name && childState) {
       this.setState((prevState) => {
         let newState;
         // If we already have saved validation object for this field
-        if (prevState.validation[name] !== undefined
+        if (prevState.validation[name] !== undefined &&
           // AND that object is empty OR the saved value isnt the same as our new childstate value
-          && (prevState.validation[name].value === undefined
-            || prevState.validation[name].value !== childState.value)) {
+          (prevState.validation[name].value === undefined ||
+            prevState.validation[name].value !== childState.value)) {
           // .. then create a new state object, copying the current state, adding the
           // current validation state plus the new value
           newState = {
@@ -415,13 +417,11 @@ class UpdateForm extends Component {
           we need this information to identify your donation
           and update the gift aid status on your donation.
         </p>
-        <p>
-We will only use your phone number to match your SMS donations to your gift aid status.
+        <p>We will only use your phone number to match your SMS donations to your gift aid status.
         </p>
       </JustInTime>
     );
   }
-
   renderFormHeader() {
     return (
       <div>
@@ -437,15 +437,12 @@ We will only use your phone number to match your SMS donations to your gift aid 
           We can claim Gift Aid from personal donations made by UK taxpayers:
           the Government gives us back 25% of their value.
         </p>
-        { this.state.urlTransID
-          ? (
-            <p className="text-align-centre transaction-id">
-            Transaction ID:
-              {' '}
-              {this.state.urlTransID}
-            </p>
-          )
-          : null }
+        { this.state.urlTransID ?
+          <p className="text-align-centre transaction-id">
+            Transaction ID: {this.state.urlTransID}
+          </p>
+          :
+          null }
       </div>
     );
   }
@@ -535,8 +532,7 @@ We will only use your phone number to match your SMS donations to your gift aid 
               type="submit"
               className="btn btn--red"
               onClick={e => this.validateForm(e)}
-            >
-Update Declaration
+            >Update Declaration
             </button>
             {this.renderJustInTimeMessage()}
           </form>
