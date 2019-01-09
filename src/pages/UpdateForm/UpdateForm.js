@@ -45,7 +45,7 @@ class UpdateForm extends Component {
           message: '',
         },
         emailaddress: {
-          valid: false,
+          valid: true,
           value: undefined,
           message: '',
         },

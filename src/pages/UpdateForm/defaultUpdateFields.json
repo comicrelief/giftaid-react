@@ -27,6 +27,6 @@
     "type": "email",
     "name": "emailaddress",
     "label": "Email address",
-    "required": true
+    "required": false
   }
 }
