@@ -99,6 +99,11 @@ class GiftAidForm extends Component {
         this.fieldRefs = refs;
       }
     };
+    this.url = null;
+    this.timestamp = null;
+    this.campaign = null;
+    this.justInTimeLinkText = 'Why do we collect this info?';
+    this.formHeaderHidden = 'Giftaid it';
   }
 
   /**
@@ -132,8 +137,8 @@ class GiftAidForm extends Component {
    */
   getTimestamp() {
     const getTimeStamp = Math.round((new Date()).getTime() / 1000);
-    const timestamp = new Date(getTimeStamp * 1000);
-    return timestamp;
+    this.timestamp = new Date(getTimeStamp * 1000);
+    return this.timestamp;
   }
 
   /**
@@ -142,15 +147,14 @@ class GiftAidForm extends Component {
    * @return {*}
    */
   getCampaign(url) {
-    let campaign;
     if (url.includes('sportrelief')) {
-      campaign = 'SR18';
+      this.campaign = 'SR18';
     } else if (url.includes('rednoseday')) {
-      campaign = 'RND19';
+      this.campaign = 'RND19';
     } else {
-      campaign = 'CR';
+      this.campaign = 'CR';
     }
-    return campaign;
+    return this.campaign;
   }
 
   /**
@@ -159,13 +163,12 @@ class GiftAidForm extends Component {
    * @return string
    */
   getCurrentUrl() {
-    let url = null;
     if (window.location.hostname === 'localhost') {
-      url = 'http://local.comicrelief.com';
+      this.url = 'http://local.comicrelief.com';
     } else {
-      url = window.location.href;
+      this.url = window.location.href;
     }
-    return url;
+    return this.url;
   }
 
   /**
@@ -357,22 +360,14 @@ class GiftAidForm extends Component {
    * Renders out the just in time message
    */
   renderJustInTimeMessage() {
-    const justInTimeLinkText = 'Why do we collect this info?';
     return (
-      <JustInTime linkText={justInTimeLinkText}>
+      <JustInTime linkText={this.justInTimeLinkText}>
         <p>
           <strong>
-            Name, email and billing address:
+            Name, phone number and address:
             {' '}
           </strong>
-          we need it to create a receipt for your payment and send it to you.
-        </p>
-        <p>
-          <strong>
-            Phone number:
-          </strong>
-          {' '}
-            we collect it in case there is an issue with gift aid donation.
+          we need these details to process a Gift Aid claim on your donation.
         </p>
       </JustInTime>
     );
@@ -383,7 +378,7 @@ class GiftAidForm extends Component {
       <div>
         <h1 className="giftaid-title">
           <span className="visually-hidden">
-            Giftaid it
+            { this.formHeaderHidden }
           </span>
         </h1>
         <h2 className="sub-title">

@@ -135,6 +135,8 @@ class UpdateForm extends Component {
     this.url = null;
     this.timestamp = null;
     this.campaign = null;
+    this.justInTimeLinkText = 'Why do we collect this info?';
+    this.formHeaderHidden = 'Giftaid it';
   }
   /**
    * Updates our validation object accordingly, so we're not trying to validate nonexistent fields
@@ -429,9 +431,8 @@ class UpdateForm extends Component {
    * Renders out the just in time message
    */
   renderJustInTimeMessage() {
-    const justInTimeLinkText = 'Why do we collect this info?';
     return (
-      <JustInTime linkText={justInTimeLinkText}>
+      <JustInTime linkText={this.justInTimeLinkText}>
         <p>
           <strong>Name, email and address: </strong>
           we need this information to identify your donation
@@ -447,7 +448,7 @@ class UpdateForm extends Component {
       <div>
         <h1 className="giftaid-title">
           <span className="visually-hidden">
-            Giftaid it
+            { this.formHeaderHidden }
           </span>
         </h1>
         <h2 className="sub-title">
