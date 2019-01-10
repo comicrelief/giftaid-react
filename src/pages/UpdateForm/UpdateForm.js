@@ -139,7 +139,7 @@ class UpdateForm extends Component {
   /**
    * Updates our validation object accordingly, so we're not trying to validate nonexistent fields
    */
-  componentWillMount() {
+  componentDidMount() {
     // If we've a transID in the url, remove valid obj for the transID input that won't be rendered
     if (this.state.urlTransID !== undefined) delete this.state.validation.transactionId;
     // Else, do the same for the donation type radiobuttons
@@ -153,10 +153,6 @@ class UpdateForm extends Component {
     if (this.state.showErrorMessages && !this.state.formValidity && this.state.validating) {
       // timeout needed for error class names to appear
       scrollTimeout = setTimeout(() => { this.scrollToError(); }, 500);
-    }
-
-    if (this.state.showErrorMessages === false && this.state.formValidity === true) {
-      this.submitForm();
     }
   }
 
@@ -208,26 +204,44 @@ class UpdateForm extends Component {
    * @param name
    */
   setValidity(childState, name) {
-    if (name && childState) {
-      this.setState((prevState) => {
-        let newState;
-        // If we already have saved validation object for this field
-        if (prevState.validation[name] !== undefined &&
-          // AND that object is empty OR the saved value isnt the same as our new childstate value
-          (prevState.validation[name].value === undefined ||
-            prevState.validation[name].value !== childState.value)) {
-          // .. then create a new state object, copying the current state, adding the
-          // current validation state plus the new value
-          newState = {
-            ...this.state,
-            validation: {
-              ...this.state.validation,
-              [name]: childState,
+    // stop from running too often
+    if (this.state.validation[name] &&
+      (this.state.validation[name].value === undefined ||
+        this.state.validation[name].value !== childState.value)) {
+      if (name === 'emailaddress' && childState.value === '') {
+        this.setState({
+          ...this.state,
+          validation: {
+            ...this.state.validation,
+            emailaddress: {
+              valid: true,
+              value: childState.value,
+              message: childState.message,
+              showErrorMessage: false,
             },
-          };
-        }
-        return newState;
-      });
+          },
+        });
+      } else {
+        this.setState((prevState) => {
+          let newState;
+          // If we already have saved validation object for this field
+          if (prevState.validation[name] !== undefined &&
+            // AND that object is empty OR the saved value isnt the same as our new childstate value
+            (prevState.validation[name].value === undefined ||
+              prevState.validation[name].value !== childState.value)) {
+            // .. then create a new state object, copying the current state, adding the
+            // current validation state plus the new value
+            newState = {
+              ...this.state,
+              validation: {
+                ...this.state.validation,
+                [name]: childState,
+              },
+            };
+          }
+          return newState;
+        });
+      }
     }
   }
 
@@ -313,58 +327,65 @@ class UpdateForm extends Component {
    * Creates formValues object and submits form
    */
   submitForm() {
-    const url = this.getCurrentUrl();
-    const campaign = this.getCampaign(url);
-    let donationID = '';
-    let donationType = DONATION_TYPES.ONLINE;
+    if (this.state.showErrorMessages === false && this.state.formValidity === true) {
+      // this.submitForm();
 
-    // Set this var depending on how the user has inputted their transID
-    if (this.state.validation.transactionId) donationID = this.state.validation.transactionId.value;
-    else donationID = this.state.urlTransID;
+      const url = this.getCurrentUrl();
+      const campaign = this.getCampaign(url);
+      let donationID = '';
+      let donationType = DONATION_TYPES.ONLINE;
 
-    // Overwrite the empty string with the value if it exists
-    if (typeof this.state.validation.donationType !== 'undefined') {
-      donationType = this.state.validation.donationType.value;
+      // Set this var depending on how the user has inputted their transID
+      if (this.state.validation.transactionId) {
+        donationID = this.state.validation.transactionId.value;
+      } else {
+        donationID = this.state.urlTransID;
+      }
+
+      // Overwrite the empty string with the value if it exists
+      if (typeof this.state.validation.donationType !== 'undefined') {
+        donationType = this.state.validation.donationType.value;
+      }
+
+      const formValues = {
+        campaign,
+        transSource: `${campaign}_GiftAidUpdate`,
+        transSourceUrl: url,
+        transType: 'GiftAidUpdate',
+        timestamp: this.getTimestamp(),
+        email: this.state.validation.emailaddress.value,
+        postcode: this.state.validation.postcode.value,
+        donationID,
+        donationType,
+        firstname: this.state.validation.firstname.value,
+        lastname: this.state.validation.lastname.value,
+        address1: this.state.validation.address1.value,
+        address2: this.state.validation.address2.value,
+        address3: this.state.validation.address3.value,
+        town: this.state.validation.town.value,
+        country: this.state.validation.country.value,
+        confirm: this.state.validation.giftAidClaimChoice.value,
+      };
+
+      // post form data and settings to endpoint
+      axios.post(ENDPOINT_URL, formValues)
+        .then(() => {
+          this.props.history.push({
+            pathname: '/update/success',
+            state: {
+              firstname: this.state.validation.firstname.value,
+              giftAidChoice: formValues.confirm,
+            },
+          });
+        })
+        .catch((error, response) => {
+          console.log(error, response);
+
+          this.props.history.push({
+            pathname: '/update/sorry',
+          });
+        });
     }
-
-    const formValues = {
-      campaign,
-      transSource: `${campaign}_GiftAidUpdate`,
-      transSourceUrl: url,
-      transType: 'GiftAidUpdate',
-      timestamp: this.getTimestamp(),
-      email: this.state.validation.emailaddress.value,
-      postcode: this.state.validation.postcode.value,
-      donationID,
-      donationType,
-      firstname: this.state.validation.firstname.value,
-      lastname: this.state.validation.lastname.value,
-      address1: this.state.validation.address1.value,
-      address2: this.state.validation.address2.value,
-      address3: this.state.validation.address3.value,
-      town: this.state.validation.town.value,
-      country: this.state.validation.country.value,
-      confirm: this.state.validation.giftAidClaimChoice.value,
-    };
-
-    // post form data and settings to endpoint
-    axios.post(ENDPOINT_URL, formValues)
-      .then(() => {
-        this.props.history.push({
-          pathname: '/update/success',
-          state: {
-            firstname: this.state.validation.firstname.value,
-            giftAidChoice: formValues.confirm,
-          },
-        });
-      })
-      .catch((error, response) => {
-        console.log(error, response);
-
-        this.props.history.push({
-          pathname: '/update/sorry',
-        });
-      });
   }
 
   /**
@@ -384,7 +405,6 @@ class UpdateForm extends Component {
 
     // Values can be 'null' or empty strings, so check if our array contains a 'not true' value
     const anyInvalidFields = allFieldsToCheck.some(element => element !== true);
-
     // Update state accordingly
     if (anyInvalidFields === false) {
       this.setState({
@@ -392,7 +412,7 @@ class UpdateForm extends Component {
         formValidity: true,
         showErrorMessages: false,
         validating: false,
-      });
+      }, this.submitForm);
     }
 
     if (anyInvalidFields === true) {
