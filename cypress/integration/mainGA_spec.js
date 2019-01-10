@@ -76,8 +76,7 @@ describe('e2e test', () => {
 
     it('verify JIT', () => {
         cy.get('.form__row--just-in-time-block>div>a').click()
-        cy.contains('Name, email and billing address: we need it to create a receipt for your payment and send it to you.')
-        cy.contains('Phone number: we collect it in case there is an issue with gift aid donation.')
+        cy.contains('Name, phone number and address: we need these details to process a Gift Aid claim on your donation.')
     })
 
     it('verify success page', () => {
