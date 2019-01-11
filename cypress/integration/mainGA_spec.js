@@ -81,8 +81,31 @@ describe('e2e test', () => {
     })
 
     it('verify success page', () => {
-      console.log(firstName);
         cy.get('button[type=submit]').click().url('/success')
         cy.get('.success-wrapper').should('contain', 'Thank you,').and('contain', `${firstName}!`)
     })
 })
+
+
+describe('Ensure redirect functionality from Success page', () => {
+  it('visit success page', () => {
+    cy.visit('/success')
+  });
+
+  it('Redirects from success page to giftaid', () => {
+    cy
+      .title().should('eq', 'Gift Aid declaration | Comic Relief')
+      .get('.giftaid-title>span').should('contain', 'Giftaid it')
+      .get('#form > div:nth-child(1) > h2').should('contain', 'Gift aid your donation and the Government will give us 25% on top of it.')
+  });
+
+  it('Giftaid page is empty', () => {
+    cy
+      .get('#field-input--giftaid').should('have.value', "")
+      .get('#field-input--mobile').should('have.value', "")
+      .get('#field-input--firstname').should('have.value', "")
+      .get('#field-input--lastname').should('have.value', "")
+      .get('#field-input--postcode').should('have.value', "")
+  });
+});
+
