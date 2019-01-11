@@ -3,6 +3,9 @@ import PromoHeader from '../../components/PromoHeader/PromoHeader';
 import Cards from '../../components/Cards/Cards';
 
 class UpdateSuccess extends Component {
+  componentDidMount() {
+
+  }
   render() {
     const hasState = this.props.location.state;
     const firstName = this.props.location.state.firstname;

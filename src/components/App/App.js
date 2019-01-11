@@ -16,17 +16,25 @@ import Header from '../Header/Header';
 import GiftAidForm from '../../pages/GiftAidForm/GiftAidForm';
 import UpdateSuccess from '../../pages/UpdateSuccess/UpdateSuccess';
 import UpdateSorry from '../../pages/UpdateSorry/UpdateSorry';
+import SiteService from '../../service/Site.service';
 
 class App extends Component {
   constructor() {
     super();
+    this.site = new SiteService();
+    this.getGTM();
+  }
 
+  /**
+   * Initialise gtm snippet
+   */
+  getGTM() {
     TagManager.initialize({
-      gtmId: 'GTM-TC9H9D',
+      gtmId: this.site.get('GTM').id,
       dataLayer: {
         site: [{
           category: 'giftaid',
-          pageCategory: '',
+          pageCategory: this.site.get('GTM').application,
           pageSubCategory: '',
           environment: process.env.REACT_APP_ENVIRONMENT,
         }],
@@ -35,10 +43,6 @@ class App extends Component {
   }
 
   render() {
-    const giftAidDescription = 'Gift aid your text donation and the UK Government will give Comic Relief 25% on top of '
-      + 'your donation. It doesn\t cost you a penny, and helps to keep us going.';
-    const metaKeywords = 'Comic Relief Giftaid, Sport Relief Giftaid, Red Nose Day Giftaid';
-
     return (
       <div className="App">
         <CookieConsentMessage />
@@ -48,13 +52,13 @@ class App extends Component {
           <title>
             Gift Aid declaration | Comic Relief
           </title>
-          <meta name="description" content={giftAidDescription} />
+          <meta name="description" content={this.site.get('meta').description} />
           <meta property="og:title" content="Gift Aid your donation" />
           <meta property="og:image" content="/images/thank-you-mob.jpg" />
           <meta property="og:site_name" content="Comic Relief" />
           <meta property="og:url" content={window.location.href} />
-          <meta property="og:description" content={giftAidDescription} />
-          <meta name="keywords" content={metaKeywords} />
+          <meta property="og:description" content={this.site.get('meta').description} />
+          <meta name="keywords" content={this.site.get('meta').keywords} />
         </MetaTags>
 
         <Raven dsn="https://25f53d059e1f488f9d0f000ffd500585@sentry.io/1228720" />

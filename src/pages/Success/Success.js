@@ -3,6 +3,10 @@ import PromoHeader from '../../components/PromoHeader/PromoHeader';
 import Cards from '../../components/Cards/Cards';
 
 class Success extends Component {
+  componentDidMount() {
+
+  }
+
   render() {
     return (
       <div>
