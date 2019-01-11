@@ -125,7 +125,7 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
     })
 
     it('verify success page', () => {
-        cy.get('button[type=submit]').click().url('/success').wait(1000)
+        cy.get('button[type=submit]').click().wait(2000)
         cy.get('.success-wrapper').should('contain', 'Thank you,').and('contain', `${firstName}!`)
         cy.get('div.success-wrapper--inner > div > p').should('contain','We’ve registered your Gift Aid declaration, we’ll use it to pay for our operational costs.')
     })
@@ -143,7 +143,7 @@ describe('e2e test typing transaction ID and choosing "No" to claim gift aid on 
         cy.get('#postcode_button').click()
         cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
         cy.get('input[type="radio"]').check('0').should('be.checked')
-        cy.get('button[type=submit]').click().url('/success')
+        cy.get('button[type=submit]').click().wait(2000)
         cy.contains('Thanks for letting us know')
         cy.get('div.success-wrapper--inner > div > p').should('contain', 'We won’t claim Gift Aid for your donation')
     })
