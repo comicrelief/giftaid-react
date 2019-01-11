@@ -18,11 +18,23 @@ import UpdateSuccess from '../../pages/UpdateSuccess/UpdateSuccess';
 import UpdateSorry from '../../pages/UpdateSorry/UpdateSorry';
 import SiteService from '../../service/Site.service';
 
+import AppliedRoute from '../Routes/AppliedRoute';
+import CompletedRoute from '../Routes/CompletedRoute';
+import UpdateCompletedRoute from '../Routes/UpdateCompletedRoute';
+
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.site = new SiteService();
+    this.updateHasCompleted = this.updateHasCompleted.bind(this);
+    this.submitHasCompleted = this.submitHasCompleted.bind(this);
     this.getGTM();
+    this.state = {
+      isCompleted: false,
+      isCompleting: true,
+      updateCompleted: false,
+      updateCompleting: true,
+    };
   }
 
   /**
@@ -41,8 +53,48 @@ class App extends Component {
       },
     });
   }
+  /**
+   * Update has completed
+   * @param completed
+   */
+  updateHasCompleted(completed) {
+    this.setState({ updateCompleted: completed }, this.updateCompleting);
+  }
 
+  /**
+   * Update is completing
+   */
+  updateCompleting() {
+    if (this.state.updateCompleted) {
+      this.setState({ updateCompleting: false });
+    } else {
+      this.setState({ updateCompleting: true });
+    }
+  }
+  /**
+   * Submit has completed
+   * @param completed
+   */
+  submitHasCompleted(completed) {
+    this.setState({ isCompleted: completed }, this.isCompleting);
+  }
+
+  /**
+   * Submit is completing
+   */
+  isCompleting() {
+    if (this.state.isCompleted) {
+      this.setState({ isCompleting: false });
+    } else {
+      this.setState({ isCompleting: true });
+    }
+  }
   render() {
+    const childProps = {
+      ...this.state,
+      updateHasCompleted: this.updateHasCompleted,
+      submitHasCompleted: this.submitHasCompleted,
+    };
     return (
       <div className="App">
         <CookieConsentMessage />
@@ -67,15 +119,23 @@ class App extends Component {
           <div>
             <ScrollToTop />
             <Switch>
-              <Route exact path="/" component={GiftAidForm} />
-              <Route path="/success" component={Success} />
+              <AppliedRoute exact path="/" component={GiftAidForm} props={childProps} />
+              <CompletedRoute path="/success" component={Success} props={childProps} />
               <Route path="/sorry" component={Sorry} />
 
-              <Route path="/update/success" component={UpdateSuccess} />
+              <UpdateCompletedRoute
+                path="/update/success"
+                component={UpdateSuccess}
+                props={childProps}
+              />
               <Route path="/update/sorry" component={UpdateSorry} />
 
-              <Route path="/update/:transaction_id" component={UpdateForm} />
-              <Route path="/update" component={UpdateForm} />
+              <AppliedRoute
+                path="/update/:transaction_id"
+                component={UpdateForm}
+                props={childProps}
+              />
+              <AppliedRoute path="/update" component={UpdateForm} props={childProps} />
 
               <Redirect push to="/" />
             </Switch>

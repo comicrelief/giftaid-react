@@ -140,6 +140,7 @@ class UpdateForm extends Component {
    * Updates our validation object accordingly, so we're not trying to validate nonexistent fields
    */
   componentDidMount() {
+    this.props.updateHasCompleted(false);
     // If we've a transID in the url, remove valid obj for the transID input that won't be rendered
     if (this.state.urlTransID !== undefined) delete this.state.validation.transactionId;
     // Else, do the same for the donation type radiobuttons
@@ -370,6 +371,7 @@ class UpdateForm extends Component {
       // post form data and settings to endpoint
       axios.post(ENDPOINT_URL, formValues)
         .then(() => {
+          this.props.updateHasCompleted(true);
           this.props.history.push({
             pathname: '/update/success',
             state: {
