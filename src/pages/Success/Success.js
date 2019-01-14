@@ -1,8 +1,32 @@
 import React, { Component } from 'react';
 import PromoHeader from '../../components/PromoHeader/PromoHeader';
 import Cards from '../../components/Cards/Cards';
+import SiteService from '../../service/Site.service';
 
 class Success extends Component {
+  /**
+   * Success constructor
+   */
+  constructor() {
+    super();
+    this.site = new SiteService();
+  }
+
+  componentDidMount() {
+    document.title = `Success${this.site.get('title_postfix')}`;
+    if (typeof this.props.location.state === 'undefined') {
+      this.goBack();
+    }
+  }
+
+  /**
+   * Go back to homepage
+   */
+  goBack() {
+    this.props.history.push({
+      pathname: '/',
+    });
+  }
   render() {
     return (
       <div>

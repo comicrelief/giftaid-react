@@ -111,6 +111,7 @@ class GiftAidForm extends Component {
    */
   componentDidMount() {
     this.setInputField();
+    this.props.submitHasCompleted(false);
   }
 
   /**
@@ -312,6 +313,7 @@ class GiftAidForm extends Component {
     // post form data and settings to endpoint
     axios.post(ENDPOINT_URL, formValues)
       .then(() => {
+        this.props.submitHasCompleted(true);
         this.props.history.push({
           pathname: '/success',
           state: { firstname: formValues.firstname },

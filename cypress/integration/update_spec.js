@@ -6,6 +6,7 @@
 const faker = require('faker')
 const firstName = faker.name.firstName();
 const lastName = faker.name.lastName();
+const successUrl = '/update/success';
 
 describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on donation', () => {
 
@@ -125,9 +126,9 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
     })
 
     it('verify success page', () => {
-        cy.get('button[type=submit]').click().url('/success').wait(1000)
-        cy.get('.success-wrapper').should('contain', 'Thank you,').and('contain', `${firstName}!`)
-        cy.get('div.success-wrapper--inner > div > p').should('contain','We’ve registered your Gift Aid declaration, we’ll use it to pay for our operational costs.')
+      cy.get('button[type=submit]').click().url('/success').wait(1000)
+      cy.get('.success-wrapper').should('contain', 'Thank you,').and('contain', `${firstName}!`)
+      cy.get('div.success-wrapper--inner > div > p').should('contain','We’ve registered your Gift Aid declaration, we’ll use it to pay for our operational costs.')
     })
  })
 
@@ -235,3 +236,26 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
         cy.get('div.footer__copyright > p').should('contain','Comic Relief is the trading name of Charity Projects, a registered charity in England and Wales (326568) and Scotland (SC039730), which is a company limited by guarantee registered in England and Wales (01806414). Registered address: Hanover House, 14 Hanover Square, London, W1S 1HP.')
     })
 })
+
+describe('Ensure redirect functionality from Success page', () => {
+  it('visit success page', () => {
+    cy.visit('/update/success')
+  });
+
+  it('Redirects from success page to giftaid', () => {
+    cy
+        .title().should('eq', 'Gift Aid declaration | Comic Relief')
+        .get('.giftaid-title>span').should('contain', 'Giftaid it')
+        .get('#form > div:nth-child(1) > h2').should('contain', 'Edit your Gift Aid declaration')
+        .get('#form > div.form-fields--wrapper > h3').should('contain','Who is changing their declaration?')
+  });
+
+  it('Giftaid page is empty', () => {
+    cy
+      .get('#field-input--transactionId').should('have.value', "")
+      .get('#field-input--firstname').should('have.value', "")
+      .get('#field-input--lastname').should('have.value', "")
+      .get('#field-input--emailaddress').should('have.value', "")
+      .get('#field-input--postcode').should('have.value', "")
+  });
+});
