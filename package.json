@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@comicrelief/pattern-lab": "7.51.5",
-    "@comicrelief/storybook": "1.17.29",
+    "@comicrelief/storybook": "1.17.32",
     "add": "^2.0.6",
     "autoprefixer": "8.5.0",
     "axios": "^0.18.0",
