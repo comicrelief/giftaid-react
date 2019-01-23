@@ -101,6 +101,9 @@
     "webpack-dev-server": "^3.1.14",
     "webpack-manifest-plugin": "2.0.3"
   },
+  "resolutions" : {
+    "**/mem": "4.0.0"
+  },
   "snyk": true
 }
 
