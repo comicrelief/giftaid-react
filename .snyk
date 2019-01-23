@@ -6,6 +6,10 @@ ignore:
     - '@comicrelief/storybook > react-scripts > webpack-dev-server':
         reason: None given
         expires: '2018-12-20T15:42:22.722Z'
+  'npm:shelljs:20140723':
+    - '@comicrelief/storybook > @storybook/react > @storybook/core > shelljs':
+        reason: Ignore error until a patch or a new version is available.
+        expires: '2019-02-22T15:42:26.262Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   'npm:tunnel-agent:20170305':
