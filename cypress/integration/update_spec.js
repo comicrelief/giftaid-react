@@ -7,6 +7,7 @@ const faker = require('faker')
 const firstName = faker.name.firstName();
 const lastName = faker.name.lastName();
 const successUrl = '/update/success';
+const giftAidChecked = ( Math.random() > 0.5 ) ? '1' : '0';
 
 describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on donation', () => {
 
@@ -107,7 +108,7 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
     })
 
     it('verify Your Gift Aid declaration',() => {
-        cy.get('#form > div:nth-child(3) > h3').should('contain','Your Gift Aid declaration')
+        cy.get('#form > div:nth-child(4) > h3').should('contain','Your Gift Aid declaration')
         cy.get('#giftAidClaimChoice > legend').should('contain','Can we claim Gift Aid on your donation?')
         cy.get('button[type=submit]').click()
         cy.get('#field-error--giftAidClaimChoice > span').should('contain','This field is required')
@@ -258,4 +259,23 @@ describe('Ensure redirect functionality from Success page', () => {
       .get('#field-input--emailaddress').should('have.value', "")
       .get('#field-input--postcode').should('have.value', "")
   });
+});
+
+describe('Ensure url validation if string is not a real UUID', () => {
+  it('validate invalid string / non UUID in url', () => {
+    cy.visit('/update/test')
+    cy.get('#form > div:nth-child(1) > h2').should('contain','Edit your Gift Aid declaration')
+    cy.get('p.transaction-id').should('contain','Transaction ID: test')
+    cy.get('h3.form--update__title--donation').should('contain','How did you make the donation?')
+    cy.get('input[type="radio"]').check('online').should('be.checked')
+    cy.get('#field-input--firstname').clear().type(firstName)
+    cy.get('#field-input--lastname').clear().type(lastName)
+    cy.get('#field-input--emailaddress').clear().type('test@comicrelief.com')
+    cy.get('#field-input--postcode').clear().type('hp2 6lq')
+    cy.get('#postcode_button').click()
+    cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
+    cy.get('input[type="radio"]').check(giftAidChecked).should('be.checked')
+    cy.get('button[type=submit]').click()
+    cy.get('#field-error--urlTransID > span').should('contain','This does not match a transaction ID in our system, please check your donation confirmation email or letter')
+  })
 });
