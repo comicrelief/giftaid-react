@@ -267,7 +267,6 @@ class UpdateForm extends Component {
     // Scroll to url trans Id error message
     if (this.state.urlTransIDErrorMessage) {
       document.querySelector('#field-error--urlTransID').scrollIntoView('smooth');
-      // window.scrollTo(0, this.myRef.current.offsetTop);
     }
 
     // Scroll to the first erroring field
