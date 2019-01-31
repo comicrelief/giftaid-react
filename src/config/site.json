@@ -8,26 +8,6 @@
     "menu_tye": "comicrelief",
     "campaign": {
       "id": "General",
-      "name": "CR"
-    },
-    "GTM": {
-      "id": "GTM-TC9H9D",
-      "application": "cr_giftaid"
-    },
-    "meta": {
-      "keywords": "Comic Relief Giftaid, Sport Relief Giftaid, Red Nose Day Giftaid",
-      "description": "Gift aid your text donation and the UK Government will give Comic Relief 25% on top of your donation. It doesn't cost you a penny, and helps to keep us going."
-    }
-  },
-  "RNDGIFTAID": {
-    "title": "Giftaid",
-    "title_postfix": " | Comic Relief",
-    "logo": "/images/logo/cr_logo.svg",
-    "favicon": "/images/favicon/cr/favicon.ico",
-    "home_url": "https://www.comicrelief.com",
-    "menu_tye": "comicrelief",
-    "campaign": {
-      "id": "General",
       "name": "RND19"
     },
     "GTM": {

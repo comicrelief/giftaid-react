@@ -1,7 +1,7 @@
 import SiteConfig from '../config/site.json';
 
 const SITE = process.env.REACT_APP_SITE;
-const DEFAULT_SITE = 'RNDGIFTAID';
+const DEFAULT_SITE = 'CRGIFTAID';
 
 /**
  * SiteService class
