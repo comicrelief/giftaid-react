@@ -5,6 +5,7 @@ import InputField from '@comicrelief/storybook/src/components/InputField/InputFi
 import JustInTime from '@comicrelief/storybook/src/components/JustInTime/JustInTime';
 import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup/PostcodeLookup';
 import defaultInputFieldsData from './defaultGiftaidFields.json';
+import SiteService from '../../service/Site.service';
 
 const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
 
@@ -23,6 +24,7 @@ let scrollTimeout;
 class GiftAidForm extends Component {
   constructor(props) {
     super(props);
+    this.site = new SiteService();
     this.state = {
       validating: false,
       inputFieldProps: [],
@@ -286,7 +288,7 @@ class GiftAidForm extends Component {
    */
   submitForm() {
     const url = this.getCurrentUrl();
-    const campaign = this.getCampaign(url);
+    const campaign = this.site.get('campaign').name;
     // required settings to post to api endpoint
     const settings = {
       campaign,

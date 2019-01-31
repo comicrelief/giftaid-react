@@ -6,6 +6,7 @@ import JustInTime from '@comicrelief/storybook/src/components/JustInTime/JustInT
 import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup/PostcodeLookup';
 import RadioButtons from '@comicrelief/storybook/src/components/RadioButtons/RadioButtons';
 import defaultInputFieldsData from './defaultUpdateFields.json';
+import SiteService from '../../service/Site.service';
 
 const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL + 'update';
 
@@ -24,6 +25,7 @@ const DONATION_TYPES = {
 class UpdateForm extends Component {
   constructor(props) {
     super(props);
+    this.site = new SiteService();
     this.state = {
       validating: false,
       firstUpdate: false,
@@ -334,7 +336,7 @@ class UpdateForm extends Component {
       // this.submitForm();
 
       const url = this.getCurrentUrl();
-      const campaign = this.getCampaign(url);
+      const campaign = this.site.get('campaign').name;
       let donationID = '';
       let donationType = DONATION_TYPES.ONLINE;
 
