@@ -6,6 +6,10 @@
     "favicon": "/images/favicon/cr/favicon.ico",
     "home_url": "https://www.comicrelief.com",
     "menu_tye": "comicrelief",
+    "campaign": {
+      "id": "General",
+      "name": "RND19"
+    },
     "GTM": {
       "id": "GTM-TC9H9D",
       "application": "cr_giftaid"
