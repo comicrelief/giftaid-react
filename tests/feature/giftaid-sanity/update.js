@@ -84,4 +84,12 @@ module.exports = {
     client.expect.element('div.success-wrapper--inner>div>h1').text.to.equal('Thanks for letting us know');
     client.end();
   },
+
+  'Verify url error message on Giftaid update form with invalid UUID': function (client) {
+    client.url(process.env.BASE_URL + 'update/test').maximizeWindow().waitForElementVisible('body', 1000);
+    client.click('input[type="radio"][value="online"]');
+    client.page.updateGA().fillFormUpdateYes(client);
+    client.assert.containsText('#field-error--urlTransID>span', 'This does not match a transaction ID in our system, please check your donation confirmation email or letter')
+    client.end();
+  },
 }

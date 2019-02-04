@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import axios from 'axios';
+import browser from 'browser-detect';
 import InputField from '@comicrelief/storybook/src/components/InputField/InputField';
 import JustInTime from '@comicrelief/storybook/src/components/JustInTime/JustInTime';
 import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup/PostcodeLookup';
@@ -31,6 +32,7 @@ class UpdateForm extends Component {
       firstUpdate: false,
       formValidity: false,
       showErrorMessages: false,
+      urlTransIDErrorMessage: false,
       formDataError: null,
       formDataSuccess: null,
       urlTransID: this.props.match.params.transaction_id,
@@ -139,6 +141,8 @@ class UpdateForm extends Component {
     this.campaign = null;
     this.justInTimeLinkText = 'Why do we collect this info?';
     this.formHeaderHidden = 'Giftaid it';
+    this.transactionIdPattern = '^([A-Z]{1}(-)[A-Z]{3}[0-9]{4}|[A-Z0-9]{8}(-)[A-Z0-9]{4}(-)[A-Z0-9]{4}(-)[A-Z0-9]{4}(-)[A-Z0-9]{12})$';
+    this.transactionIdError = 'This does not match a transaction ID in our system, please check your donation confirmation email or letter';
   }
   /**
    * Updates our validation object accordingly, so we're not trying to validate nonexistent fields
@@ -155,7 +159,7 @@ class UpdateForm extends Component {
    * Deals with component update after pressing submit button
    */
   componentDidUpdate() {
-    if (this.state.showErrorMessages && !this.state.formValidity && this.state.validating) {
+    if ((this.state.showErrorMessages && !this.state.formValidity && this.state.validating) || this.state.urlTransIDErrorMessage) {
       // timeout needed for error class names to appear
       scrollTimeout = setTimeout(() => { this.scrollToError(); }, 500);
     }
@@ -262,6 +266,10 @@ class UpdateForm extends Component {
 
     let item;
     let allClasses;
+    // Scroll to url trans Id error message
+    if (this.state.urlTransIDErrorMessage) {
+      document.querySelector('#field-error--urlTransID').scrollIntoView('smooth');
+    }
 
     // Scroll to the first erroring field
     const errorWrapper = document.querySelectorAll('.form__field--erroring')[0];
@@ -332,9 +340,14 @@ class UpdateForm extends Component {
    * Creates formValues object and submits form
    */
   submitForm() {
+    // validate url trans Id
+    if (typeof this.state.urlTransID !== 'undefined' && this.state.urlTransID !== null && !this.state.validation.transactionId) {
+      const validateUrlTransId = this.validateUrlTransId(this.state.urlTransID);
+      if (!validateUrlTransId) {
+        return;
+      }
+    }
     if (this.state.showErrorMessages === false && this.state.formValidity === true) {
-      // this.submitForm();
-
       const url = this.getCurrentUrl();
       const campaign = this.site.get('campaign').name;
       let donationID = '';
@@ -385,10 +398,12 @@ class UpdateForm extends Component {
           });
         })
         .catch((error, response) => {
-          console.log(error, response);
-
           this.props.history.push({
             pathname: '/update/sorry',
+            state: {
+              error,
+              response,
+            },
           });
         });
     }
@@ -431,6 +446,17 @@ class UpdateForm extends Component {
     }
   }
 
+  validateUrlTransId(urlTransID) {
+    const transactionIdPattern = new RegExp(this.transactionIdPattern);
+    if (!transactionIdPattern.test(urlTransID)) {
+      this.setState({
+        ...this.state,
+        urlTransIDErrorMessage: true,
+      });
+      return false;
+    }
+    return true;
+  }
   /**
    * Renders out the just in time message
    */
@@ -471,7 +497,24 @@ class UpdateForm extends Component {
       </div>
     );
   }
-
+  renderError() {
+    const isBrowser = browser();
+    const supportedAriaAttributes = isBrowser.name === 'firefox' && isBrowser.os.match('Windows') ?
+      { 'aria-live': 'assertive', 'aria-relevant': 'additions removals' } : { 'aria-live': 'assertive', role: 'status' };
+    return (
+      <div
+        id="field-error--urlTransID"
+        className="form__field-error-container form__field-error-container--text"
+        {...supportedAriaAttributes}
+      >
+        { this.state.urlTransIDErrorMessage ?
+          <span className="url-error">{this.transactionIdError}</span>
+          :
+          ''
+        }
+      </div>
+    );
+  }
   renderDonationTypeButtons() {
     if (this.state.urlTransID) {
       return (
@@ -526,6 +569,7 @@ class UpdateForm extends Component {
             className="update-giftaid__form"
           >
             {this.renderFormHeader()}
+            {this.renderError()}
 
             <div className="form-fields--wrapper">
 
