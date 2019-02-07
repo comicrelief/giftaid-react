@@ -4,8 +4,10 @@ import axios from 'axios';
 import InputField from '@comicrelief/storybook/src/components/InputField/InputField';
 import JustInTime from '@comicrelief/storybook/src/components/JustInTime/JustInTime';
 import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup/PostcodeLookup';
+import MarketingConsent from '@comicrelief/storybook/src/components/MarketingConsent/MarketingConsent';
 import defaultInputFieldsData from './defaultGiftaidFields.json';
 import SiteService from '../../service/Site.service';
+import marketingConsentData from './marketingConsentData.json';
 
 const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
 
@@ -423,6 +425,7 @@ class GiftAidForm extends Component {
                 }
               }
             />
+            <MarketingConsent getValidation={validation => console.log('marketing consent validation', validation)} itemData={marketingConsentData} />
             <button
               type="submit"
               className="btn btn--red"

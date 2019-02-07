@@ -1,0 +1,159 @@
+{"Questions":[
+  {
+    "id":1,
+    "text":"email",
+    "options":[
+      {
+        "label":"yes",
+        "value": "yes",
+        "name":"emailPermission",
+        "hideFields": false
+      },
+      {
+        "label":"no",
+        "value": "no",
+        "name":"emailPermission",
+        "hideFields": true
+      }
+    ],
+    "field":[
+      {
+        "id": "emailAddress",
+        "type": "email",
+        "name": "email",
+        "label": "Email address",
+        "placeholder": "example@email.com",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id":2,
+    "text":"post",
+    "options":[
+      {
+        "label":"yes",
+        "value":"yes",
+        "name":"postPermission",
+        "hideFields": false
+      },
+      {
+        "label":"no",
+        "value":"no",
+        "name":"postPermission",
+        "hideFields": true
+      }
+    ],
+    "field":[
+      {
+        "id": "address1",
+        "type": "text",
+        "name": "address1",
+        "label": "Address line 1",
+        "placeholder": null,
+        "required": true
+      },
+      {
+        "id": "address2",
+        "type": "text",
+        "name": "address2",
+        "label": "Address line 2",
+        "placeholder": null,
+        "required": false,
+        "min": null
+      },
+      {
+        "id": "address3",
+        "type": "text",
+        "name": "address3",
+        "label": "Address line 3",
+        "placeholder": null,
+        "required": false,
+        "min": null
+      },
+      {
+        "id": "town",
+        "type": "text",
+        "name": "town",
+        "label": "Town/City",
+        "placeholder": null,
+        "required": true,
+        "pattern": "[a-zA-Z]+",
+        "min": null
+      },
+      {
+        "id": "postcode",
+        "type": "text",
+        "name": "postcode",
+        "label": "Postcode",
+        "placeholder": "SE1 7TP",
+        "required": true
+      },
+      {
+        "id": "country",
+        "type": "text",
+        "name": "country",
+        "label": "Country",
+        "placeholder": "United Kingdom",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id":3,
+    "text":"phone",
+    "options":[
+      {
+        "label":"yes",
+        "value":"yes",
+        "name":"phonePermission",
+        "hideFields": false
+      },
+      {
+        "label":"no",
+        "value":"no",
+        "name":"phonePermission",
+        "hideFields": true
+      }
+    ],
+    "field":[
+      {
+        "id": "phoneNumber",
+        "type": "tel",
+        "name": "phone",
+        "label": "Phone number",
+        "placeholder": null,
+        "required": true
+      }
+    ]
+  },
+  {
+    "id":4,
+    "text":"SMS",
+    "options":[
+      {
+        "label":"yes",
+        "value":"yes",
+        "name":"smsPermission",
+        "hideFields": false
+      },
+      {
+        "label":"no",
+        "value":"no",
+        "name":"smsPermission",
+        "hideFields": true
+      }
+    ],
+    "field":[
+      {
+        "id": "mobileNumber",
+        "type": "tel",
+        "name": "mobile",
+        "label": "Mobile number",
+        "placeholder": null,
+        "required": true
+      }
+    ]
+  }
+]
+}
