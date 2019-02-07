@@ -116,6 +116,9 @@ class GiftAidForm extends Component {
     this.props.submitHasCompleted(false);
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state !== nextState;
+  }
   /**
    * Deals with component update after pressing submit button
    */
@@ -123,9 +126,6 @@ class GiftAidForm extends Component {
     if (this.state.showErrorMessages && !this.state.formValidity && this.state.validating) {
       // timeout needed for error class names to appear
       scrollTimeout = setTimeout(() => { this.scrollToError(); }, 500);
-    }
-    if (this.state.showErrorMessages === false && this.state.formValidity === true) {
-      this.submitForm();
     }
   }
 
@@ -311,21 +311,22 @@ class GiftAidForm extends Component {
 
     // Combine all form data and settings
     const formValues = Object.assign({}, fieldValues, settings);
-
-    // post form data and settings to endpoint
-    axios.post(ENDPOINT_URL, formValues)
-      .then(() => {
-        this.props.submitHasCompleted(true);
-        this.props.history.push({
-          pathname: '/success',
-          state: { firstname: formValues.firstname },
+    if (this.state.showErrorMessages === false && this.state.formValidity === true) {
+      axios.post(ENDPOINT_URL, formValues)
+        .then(() => {
+          this.submitFlag = true;
+          this.props.submitHasCompleted(true);
+          this.props.history.push({
+            pathname: '/success',
+            state: { firstname: formValues.firstname },
+          });
+        })
+        .catch(() => {
+          this.props.history.push({
+            pathname: '/sorry',
+          });
         });
-      })
-      .catch(() => {
-        this.props.history.push({
-          pathname: '/sorry',
-        });
-      });
+    }
   }
 
   /**
@@ -348,7 +349,7 @@ class GiftAidForm extends Component {
         formValidity: true,
         showErrorMessages: false,
         validating: false,
-      });
+      }, this.submitForm);
     }
     if (invalidFields === true) {
       this.setState({
@@ -410,6 +411,9 @@ class GiftAidForm extends Component {
             className="giftaid__form"
             data-success={formDataSuccess}
             data-error={formDataError}
+            onSubmit={(e) => {
+              this.validateForm(e);
+            }}
           >
             {this.renderFormHeader()}
             { this.createInputFields() }
@@ -426,7 +430,6 @@ class GiftAidForm extends Component {
             <button
               type="submit"
               className="btn btn--red"
-              onClick={e => this.validateForm(e)}
             >
 Gift Aid your donation
             </button>
@@ -437,7 +440,6 @@ Gift Aid your donation
     );
   }
 }
-
 GiftAidForm.defaultProps = {
   inputFieldOverrides: {},
   history: { push: { } },
