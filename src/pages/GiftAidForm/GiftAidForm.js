@@ -126,9 +126,6 @@ class GiftAidForm extends Component {
       // timeout needed for error class names to appear
       scrollTimeout = setTimeout(() => { this.scrollToError(); }, 500);
     }
-    if (this.state.showErrorMessages === false && this.state.formValidity === true) {
-      this.submitForm();
-    }
   }
 
   setInputField() {
@@ -144,22 +141,6 @@ class GiftAidForm extends Component {
     const getTimeStamp = Math.round((new Date()).getTime() / 1000);
     this.timestamp = new Date(getTimeStamp * 1000);
     return this.timestamp;
-  }
-
-  /**
-   * Gets the campaign name based on the url
-   * @param url
-   * @return {*}
-   */
-  getCampaign(url) {
-    if (url.includes('sportrelief')) {
-      this.campaign = 'SR18';
-    } else if (url.includes('rednoseday')) {
-      this.campaign = 'RND19';
-    } else {
-      this.campaign = 'CR';
-    }
-    return this.campaign;
   }
 
   /**
@@ -289,6 +270,10 @@ class GiftAidForm extends Component {
    * Creates formValues object and submits form
    */
   submitForm() {
+    if (this.state.showErrorMessages !== false && this.state.formValidity !== true) {
+      return false;
+    }
+
     const url = this.getCurrentUrl();
     const campaign = this.site.get('campaign').name;
     // required settings to post to api endpoint
@@ -328,6 +313,8 @@ class GiftAidForm extends Component {
           pathname: '/sorry',
         });
       });
+
+    return true;
   }
 
   /**
@@ -339,27 +326,31 @@ class GiftAidForm extends Component {
   validateForm(e) {
     e.preventDefault();
     // Put field validation into new array to check for invalid fields
-    const fields = [];
-    Object.keys(this.state.validation).map(key => fields.push(this.state.validation[key].valid));
-    // values can be null or empty strings so check for not true
-    const invalidFields = fields.some(element => element !== true);
+    let validity = true;
+    Object.keys(this.state.validation).map((key) => {
+      if (this.state.validation[key].valid !== true) {
+        validity = false;
+      }
+
+      return true;
+    });
+
     // update state accordingly
-    if (invalidFields === false) {
-      this.setState({
-        ...this.state,
-        formValidity: true,
-        showErrorMessages: false,
-        validating: false,
-      });
-    }
-    if (invalidFields === true) {
-      this.setState({
+    if (validity !== true) {
+      return this.setState({
         ...this.state,
         formValidity: false,
         showErrorMessages: true,
         validating: true,
       });
     }
+
+    return this.setState({
+      ...this.state,
+      formValidity: true,
+      showErrorMessages: false,
+      validating: false,
+    }, this.submitForm);
   }
 
   /**
