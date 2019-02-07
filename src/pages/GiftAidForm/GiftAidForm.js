@@ -268,12 +268,9 @@ class GiftAidForm extends Component {
    * Creates formValues object and submits form
    */
   submitForm() {
-    console.log(this.state.showErrorMessages, this.state.formValidity);
     if (this.state.showErrorMessages !== false && this.state.formValidity !== true) {
       return false;
     }
-
-    console.log('should be fine');
 
     const url = this.getCurrentUrl();
     const campaign = this.site.get('campaign').name;
@@ -346,7 +343,6 @@ class GiftAidForm extends Component {
       });
     }
 
-    console.log('setting state');
     return this.setState({
       ...this.state,
       formValidity: true,
