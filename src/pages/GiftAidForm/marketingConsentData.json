@@ -1,22 +1,22 @@
-{"Questions":[
+{"Questions": [
   {
-    "id":1,
-    "text":"email",
+    "id": "emailConsent",
+    "text": "email",
     "options":[
       {
-        "label":"yes",
+        "label": "yes",
         "value": "yes",
-        "name":"emailPermission",
+        "name": "emailPermission",
         "hideFields": false
       },
       {
-        "label":"no",
+        "label": "no",
         "value": "no",
-        "name":"emailPermission",
+        "name": "emailPermission",
         "hideFields": true
       }
     ],
-    "field":[
+    "field": [
       {
         "id": "emailAddress",
         "type": "email",
@@ -28,23 +28,23 @@
     ]
   },
   {
-    "id":2,
-    "text":"post",
-    "options":[
+    "id": "postConsent",
+    "text": "post",
+    "options": [
       {
-        "label":"yes",
-        "value":"yes",
-        "name":"postPermission",
+        "label": "yes",
+        "value": "yes",
+        "name": "postPermission",
         "hideFields": false
       },
       {
-        "label":"no",
-        "value":"no",
-        "name":"postPermission",
+        "label": "no",
+        "value": "no",
+        "name": "postPermission",
         "hideFields": true
       }
     ],
-    "field":[
+    "field": [
       {
         "id": "address1",
         "type": "text",
@@ -100,23 +100,23 @@
     ]
   },
   {
-    "id":3,
-    "text":"phone",
-    "options":[
+    "id": "phoneConsent",
+    "text": "phone",
+    "options": [
       {
-        "label":"yes",
-        "value":"yes",
-        "name":"phonePermission",
+        "label": "yes",
+        "value": "yes",
+        "name": "phonePermission",
         "hideFields": false
       },
       {
-        "label":"no",
-        "value":"no",
-        "name":"phonePermission",
+        "label": "no",
+        "value": "no",
+        "name": "phonePermission",
         "hideFields": true
       }
     ],
-    "field":[
+    "field": [
       {
         "id": "phoneNumber",
         "type": "tel",
@@ -128,23 +128,23 @@
     ]
   },
   {
-    "id":4,
-    "text":"SMS",
-    "options":[
+    "id": "SMSConsent",
+    "text": "SMS",
+    "options": [
       {
-        "label":"yes",
-        "value":"yes",
-        "name":"smsPermission",
+        "label": "yes",
+        "value": "yes",
+        "name": "smsPermission",
         "hideFields": false
       },
       {
-        "label":"no",
-        "value":"no",
-        "name":"smsPermission",
+        "label": "no",
+        "value": "no",
+        "name": "smsPermission",
         "hideFields": true
       }
     ],
-    "field":[
+    "field": [
       {
         "id": "mobileNumber",
         "type": "tel",
@@ -155,5 +155,4 @@
       }
     ]
   }
-]
-}
+]}

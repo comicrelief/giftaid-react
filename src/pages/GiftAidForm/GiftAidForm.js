@@ -86,7 +86,33 @@ class GiftAidForm extends Component {
           value: undefined,
           message: '',
         },
+        emailConsent: {
+          isFieldsHidden: false,
+          value: null,
+          valid: true,
+          fieldValidation: {},
+        },
+        postConsent: {
+          isFieldsHidden: false,
+          value: null,
+          valid: true,
+          fieldValidation: {},
+        },
+        phoneConsent: {
+          isFieldsHidden: false,
+          value: null,
+          valid: true,
+          fieldValidation: {},
+        },
+        SMSConsent: {
+          isFieldsHidden: false,
+          value: null,
+          valid: true,
+          fieldValidation: {},
+        },
+
       },
+
       hiddenFields: ['field-input--address1', 'field-input--town', 'field-wrapper--country'],
     };
     // Put the field refs from children into an array
@@ -166,9 +192,10 @@ class GiftAidForm extends Component {
     if (name && valid) {
       this.setState((prevState) => {
         let newState;
-        if (prevState.validation[name] !== undefined
-          && (prevState.validation[name].value === undefined
-            || prevState.validation[name].value !== valid.value)) {
+        if ((prevState.validation[name] === undefined) ||
+          (prevState.validation[name] !== undefined
+            && (prevState.validation[name].valid === undefined
+              || prevState.validation[name].valid !== valid.valid))) {
           newState = {
             ...this.state,
             validation: {
@@ -325,16 +352,15 @@ class GiftAidForm extends Component {
    */
   validateForm(e) {
     e.preventDefault();
-    // Put field validation into new array to check for invalid fields
+    //  check for invalid fields
     let validity = true;
     Object.keys(this.state.validation).map((key) => {
-      if (this.state.validation[key].valid !== true) {
+      if (typeof this.state.validation[key].valid !== 'undefined' && this.state.validation[key].valid !== true) {
         validity = false;
       }
-
       return true;
     });
-
+    console.log('validity', validity);
     // update state accordingly
     if (validity !== true) {
       return this.setState({
@@ -350,7 +376,7 @@ class GiftAidForm extends Component {
       formValidity: true,
       showErrorMessages: false,
       validating: false,
-    }, this.submitForm);
+    });
   }
 
   /**
@@ -416,7 +442,12 @@ class GiftAidForm extends Component {
                 }
               }
             />
-            <MarketingConsent getValidation={validation => console.log('marketing consent validation', validation)} itemData={marketingConsentData} />
+            <MarketingConsent
+              getValidation={(validation) => {
+                Object.keys(validation).map(key => this.setValidity(key, validation[key]));
+              }}
+              itemData={marketingConsentData}
+            />
             <button
               type="submit"
               className="btn btn--red"
