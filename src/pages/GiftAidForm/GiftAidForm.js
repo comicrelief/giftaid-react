@@ -355,7 +355,7 @@ class GiftAidForm extends Component {
     //  check for invalid fields
     let validity = true;
     Object.keys(this.state.validation).map((key) => {
-      if (typeof this.state.validation[key].valid !== 'undefined' && this.state.validation[key].valid !== true) {
+      if (this.state.validation[key].valid !== true) {
         validity = false;
       }
       return true;
