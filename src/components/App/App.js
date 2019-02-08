@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { Redirect, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MetaTags from 'react-meta-tags';
-import TagManager from 'react-gtm-module';
 import Raven from 'react-raven';
 import CookieConsentMessage from '@comicrelief/storybook/src/components/CookieConsentMessage/CookieConsentMessage';
 import Footer from '@comicrelief/storybook/src/components/Footer/Footer';
@@ -28,7 +27,6 @@ class App extends Component {
     this.site = new SiteService();
     this.updateHasCompleted = this.updateHasCompleted.bind(this);
     this.submitHasCompleted = this.submitHasCompleted.bind(this);
-    this.getGTM();
     this.state = {
       isCompleted: false,
       isCompleting: true,
@@ -37,22 +35,6 @@ class App extends Component {
     };
   }
 
-  /**
-   * Initialise gtm snippet
-   */
-  getGTM() {
-    TagManager.initialize({
-      gtmId: this.site.get('GTM').id,
-      dataLayer: {
-        site: [{
-          category: 'giftaid',
-          pageCategory: this.site.get('GTM').application,
-          pageSubCategory: '',
-          environment: process.env.REACT_APP_ENVIRONMENT,
-        }],
-      },
-    });
-  }
   /**
    * Update has completed
    * @param completed
