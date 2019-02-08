@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { Redirect, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MetaTags from 'react-meta-tags';
 import TagManager from 'react-gtm-module';
-import Raven from 'react-raven';
 import CookieConsentMessage from '@comicrelief/storybook/src/components/CookieConsentMessage/CookieConsentMessage';
 import Footer from '@comicrelief/storybook/src/components/Footer/Footer';
 
@@ -112,8 +111,6 @@ class App extends Component {
           <meta property="og:description" content={this.site.get('meta').description} />
           <meta name="keywords" content={this.site.get('meta').keywords} />
         </MetaTags>
-
-        <Raven dsn="https://25f53d059e1f488f9d0f000ffd500585@sentry.io/1228720" />
 
         <Router>
           <div>
