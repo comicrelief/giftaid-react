@@ -13,16 +13,6 @@ const Card = () => (
                 <p>
                   {element.description}
                 </p>
-                <p>
-                  <a
-                    href={element.urlsource}
-                    className="link link--black"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {element.title}
-                  </a>
-                </p>
               </div>
             </div>
           </div>
