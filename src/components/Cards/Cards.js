@@ -1,5 +1,4 @@
 import React from 'react';
-import CardData from './Cards.json';
 
 const Card = () => (
   <div className="cards cards--three-grid-centre cards--three-grid-unit">
