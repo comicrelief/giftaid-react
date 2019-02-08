@@ -68,7 +68,6 @@ class UpdateSuccess extends Component {
               Comic Relief currently supports more than 2,000 projects in the UK and around
               the world, tackling issues like gender injustice and mental illness.
             </p>
-            <p>These are some of the people we helped last year:</p>
           </div>
           <Cards />
         </div>
