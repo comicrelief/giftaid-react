@@ -59,8 +59,7 @@
         "name": "address2",
         "label": "Address line 2",
         "placeholder": null,
-        "required": false,
-        "min": null
+        "required": false
       },
       {
         "id": "address3",
@@ -68,8 +67,7 @@
         "name": "address3",
         "label": "Address line 3",
         "placeholder": null,
-        "required": false,
-        "min": null
+        "required": false
       },
       {
         "id": "town",
@@ -77,9 +75,7 @@
         "name": "town",
         "label": "Town/City",
         "placeholder": null,
-        "required": true,
-        "pattern": "[a-zA-Z]+",
-        "min": null
+        "required": true
       },
       {
         "id": "postcode",

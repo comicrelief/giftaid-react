@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
-import axios from 'axios';
+// import axios from 'axios';
 import InputField from '@comicrelief/storybook/src/components/InputField/InputField';
 import JustInTime from '@comicrelief/storybook/src/components/JustInTime/JustInTime';
 import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup/PostcodeLookup';
@@ -9,7 +9,7 @@ import defaultInputFieldsData from './defaultGiftaidFields.json';
 import SiteService from '../../service/Site.service';
 import marketingConsentData from './marketingConsentData.json';
 
-const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
+// const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
 
 let scrollTimeout;
 /**
@@ -186,21 +186,24 @@ class GiftAidForm extends Component {
   /**
    * Updates validation state
    * @param name
-   * @param valid
+   * @param newStateField
    */
-  setValidity(name, valid) {
-    if (name && valid) {
+  setValidity(name, newStateField) {
+    if (name && newStateField) {
       this.setState((prevState) => {
         let newState;
-        if ((prevState.validation[name] === undefined) ||
-          (prevState.validation[name] !== undefined
-            && (prevState.validation[name].valid === undefined
-              || prevState.validation[name].valid !== valid.valid))) {
+        const prevStateField = prevState.validation[name];
+        const fieldUndefined = prevStateField === undefined;
+        const newValue = fieldUndefined === false && prevStateField.value !== newStateField.value;
+        const marketingConsentFieldsChanged = fieldUndefined === false &&
+          (newStateField.fieldValidation !== prevStateField.fieldValidation);
+
+        if (fieldUndefined === true || newValue === true || marketingConsentFieldsChanged === true) {
           newState = {
             ...this.state,
             validation: {
               ...this.state.validation,
-              [name]: valid,
+              [name]: newStateField,
             },
           };
         }
@@ -301,16 +304,16 @@ class GiftAidForm extends Component {
       return false;
     }
 
-    const url = this.getCurrentUrl();
-    const campaign = this.site.get('campaign').name;
+    // const url = this.getCurrentUrl();
+    // const campaign = this.site.get('campaign').name;
     // required settings to post to api endpoint
-    const settings = {
-      campaign,
-      transSource: `${campaign}_GiftAid`,
-      transSourceUrl: url,
-      transType: 'GiftAid',
-      timestamp: this.getTimestamp(),
-    };
+    // const settings = {
+    //   campaign,
+    //   transSource: `${campaign}_GiftAid`,
+    //   transSourceUrl: url,
+    //   transType: 'GiftAid',
+    //   timestamp: this.getTimestamp(),
+    // };
 
     // create field values
     const fieldValues = {};
@@ -320,26 +323,35 @@ class GiftAidForm extends Component {
       if (key === 'confirm') {
         value = this.state.validation[key].value === true ? 1 : 0;
       }
+      console.log('value', value);
+      if (value === 'yes') {
+        value = { value };
+        const fields = this.state.validation[key].fieldValidation;
+        // Object.keys(fields).forEach(name => value.push({ [name]: fields[name].value }));
+        Object.keys(fields).forEach(name => value[name] = fields[name].value);
+        console.log('marketing value:', value);
+      }
       fieldValues[key] = value;
     });
+    console.log('fieldvalues', fieldValues);
 
     // Combine all form data and settings
-    const formValues = Object.assign({}, fieldValues, settings);
+    // const formValues = Object.assign({}, fieldValues, settings);
 
     // post form data and settings to endpoint
-    axios.post(ENDPOINT_URL, formValues)
-      .then(() => {
-        this.props.submitHasCompleted(true);
-        this.props.history.push({
-          pathname: '/success',
-          state: { firstname: formValues.firstname },
-        });
-      })
-      .catch(() => {
-        this.props.history.push({
-          pathname: '/sorry',
-        });
-      });
+    // axios.post(ENDPOINT_URL, formValues)
+    //   .then(() => {
+    //     this.props.submitHasCompleted(true);
+    //     this.props.history.push({
+    //       pathname: '/success',
+    //       state: { firstname: formValues.firstname },
+    //     });
+    //   })
+    //   .catch(() => {
+    //     this.props.history.push({
+    //       pathname: '/sorry',
+    //     });
+    //   });
 
     return true;
   }
@@ -376,7 +388,7 @@ class GiftAidForm extends Component {
       formValidity: true,
       showErrorMessages: false,
       validating: false,
-    });
+    }, this.submitForm);
   }
 
   /**
@@ -444,6 +456,7 @@ class GiftAidForm extends Component {
             />
             <MarketingConsent
               getValidation={(validation) => {
+                console.log('consent val', validation);
                 Object.keys(validation).map(key => this.setValidity(key, validation[key]));
               }}
               itemData={marketingConsentData}
@@ -465,14 +478,14 @@ Gift Aid your donation
 
 GiftAidForm.defaultProps = {
   inputFieldOverrides: {},
-  history: { push: { } },
+  // history: { push: { } },
 };
 
 GiftAidForm.propTypes = {
   inputFieldOverrides: propTypes.shape(propTypes.shape),
-  history: propTypes.shape({
-    push: propTypes.func,
-  }),
+  // history: propTypes.shape({
+  //   push: propTypes.func,
+  // }),
 };
 
 export default GiftAidForm;
