@@ -26,6 +26,10 @@ $colour-scorpion-grey: #595959;
     font-weight: 700;
   }
 
+  .form__field--sub-field-wrapper label {
+    left: 0;
+  }
+
   .sub-title {
     margin-bottom:25px;
     text-align: center;

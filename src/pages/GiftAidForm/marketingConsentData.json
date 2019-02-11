@@ -1,8 +1,8 @@
 {"Questions": [
   {
     "id": "emailConsent",
-    "text": "email",
-    "options":[
+    "text": "Email",
+    "options": [
       {
         "label": "yes",
         "value": "yes",
@@ -29,7 +29,7 @@
   },
   {
     "id": "postConsent",
-    "text": "post",
+    "text": "Post",
     "options": [
       {
         "label": "yes",
@@ -97,7 +97,7 @@
   },
   {
     "id": "phoneConsent",
-    "text": "phone",
+    "text": "Phone",
     "options": [
       {
         "label": "yes",
