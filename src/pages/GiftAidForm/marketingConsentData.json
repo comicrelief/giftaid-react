@@ -4,13 +4,13 @@
     "text": "Email",
     "options": [
       {
-        "label": "yes",
+        "label": "Yes",
         "value": "yes",
         "name": "emailPermission",
         "hideFields": false
       },
       {
-        "label": "no",
+        "label": "No",
         "value": "no",
         "name": "emailPermission",
         "hideFields": true
@@ -32,12 +32,12 @@
     "text": "Post",
     "options": [
       {
-        "label": "yes",
+        "label": "Yes",
         "value": "yes",
         "name": "postPermission"
       },
       {
-        "label": "no",
+        "label": "No",
         "value": "no",
         "name": "postPermission"
       }
@@ -48,12 +48,12 @@
     "text": "Phone",
     "options": [
       {
-        "label": "yes",
+        "label": "Yes",
         "value": "yes",
         "name": "phonePermission"
       },
       {
-        "label": "no",
+        "label": "No",
         "value": "no",
         "name": "phonePermission"
       }
@@ -64,12 +64,12 @@
     "text": "SMS",
     "options": [
       {
-        "label": "yes",
+        "label": "Yes",
         "value": "yes",
         "name": "smsPermission"
       },
       {
-        "label": "no",
+        "label": "No",
         "value": "no",
         "name": "smsPermission"
       }
