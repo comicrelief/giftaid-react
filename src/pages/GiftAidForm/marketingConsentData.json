@@ -60,7 +60,7 @@
     ]
   },
   {
-    "id": "SMSConsent",
+    "id": "smsConsent",
     "text": "SMS",
     "options": [
       {

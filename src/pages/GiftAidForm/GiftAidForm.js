@@ -104,7 +104,7 @@ class GiftAidForm extends Component {
           valid: true,
           fieldValidation: false,
         },
-        SMSConsent: {
+        smsConsent: {
           isFieldsHidden: false,
           value: null,
           valid: true,
@@ -189,6 +189,10 @@ class GiftAidForm extends Component {
    */
   setValidity(name, newStateField) {
     if (name && newStateField) {
+      // let value;
+      // switch(newStateField.value)
+      // newStateField.value = newStateField.value === 'yes' ? 1 : 0;
+
       this.setState((prevState) => {
         let newState;
         const prevStateField = prevState.validation[name];
@@ -322,16 +326,15 @@ class GiftAidForm extends Component {
       if (key === 'confirm') {
         value = this.state.validation[key].value === true ? 1 : 0;
       }
-      if (value === 'yes') {
-        value = 1;
-        const fields = this.state.validation[key].fieldValidation;
-        if (fields !== false) {
+      // set values for marketing consent checkboxes and fields
+      if (/Consent$/.test(key) && value !== null) {
+        if (value === 'yes' && this.state.validation[key].fieldValidation !== false) {
+          const fields = this.state.validation[key].fieldValidation;
           Object.keys(fields).forEach(name => fieldValues[name] = fields[name].value);
         }
+        value = value === 'no' ? 0 : 1;
       }
-      if (value === 'no') {
-        value = 0;
-      }
+
       fieldValues[key] = value;
     });
     console.log('fieldvalues', fieldValues);
@@ -457,7 +460,7 @@ class GiftAidForm extends Component {
             />
             <MarketingConsent
               getValidation={(validation) => {
-                Object.keys(validation).map(key => this.setValidity(key, validation[key]));
+                Object.keys(validation).forEach(key => this.setValidity(key, validation[key]));
               }}
               itemData={marketingConsentData}
             />
