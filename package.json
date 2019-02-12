@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@comicrelief/pattern-lab": "git://github.com/comicrelief/pattern-lab.git#8a3d644",
-    "@comicrelief/storybook": "git://github.com/comicrelief/storybook.git#a65845e",
+    "@comicrelief/storybook": "git://github.com/comicrelief/storybook.git#68f180f",
     "add": "^2.0.6",
     "autoprefixer": "8.5.0",
     "axios": "^0.18.0",
