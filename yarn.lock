@@ -598,9 +598,9 @@
     susy "^2.2.12"
     underscore.string "3.3.5"
 
-"@comicrelief/pattern-lab@git://github.com/comicrelief/pattern-lab.git#843_marketing_consent_component":
+"@comicrelief/pattern-lab@git://github.com/comicrelief/pattern-lab.git#8a3d644":
   version "0.0.0-see.readme.for.releases"
-  resolved "git://github.com/comicrelief/pattern-lab.git#05f22d1aedf84513b59071aa838d5c82f4160832"
+  resolved "git://github.com/comicrelief/pattern-lab.git#8a3d6443f8cf536eb1f87e1eb7f99a732e204c9e"
   dependencies:
     event-stream "3.3.4"
     susy "^2.2.12"
