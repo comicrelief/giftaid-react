@@ -96,19 +96,19 @@ class GiftAidForm extends Component {
           isFieldsHidden: false,
           value: null,
           valid: true,
-          fieldValidation: {},
+          fieldValidation: false,
         },
         phoneConsent: {
           isFieldsHidden: false,
           value: null,
           valid: true,
-          fieldValidation: {},
+          fieldValidation: false,
         },
         SMSConsent: {
           isFieldsHidden: false,
           value: null,
           valid: true,
-          fieldValidation: {},
+          fieldValidation: false,
         },
       },
 
@@ -199,7 +199,6 @@ class GiftAidForm extends Component {
           (newStateField.fieldValidation !== prevStateField.fieldValidation);
 
         if (fieldUndefined === true || newValue === true || marketingConsentFieldsChanged === true) {
-          console.log('set the state', name, newStateField);
           newState = {
             ...prevState,
             validation: {
@@ -208,7 +207,6 @@ class GiftAidForm extends Component {
             },
           };
         }
-        // console.log('newState', newState);
         return newState;
       });
     }
@@ -306,39 +304,41 @@ class GiftAidForm extends Component {
       return false;
     }
 
-    // const url = this.getCurrentUrl();
-    // const campaign = this.site.get('campaign').name;
+    const url = this.getCurrentUrl();
+    const campaign = this.site.get('campaign').name;
     // required settings to post to api endpoint
-    // const settings = {
-    //   campaign,
-    //   transSource: `${campaign}_GiftAid`,
-    //   transSourceUrl: url,
-    //   transType: 'GiftAid',
-    //   timestamp: this.getTimestamp(),
-    // };
+    const settings = {
+      campaign,
+      transSource: `${campaign}_GiftAid`,
+      transSourceUrl: url,
+      transType: 'GiftAid',
+      timestamp: this.getTimestamp(),
+    };
 
     // create field values
     const fieldValues = {};
     Object.keys(this.state.validation).forEach((key) => {
       let value = this.state.validation[key].value;
-      // todo deal with the value output in InputField component
       if (key === 'confirm') {
         value = this.state.validation[key].value === true ? 1 : 0;
       }
       if (value === 'yes') {
-        value = { value };
+        value = 1;
         const fields = this.state.validation[key].fieldValidation;
-        // Object.keys(fields).forEach(name => value.push({ [name]: fields[name].value }));
-        Object.keys(fields).forEach(name => value[name] = fields[name].value);
-        console.log('marketing value:', value);
+        if (fields !== false) {
+          Object.keys(fields).forEach(name => fieldValues[name] = fields[name].value);
+        }
+      }
+      if (value === 'no') {
+        value = 0;
       }
       fieldValues[key] = value;
     });
     console.log('fieldvalues', fieldValues);
 
     // Combine all form data and settings
-    // const formValues = Object.assign({}, fieldValues, settings);
-
+    const formValues = Object.assign({}, fieldValues, settings);
+    console.log('formValues', formValues);
     // post form data and settings to endpoint
     // axios.post(ENDPOINT_URL, formValues)
     //   .then(() => {
