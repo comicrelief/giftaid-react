@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
-// import axios from 'axios';
+import axios from 'axios';
 import InputField from '@comicrelief/storybook/src/components/InputField/InputField';
 import JustInTime from '@comicrelief/storybook/src/components/JustInTime/JustInTime';
 import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup/PostcodeLookup';
@@ -9,7 +9,7 @@ import defaultInputFieldsData from './defaultGiftaidFields.json';
 import SiteService from '../../service/Site.service';
 import marketingConsentData from './marketingConsentData.json';
 
-// const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
+const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
 
 let scrollTimeout;
 /**
@@ -332,25 +332,24 @@ class GiftAidForm extends Component {
 
       fieldValues[key] = value;
     });
-    console.log('fieldvalues', fieldValues);
 
     // Combine all form data and settings
     const formValues = Object.assign({}, fieldValues, settings);
-    console.log('formValues', formValues);
+
     // post form data and settings to endpoint
-    // axios.post(ENDPOINT_URL, formValues)
-    //   .then(() => {
-    //     this.props.submitHasCompleted(true);
-    //     this.props.history.push({
-    //       pathname: '/success',
-    //       state: { firstname: formValues.firstname },
-    //     });
-    //   })
-    //   .catch(() => {
-    //     this.props.history.push({
-    //       pathname: '/sorry',
-    //     });
-    //   });
+    axios.post(ENDPOINT_URL, formValues)
+      .then(() => {
+        this.props.submitHasCompleted(true);
+        this.props.history.push({
+          pathname: '/success',
+          state: { firstname: formValues.firstname },
+        });
+      })
+      .catch(() => {
+        this.props.history.push({
+          pathname: '/sorry',
+        });
+      });
 
     return true;
   }
