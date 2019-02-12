@@ -189,16 +189,11 @@ class GiftAidForm extends Component {
    */
   setValidity(name, newStateField) {
     if (name && newStateField) {
-      // let value;
-      // switch(newStateField.value)
-      // newStateField.value = newStateField.value === 'yes' ? 1 : 0;
-
       this.setState((prevState) => {
         let newState;
         const prevStateField = prevState.validation[name];
         const fieldUndefined = prevStateField === undefined;
         const newValue = fieldUndefined === false && prevStateField.value !== newStateField.value;
-        // const validityChanged = fieldUndefined === false && prevStateField.valid !== newStateField.valid;
         const marketingConsentFieldsChanged = fieldUndefined === false &&
           (newStateField.fieldValidation !== prevStateField.fieldValidation);
 
