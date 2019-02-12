@@ -110,7 +110,6 @@ class GiftAidForm extends Component {
           valid: true,
           fieldValidation: {},
         },
-
       },
 
       hiddenFields: ['field-input--address1', 'field-input--town', 'field-wrapper--country'],
@@ -195,18 +194,21 @@ class GiftAidForm extends Component {
         const prevStateField = prevState.validation[name];
         const fieldUndefined = prevStateField === undefined;
         const newValue = fieldUndefined === false && prevStateField.value !== newStateField.value;
+        // const validityChanged = fieldUndefined === false && prevStateField.valid !== newStateField.valid;
         const marketingConsentFieldsChanged = fieldUndefined === false &&
           (newStateField.fieldValidation !== prevStateField.fieldValidation);
 
         if (fieldUndefined === true || newValue === true || marketingConsentFieldsChanged === true) {
+          console.log('set the state', name, newStateField);
           newState = {
-            ...this.state,
+            ...prevState,
             validation: {
-              ...this.state.validation,
+              ...prevState.validation,
               [name]: newStateField,
             },
           };
         }
+        // console.log('newState', newState);
         return newState;
       });
     }
@@ -323,7 +325,6 @@ class GiftAidForm extends Component {
       if (key === 'confirm') {
         value = this.state.validation[key].value === true ? 1 : 0;
       }
-      console.log('value', value);
       if (value === 'yes') {
         value = { value };
         const fields = this.state.validation[key].fieldValidation;
@@ -456,7 +457,6 @@ class GiftAidForm extends Component {
             />
             <MarketingConsent
               getValidation={(validation) => {
-                console.log('consent val', validation);
                 Object.keys(validation).map(key => this.setValidity(key, validation[key]));
               }}
               itemData={marketingConsentData}
