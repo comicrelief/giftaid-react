@@ -86,25 +86,25 @@ class GiftAidForm extends Component {
           value: undefined,
           message: '',
         },
-        emailConsent: {
+        emailPermission: {
           isFieldsHidden: false,
           value: null,
           valid: true,
           fieldValidation: {},
         },
-        postConsent: {
+        postPermission: {
           isFieldsHidden: false,
           value: null,
           valid: true,
           fieldValidation: false,
         },
-        phoneConsent: {
+        phonePermission: {
           isFieldsHidden: false,
           value: null,
           valid: true,
           fieldValidation: false,
         },
-        smsConsent: {
+        smsPermission: {
           isFieldsHidden: false,
           value: null,
           valid: true,
