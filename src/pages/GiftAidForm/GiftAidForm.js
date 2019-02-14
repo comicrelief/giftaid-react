@@ -286,7 +286,7 @@ class GiftAidForm extends Component {
         value = this.state.validation[key].value === true ? 1 : 0;
       }
       // set values for marketing consent checkboxes and fields
-      if (/Consent$/.test(key) && value !== null) {
+      if (/Permission$/.test(key) && value !== null) {
         if (value === 'yes' && this.state.validation[key].fieldValidation !== false) {
           const fields = this.state.validation[key].fieldValidation;
           Object.keys(fields).forEach(name => fieldValues[name] = fields[name].value);
