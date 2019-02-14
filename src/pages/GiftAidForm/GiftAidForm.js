@@ -114,20 +114,7 @@ class GiftAidForm extends Component {
 
       hiddenFields: ['field-input--address1', 'field-input--town', 'field-wrapper--country'],
     };
-    // Put the field refs from children into an array
-    const refs = [];
-    this.setRef = (element) => {
-      if (element) {
-        // fields from postcode lookup
-        if (element.fieldRefs) {
-          element.fieldRefs.forEach(item => refs.push(item));
-        } else {
-          // remaining input fields
-          refs.push(element.inputRef);
-        }
-        this.fieldRefs = refs;
-      }
-    };
+
     this.url = null;
     this.timestamp = null;
     this.campaign = null;
@@ -221,34 +208,12 @@ class GiftAidForm extends Component {
       validating: false,
     });
 
-    let item;
-    let allClasses;
-
-    // Scroll to the first erroring field
+    // Scroll to the first erroring field and focus on its input field
     const errorWrapper = document.querySelectorAll('.form__field--erroring')[0];
+    const errorField = document.querySelectorAll('.form__field--erroring > div input')[0];
 
-    for (let i = 0; i < this.fieldRefs.length; i += 1) {
-      item = this.fieldRefs[i];
-      allClasses = item.className;
-
-      // If we find 'error' in THIS item's classes:
-      if (allClasses.indexOf('error-outline') > -1 || allClasses.indexOf('erroring') > -1) {
-        // If this id matches one of our hidden fields...
-        /* eslint-disable no-loop-func */
-        if (this.state.hiddenFields.some(key => item.id.indexOf(key) > -1)
-          && document.querySelector('#address-detail .hide')) {
-          document.querySelector('#field-wrapper--postcode').scrollIntoView('smooth');
-        } else if (this.fieldRefs[i].nodeName === 'FIELDSET') {
-          // Else, if this is a radio button...
-          errorWrapper.scrollIntoView('smooth');
-        } else {
-          // Otherwise, this is a normal text input field
-          errorWrapper.scrollIntoView('smooth');
-          document.querySelector('#' + item.id).focus();
-        }
-        break;
-      }
-    }
+    errorWrapper.scrollIntoView('smooth');
+    errorField.focus();
     clearTimeout(scrollTimeout);
   }
 
@@ -259,7 +224,6 @@ class GiftAidForm extends Component {
   createInputFields() {
     const inputFields = [];
     Object.entries(this.state.inputFieldProps).map(([field, props]) => inputFields.push(<InputField
-      ref={this.setRef}
       key={field}
       id={props.id}
       type={props.type}
@@ -370,7 +334,7 @@ class GiftAidForm extends Component {
       }
       return true;
     });
-    console.log('validity', validity);
+
     // update state accordingly
     if (validity !== true) {
       return this.setState({
@@ -443,7 +407,6 @@ class GiftAidForm extends Component {
             {this.renderFormHeader()}
             { this.createInputFields() }
             <PostcodeLookup
-              ref={this.setRef}
               label="Postal address"
               showErrorMessages={this.state.showErrorMessages}
               isAddressValid={
@@ -457,6 +420,7 @@ class GiftAidForm extends Component {
                 Object.keys(validation).forEach(key => this.setValidity(key, validation[key]));
               }}
               itemData={marketingConsentData}
+              showErrorMessages={this.state.showErrorMessages}
             />
             <button
               type="submit"
@@ -475,14 +439,14 @@ Gift Aid your donation
 
 GiftAidForm.defaultProps = {
   inputFieldOverrides: {},
-  // history: { push: { } },
+  history: { push: { } },
 };
 
 GiftAidForm.propTypes = {
   inputFieldOverrides: propTypes.shape(propTypes.shape),
-  // history: propTypes.shape({
-  //   push: propTypes.func,
-  // }),
+  history: propTypes.shape({
+    push: propTypes.func,
+  }),
 };
 
 export default GiftAidForm;
