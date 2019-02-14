@@ -86,25 +86,25 @@ class GiftAidForm extends Component {
           value: undefined,
           message: '',
         },
-        emailPermission: {
+        permissionEmail: {
           isFieldsHidden: false,
           value: null,
           valid: true,
           fieldValidation: {},
         },
-        postPermission: {
+        permissionPost: {
           isFieldsHidden: false,
           value: null,
           valid: true,
           fieldValidation: false,
         },
-        phonePermission: {
+        permissionPhone: {
           isFieldsHidden: false,
           value: null,
           valid: true,
           fieldValidation: false,
         },
-        smsPermission: {
+        permissionSMS: {
           isFieldsHidden: false,
           value: null,
           valid: true,
@@ -286,7 +286,7 @@ class GiftAidForm extends Component {
         value = this.state.validation[key].value === true ? 1 : 0;
       }
       // set values for marketing consent checkboxes and fields
-      if (/Permission$/.test(key) && value !== null) {
+      if (/^permission/.test(key) && value !== null) {
         if (value === 'yes' && this.state.validation[key].fieldValidation !== false) {
           const fields = this.state.validation[key].fieldValidation;
           Object.keys(fields).forEach(name => fieldValues[name] = fields[name].value);

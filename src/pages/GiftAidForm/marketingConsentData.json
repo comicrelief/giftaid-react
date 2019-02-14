@@ -1,6 +1,6 @@
 {"Questions": [
   {
-    "id": "emailPermission",
+    "id": "permissionEmail",
     "text": "Email",
     "options": [
       {
@@ -28,7 +28,7 @@
     ]
   },
   {
-    "id": "postPermission",
+    "id": "permissionPost",
     "text": "Post",
     "options": [
       {
@@ -44,7 +44,7 @@
     ]
   },
   {
-    "id": "phonePermission",
+    "id": "permissionPhone",
     "text": "Phone",
     "options": [
       {
@@ -60,7 +60,7 @@
     ]
   },
   {
-    "id": "smsPermission",
+    "id": "permissionSMS",
     "text": "SMS",
     "options": [
       {
