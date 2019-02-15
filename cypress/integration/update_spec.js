@@ -174,9 +174,9 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
 
     //online
     it('e2e test when user comes from online', () => {
-        cy.visit('/update/F22453C4-964C-4C11-9748-CAA81A37696C')
+        cy.visit('/update/bb9aa5c9-5d93-4a34-a102-aaf378d16a73')
         cy.get('#form > div:nth-child(1) > h2').should('contain','Edit your Gift Aid declaration')
-        cy.get('p.transaction-id').should('contain','Transaction ID: F22453C4-964C-4C11-9748-CAA81A37696C')
+        cy.get('p.transaction-id').should('contain','Transaction ID: bb9aa5c9-5d93-4a34-a102-aaf378d16a73')
         cy.get('h3.form--update__title--donation').should('contain','How did you make the donation?')
         cy.get('input[type="radio"]').check('online').should('be.checked')
         cy.get('#field-input--firstname').clear().type(firstName)
