@@ -141,7 +141,7 @@ class UpdateForm extends Component {
     this.campaign = null;
     this.justInTimeLinkText = 'Why do we collect this info?';
     this.formHeaderHidden = 'Giftaid it';
-    this.transactionIdPattern = '^([A-Z]{1}(-)[A-Z]{3}[0-9]{4}|[A-Z0-9]{8}(-)[A-Z0-9]{4}(-)[A-Z0-9]{4}(-)[A-Z0-9]{4}(-)[A-Z0-9]{12})$';
+    this.transactionIdPattern = '^([a-zA-Z]{1}(-)[a-zA-Z]{3}[0-9]{4}|[a-zA-Z0-9]{8}(-)[a-zA-Z0-9]{4}(-)[a-zA-Z0-9]{4}(-)[a-zA-Z0-9]{4}(-)[a-zA-Z0-9]{12})$';
     this.transactionIdError = 'This does not match a transaction ID in our system, please check your donation confirmation email or letter';
   }
   /**
