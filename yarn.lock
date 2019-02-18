@@ -606,9 +606,9 @@
     susy "^2.2.12"
     underscore.string "3.3.5"
 
-"@comicrelief/storybook@git://github.com/comicrelief/storybook.git#a784c94":
-  version "0.0.0-see.readme.for.releases"
-  resolved "git://github.com/comicrelief/storybook.git#a784c944c2d63eef66c9bc5a24bd0038622e912e"
+"@comicrelief/storybook@1.18.0":
+  version "1.18.0"
+  resolved "https://registry.yarnpkg.com/@comicrelief/storybook/-/storybook-1.18.0.tgz#36de3e04cd9356e0a0ff3f0d3e54dbf7335d461b"
   dependencies:
     "@comicrelief/pattern-lab" "*"
     "@storybook/addon-info" "3"
