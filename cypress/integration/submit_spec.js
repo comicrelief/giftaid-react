@@ -19,6 +19,10 @@ describe('e2e test', () => {
         cy.get('#field-input--postcode')
         cy.get('#postcode_button')
         cy.get('button[type=submit]')
+        cy.get('#field-wrapper--Email')
+        cy.get('#field-wrapper--Post')
+        cy.get('#field-wrapper--Phone')
+        cy.get('#field-wrapper--SMS')
         cy.get('.form__row--just-in-time-block')
     })
 
@@ -74,7 +78,19 @@ describe('e2e test', () => {
         cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
     })
 
-    it('verify JIT', () => {
+    it('Verify Marketing Email Marketing preference', () => {
+      cy.get('#field-wrapper--Email > div > #field-label--Yes').check().uncheck()
+      cy.get('#field-wrapper--Email > div > #field-label--No').check().uncheck()
+      cy.get('#field-wrapper--Email > div > #field-label--Yes').check()
+      cy.get('#field-wrapper--Email > div > #field-label--No').should('not.be.checked')
+      cy.get('#field-input--email').should('be.visible')
+      cy.get('button[type=submit]').click()
+      cy.get('#field-error--email>span').should('contain', 'Please fill in your email address')
+      cy.get('#field-input--email').type('qatest@comicrelief.com')
+    })
+
+
+  it('verify JIT', () => {
         cy.get('.form__row--just-in-time-block>div>a').click()
         cy.contains('Name, phone number and address: we need these details to process a Gift Aid claim on your donation.')
     })
