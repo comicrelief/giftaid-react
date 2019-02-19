@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PromoHeader from '../../components/PromoHeader/PromoHeader';
-import Cards from '../../components/Cards/Cards';
 import SiteService from '../../service/Site.service';
 
 class UpdateSuccess extends Component {
@@ -68,9 +67,12 @@ class UpdateSuccess extends Component {
               Comic Relief currently supports more than 2,000 projects in the UK and around
               the world, tackling issues like gender injustice and mental illness.
             </p>
-            <p>These are some of the people we helped last year:</p>
+            <div>
+              <a href="https://www.comicrelief.com/your-impact" className="btn btn--red">
+                Read More
+              </a>
+            </div>
           </div>
-          <Cards />
         </div>
       </div>
     );
