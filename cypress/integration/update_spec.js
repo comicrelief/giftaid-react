@@ -33,22 +33,6 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
         cy.get('.form__row--just-in-time-block')
     })
 
-    it('Transaction ID input field validation', () => {
-        cy.get('#field-input--transactionId').clear()
-        cy.get('#field-input--firstname').click()
-        cy.get('#field-error--transactionId > span').should('contain','Please fill in your transaction id')
-        cy.get('#field-input--transactionId').type('#£$^')
-        cy.get('#field-error--transactionId > span').should('contain','This does not match a transaction ID in our system, please check your donation confirmation email or letter')
-        cy.get('#field-input--transactionId').clear().type('d-BEXd501')
-        cy.get('#field-error--transactionId > span').should('contain','This does not match a transaction ID in our system, please check your donation confirmation email or letter')
-        cy.get('#field-input--transactionId').clear().type('D-BEX1501')
-        cy.get('#field-error--transactionId > span').should('be.not.visible')
-        cy.get('#field-input--transactionId').clear().type('f01453C4-%64C-4C11-9748-C*AA81A37696C')
-        cy.get('#field-error--transactionId > span').should('contain','This does not match a transaction ID in our system, please check your donation confirmation email or letter')
-        cy.get('#field-input--transactionId').clear().type('3D487A59-716B-440D-BD43-50ED301DD9BA')
-        cy.get('#field-error--transactionId > span').should('be.not.visible')
-    })
-
     it('first name input field validation', () => {
         cy.get('#field-input--firstname').clear()
         cy.get('#field-input--lastname').click()
@@ -135,7 +119,7 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
 
 describe('e2e test typing transaction ID and choosing "No" to claim gift aid on donation', () => {
 
-    it('verify copy on thank yoy page when user declares no on giftaid declaration', () => {
+    it('verify copy on thank you page when user declares no on giftaid declaration', () => {
         cy.visit('/update')
         cy.get('#field-input--transactionId').clear().type('2D487A59-716B-440D-BD43-50ED301DD9BA')
         cy.get('#field-input--firstname').clear().type(firstName)
@@ -261,7 +245,7 @@ describe('Ensure redirect functionality from Success page', () => {
   });
 });
 
-describe('Ensure url validation if string is not a real UUID', () => {
+describe('Ensure url validation if string is less than 5 characters', () => {
   it('validate invalid string / non UUID in url', () => {
     cy.visit('/update/test')
     cy.get('#form > div:nth-child(1) > h2').should('contain','Edit your Gift Aid declaration')
@@ -276,6 +260,24 @@ describe('Ensure url validation if string is not a real UUID', () => {
     cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
     cy.get('input[type="radio"]').check(giftAidChecked).should('be.checked')
     cy.get('button[type=submit]').click()
-    cy.get('#field-error--urlTransID > span').should('contain','This does not match a transaction ID in our system, please check your donation confirmation email or letter')
+    cy.get('#field-error--urlTransID > span').should('contain','Transaction ID is not valid, please check your donation confirmation email or letter')
+  })
+});
+
+
+describe('Ensure validation if transaction ID input is less than 5 characters', () => {
+
+  it('validate invalid input / non UUID in transactionId form field on submit', () => {
+    cy.visit('/update')
+    cy.get('#field-input--transactionId').clear().type('test')
+    cy.get('#field-input--firstname').clear().type(firstName)
+    cy.get('#field-input--lastname').clear().type(lastName)
+    cy.get('#field-input--emailaddress').clear().type('test@comicrelief.com')
+    cy.get('#field-input--postcode').clear().type('hp2 6lq')
+    cy.get('#postcode_button').click()
+    cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
+    cy.get('input[type="radio"]').check(giftAidChecked).should('be.checked')
+    cy.get('button[type=submit]').click()
+    cy.get('#field-error--urlTransID > span').should('contain','Transaction ID is not valid, please check your donation confirmation email or letter')
   })
 });

@@ -141,9 +141,6 @@ class UpdateForm extends Component {
     this.campaign = null;
     this.justInTimeLinkText = 'Why do we collect this info?';
     this.formHeaderHidden = 'Giftaid it';
-    // this.transactionIdPattern = '^([a-zA-Z]{1}(-)[a-zA-Z]{3}[0-9]{4}|[a-zA-Z0-9]{8}(-)[a-zA-Z0-9]{4}(-)[a-zA-Z0-9]{4}(-)[a-zA-Z0-9]{4}(-)[a-zA-Z0-9]{12})$';
-    // this.callCenterIdPattern = '^(?=.*?[a-z])(?=.*?\\d)[a-z\\d]+$';
-    this.transactionIdError = 'This transaction ID is invalid, please check your donation confirmation email or letter';
   }
   /**
    * Updates our validation object accordingly, so we're not trying to validate nonexistent fields
@@ -218,6 +215,11 @@ class UpdateForm extends Component {
     if (this.state.validation[name] &&
       (this.state.validation[name].value === undefined ||
         this.state.validation[name].value !== childState.value)) {
+      // reset transactionId error message
+      if (this.state.transactionIdErrorMessage) {
+        this.resetTransactionErrorState();
+      }
+      // make email field optional
       if (name === 'emailaddress' && childState.value === '') {
         this.setState({
           ...this.state,
@@ -228,6 +230,21 @@ class UpdateForm extends Component {
               value: childState.value,
               message: childState.message,
               showErrorMessage: false,
+            },
+          },
+        });
+      }
+      // validate transaction id field
+      if (name === 'transactionId' && (childState.value === '' || childState.value.length < 5)) {
+        this.setState({
+          ...this.state,
+          validation: {
+            ...this.state.validation,
+            transactionId: {
+              valid: false,
+              value: childState.value,
+              message: childState.message,
+              showErrorMessage: true,
             },
           },
         });
@@ -343,7 +360,7 @@ class UpdateForm extends Component {
     // Set this var depending on how the user has inputted their transID
     const donationID = typeof this.state.validation.transactionId !== 'undefined'
     && this.state.validation.transactionId
-      ? this.state.validation.transactionId : this.state.urlTransID;
+      ? this.state.validation.transactionId.value : this.state.urlTransID;
 
     // validate transactionId
     if (!this.validateTransactionId(donationID)) {
@@ -406,6 +423,7 @@ class UpdateForm extends Component {
    */
   validateForm(e) {
     e.preventDefault();
+
     // Put field validation into new array to check for invalid fields
     const allFieldsToCheck = [];
 
@@ -415,6 +433,7 @@ class UpdateForm extends Component {
 
     // Values can be 'null' or empty strings, so check if our array contains a 'not true' value
     const anyInvalidFields = allFieldsToCheck.some(element => element !== true);
+
     // Update state accordingly
     if (anyInvalidFields === false) {
       this.setState({
@@ -431,18 +450,45 @@ class UpdateForm extends Component {
         formValidity: false,
         showErrorMessages: true,
         validating: true,
-      });
+      }, this.checkTransactionIdField);
     }
   }
-
+  checkTransactionIdField() {
+    if (typeof this.state.validation.transactionId !== 'undefined' && this.state.validation.transactionId.valid === false) {
+      this.setState({
+        ...this.state,
+        transactionIdErrorMessage: true,
+      }, this.scrollToError);
+    }
+  }
+  resetTransactionErrorState() {
+    const state = this.state;
+    state.transactionIdErrorMessage = false;
+    state.formValidity = true;
+    state.showErrorMessages = false;
+    state.validating = false;
+    if (typeof state.validation.transactionId !== 'undefined') {
+      state.validation.transactionId.valid = true;
+      state.validation.transactionId.showErrorMessage = false;
+    }
+    this.setState({ state });
+  }
   validateTransactionId(transID) {
     if (typeof transID === 'undefined' || transID.length < 5) {
       this.setState({
         ...this.state,
+        formValidity: false,
+        showErrorMessages: true,
         transactionIdErrorMessage: true,
       });
       return false;
     }
+    this.setState({
+      ...this.state,
+      formValidity: true,
+      showErrorMessages: false,
+      transactionIdErrorMessage: false,
+    });
     return true;
   }
   /**
@@ -489,6 +535,7 @@ class UpdateForm extends Component {
     const isBrowser = browser();
     const supportedAriaAttributes = isBrowser.name === 'firefox' && isBrowser.os.match('Windows') ?
       { 'aria-live': 'assertive', 'aria-relevant': 'additions removals' } : { 'aria-live': 'assertive', role: 'status' };
+    const errorMessage = 'Transaction ID is not valid, please check your donation confirmation email or letter';
     return (
       <div
         id="field-error--urlTransID"
@@ -496,7 +543,7 @@ class UpdateForm extends Component {
         {...supportedAriaAttributes}
       >
         { this.state.transactionIdErrorMessage ?
-          <span className="url-error">{this.transactionIdError}</span>
+          <span className="url-error">{errorMessage}</span>
           :
           ''
         }

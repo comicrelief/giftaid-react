@@ -201,26 +201,29 @@ input[type="password"],
 textarea  {
   border-color: $colour-dark-purple;
 }
-
-.url-error {
-  position: relative;
-  font-size: 16px;
-  font-family: $body-font;
-  margin-top: 10px;
-  display: inline-block;
-  vertical-align: top;
-  color: $colour-ribbon-red;
-  font-weight: bold;
-
-  &:before {
+#field-error--urlTransID {
+  text-align: center;
+  .url-error {
     position: relative;
-    content: '';
+    font-size: 16px;
+    font-family: $body-font;
+    margin-top: 10px;
     display: inline-block;
-    top:-1px;
-    vertical-align: middle;
-    margin-right: 8px;
-    background: url($image-path + "error-alert-icon.png") left 0/100% no-repeat;
-    width:18px;
-    height:19px;
+    vertical-align: top;
+    color: $colour-ribbon-red;
+    font-weight: bold;
+
+    &:before {
+      position: relative;
+      content: '';
+      display: inline-block;
+      top:-1px;
+      vertical-align: middle;
+      margin-right: 8px;
+      background: url($image-path + "error-alert-icon.png") left 0/100% no-repeat;
+      width:18px;
+      height:19px;
+    }
   }
+
 }
