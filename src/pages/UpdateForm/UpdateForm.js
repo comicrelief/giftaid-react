@@ -32,7 +32,7 @@ class UpdateForm extends Component {
       firstUpdate: false,
       formValidity: false,
       showErrorMessages: false,
-      urlTransIDErrorMessage: false,
+      transactionIdErrorMessage: false,
       formDataError: null,
       formDataSuccess: null,
       urlTransID: this.props.match.params.transaction_id,
@@ -141,8 +141,9 @@ class UpdateForm extends Component {
     this.campaign = null;
     this.justInTimeLinkText = 'Why do we collect this info?';
     this.formHeaderHidden = 'Giftaid it';
-    this.transactionIdPattern = '^([a-zA-Z]{1}(-)[a-zA-Z]{3}[0-9]{4}|[a-zA-Z0-9]{8}(-)[a-zA-Z0-9]{4}(-)[a-zA-Z0-9]{4}(-)[a-zA-Z0-9]{4}(-)[a-zA-Z0-9]{12})$';
-    this.transactionIdError = 'This does not match a transaction ID in our system, please check your donation confirmation email or letter';
+    // this.transactionIdPattern = '^([a-zA-Z]{1}(-)[a-zA-Z]{3}[0-9]{4}|[a-zA-Z0-9]{8}(-)[a-zA-Z0-9]{4}(-)[a-zA-Z0-9]{4}(-)[a-zA-Z0-9]{4}(-)[a-zA-Z0-9]{12})$';
+    // this.callCenterIdPattern = '^(?=.*?[a-z])(?=.*?\\d)[a-z\\d]+$';
+    this.transactionIdError = 'This transaction ID is invalid, please check your donation confirmation email or letter';
   }
   /**
    * Updates our validation object accordingly, so we're not trying to validate nonexistent fields
@@ -159,7 +160,7 @@ class UpdateForm extends Component {
    * Deals with component update after pressing submit button
    */
   componentDidUpdate() {
-    if ((this.state.showErrorMessages && !this.state.formValidity && this.state.validating) || this.state.urlTransIDErrorMessage) {
+    if ((this.state.showErrorMessages && !this.state.formValidity && this.state.validating) || this.state.transactionIdErrorMessage) {
       // timeout needed for error class names to appear
       scrollTimeout = setTimeout(() => { this.scrollToError(); }, 500);
     }
@@ -267,7 +268,7 @@ class UpdateForm extends Component {
     let item;
     let allClasses;
     // Scroll to url trans Id error message
-    if (this.state.urlTransIDErrorMessage) {
+    if (this.state.transactionIdErrorMessage) {
       document.querySelector('#field-error--urlTransID').scrollIntoView('smooth');
     }
 
@@ -335,35 +336,27 @@ class UpdateForm extends Component {
     />));
     return inputFields;
   }
-
   /**
    * Creates formValues object and submits form
    */
   submitForm() {
-    // validate url trans Id
-    if (typeof this.state.urlTransID !== 'undefined' && this.state.urlTransID !== null && !this.state.validation.transactionId) {
-      const validateUrlTransId = this.validateUrlTransId(this.state.urlTransID);
-      if (!validateUrlTransId) {
-        return;
-      }
+    // Set this var depending on how the user has inputted their transID
+    const donationID = typeof this.state.validation.transactionId !== 'undefined'
+    && this.state.validation.transactionId
+      ? this.state.validation.transactionId : this.state.urlTransID;
+
+    // validate transactionId
+    if (!this.validateTransactionId(donationID)) {
+      return;
     }
     if (this.state.showErrorMessages === false && this.state.formValidity === true) {
       const url = this.getCurrentUrl();
       const campaign = this.site.get('campaign').name;
-      let donationID = '';
-      let donationType = DONATION_TYPES.ONLINE;
 
-      // Set this var depending on how the user has inputted their transID
-      if (this.state.validation.transactionId) {
-        donationID = this.state.validation.transactionId.value;
-      } else {
-        donationID = this.state.urlTransID;
-      }
+      const donationType = typeof this.state.validation.donationType !== 'undefined'
+      && this.state.validation.donationType
+        ? this.state.validation.donationType.value : DONATION_TYPES.ONLINE;
 
-      // Overwrite the empty string with the value if it exists
-      if (typeof this.state.validation.donationType !== 'undefined') {
-        donationType = this.state.validation.donationType.value;
-      }
 
       const formValues = {
         campaign,
@@ -397,13 +390,9 @@ class UpdateForm extends Component {
             },
           });
         })
-        .catch((error, response) => {
+        .catch(() => {
           this.props.history.push({
             pathname: '/update/sorry',
-            state: {
-              error,
-              response,
-            },
           });
         });
     }
@@ -446,12 +435,11 @@ class UpdateForm extends Component {
     }
   }
 
-  validateUrlTransId(urlTransID) {
-    const transactionIdPattern = new RegExp(this.transactionIdPattern);
-    if (!transactionIdPattern.test(urlTransID)) {
+  validateTransactionId(transID) {
+    if (typeof transID === 'undefined' || transID.length < 5) {
       this.setState({
         ...this.state,
-        urlTransIDErrorMessage: true,
+        transactionIdErrorMessage: true,
       });
       return false;
     }
@@ -507,7 +495,7 @@ class UpdateForm extends Component {
         className="form__field-error-container form__field-error-container--text"
         {...supportedAriaAttributes}
       >
-        { this.state.urlTransIDErrorMessage ?
+        { this.state.transactionIdErrorMessage ?
           <span className="url-error">{this.transactionIdError}</span>
           :
           ''
