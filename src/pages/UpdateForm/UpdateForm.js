@@ -284,7 +284,7 @@ class UpdateForm extends Component {
 
     let item;
     let allClasses;
-    // Scroll to url trans Id error message
+    // Scroll to transactionId field / url parameter error message
     if (this.state.transactionIdErrorMessage) {
       document.querySelector('#field-error--urlTransID').scrollIntoView('smooth');
     }
@@ -366,6 +366,7 @@ class UpdateForm extends Component {
     if (!this.validateTransactionId(donationID)) {
       return;
     }
+    // ensure no errors before submitting the form
     if (this.state.showErrorMessages === false && this.state.formValidity === true) {
       const url = this.getCurrentUrl();
       const campaign = this.site.get('campaign').name;
@@ -434,7 +435,7 @@ class UpdateForm extends Component {
     // Values can be 'null' or empty strings, so check if our array contains a 'not true' value
     const anyInvalidFields = allFieldsToCheck.some(element => element !== true);
 
-    // Update state accordingly
+    // Update state accordingly and submit form
     if (anyInvalidFields === false) {
       this.setState({
         ...this.state,
@@ -443,17 +444,21 @@ class UpdateForm extends Component {
         validating: false,
       }, this.submitForm);
     }
-
+    // error exists
     if (anyInvalidFields === true) {
       this.setState({
         ...this.state,
         formValidity: false,
         showErrorMessages: true,
         validating: true,
-      }, this.checkTransactionIdField);
+      }, this.validateTransactionIdState);
     }
   }
-  checkTransactionIdField() {
+  /**
+   * Validates transactionId field validity state.
+   * If invalid: sets transactionIdErrorMessage state to show error message.
+   */
+  validateTransactionIdState() {
     if (typeof this.state.validation.transactionId !== 'undefined' && this.state.validation.transactionId.valid === false) {
       this.setState({
         ...this.state,
@@ -461,19 +466,33 @@ class UpdateForm extends Component {
       }, this.scrollToError);
     }
   }
+  /**
+   * Resets transactionId error state.
+   * If transactionIdErrorMessage is already set,
+   * resets all validity states.
+   */
   resetTransactionErrorState() {
-    const state = this.state;
-    state.transactionIdErrorMessage = false;
-    state.formValidity = true;
-    state.showErrorMessages = false;
-    state.validating = false;
-    if (typeof state.validation.transactionId !== 'undefined') {
-      state.validation.transactionId.valid = true;
-      state.validation.transactionId.showErrorMessage = false;
+    if (this.state.transactionIdErrorMessage) {
+      const state = this.state;
+      state.transactionIdErrorMessage = false;
+      state.formValidity = true;
+      state.showErrorMessages = false;
+      state.validating = false;
+      if (typeof state.validation.transactionId !== 'undefined') {
+        state.validation.transactionId.valid = true;
+        state.validation.transactionId.showErrorMessage = false;
+      }
+      this.setState({ state });
     }
-    this.setState({ state });
   }
-  validateTransactionId(transID) {
+  /**
+   * Validates transactionId url parameter value.
+   * If transactionIdErrorMessage is already set,
+   * resets all validity states.
+   * @param transID
+   * @returns Boolean
+   */
+  validateTransactionId(transID = '') {
     if (typeof transID === 'undefined' || transID.length < 5) {
       this.setState({
         ...this.state,
@@ -507,6 +526,9 @@ class UpdateForm extends Component {
       </JustInTime>
     );
   }
+  /**
+   * Renders Form Header
+   */
   renderFormHeader() {
     return (
       <div>
@@ -531,7 +553,10 @@ class UpdateForm extends Component {
       </div>
     );
   }
-  renderError() {
+  /**
+   * Renders Transaction ID Error
+   */
+  renderTransactionIDError() {
     const isBrowser = browser();
     const supportedAriaAttributes = isBrowser.name === 'firefox' && isBrowser.os.match('Windows') ?
       { 'aria-live': 'assertive', 'aria-relevant': 'additions removals' } : { 'aria-live': 'assertive', role: 'status' };
@@ -550,6 +575,9 @@ class UpdateForm extends Component {
       </div>
     );
   }
+  /**
+   * Renders Donation Type Buttons
+   */
   renderDonationTypeButtons() {
     if (this.state.urlTransID) {
       return (
@@ -572,7 +600,9 @@ class UpdateForm extends Component {
       );
     } return null;
   }
-
+  /**
+   * Renders GiftAid Claim Choice Buttons
+   */
   renderGiftAidClaimChoiceButtons() {
     return (
       <div>
@@ -604,7 +634,7 @@ class UpdateForm extends Component {
             className="update-giftaid__form"
           >
             {this.renderFormHeader()}
-            {this.renderError()}
+            {this.renderTransactionIDError()}
 
             <div className="form-fields--wrapper">
 
