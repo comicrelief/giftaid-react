@@ -5,8 +5,8 @@
     "name": "transactionId",
     "label": "Transaction ID",
     "required": true,
-    "invalidErrorText": "This does not match a transaction ID in our system, please check your donation confirmation email or letter",
-    "pattern": "^([A-Z]{1}(-)[A-Z]{3}[0-9]{4}|[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12})$"
+    "invalidErrorText": "This transaction ID doesn't seem to be valid, please check your donation confirmation email or letter",
+    "pattern": "^[a-zA-Z0-9-]{5,}$"
   },
   "firstName": {
     "id": "firstname",
