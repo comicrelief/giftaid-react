@@ -32,7 +32,7 @@ class UpdateForm extends Component {
       firstUpdate: false,
       formValidity: false,
       showErrorMessages: false,
-      transactionIdErrorMessage: false,
+      urlTransactionIdErrorMessage: false,
       formDataError: null,
       formDataSuccess: null,
       urlTransID: this.props.match.params.transaction_id,
@@ -141,6 +141,7 @@ class UpdateForm extends Component {
     this.campaign = null;
     this.justInTimeLinkText = 'Why do we collect this info?';
     this.formHeaderHidden = 'Giftaid it';
+    this.transactionIdPattern = '^[a-zA-Z0-9-]{5,}$';
   }
   /**
    * Updates our validation object accordingly, so we're not trying to validate nonexistent fields
@@ -157,7 +158,7 @@ class UpdateForm extends Component {
    * Deals with component update after pressing submit button
    */
   componentDidUpdate() {
-    if ((this.state.showErrorMessages && !this.state.formValidity && this.state.validating) || this.state.transactionIdErrorMessage) {
+    if ((this.state.showErrorMessages && !this.state.formValidity && this.state.validating) || this.state.urlTransactionIdErrorMessage) {
       // timeout needed for error class names to appear
       scrollTimeout = setTimeout(() => { this.scrollToError(); }, 500);
     }
@@ -215,10 +216,6 @@ class UpdateForm extends Component {
     if (this.state.validation[name] &&
       (this.state.validation[name].value === undefined ||
         this.state.validation[name].value !== childState.value)) {
-      // reset transactionId error message
-      if (this.state.transactionIdErrorMessage) {
-        this.resetTransactionErrorState();
-      }
       // make email field optional
       if (name === 'emailaddress' && childState.value === '') {
         this.setState({
@@ -285,7 +282,7 @@ class UpdateForm extends Component {
     let item;
     let allClasses;
     // Scroll to transactionId field / url parameter error message
-    if (this.state.transactionIdErrorMessage) {
+    if (this.state.urlTransactionIdErrorMessage) {
       document.querySelector('#field-error--urlTransID').scrollIntoView('smooth');
     }
 
@@ -451,54 +448,25 @@ class UpdateForm extends Component {
         formValidity: false,
         showErrorMessages: true,
         validating: true,
-      }, this.validateTransactionIdState);
+      });
     }
   }
-  /**
-   * Validates transactionId field validity state.
-   * If invalid: sets transactionIdErrorMessage state to show error message.
-   */
-  validateTransactionIdState() {
-    if (typeof this.state.validation.transactionId !== 'undefined' && this.state.validation.transactionId.valid === false) {
-      this.setState({
-        ...this.state,
-        transactionIdErrorMessage: true,
-      }, this.scrollToError);
-    }
-  }
-  /**
-   * Resets transactionId error state.
-   * If transactionIdErrorMessage is already set,
-   * resets all validity states.
-   */
-  resetTransactionErrorState() {
-    if (this.state.transactionIdErrorMessage) {
-      const state = this.state;
-      state.transactionIdErrorMessage = false;
-      state.formValidity = true;
-      state.showErrorMessages = false;
-      state.validating = false;
-      if (typeof state.validation.transactionId !== 'undefined') {
-        state.validation.transactionId.valid = true;
-        state.validation.transactionId.showErrorMessage = false;
-      }
-      this.setState({ state });
-    }
-  }
+
   /**
    * Validates transactionId url parameter value.
-   * If transactionIdErrorMessage is already set,
+   * If urlTransactionIdErrorMessage is already set,
    * resets all validity states.
    * @param transID
    * @returns Boolean
    */
-  validateTransactionId(transID = '') {
-    if (typeof transID === 'undefined' || transID.length < 5) {
+  validateTransactionId(urlTransID = '') {
+    const transactionIdPattern = new RegExp(this.transactionIdPattern);
+    if (!transactionIdPattern.test(urlTransID)) {
       this.setState({
         ...this.state,
         formValidity: false,
         showErrorMessages: true,
-        transactionIdErrorMessage: true,
+        urlTransactionIdErrorMessage: true,
       });
       return false;
     }
@@ -506,7 +474,7 @@ class UpdateForm extends Component {
       ...this.state,
       formValidity: true,
       showErrorMessages: false,
-      transactionIdErrorMessage: false,
+      urlTransactionIdErrorMessage: false,
     });
     return true;
   }
@@ -567,7 +535,7 @@ class UpdateForm extends Component {
         className="form__field-error-container form__field-error-container--text"
         {...supportedAriaAttributes}
       >
-        { this.state.transactionIdErrorMessage ?
+        { this.state.urlTransactionIdErrorMessage ?
           <span className="url-error">{errorMessage}</span>
           :
           ''
