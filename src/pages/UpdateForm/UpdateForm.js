@@ -230,21 +230,6 @@ class UpdateForm extends Component {
             },
           },
         });
-      }
-      // validate transaction id field
-      if (name === 'transactionId' && (childState.value === '' || childState.value.length < 5)) {
-        this.setState({
-          ...this.state,
-          validation: {
-            ...this.state.validation,
-            transactionId: {
-              valid: false,
-              value: childState.value,
-              message: childState.message,
-              showErrorMessage: true,
-            },
-          },
-        });
       } else {
         this.setState((prevState) => {
           let newState;
