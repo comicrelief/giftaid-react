@@ -33,6 +33,22 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
         cy.get('.form__row--just-in-time-block')
     })
 
+    it('Transaction ID input field validation', () => {
+        cy.get('#field-input--transactionId').clear()
+        cy.get('#field-input--firstname').click()
+        cy.get('#field-error--transactionId > span').should('contain','Please fill in your transaction id')
+        cy.get('#field-input--transactionId').clear().type('d-BEXd501')
+        cy.get('#field-error--transactionId > span').should('be.not.visible')
+        cy.get('#field-input--transactionId').clear().type('D-BEX1501')
+        cy.get('#field-error--transactionId > span').should('be.not.visible')
+        cy.get('#field-input--transactionId').clear().type('test')
+        cy.get('#field-error--transactionId > span').should('be.not.visible')
+        cy.get('#field-input--transactionId').clear().type('3D487A59-716B-440D-BD43-50ED301DD9BA')
+        cy.get('#field-error--transactionId > span').should('be.not.visible')
+        cy.get('#field-input--transactionId').clear().type('5c6a89f170022')
+        cy.get('#field-error--transactionId > span').should('be.not.visible')
+    })
+
     it('first name input field validation', () => {
         cy.get('#field-input--firstname').clear()
         cy.get('#field-input--lastname').click()
@@ -177,11 +193,12 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
 
     //call centre
     it('e2e test when user comes from call centre', () => {
-        cy.visit('/update/A6E33246-5E5D-44BB-9717-2A828CF2D0E4')
-        cy.get('#form > div:nth-child(1) > h2').should('contain','Edit your Gift Aid declaration')
-        cy.get('p.transaction-id').should('contain','Transaction ID: A6E33246-5E5D-44BB-9717-2A828CF2D0E4')
-        cy.get('h3.form--update__title--donation').should('contain','How did you make the donation?')
-        cy.get('input[type="radio"]').check('call centre').should('be.checked')
+        cy.visit('/update')
+        cy.title().should('eq', 'Gift Aid declaration | Comic Relief')
+        cy.get('.giftaid-title>span').should('contain', 'Giftaid it')
+        cy.get('#form > div:nth-child(1) > h2').should('contain', 'Edit your Gift Aid declaration')
+        cy.get('#form > div.form-fields--wrapper > h3').should('contain','Who is changing their declaration?')
+        cy.get('#field-input--transactionId').clear().type('5c6a9920355f6')
         cy.get('#field-input--firstname').clear().type(firstName)
         cy.get('#field-input--lastname').clear().type(lastName)
         cy.get('#field-input--emailaddress').clear().type('test@comicrelief.com')
