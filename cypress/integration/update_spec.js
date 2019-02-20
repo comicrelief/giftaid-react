@@ -37,12 +37,16 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
         cy.get('#field-input--transactionId').clear()
         cy.get('#field-input--firstname').click()
         cy.get('#field-error--transactionId > span').should('contain','Please fill in your transaction id')
+        cy.get('#field-input--transactionId').type('#£$^')
+        cy.get('#field-error--transactionId > span').should('contain','This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter')
+        cy.get('#field-input--transactionId').clear().type('1234')
+        cy.get('#field-error--transactionId > span').should('contain','This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter')
         cy.get('#field-input--transactionId').clear().type('d-BEXd501')
         cy.get('#field-error--transactionId > span').should('be.not.visible')
         cy.get('#field-input--transactionId').clear().type('D-BEX1501')
         cy.get('#field-error--transactionId > span').should('be.not.visible')
         cy.get('#field-input--transactionId').clear().type('test')
-        cy.get('#field-error--transactionId > span').should('be.not.visible')
+      cy.get('#field-error--transactionId > span').should('contain','This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter')
         cy.get('#field-input--transactionId').clear().type('3D487A59-716B-440D-BD43-50ED301DD9BA')
         cy.get('#field-error--transactionId > span').should('be.not.visible')
         cy.get('#field-input--transactionId').clear().type('5c6a89f170022')
@@ -281,20 +285,3 @@ describe('Ensure url validation if string is less than 5 characters', () => {
   })
 });
 
-
-describe('Ensure validation if transaction ID input is less than 5 characters', () => {
-
-  it('validate invalid input / non UUID in transactionId form field on submit', () => {
-    cy.visit('/update')
-    cy.get('#field-input--transactionId').clear().type('test')
-    cy.get('#field-input--firstname').clear().type(firstName)
-    cy.get('#field-input--lastname').clear().type(lastName)
-    cy.get('#field-input--emailaddress').clear().type('test@comicrelief.com')
-    cy.get('#field-input--postcode').clear().type('hp2 6lq')
-    cy.get('#postcode_button').click()
-    cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
-    cy.get('input[type="radio"]').check(giftAidChecked).should('be.checked')
-    cy.get('button[type=submit]').click()
-    cy.get('#field-error--urlTransID > span').should('contain','Transaction ID is not valid, please check your donation confirmation email or letter')
-  })
-});
