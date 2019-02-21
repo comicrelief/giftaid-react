@@ -8,6 +8,9 @@ const firstName = faker.name.firstName();
 const lastName = faker.name.lastName();
 const successUrl = '/update/success';
 const giftAidChecked = ( Math.random() > 0.5 ) ? '1' : '0';
+const transactionIdErrorMessage = 'This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter';
+const successYesMessage = 'We’ve registered your Gift Aid declaration, we’ll use it to pay for our operational costs.';
+const successNoMessage = 'We won’t claim Gift Aid for your donation';
 
 describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on donation', () => {
 
@@ -38,15 +41,15 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
         cy.get('#field-input--firstname').click()
         cy.get('#field-error--transactionId > span').should('contain','Please fill in your transaction id')
         cy.get('#field-input--transactionId').type('#£$^')
-        cy.get('#field-error--transactionId > span').should('contain','This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter')
+        cy.get('#field-error--transactionId > span').should('contain',transactionIdErrorMessage)
         cy.get('#field-input--transactionId').clear().type('1234')
-        cy.get('#field-error--transactionId > span').should('contain','This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter')
+        cy.get('#field-error--transactionId > span').should('contain',transactionIdErrorMessage)
         cy.get('#field-input--transactionId').clear().type('d-BEXd501')
         cy.get('#field-error--transactionId > span').should('be.not.visible')
         cy.get('#field-input--transactionId').clear().type('D-BEX1501')
         cy.get('#field-error--transactionId > span').should('be.not.visible')
         cy.get('#field-input--transactionId').clear().type('test')
-      cy.get('#field-error--transactionId > span').should('contain','This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter')
+      cy.get('#field-error--transactionId > span').should('contain',transactionIdErrorMessage)
         cy.get('#field-input--transactionId').clear().type('3D487A59-716B-440D-BD43-50ED301DD9BA')
         cy.get('#field-error--transactionId > span').should('be.not.visible')
         cy.get('#field-input--transactionId').clear().type('5c6a89f170022')
@@ -133,7 +136,7 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
     it('verify success page', () => {
       cy.get('button[type=submit]').click().url('/success').wait(1000)
       cy.get('.success-wrapper').should('contain', 'Thank you,').and('contain', `${firstName}!`)
-      cy.get('div.success-wrapper--inner > div > p').should('contain','We’ve registered your Gift Aid declaration, we’ll use it to pay for our operational costs.')
+      cy.get('div.success-wrapper--inner > div > p').should('contain',successYesMessage)
     })
  })
 
@@ -151,7 +154,7 @@ describe('e2e test typing transaction ID and choosing "No" to claim gift aid on 
         cy.get('input[type="radio"]').check('0').should('be.checked')
         cy.get('button[type=submit]').click().url('/success')
         cy.contains('Thanks for letting us know')
-        cy.get('div.success-wrapper--inner > div > p').should('contain', 'We won’t claim Gift Aid for your donation')
+        cy.get('div.success-wrapper--inner > div > p').should('contain', successNoMessage)
     })
 })
 
@@ -173,7 +176,7 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
         cy.get('input[type="radio"]').check('1').should('be.checked')
         cy.get('button[type=submit]').click().url('/success')
         cy.get('.success-wrapper').should('contain', 'Thank you,').and('contain', `${firstName}!`)
-        cy.get('div.success-wrapper--inner > div > p').should('contain','We’ve registered your Gift Aid declaration, we’ll use it to pay for our operational costs.')
+        cy.get('div.success-wrapper--inner > div > p').should('contain',successYesMessage)
     })
 
     //online
@@ -192,7 +195,7 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
         cy.get('input[type="radio"]').check('1').should('be.checked')
         cy.get('button[type=submit]').click().url('/success')
         cy.get('.success-wrapper').should('contain', 'Thank you,').and('contain', `${firstName}!`)
-        cy.get('div.success-wrapper--inner > div > p').should('contain','We’ve registered your Gift Aid declaration, we’ll use it to pay for our operational costs.')
+        cy.get('div.success-wrapper--inner > div > p').should('contain',successYesMessage)
     })
 
     //call centre
@@ -212,7 +215,7 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
         cy.get('input[type="radio"]').check('1').should('be.checked')
         cy.get('button[type=submit]').click().url('/success')
         cy.get('.success-wrapper').should('contain', 'Thank you,').and('contain', `${firstName}!`)
-        cy.get('div.success-wrapper--inner > div > p').should('contain','We’ve registered your Gift Aid declaration, we’ll use it to pay for our operational costs.')
+        cy.get('div.success-wrapper--inner > div > p').should('contain',successYesMessage)
     })
 
     it('verify social links', () => {
@@ -281,7 +284,7 @@ describe('Ensure url validation if string is less than 5 characters', () => {
     cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
     cy.get('input[type="radio"]').check(giftAidChecked).should('be.checked')
     cy.get('button[type=submit]').click()
-    cy.get('#field-error--urlTransID > span').should('contain','Transaction ID is not valid, please check your donation confirmation email or letter')
+    cy.get('#field-error--urlTransID > span').should('contain',transactionIdErrorMessage)
   })
 });
 
