@@ -142,6 +142,7 @@ class UpdateForm extends Component {
     this.justInTimeLinkText = 'Why do we collect this info?';
     this.formHeaderHidden = 'Giftaid it';
     this.transactionIdPattern = '^[a-zA-Z0-9-]{5,}$';
+    this.transactionIdErrorMessage = 'This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter';
   }
   /**
    * Updates our validation object accordingly, so we're not trying to validate nonexistent fields
@@ -441,7 +442,7 @@ class UpdateForm extends Component {
    * Validates transactionId url parameter value.
    * If urlTransactionIdErrorMessage is already set,
    * resets all validity states.
-   * @param transID
+   * @param urlTransID
    * @returns Boolean
    */
   validateTransactionId(urlTransID = '') {
@@ -513,7 +514,6 @@ class UpdateForm extends Component {
     const isBrowser = browser();
     const supportedAriaAttributes = isBrowser.name === 'firefox' && isBrowser.os.match('Windows') ?
       { 'aria-live': 'assertive', 'aria-relevant': 'additions removals' } : { 'aria-live': 'assertive', role: 'status' };
-    const errorMessage = 'Transaction ID is not valid, please check your donation confirmation email or letter';
     return (
       <div
         id="field-error--urlTransID"
@@ -521,7 +521,7 @@ class UpdateForm extends Component {
         {...supportedAriaAttributes}
       >
         { this.state.urlTransactionIdErrorMessage ?
-          <span className="url-error">{errorMessage}</span>
+          <span className="url-error">{this.transactionIdErrorMessage}</span>
           :
           ''
         }
