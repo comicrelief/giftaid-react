@@ -170,8 +170,7 @@ class UpdateForm extends Component {
    * @return string
    */
   getTimestamp() {
-    const getTimeStamp = Math.round((new Date()).getTime() / 1000);
-    this.timestamp = new Date(getTimeStamp * 1000);
+    this.timestamp = Math.round((new Date()).getTime() / 1000);
     return this.timestamp;
   }
 
