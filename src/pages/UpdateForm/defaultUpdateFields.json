@@ -13,14 +13,16 @@
     "type": "text",
     "name": "firstname",
     "label": "First name",
-    "required": true
+    "required": true,
+    "pattern": "^[A-Za-z][A-Za-z'\\-]*"
   },
   "lastName": {
     "id": "lastname",
     "type": "text",
     "name": "lastname",
     "label": "Last name",
-    "required": true
+    "required": true,
+    "pattern": "^[A-Za-z0-9 ,\\.\\(\\)/&\\-']+"
   },
   "emailAddress": {
     "id": "emailaddress",
