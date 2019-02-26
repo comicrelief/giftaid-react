@@ -1,4 +1,4 @@
-const commands = {
+const updateCommands = {
   fillFormUpdateYes: function (client) {
     return client
       .setValue('#field-input--firstname', 'test')
@@ -16,5 +16,5 @@ const commands = {
 };
 
 module.exports = {
-    fillFormUpdateYes: commands.fillFormUpdateYes,
+  commands: [updateCommands],
 };
