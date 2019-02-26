@@ -170,7 +170,7 @@ class UpdateForm extends Component {
    * @return string
    */
   getTimestamp() {
-    this.timestamp = Math.round((new Date()).getTime() / 1000);
+    this.timestamp = Math.floor(Date.now() / 1000);
     return this.timestamp;
   }
 
