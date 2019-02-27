@@ -13,14 +13,18 @@
     "type": "text",
     "name": "firstname",
     "label": "First name",
-    "required": true
+    "required": true,
+    "pattern": "^[A-Za-z][A-Za-z\\'\\-]*$",
+    "invalidErrorText": "This field only accepts alphabetic characters and ' - "
   },
   "lastName": {
     "id": "lastname",
     "type": "text",
     "name": "lastname",
     "label": "Last name",
-    "required": true
+    "required": true,
+    "pattern": "^[\\sA-Za-z0-9 ,.()\/&\\-']+$",
+    "invalidErrorText": "This field only accepts alphanumeric characters and , . ( ) / & ' - "
   },
   "emailAddress": {
     "id": "emailaddress",
