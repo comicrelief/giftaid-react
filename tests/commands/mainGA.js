@@ -1,4 +1,4 @@
-const commands = {
+const submitCommands = {
   fillForm: function (client) {
     return client
       .click('#field-input--giftaid')
@@ -16,5 +16,5 @@ const commands = {
 };
 
 module.exports = {
-    fillForm: commands.fillForm,
+    commands: [submitCommands],
 };
