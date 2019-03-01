@@ -27,7 +27,7 @@
     "label": "First name",
     "required": true,
     "pattern": "^[A-Za-z][A-Za-z\\'\\-]*$",
-    "invalidErrorText": "This field only accepts alphabets and ' - "
+    "invalidErrorText": "This field only accepts alphabetic characters and ' - "
   },
   "lastName": {
     "id": "lastname",
@@ -36,6 +36,6 @@
     "label": "Last name",
     "required": true,
     "pattern": "^[\\sA-Za-z0-9 ,.()\/&\\-']+$",
-    "invalidErrorText": "This field only accepts alphanumeric characters and , . ( ) & ' - "
+    "invalidErrorText": "This field only accepts alphanumeric characters and , . ( ) / & ' - "
   }
 }

@@ -50,7 +50,13 @@ describe('e2e test', () => {
         cy.get('#field-input--firstname').clear()
         cy.get('#field-input--lastname').click()
         cy.get('#field-error--firstname>span').should('contain', 'Please fill in your first name')
-        cy.get('#field-input--firstname').type(firstName)
+        cy.get('#field-input--firstname').clear().type('Test@')
+        cy.get('#field-error--firstname>span').should('contain', 'This field only accepts alphabetic characters and \' - ')
+        cy.get('#field-input--firstname').clear().type('$&717')
+        cy.get('#field-error--firstname>span').should('contain', 'This field only accepts alphabetic characters and \' - ')
+        cy.get('#field-input--firstname').clear().type('T\'es-t')
+        cy.get('#field-error--firstname>span').should('be.not.visible')
+        cy.get('#field-input--firstname').clear().type(firstName)
         cy.get('#field-error--firstname>span').should('be.not.visible')
 
     })
@@ -59,7 +65,13 @@ describe('e2e test', () => {
         cy.get('#field-input--lastname').clear()
         cy.get('#field-input--firstname').click()
         cy.get('#field-error--lastname>span').should('contain', 'Please fill in your last name')
-        cy.get('#field-input--lastname').type(lastName)
+        cy.get('#field-input--lastname').type('test@')
+        cy.get('#field-error--lastname>span').should('contain', 'This field only accepts alphanumeric characters and , . ( ) / & \' - ')
+        cy.get('#field-input--lastname').clear().type('Test-test')
+        cy.get('#field-error--lastname>span').should('be.not.visible')
+        cy.get('#field-input--lastname').clear().type('(test)&,t\'est')
+        cy.get('#field-error--lastname>span').should('be.not.visible')
+        cy.get('#field-input--lastname').clear().type(lastName)
         cy.get('#field-error--lastname>span').should('be.not.visible')
 
     })
@@ -96,7 +108,7 @@ describe('e2e test', () => {
     })
 
     it('verify success page', () => {
-        cy.get('button[type=submit]').click().url('/success')
+        cy.get('button[type=submit]').click().url('/success').wait(1000)
         cy.get('.success-wrapper').should('contain', 'Thank you,').and('contain', `${firstName}!`)
     })
 })
