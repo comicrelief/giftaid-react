@@ -301,7 +301,7 @@ class GiftAidForm extends Component {
     }
     // Combine all form data and settings
     const formValues = Object.assign({}, fieldValues, settings);
-    console.log('formValues: ', formValues);
+
     // post form data and settings to endpoint
     axios.post(ENDPOINT_URL, formValues)
       .then(() => {
