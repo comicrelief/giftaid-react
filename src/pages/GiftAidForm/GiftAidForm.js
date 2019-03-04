@@ -295,7 +295,11 @@ class GiftAidForm extends Component {
 
       fieldValues[key] = value;
     });
-
+    // create phone field if permission is set
+    if (fieldValues.permissionPhone === 1 && fieldValues.mobile !== null) {
+      fieldValues.phone = fieldValues.mobile;
+    }
+    console.log('fieldValues: ', fieldValues);
     // Combine all form data and settings
     const formValues = Object.assign({}, fieldValues, settings);
 
