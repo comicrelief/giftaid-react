@@ -299,7 +299,6 @@ class GiftAidForm extends Component {
     if (fieldValues.permissionPhone === 1 && fieldValues.mobile !== null) {
       fieldValues.phone = fieldValues.mobile;
     }
-    console.log('fieldValues: ', fieldValues);
     // Combine all form data and settings
     const formValues = Object.assign({}, fieldValues, settings);
 
