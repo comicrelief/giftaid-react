@@ -675,12 +675,13 @@
     susy "^2.2.12"
     underscore.string "3.3.5"
 
-"@comicrelief/pattern-lab@7.56.0":
-  version "7.56.0"
-  resolved "https://registry.yarnpkg.com/@comicrelief/pattern-lab/-/pattern-lab-7.56.0.tgz#933103dce9d93242601c7167c18014e1a2653b72"
-  integrity sha512-3jOZA6nLjhzqsdFlm4WjlU+9pXbNlHd3iv/BfUUX0jcbOeEGTvh4K1H5nqS/QrWY2Rsuwpsx2eCXop9o6qQ9xg==
+"@comicrelief/pattern-lab@^7.58.4":
+  version "7.58.4"
+  resolved "https://registry.yarnpkg.com/@comicrelief/pattern-lab/-/pattern-lab-7.58.4.tgz#722fe8007e6f791e3cff44a98ef29db18238075f"
+  integrity sha512-H/PdYLmAZ4lIrSXzxJYliUbkjycY3KrFFh3EzTZEqns/iI46qPOEF7B3urjIytfjFaSIsOOXf9dHahxDIHvEbQ==
   dependencies:
     event-stream "3.3.4"
+    grunt-contrib-copy "^1.0.0"
     susy "^2.2.12"
     underscore.string "3.3.5"
 
