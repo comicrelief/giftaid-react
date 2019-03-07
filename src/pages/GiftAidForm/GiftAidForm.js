@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import axios from 'axios';
+import validate from 'validate.js';
 import InputField from '@comicrelief/storybook/src/components/InputField/InputField';
 import JustInTime from '@comicrelief/storybook/src/components/JustInTime/JustInTime';
 import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup/PostcodeLookup';
@@ -8,6 +9,7 @@ import MarketingConsent from '@comicrelief/storybook/src/components/MarketingCon
 import defaultInputFieldsData from './defaultGiftaidFields.json';
 import SiteService from '../../service/Site.service';
 import marketingConsentData from './marketingConsentData.json';
+import formConstraints from './formConstraints.json';
 
 const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
 
@@ -258,14 +260,20 @@ class GiftAidForm extends Component {
     return inputFields;
   }
 
+  validateFormFields(formValues) {
+    return new Promise((resolve, reject) => {
+      const validation = validate(formValues, formConstraints);
+      if (typeof validation === 'undefined') {
+        return resolve();
+      }
+      return reject(validation);
+    });
+  }
+
   /**
    * Creates formValues object and submits form
    */
   submitForm() {
-    if (this.state.showErrorMessages !== false && this.state.formValidity !== true) {
-      return false;
-    }
-
     const url = this.getCurrentUrl();
     const campaign = this.site.get('campaign').name;
     // required settings to post to api endpoint
@@ -302,8 +310,9 @@ class GiftAidForm extends Component {
     // Combine all form data and settings
     const formValues = Object.assign({}, fieldValues, settings);
 
-    // post form data and settings to endpoint
-    axios.post(ENDPOINT_URL, formValues)
+    // validate form fields
+    this.validateFormFields(formValues)
+      .then(() => axios.post(ENDPOINT_URL, formValues))// post form data and settings to endpoint
       .then(() => {
         this.props.submitHasCompleted(true);
         this.props.history.push({
@@ -316,8 +325,6 @@ class GiftAidForm extends Component {
           pathname: '/sorry',
         });
       });
-
-    return true;
   }
 
   /**
@@ -352,9 +359,14 @@ class GiftAidForm extends Component {
       formValidity: true,
       showErrorMessages: false,
       validating: false,
-    }, this.submitForm);
+    }, this.checkFormValidity);
   }
 
+  checkFormValidity() {
+    if (this.state.showErrorMessages === false && this.state.formValidity === true) {
+      this.submitForm();
+    }
+  }
   /**
    * Renders out the just in time message
    */

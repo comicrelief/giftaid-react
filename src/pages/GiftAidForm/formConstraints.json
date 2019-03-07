@@ -1,0 +1,86 @@
+{
+  "firstname": {
+    "presence": {
+      "allowEmpty": false
+    }
+  },
+  "lastname": {
+    "presence": {
+      "allowEmpty": false
+    }
+  },
+  "mobile": {
+    "presence": {
+      "allowEmpty": false
+    }
+  },
+  "address1": {
+    "presence": {
+      "allowEmpty": false
+    }
+  },
+  "address2": {
+    "presence": false
+  },
+  "address3": {
+    "presence": false
+  },
+  "town": {
+    "presence": {
+      "allowEmpty": false
+    }
+  },
+  "postcode": {
+    "presence": {
+      "allowEmpty": false
+    }
+  },
+  "country": {
+    "presence": {
+      "allowEmpty": false
+    }
+  },
+  "campaign": {
+    "presence": {
+      "allowEmpty": false
+    }
+  },
+  "transSource": {
+    "presence": {
+      "allowEmpty": false
+    }
+  },
+  "transSourceUrl": {
+    "presence": {
+      "allowEmpty": false
+    },
+    "url": {
+      "allowLocal": true
+    }
+  },
+  "transType": {
+    "presence": {
+      "allowEmpty": false
+    }
+  },
+  "confirm": {
+    "presence": true,
+    "numericality": {
+      "onlyInteger": true,
+      "greaterThanOrEqualTo": 0,
+      "lessThanOrEqualTo": 1
+    }
+  },
+  "permissionPost": {
+    "presence": false
+  },
+  "permissionEmail": {
+    "presence": false
+  },
+  "permissionPhone": {
+    "presence": false
+  },
+  "permissionSMS": {
+    "presence": false
+  }
+}
