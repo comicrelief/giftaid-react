@@ -78,7 +78,7 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
         cy.get('#field-error--lastname>span').should('contain', 'This field only accepts alphanumeric characters and , . ( ) / & \' - ')
         cy.get('#field-input--lastname').clear().type('Test-test')
         cy.get('#field-error--lastname>span').should('be.not.visible')
-        cy.get('#field-input--lastname').clear().type('(test)&,t\'est')
+        cy.get('#field-input--lastname').clear().type('test)&,t\'est')
         cy.get('#field-error--lastname>span').should('be.not.visible')
         cy.get('#field-input--lastname').clear().type(lastName)
         cy.get('#field-error--lastname>span').should('be.not.visible')

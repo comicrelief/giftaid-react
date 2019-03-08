@@ -23,7 +23,7 @@
     "name": "lastname",
     "label": "Last name",
     "required": true,
-    "pattern": "^[\\sA-Za-z0-9 ,.()\/&\\-']+$",
+    "pattern": "^[A-Za-z0-9][A-Za-z0-9 ,.()\/&\\-']+$",
     "invalidErrorText": "This field only accepts alphanumeric characters and , . ( ) / & ' - "
   },
   "emailAddress": {
