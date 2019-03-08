@@ -675,10 +675,10 @@
     susy "^2.2.12"
     underscore.string "3.3.5"
 
-"@comicrelief/storybook@^1.18.5":
-  version "1.18.5"
-  resolved "https://registry.yarnpkg.com/@comicrelief/storybook/-/storybook-1.18.5.tgz#444507633da570e9f9ae57c5ab5a25cf4f863c2b"
-  integrity sha512-fVZrnrQe6rvwuGa2Im/6EalirIQRGR3Yq5gpKf6j53aVgCQx0b+kne2j0ruZ5ouu7rtXNJLYFvuMBjxwOgIEdw==
+"@comicrelief/storybook@1.18.0":
+  version "1.18.0"
+  resolved "https://registry.yarnpkg.com/@comicrelief/storybook/-/storybook-1.18.0.tgz#36de3e04cd9356e0a0ff3f0d3e54dbf7335d461b"
+  integrity sha512-nlTwzWDtMChLKhKWkrazRtt9GLV0GSWb41dArgHaoqM+DtATGaq3sfyegQ699cjOEUCV+Kewd+mugnj/T9tjWA==
   dependencies:
     "@comicrelief/pattern-lab" "*"
     "@storybook/addon-info" "3"
