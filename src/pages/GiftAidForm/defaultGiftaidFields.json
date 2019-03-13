@@ -35,7 +35,7 @@
     "name": "lastname",
     "label": "Last name",
     "required": true,
-    "pattern": "^[A-Za-z0-9]+[ ,.()\/&\\-'\\w]+$",
+    "pattern": "^[A-Za-z0-9]+[ \\- ,.()\\/&\\'\\w]+$",
     "invalidErrorText": "This field only accepts alphanumeric characters and , . ( ) / & ' - "
   }
 }
