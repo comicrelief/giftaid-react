@@ -4,8 +4,10 @@ import axios from 'axios';
 import InputField from '@comicrelief/storybook/src/components/InputField/InputField';
 import JustInTime from '@comicrelief/storybook/src/components/JustInTime/JustInTime';
 import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup/PostcodeLookup';
+import MarketingConsent from '@comicrelief/storybook/src/components/MarketingConsent/MarketingConsent';
 import defaultInputFieldsData from './defaultGiftaidFields.json';
 import SiteService from '../../service/Site.service';
+import marketingConsentData from './marketingConsentData.json';
 
 const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
 
@@ -84,23 +86,35 @@ class GiftAidForm extends Component {
           value: undefined,
           message: '',
         },
+        permissionEmail: {
+          isFieldsHidden: false,
+          value: null,
+          valid: true,
+          fieldValidation: {},
+        },
+        permissionPost: {
+          isFieldsHidden: false,
+          value: null,
+          valid: true,
+          fieldValidation: false,
+        },
+        permissionPhone: {
+          isFieldsHidden: false,
+          value: null,
+          valid: true,
+          fieldValidation: false,
+        },
+        permissionSMS: {
+          isFieldsHidden: false,
+          value: null,
+          valid: true,
+          fieldValidation: false,
+        },
       },
+
       hiddenFields: ['field-input--address1', 'field-input--town', 'field-wrapper--country'],
     };
-    // Put the field refs from children into an array
-    const refs = [];
-    this.setRef = (element) => {
-      if (element) {
-        // fields from postcode lookup
-        if (element.fieldRefs) {
-          element.fieldRefs.forEach(item => refs.push(item));
-        } else {
-          // remaining input fields
-          refs.push(element.inputRef);
-        }
-        this.fieldRefs = refs;
-      }
-    };
+
     this.url = null;
     this.timestamp = null;
     this.campaign = null;
@@ -136,8 +150,7 @@ class GiftAidForm extends Component {
    * @return string
    */
   getTimestamp() {
-    const getTimeStamp = Math.round((new Date()).getTime() / 1000);
-    this.timestamp = new Date(getTimeStamp * 1000);
+    this.timestamp = Math.floor(Date.now() / 1000);
     return this.timestamp;
   }
 
@@ -158,20 +171,24 @@ class GiftAidForm extends Component {
   /**
    * Updates validation state
    * @param name
-   * @param valid
+   * @param newStateField
    */
-  setValidity(name, valid) {
-    if (name && valid) {
+  setValidity(name, newStateField) {
+    if (name && newStateField) {
       this.setState((prevState) => {
         let newState;
-        if (prevState.validation[name] !== undefined
-          && (prevState.validation[name].value === undefined
-            || prevState.validation[name].value !== valid.value)) {
+        const prevStateField = prevState.validation[name];
+        const fieldUndefined = prevStateField === undefined;
+        const newValue = fieldUndefined === false && prevStateField.value !== newStateField.value;
+        const marketingConsentFieldsChanged = fieldUndefined === false &&
+          (newStateField.fieldValidation !== prevStateField.fieldValidation);
+
+        if (fieldUndefined === true || newValue === true || marketingConsentFieldsChanged === true) {
           newState = {
-            ...this.state,
+            ...prevState,
             validation: {
-              ...this.state.validation,
-              [name]: valid,
+              ...prevState.validation,
+              [name]: newStateField,
             },
           };
         }
@@ -190,34 +207,12 @@ class GiftAidForm extends Component {
       validating: false,
     });
 
-    let item;
-    let allClasses;
-
-    // Scroll to the first erroring field
+    // Scroll to the first erroring field and focus on its input field
     const errorWrapper = document.querySelectorAll('.form__field--erroring')[0];
+    const errorField = document.querySelectorAll('.form__field--erroring > div input')[0];
 
-    for (let i = 0; i < this.fieldRefs.length; i += 1) {
-      item = this.fieldRefs[i];
-      allClasses = item.className;
-
-      // If we find 'error' in THIS item's classes:
-      if (allClasses.indexOf('error-outline') > -1 || allClasses.indexOf('erroring') > -1) {
-        // If this id matches one of our hidden fields...
-        /* eslint-disable no-loop-func */
-        if (this.state.hiddenFields.some(key => item.id.indexOf(key) > -1)
-          && document.querySelector('#address-detail .hide')) {
-          document.querySelector('#field-wrapper--postcode').scrollIntoView('smooth');
-        } else if (this.fieldRefs[i].nodeName === 'FIELDSET') {
-          // Else, if this is a radio button...
-          errorWrapper.scrollIntoView('smooth');
-        } else {
-          // Otherwise, this is a normal text input field
-          errorWrapper.scrollIntoView('smooth');
-          document.querySelector('#' + item.id).focus();
-        }
-        break;
-      }
-    }
+    errorWrapper.scrollIntoView('smooth');
+    errorField.focus();
     clearTimeout(scrollTimeout);
   }
 
@@ -228,7 +223,6 @@ class GiftAidForm extends Component {
   createInputFields() {
     const inputFields = [];
     Object.entries(this.state.inputFieldProps).map(([field, props]) => inputFields.push(<InputField
-      ref={this.setRef}
       key={field}
       id={props.id}
       type={props.type}
@@ -287,13 +281,24 @@ class GiftAidForm extends Component {
     const fieldValues = {};
     Object.keys(this.state.validation).forEach((key) => {
       let value = this.state.validation[key].value;
-      // todo deal with the value output in InputField component
       if (key === 'confirm') {
         value = this.state.validation[key].value === true ? 1 : 0;
       }
+      // set values for marketing consent checkboxes and fields
+      if (/^permission/.test(key) && value !== null) {
+        if (value === 'yes' && this.state.validation[key].fieldValidation !== false) {
+          const fields = this.state.validation[key].fieldValidation;
+          Object.keys(fields).forEach(name => fieldValues[name] = fields[name].value);
+        }
+        value = value === 'no' ? 0 : 1;
+      }
+
       fieldValues[key] = value;
     });
-
+    // create phone field if permission is set
+    if (fieldValues.permissionPhone === 1 && fieldValues.mobile !== null) {
+      fieldValues.phone = fieldValues.mobile;
+    }
     // Combine all form data and settings
     const formValues = Object.assign({}, fieldValues, settings);
 
@@ -323,13 +328,12 @@ class GiftAidForm extends Component {
    */
   validateForm(e) {
     e.preventDefault();
-    // Put field validation into new array to check for invalid fields
+    //  check for invalid fields
     let validity = true;
     Object.keys(this.state.validation).map((key) => {
       if (this.state.validation[key].valid !== true) {
         validity = false;
       }
-
       return true;
     });
 
@@ -405,7 +409,6 @@ class GiftAidForm extends Component {
             {this.renderFormHeader()}
             { this.createInputFields() }
             <PostcodeLookup
-              ref={this.setRef}
               label="Postal address"
               showErrorMessages={this.state.showErrorMessages}
               isAddressValid={
@@ -413,6 +416,13 @@ class GiftAidForm extends Component {
                   Object.keys(validation).map(key => this.setValidity(key, validation[key]));
                 }
               }
+            />
+            <MarketingConsent
+              getValidation={(validation) => {
+                Object.keys(validation).forEach(key => this.setValidity(key, validation[key]));
+              }}
+              itemData={marketingConsentData}
+              showErrorMessages={this.state.showErrorMessages}
             />
             <button
               type="submit"
