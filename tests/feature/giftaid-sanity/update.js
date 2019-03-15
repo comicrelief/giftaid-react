@@ -58,7 +58,8 @@ module.exports = {
 
   'User completes giftaid update journey from online': function (client) {
     //online
-    client.url(process.env.BASE_URL + 'update/3D487A59-716B-440D-BD43-50ED301DD9BA').maximizeWindow().waitForElementVisible('body', 1000);
+    client.url(process.env.BASE_URL + 'update/bb9aa5c9-5d93-4a34-a102-aaf378d16a73').maximizeWindow().waitForElementVisible('body', 1000);
+    client.expect.element('p.text-align-centre.transaction-id').text.to.equal('Transaction ID: bb9aa5c9-5d93-4a34-a102-aaf378d16a73');
     client.click('input[type="radio"][value="online"]');
     client.page.updateGA().fillFormUpdateYes(client);
     client.waitForElementVisible('div.success-wrapper--inner > div > h1', 1000);
@@ -68,8 +69,8 @@ module.exports = {
 
   'User completes giftaid update journey from call centre': function (client) {
     //call centre
-    client.url(process.env.BASE_URL + 'update/3D487A59-716B-440D-BD43-50ED301DD9BA').maximizeWindow().waitForElementVisible('body', 1000);
-    client.click('input[type="radio"][value="call centre"]');
+    client.url(process.env.BASE_URL + 'update').maximizeWindow().waitForElementVisible('body', 1000);
+    client.setValue('#field-input--transactionId', '5c6a89f170022');
     client.page.updateGA().fillFormUpdateYes(client);
     client.waitForElementVisible('div.success-wrapper--inner>div>h1', 1000);
     client.expect.element('div.success-wrapper--inner>div>h1').text.to.equal('Thank you,\n' + 'test!');
@@ -89,7 +90,7 @@ module.exports = {
     client.url(process.env.BASE_URL + 'update/test').maximizeWindow().waitForElementVisible('body', 1000);
     client.click('input[type="radio"][value="online"]');
     client.page.updateGA().fillFormUpdateYes(client);
-    client.assert.containsText('#field-error--urlTransID>span', 'This does not match a transaction ID in our system, please check your donation confirmation email or letter')
+    client.assert.containsText('#field-error--urlTransID>span', 'This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter')
     client.end();
   },
-}
+};
