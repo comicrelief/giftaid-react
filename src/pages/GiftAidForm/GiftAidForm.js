@@ -115,9 +115,6 @@ class GiftAidForm extends Component {
       hiddenFields: ['field-input--address1', 'field-input--town', 'field-wrapper--country'],
     };
 
-    this.url = null;
-    this.timestamp = null;
-    this.campaign = null;
     this.justInTimeLinkText = 'Why do we collect this info?';
     this.formHeaderHidden = 'Giftaid it';
   }
@@ -144,28 +141,6 @@ class GiftAidForm extends Component {
     this.setState({
       inputFieldProps: this.mergeInputFieldProps(defaultInputFieldsData),
     });
-  }
-  /**
-   * Gets the timestamp and formats it
-   * @return string
-   */
-  getTimestamp() {
-    this.timestamp = Math.floor(Date.now() / 1000);
-    return this.timestamp;
-  }
-
-  /**
-   * Gets the current hostname.
-   * Replaces 'localhost' to a default or uses the browser's current url.
-   * @return string
-   */
-  getCurrentUrl() {
-    if (window.location.hostname === 'localhost') {
-      this.url = 'http://local.comicrelief.com';
-    } else {
-      this.url = window.location.href;
-    }
-    return this.url;
   }
 
   /**
@@ -266,7 +241,7 @@ class GiftAidForm extends Component {
       return false;
     }
 
-    const url = this.getCurrentUrl();
+    const url = this.site.getCurrentUrl();
     const campaign = this.site.get('campaign').name;
     // required settings to post to api endpoint
     const settings = {
@@ -274,7 +249,7 @@ class GiftAidForm extends Component {
       transSource: `${campaign}_GiftAid`,
       transSourceUrl: url,
       transType: 'GiftAid',
-      timestamp: this.getTimestamp(),
+      timestamp: this.site.getTimestamp(),
     };
 
     // create field values

@@ -29,12 +29,9 @@ class UpdateForm extends Component {
     this.site = new SiteService();
     this.state = {
       validating: false,
-      firstUpdate: false,
       formValidity: false,
       showErrorMessages: false,
       urlTransactionIdErrorMessage: false,
-      formDataError: null,
-      formDataSuccess: null,
       urlTransID: this.props.match.params.transaction_id,
       postCodePattern: '[A-Za-z]{1,2}[0-9Rr][0-9A-Za-z]?( |)[0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}',
       validation: {
@@ -136,9 +133,6 @@ class UpdateForm extends Component {
         this.fieldRefs = refs;
       }
     };
-    this.url = null;
-    this.timestamp = null;
-    this.campaign = null;
     this.justInTimeLinkText = 'Why do we collect this info?';
     this.formHeaderHidden = 'Giftaid it';
     this.transactionIdPattern = '^[a-zA-Z0-9-]{5,}$';
@@ -163,47 +157,6 @@ class UpdateForm extends Component {
       // timeout needed for error class names to appear
       scrollTimeout = setTimeout(() => { this.scrollToError(); }, 500);
     }
-  }
-
-  /**
-   * Gets the timestamp and formats it
-   * @return string
-   */
-  getTimestamp() {
-    this.timestamp = Math.floor(Date.now() / 1000);
-    return this.timestamp;
-  }
-
-  /**
-   * Gets the campaign name based on the url
-   * @param url
-   * @return {*}
-   */
-  getCampaign(url) {
-    // let campaign;
-    if (url.includes('sportrelief')) {
-      this.campaign = 'SR18';
-    } else if (url.includes('rednoseday')) {
-      this.campaign = 'RND19';
-    } else {
-      this.campaign = 'CR';
-    }
-    return this.campaign;
-  }
-
-  /**
-   * Gets the current hostname.
-   * Replaces 'localhost' to a default or uses the browser's current url.
-   * @return string
-   */
-  getCurrentUrl() {
-    // let url = null;
-    if (window.location.hostname === 'localhost') {
-      this.url = 'http://local.comicrelief.com';
-    } else {
-      this.url = window.location.href;
-    }
-    return this.url;
   }
 
   /**
@@ -350,7 +303,7 @@ class UpdateForm extends Component {
     }
     // ensure no errors before submitting the form
     if (this.state.showErrorMessages === false && this.state.formValidity === true) {
-      const url = this.getCurrentUrl();
+      const url = this.site.getCurrentUrl();
       const campaign = this.site.get('campaign').name;
 
       const donationType = typeof this.state.validation.donationType !== 'undefined'
@@ -363,7 +316,7 @@ class UpdateForm extends Component {
         transSource: `${campaign}_GiftAidUpdate`,
         transSourceUrl: url,
         transType: 'GiftAidUpdate',
-        timestamp: this.getTimestamp(),
+        timestamp: this.site.getTimestamp(),
         email: this.state.validation.emailaddress.value,
         postcode: this.state.validation.postcode.value,
         donationID,
