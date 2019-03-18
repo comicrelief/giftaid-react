@@ -1,0 +1,78 @@
+{"Questions": [
+  {
+    "id": "permissionEmail",
+    "text": "Email",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "yes",
+        "name": "emailPermission",
+        "hideFields": false
+      },
+      {
+        "label": "No",
+        "value": "no",
+        "name": "emailPermission",
+        "hideFields": true
+      }
+    ],
+    "field": [
+      {
+        "id": "emailAddress",
+        "type": "email",
+        "name": "email",
+        "label": "Email address",
+        "placeholder": "example@email.com",
+        "required": true
+      }
+    ]
+  },
+  {
+    "id": "permissionPost",
+    "text": "Post",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "yes",
+        "name": "postPermission"
+      },
+      {
+        "label": "No",
+        "value": "no",
+        "name": "postPermission"
+      }
+    ]
+  },
+  {
+    "id": "permissionPhone",
+    "text": "Phone",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "yes",
+        "name": "phonePermission"
+      },
+      {
+        "label": "No",
+        "value": "no",
+        "name": "phonePermission"
+      }
+    ]
+  },
+  {
+    "id": "permissionSMS",
+    "text": "SMS",
+    "options": [
+      {
+        "label": "Yes",
+        "value": "yes",
+        "name": "smsPermission"
+      },
+      {
+        "label": "No",
+        "value": "no",
+        "name": "smsPermission"
+      }
+    ]
+  }
+]}

@@ -20,6 +20,10 @@ module.exports = {
        .assert.elementPresent('#field-input--address3')
        .assert.elementPresent('#field-input--town')
        .assert.elementPresent('#field-select--country')
+       .assert.elementPresent('#field-wrapper--Email')
+       .assert.elementPresent('#field-wrapper--Post')
+       .assert.elementPresent('#field-wrapper--Phone')
+       .assert.elementPresent('#field-wrapper--SMS')
        .assert.elementPresent('#form > button')
        .assert.elementPresent('.form__row--just-in-time-block>div>a');
      client.end();
