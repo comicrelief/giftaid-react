@@ -15,6 +15,8 @@ export default class SiteService {
     this.url = null;
     this.timestamp = null;
     this.campaign = null;
+    this.justInTimeLinkText = null;
+    this.formHeaderHidden = null;
   }
 
   /**
@@ -89,5 +91,13 @@ export default class SiteService {
       this.campaign = 'CR';
     }
     return this.campaign;
+  }
+  getJustInTimeText() {
+    this.justInTimeLinkText = 'Why do we collect this info?';
+    return this.justInTimeLinkText;
+  }
+  getHiddenFormHeader() {
+    this.formHeaderHidden = 'Giftaid it';
+    return this.formHeaderHidden;
   }
 }

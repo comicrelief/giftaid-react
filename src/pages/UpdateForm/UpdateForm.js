@@ -8,6 +8,7 @@ import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup
 import RadioButtons from '@comicrelief/storybook/src/components/RadioButtons/RadioButtons';
 import defaultInputFieldsData from './defaultUpdateFields.json';
 import SiteService from '../../service/Site.service';
+import FormHeader from '../../components/FormHeader/FormHeader';
 
 const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL + 'update';
 
@@ -538,6 +539,7 @@ class UpdateForm extends Component {
             noValidate
             className="update-giftaid__form"
           >
+            <FormHeader page="update" urlTransID={this.state.urlTransID} />
             {this.renderFormHeader()}
             {this.renderTransactionIDError()}
 

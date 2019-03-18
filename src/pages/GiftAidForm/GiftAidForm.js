@@ -5,6 +5,7 @@ import InputField from '@comicrelief/storybook/src/components/InputField/InputFi
 import JustInTime from '@comicrelief/storybook/src/components/JustInTime/JustInTime';
 import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup/PostcodeLookup';
 import MarketingConsent from '@comicrelief/storybook/src/components/MarketingConsent/MarketingConsent';
+import FormHeader from '../../components/FormHeader/FormHeader';
 import defaultInputFieldsData from './defaultGiftaidFields.json';
 import SiteService from '../../service/Site.service';
 import marketingConsentData from './marketingConsentData.json';
@@ -381,6 +382,7 @@ class GiftAidForm extends Component {
             data-success={formDataSuccess}
             data-error={formDataError}
           >
+            <FormHeader page="submit" />
             {this.renderFormHeader()}
             { this.createInputFields() }
             <PostcodeLookup
