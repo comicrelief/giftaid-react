@@ -117,7 +117,6 @@ class GiftAidForm extends Component {
     };
 
     this.justInTimeLinkText = 'Why do we collect this info?';
-    this.formHeaderHidden = 'Giftaid it';
   }
 
   /**
@@ -348,28 +347,6 @@ class GiftAidForm extends Component {
     );
   }
 
-  renderFormHeader() {
-    return (
-      <div>
-        <h1 className="giftaid-title">
-          <span className="visually-hidden">
-            { this.formHeaderHidden }
-          </span>
-        </h1>
-        <h2 className="sub-title">
-          Gift aid your donation and the
-          {' '}
-          <strong>
-            Government will give us 25%
-          </strong>
-          {' '}
-            on top of it.
-        </h2>
-      </div>
-    );
-  }
-
-
   render() {
     const { formDataSuccess, formDataError } = this.state;
     return (
@@ -383,7 +360,7 @@ class GiftAidForm extends Component {
             data-error={formDataError}
           >
             <FormHeader page="submit" />
-            {this.renderFormHeader()}
+
             { this.createInputFields() }
             <PostcodeLookup
               label="Postal address"

@@ -30,8 +30,11 @@ class UpdateForm extends Component {
     this.site = new SiteService();
     this.state = {
       validating: false,
+      firstUpdate: false,
       formValidity: false,
       showErrorMessages: false,
+      formDataError: null,
+      formDataSuccess: null,
       urlTransactionIdErrorMessage: false,
       urlTransID: this.props.match.params.transaction_id,
       postCodePattern: '[A-Za-z]{1,2}[0-9Rr][0-9A-Za-z]?( |)[0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}',
@@ -135,7 +138,6 @@ class UpdateForm extends Component {
       }
     };
     this.justInTimeLinkText = 'Why do we collect this info?';
-    this.formHeaderHidden = 'Giftaid it';
     this.transactionIdPattern = '^[a-zA-Z0-9-]{5,}$';
     this.transactionIdErrorMessage = 'This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter';
   }
@@ -433,33 +435,7 @@ class UpdateForm extends Component {
       </JustInTime>
     );
   }
-  /**
-   * Renders Form Header
-   */
-  renderFormHeader() {
-    return (
-      <div>
-        <h1 className="giftaid-title">
-          <span className="visually-hidden">
-            { this.formHeaderHidden }
-          </span>
-        </h1>
-        <h2 className="sub-title">
-          Edit your Gift Aid declaration
-        </h2>
-        <p className="text-align-centre">
-          We can claim Gift Aid from personal donations made by UK taxpayers:
-          the Government gives us back 25% of their value.
-        </p>
-        { this.state.urlTransID ?
-          <p className="text-align-centre transaction-id">
-            Transaction ID: {this.state.urlTransID}
-          </p>
-          :
-          null }
-      </div>
-    );
-  }
+
   /**
    * Renders Transaction ID Error
    */
@@ -540,7 +516,6 @@ class UpdateForm extends Component {
             className="update-giftaid__form"
           >
             <FormHeader page="update" urlTransID={this.state.urlTransID} />
-            {this.renderFormHeader()}
             {this.renderTransactionIDError()}
 
             <div className="form-fields--wrapper">
