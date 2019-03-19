@@ -26,8 +26,8 @@
     "name": "firstname",
     "label": "First name",
     "required": true,
-    "pattern": "^[A-Za-z][A-Za-z\\'\\-]*$",
-    "invalidErrorText": "This field only accepts alphabetic characters and ' - "
+    "pattern": "^[A-Za-z][A-Za-z'-]{0,24}$",
+    "invalidErrorText": "This field only accepts 25 alphabetic characters and ' - starting with alphabetic characters"
   },
   "lastName": {
     "id": "lastname",
@@ -35,7 +35,7 @@
     "name": "lastname",
     "label": "Last name",
     "required": true,
-    "pattern": "^[A-Za-z0-9]+[ \\- ,.()\\/&\\'\\w]+$",
-    "invalidErrorText": "This field only accepts alphanumeric characters and , . ( ) / & ' - "
+    "pattern": "^[a-zA-Z0-9][a-zA-Z0-9'.,/()& -]{0,24}$",
+    "invalidErrorText": "This field only accepts 25 alphanumeric characters and , . ( ) / & ' - starting with alphanumeric characters"
   }
 }
