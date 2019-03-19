@@ -56,6 +56,8 @@ describe('e2e test', () => {
         cy.get('#field-error--firstname>span').should('contain', 'This field only accepts alphabetic characters and \' - ')
         cy.get('#field-input--firstname').clear().type('T\'es-t')
         cy.get('#field-error--firstname>span').should('be.not.visible')
+        cy.get('#field-input--firstname').clear().type(' '+firstName)
+        cy.get('#field-error--firstname>span').should('contain', 'This field only accepts alphabetic characters and \' - ')
         cy.get('#field-input--firstname').clear().type(firstName)
         cy.get('#field-error--firstname>span').should('be.not.visible')
 
@@ -73,8 +75,8 @@ describe('e2e test', () => {
         cy.get('#field-error--lastname>span').should('contain', 'This field only accepts alphanumeric characters and , . ( ) / & \' - ')
         cy.get('#field-input--lastname').clear().type('Test-test')
         cy.get('#field-error--lastname>span').should('be.not.visible')
-        cy.get('#field-input--lastname').clear().type('test)&,t\'est')
-        cy.get('#field-error--lastname>span').should('be.not.visible')
+        cy.get('#field-input--lastname').clear().type(' '+lastName)
+        cy.get('#field-error--lastname>span').should('contain', 'This field only accepts alphanumeric characters and , . ( ) / & \' - ')
         cy.get('#field-input--lastname').clear().type(lastName)
         cy.get('#field-error--lastname>span').should('be.not.visible')
 
