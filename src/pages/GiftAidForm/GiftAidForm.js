@@ -428,8 +428,7 @@ class GiftAidForm extends Component {
               type="submit"
               className="btn btn--red"
               onClick={e => this.validateForm(e)}
-            >
-Gift Aid your donation
+            > Gift Aid your donation
             </button>
             {this.renderJustInTimeMessage()}
           </form>
