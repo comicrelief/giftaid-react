@@ -32,7 +32,7 @@
     "react-raven": "^1.2.3",
     "react-router-dom": "^4.2.2",
     "resolve": "1.6.0",
-    "snyk": "^1.83.0",
+    "snyk": "^1.124.1",
     "susy": "^3.0.3",
     "whatwg-fetch": "2.0.3"
   },
