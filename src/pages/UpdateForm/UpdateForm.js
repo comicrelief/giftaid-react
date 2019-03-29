@@ -8,6 +8,7 @@ import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup
 import RadioButtons from '@comicrelief/storybook/src/components/RadioButtons/RadioButtons';
 import defaultInputFieldsData from './defaultUpdateFields.json';
 import SiteService from '../../service/Site.service';
+import FormHeader from '../../components/FormHeader/FormHeader';
 
 const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL + 'update';
 
@@ -32,9 +33,9 @@ class UpdateForm extends Component {
       firstUpdate: false,
       formValidity: false,
       showErrorMessages: false,
-      urlTransactionIdErrorMessage: false,
       formDataError: null,
       formDataSuccess: null,
+      urlTransactionIdErrorMessage: false,
       urlTransID: this.props.match.params.transaction_id,
       postCodePattern: '[A-Za-z]{1,2}[0-9Rr][0-9A-Za-z]?( |)[0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}',
       validation: {
@@ -136,11 +137,7 @@ class UpdateForm extends Component {
         this.fieldRefs = refs;
       }
     };
-    this.url = null;
-    this.timestamp = null;
-    this.campaign = null;
     this.justInTimeLinkText = 'Why do we collect this info?';
-    this.formHeaderHidden = 'Giftaid it';
     this.transactionIdPattern = '^[a-zA-Z0-9-]{5,}$';
     this.transactionIdErrorMessage = 'This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter';
   }
@@ -163,47 +160,6 @@ class UpdateForm extends Component {
       // timeout needed for error class names to appear
       scrollTimeout = setTimeout(() => { this.scrollToError(); }, 500);
     }
-  }
-
-  /**
-   * Gets the timestamp and formats it
-   * @return string
-   */
-  getTimestamp() {
-    this.timestamp = Math.floor(Date.now() / 1000);
-    return this.timestamp;
-  }
-
-  /**
-   * Gets the campaign name based on the url
-   * @param url
-   * @return {*}
-   */
-  getCampaign(url) {
-    // let campaign;
-    if (url.includes('sportrelief')) {
-      this.campaign = 'SR18';
-    } else if (url.includes('rednoseday')) {
-      this.campaign = 'RND19';
-    } else {
-      this.campaign = 'CR';
-    }
-    return this.campaign;
-  }
-
-  /**
-   * Gets the current hostname.
-   * Replaces 'localhost' to a default or uses the browser's current url.
-   * @return string
-   */
-  getCurrentUrl() {
-    // let url = null;
-    if (window.location.hostname === 'localhost') {
-      this.url = 'http://local.comicrelief.com';
-    } else {
-      this.url = window.location.href;
-    }
-    return this.url;
   }
 
   /**
@@ -350,7 +306,7 @@ class UpdateForm extends Component {
     }
     // ensure no errors before submitting the form
     if (this.state.showErrorMessages === false && this.state.formValidity === true) {
-      const url = this.getCurrentUrl();
+      const url = this.site.getCurrentUrl();
       const campaign = this.site.get('campaign').name;
 
       const donationType = typeof this.state.validation.donationType !== 'undefined'
@@ -363,7 +319,7 @@ class UpdateForm extends Component {
         transSource: `${campaign}_GiftAidUpdate`,
         transSourceUrl: url,
         transType: 'GiftAidUpdate',
-        timestamp: this.getTimestamp(),
+        timestamp: this.site.getTimestamp(),
         email: this.state.validation.emailaddress.value,
         postcode: this.state.validation.postcode.value,
         donationID,
@@ -479,33 +435,7 @@ class UpdateForm extends Component {
       </JustInTime>
     );
   }
-  /**
-   * Renders Form Header
-   */
-  renderFormHeader() {
-    return (
-      <div>
-        <h1 className="giftaid-title">
-          <span className="visually-hidden">
-            { this.formHeaderHidden }
-          </span>
-        </h1>
-        <h2 className="sub-title">
-          Edit your Gift Aid declaration
-        </h2>
-        <p className="text-align-centre">
-          We can claim Gift Aid from personal donations made by UK taxpayers:
-          the Government gives us back 25% of their value.
-        </p>
-        { this.state.urlTransID ?
-          <p className="text-align-centre transaction-id">
-            Transaction ID: {this.state.urlTransID}
-          </p>
-          :
-          null }
-      </div>
-    );
-  }
+
   /**
    * Renders Transaction ID Error
    */
@@ -585,7 +515,7 @@ class UpdateForm extends Component {
             noValidate
             className="update-giftaid__form"
           >
-            {this.renderFormHeader()}
+            <FormHeader page="update" urlTransID={this.state.urlTransID} />
             {this.renderTransactionIDError()}
 
             <div className="form-fields--wrapper">
