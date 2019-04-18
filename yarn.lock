@@ -711,15 +711,15 @@
     susy "^2.2.12"
     underscore.string "3.3.5"
 
-"@comicrelief/storybook@1.18.13":
-  version "1.18.13"
-  resolved "https://registry.yarnpkg.com/@comicrelief/storybook/-/storybook-1.18.13.tgz#04d28de3bec4603895b48bf5684325ef1f8da950"
-  integrity sha512-rwTbVZLJv28vtsoXnikLnoCQ0gO53XYSY4EXQOBDII6GLPgfT2/C3jKqtWOSxwRMPYnjp0mhDohIxxFC/ASOHQ==
+"@comicrelief/storybook@^1.18.14":
+  version "1.18.14"
+  resolved "https://registry.yarnpkg.com/@comicrelief/storybook/-/storybook-1.18.14.tgz#462a02f1f2f38f9a55477e733f82dc0abfc24fc2"
+  integrity sha512-So4ArJooyZZgESVLRCv1Y1EuafL9Mnm9JHog+pQRT21ffWC0dXsGLwhD36PFnwkExcSit14Yh0jvFk1eUQMacA==
   dependencies:
     "@comicrelief/pattern-lab" "*"
     "@storybook/addon-info" "3"
     "@storybook/addon-knobs" "3"
-    "@storybook/react" "3"
+    "@storybook/react" "^3.0.0"
     axios "0"
     babel-polyfill "^6.26.0"
     browser-detect "^0.2.28"
@@ -976,7 +976,7 @@
   dependencies:
     babel-runtime "^6.5.0"
 
-"@storybook/react@3":
+"@storybook/react@^3.0.0":
   version "3.4.12"
   resolved "https://registry.yarnpkg.com/@storybook/react/-/react-3.4.12.tgz#432072204365cbf5962846333732b2fa9a218d91"
   integrity sha512-BmKfmv5N6U3X9DIzXVanqUAiqDFDXApKqxeQuVJRIZjrVNSW/V/DzIu05A1Dosf5pV75Si9Oqn7FvQRGG83TXg==
