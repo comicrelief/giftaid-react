@@ -32,7 +32,7 @@
     "react-raven": "^1.2.3",
     "react-router-dom": "^4.2.2",
     "resolve": "1.6.0",
-    "snyk": "^1.124.1",
+    "snyk": "^1.161.1",
     "susy": "^3.0.3",
     "whatwg-fetch": "2.0.3"
   },
@@ -44,7 +44,8 @@
     "cy:open": "cypress open",
     "test": "run-p --race start cy:run",
     "snyk-protect": "snyk protect",
-    "prepare": "npm run snyk-protect"
+    "prepare": "npm run snyk-protect",
+    "prepublish": "npm run snyk-protect"
   },
   "babel": {
     "presets": [
