@@ -3,7 +3,9 @@ import React, { useState, useEffect } from 'react';
 // Components
 import PostcodeLookup from "@comicrelief/storybook/src/components/PostcodeLookup";
 
+import Form from '../../../components/Form';
 import FormHeader from "../../../components/FormHeader/FormHeader";
+import Button from "../../../components/Button";
 import TransactionIdError from './TransactionIdError/TransactionIdError';
 import DonationTypeButtons from './Buttons/DonationTypeButtons/DonationTypeButtons';
 import GiftAidClaimChoiceButtons from './Buttons/GiftAidClaimChoiceButtons/GiftAidClaimChoiceButtons';
@@ -22,6 +24,7 @@ import {
 
 // Function to get form values
 import { getFormValues } from './utils/getFormValues';
+
 
 // initialise scroll time out
 let scrollTimeout;
@@ -175,76 +178,69 @@ function UpdateForm(props) {
   };
 
   return (
-    <main role="main">
-      <section>
-        <form
-          id="form"
-          noValidate
-          className="update-giftaid__form"
-          data-success={formDataSuccess}
-          data-error={formDataError}
-        >
-          <FormHeader
-            page="update"
-            urlTransID={urlTransID}
-          />
-          <TransactionIdError
-            urlTransactionIdError={urlTransactionIdError}
-            transactionIdErrorMessage={transactionIdErrorMessage}
-          />
+    <Form
+      className="update-giftaid__form"
+      formDataSuccess={formDataSuccess}
+      formDataError={formDataError}
+    >
+      <FormHeader
+        page="update"
+        urlTransID={urlTransID}
+      />
+      <TransactionIdError
+        urlTransactionIdError={urlTransactionIdError}
+        transactionIdErrorMessage={transactionIdErrorMessage}
+      />
 
-          <div className="form-fields--wrapper">
+      <div className="form-fields--wrapper">
 
-            <DonationTypeButtons
-              donationTypeChoices={donationTypeChoices}
-              showErrorMessages={showErrorMessages}
-              setRef={refs}
-              urlTransID={urlTransID}
-              setValidity={setValidity}
-            />
+        <DonationTypeButtons
+          donationTypeChoices={donationTypeChoices}
+          showErrorMessages={showErrorMessages}
+          setRef={refs}
+          urlTransID={urlTransID}
+          setValidity={setValidity}
+        />
 
-            <h3 className="form--update__title form--update__title--giftaid text-align-centre">
-              Who is changing their declaration?
-            </h3>
+        <h3 className="form--update__title form--update__title--giftaid text-align-centre">
+          Who is changing their declaration?
+        </h3>
 
-            <InputFields
-              setRef={refs}
-              urlTransID={urlTransID}
-              allFields={defaultUpdateFormFields}
-              setValidity={setValidity}
-              showErrorMessages={showErrorMessages}
-            />
+        <InputFields
+          setRef={refs}
+          urlTransID={urlTransID}
+          allFields={defaultUpdateFormFields}
+          setValidity={setValidity}
+          showErrorMessages={showErrorMessages}
+        />
 
-            <PostcodeLookup
-              ref={refs}
-              label="Postal address"
-              showErrorMessages={showErrorMessages}
-              pattern={props.postCodePattern}
-              isAddressValid={
-                (validation) => {
-                  Object.keys(validation).map(key => setValidity(validation[key], key));
-                }
-              }
-            />
-          </div>
-          <GiftAidClaimChoiceButtons
-            giftAidButtonChoices={giftAidButtonChoices}
-            showErrorMessages={showErrorMessages}
-            setRef={refs}
-            setValidity={setValidity}
-          />
-          <button
-            type="submit"
-            className="btn btn--red"
-            onClick={e => validateForm(e)}
-          >Update Declaration
-          </button>
-          <JustInTime
-            justInTimeLinkText={props.justInTimeLinkText}
-          />
-        </form>
-      </section>
-    </main>
+        <PostcodeLookup
+          ref={refs}
+          label="Postal address"
+          showErrorMessages={showErrorMessages}
+          pattern={props.postCodePattern}
+          isAddressValid={
+            (validation) => {
+              Object.keys(validation).map(key => setValidity(validation[key], key));
+            }
+          }
+        />
+      </div>
+      <GiftAidClaimChoiceButtons
+        giftAidButtonChoices={giftAidButtonChoices}
+        showErrorMessages={showErrorMessages}
+        setRef={refs}
+        setValidity={setValidity}
+      />
+      <Button
+        onClick={e => validateForm(e)}
+        text="Update Declaration"
+      />
+
+      <JustInTime
+        justInTimeLinkText={props.justInTimeLinkText}
+      />
+    </Form>
   );
 }
 

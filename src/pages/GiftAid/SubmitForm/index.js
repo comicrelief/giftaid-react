@@ -5,7 +5,9 @@ import propTypes from 'prop-types';
 import PostcodeLookup from "@comicrelief/storybook/src/components/PostcodeLookup";
 import MarketingConsent from '@comicrelief/storybook/src/components/MarketingConsent/MarketingConsent';
 
-import FormHeader from "../../../components/FormHeader/FormHeader";
+import Form from '../../../components/Form';
+import FormHeader from '../../../components/FormHeader/FormHeader';
+import Button from '../../../components/Button';
 import InputFields from "../InputFields/InputFields";
 import JustInTime from "../JustInTime";
 
@@ -150,57 +152,50 @@ function SubmitForm(props) {
   };
 
   return (
-    <main role="main">
-      <section>
-        <form
-          id="form"
-          noValidate
-          className="giftaid__form"
-          data-success={formDataSuccess}
-          data-error={formDataError}
-        >
-          <FormHeader
-            page="submit"
-          />
+    <Form
+      className="giftaid__form"
+      formDataSuccess={formDataSuccess}
+      formDataError={formDataError}
+    >
+      <FormHeader
+        page="submit"
+      />
 
-            <InputFields
-              allFields={inputFieldProps}
-              setValidity={setValidity}
-              showErrorMessages={showErrorMessages}
-            />
+      <InputFields
+        allFields={inputFieldProps}
+        setValidity={setValidity}
+        showErrorMessages={showErrorMessages}
+      />
 
-            <PostcodeLookup
-              ref={refs}
-              label="Postal address"
-              showErrorMessages={showErrorMessages}
-              pattern={props.postCodePattern}
-              isAddressValid={
-                (validation) => {
-                  Object.keys(validation).map(key => setValidity(validation[key], key));
-                }
-              }
-            />
-            <MarketingConsent
-              getValidation={(validation) => {
-                Object.keys(validation).forEach(key => setValidity(validation[key], key));
-              }}
-              itemData={marketingConsentData}
-              showErrorMessages={showErrorMessages}
-            />
-            <button
-              type="submit"
-              className="btn btn--red"
-              onClick={e => validateForm(e)}
-            > Gift Aid your donation
-            </button>
-            <JustInTime
-              submit
-              justInTimeLinkText={props.justInTimeLinkText}
-            />
+      <PostcodeLookup
+        ref={refs}
+        label="Postal address"
+        showErrorMessages={showErrorMessages}
+        pattern={props.postCodePattern}
+        isAddressValid={
+          (validation) => {
+            Object.keys(validation).map(key => setValidity(validation[key], key));
+          }
+        }
+      />
+      <MarketingConsent
+        getValidation={(validation) => {
+          Object.keys(validation).forEach(key => setValidity(validation[key], key));
+        }}
+        itemData={marketingConsentData}
+        showErrorMessages={showErrorMessages}
+      />
+      <Button
+        onClick={e => validateForm(e)}
+        text="Gift Aid your donation"
+      />
 
-        </form>
-      </section>
-    </main>
+      <JustInTime
+        submit
+        justInTimeLinkText={props.justInTimeLinkText}
+      />
+    </Form>
+
   );
 }
 SubmitForm.defaultProps = {
