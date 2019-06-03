@@ -610,7 +610,7 @@
     susy "^2.2.12"
     underscore.string "3.3.5"
 
-"@comicrelief/storybook@^1.18.13":
+"@comicrelief/storybook@1.18.13":
   version "1.18.13"
   resolved "https://registry.yarnpkg.com/@comicrelief/storybook/-/storybook-1.18.13.tgz#04d28de3bec4603895b48bf5684325ef1f8da950"
   integrity sha512-rwTbVZLJv28vtsoXnikLnoCQ0gO53XYSY4EXQOBDII6GLPgfT2/C3jKqtWOSxwRMPYnjp0mhDohIxxFC/ASOHQ==
@@ -9833,7 +9833,7 @@ react-docgen@^3.0.0-beta11:
     node-dir "^0.1.10"
     recast "^0.16.0"
 
-react-dom@^16.3.2, react-dom@^16.4.2:
+react-dom@^16.4.2, react-dom@^16.8.5:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.6.tgz#71d6303f631e8b0097f56165ef608f051ff6e10f"
   dependencies:
@@ -9941,11 +9941,11 @@ react-markdown@^3.4.1:
     unist-util-visit "^1.3.0"
     xtend "^4.0.1"
 
-react-meta-tags@^0.4.1:
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/react-meta-tags/-/react-meta-tags-0.4.2.tgz#b7e2236daad9789d799071ba2de375c382fa8982"
+react-meta-tags@^0.7.4:
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/react-meta-tags/-/react-meta-tags-0.7.4.tgz#c506b453e7f89e006d8053afcf47a1f747240e43"
+  integrity sha512-ZSnZeEx+OVE5x6EK9oX6Qg3yGCCcxbnscQGu6S+ewglIi38KqEspcAgShggFSOZd5+5jgQB91OiRA+GX7zbrOA==
   dependencies:
-    babel-runtime "^6.26.0"
     prop-types "^15.6.0"
 
 react-modal@^3.3.2:
@@ -9990,6 +9990,13 @@ react-raven@^1.2.3:
   resolved "https://registry.yarnpkg.com/react-raven/-/react-raven-1.2.3.tgz#06656844dd4e38c65811d25bb13c290556302c43"
   dependencies:
     lodash "^4.17.4"
+
+react-router-config@^4.4.0-beta.8:
+  version "4.4.0-beta.8"
+  resolved "https://registry.yarnpkg.com/react-router-config/-/react-router-config-4.4.0-beta.8.tgz#164fff4e91afad2c83a0b97544d2981628613801"
+  integrity sha512-yWMc1VjrfuHqZzuDA0V4Orzwvu94OijmLCsUWCja2KyQRRk1FYmhfAFXbNovPkXyV8TJxbUwpY1pznlmqWdJfA==
+  dependencies:
+    "@babel/runtime" "^7.1.2"
 
 react-router-dom@^4.2.2:
   version "4.3.1"
@@ -10083,7 +10090,7 @@ react-vis@^1.9.1:
     prop-types "^15.5.8"
     react-motion "^0.5.2"
 
-react@^16.3.2, react@^16.4.0, react@^16.4.2:
+react@^16.4.0, react@^16.4.2, react@^16.8.5:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react/-/react-16.8.6.tgz#ad6c3a9614fd3a4e9ef51117f54d888da01f2bbe"
   dependencies:

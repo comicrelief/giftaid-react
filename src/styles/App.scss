@@ -1,0 +1,41 @@
+/* Pattern Lab Base theme variables */
+$image-path: "/images/";
+@import "../../node_modules/@comicrelief/pattern-lab/sass/base/variables";
+@import "../../node_modules/@comicrelief/pattern-lab/sass/base/core";
+
+/* Pattern Lab Comic Relief theme variables */
+@import "../../node_modules/@comicrelief/pattern-lab/sass/themes/cr/2017/variables/typography";
+@import "../../node_modules/@comicrelief/pattern-lab/sass/themes/cr/2017/variables/colours";
+@import "../../node_modules/@comicrelief/pattern-lab/sass/themes/cr/2017/variables/mixins";
+
+/* Pattern Lab Base theme components */
+@import "../../node_modules/@comicrelief/pattern-lab/sass/base/components/links/links";
+@import "../../node_modules/@comicrelief/pattern-lab/sass/base/components/card-block/card";
+@import "../../node_modules/@comicrelief/pattern-lab/sass/base/components/cards/cards";
+@import "../../node_modules/@comicrelief/pattern-lab/sass/base/components/header/base-header";
+@import "../../node_modules/@comicrelief/pattern-lab/sass/base/components/promo-header/promo-header";
+@import "../../node_modules/@comicrelief/pattern-lab/sass/base/components/typography/typography";
+
+/* Pattern Lab Comic Relief theme components */
+@import "../../node_modules/@comicrelief/pattern-lab/sass/themes/cr/2017/components/typography/fonts";
+@import "../../node_modules/@comicrelief/pattern-lab/sass/themes/cr/2017/components/typography/typography";
+@import "../../node_modules/@comicrelief/pattern-lab/sass/themes/cr/2017/components/links/links";
+@import "../../node_modules/@comicrelief/pattern-lab/sass/themes/cr/2017/components/buttons/buttons";
+
+@import "../../node_modules/@comicrelief/pattern-lab/sass/base/components/form/standard-form";
+@import "../../node_modules/@comicrelief/pattern-lab/sass/base/components/postcode-lookup/postcode-lookup";
+
+@import "../../node_modules/@comicrelief/pattern-lab/sass/themes/donate/variables/colours";
+@import "../../node_modules/@comicrelief/pattern-lab/sass/themes/donate/components/cards/cards";
+@import "../../node_modules/@comicrelief/pattern-lab/sass/themes/donate/components/header/header";
+
+/* Specific styles for giftaid app */
+@import "../components/PromoHeader/PromoHeader";
+@import "../pages/Success/Success";
+@import "../pages/Sorry/Sorry";
+@import "../pages/GiftAid/SubmitForm/styles/SubmitForm";
+@import "../pages/GiftAid/UpdateForm/styles/UpdateForm";
+
+footer[role=contentinfo] {
+  background: #29022c!important;
+}

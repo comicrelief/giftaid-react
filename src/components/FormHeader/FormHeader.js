@@ -1,7 +1,20 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 const FormHeader = (props) => {
-  const page = typeof props.page !== 'undefined' ? props.page : '';
+
+  const [page, setPage] = useState(typeof props.page !== 'undefined' ? props.page : '');
+  const [urlTransID, setUrlTransID] = useState(props.urlTransID);
+
+  useEffect(() => {
+    setPage(props.page);
+    setUrlTransID(props.urlTransID);
+
+    return () => {
+      setPage(undefined);
+      setUrlTransID(undefined);
+    }
+  }, []);
+
   return (
     <div>
       <h1 className="giftaid-title">
@@ -32,9 +45,9 @@ const FormHeader = (props) => {
         :
         ''
       }
-      {typeof props.urlTransID !== 'undefined' ?
+      {typeof urlTransID !== 'undefined' && urlTransID !== null ?
         <p className="text-align-centre transaction-id">
-          Transaction ID: {props.urlTransID}
+          Transaction ID: {urlTransID}
         </p>
         :
         ''

@@ -1,152 +1,111 @@
 /* eslint-env browser */
-import React, { Component } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Redirect, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import MetaTags from 'react-meta-tags';
 import TagManager from 'react-gtm-module';
 import Raven from 'react-raven';
+
+// Components
 import CookieConsentMessage from '@comicrelief/storybook/src/components/CookieConsentMessage/CookieConsentMessage';
 import Footer from '@comicrelief/storybook/src/components/Footer/Footer';
 
-
 import ScrollToTop from './ScrollToTop/ScrollToTop';
+import Header from '../Header/Header';
+import DefaultRoute from '../Routes/DefaultRoute';
+import CompletedRoute from '../Routes/CompletedRoute';
+
+// Pages
+import GiftAidPage from '../../pages/GiftAid/';
 import Success from '../../pages/Success/Success';
 import Sorry from '../../pages/Sorry/Sorry';
-import UpdateForm from '../../pages/UpdateForm/UpdateForm';
-import Header from '../Header/Header';
-import GiftAidForm from '../../pages/GiftAidForm/GiftAidForm';
-import UpdateSuccess from '../../pages/UpdateSuccess/UpdateSuccess';
-import UpdateSorry from '../../pages/UpdateSorry/UpdateSorry';
+
+// Site config
 import SiteService from '../../service/Site.service';
+const site = new SiteService();
 
-import AppliedRoute from '../Routes/AppliedRoute';
-import CompletedRoute from '../Routes/CompletedRoute';
-import UpdateCompletedRoute from '../Routes/UpdateCompletedRoute';
+function App (props) {
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.site = new SiteService();
-    this.updateHasCompleted = this.updateHasCompleted.bind(this);
-    this.submitHasCompleted = this.submitHasCompleted.bind(this);
-    this.getGTM();
-    this.state = {
-      isCompleted: false,
-      isCompleting: true,
-      updateCompleted: false,
-      updateCompleting: true,
-    };
-  }
+  // Declare state variables
+  const [isCompleted, setIsCompleted] = useState(false); // initialise isCompleted state
+
+  /**
+   * App mounts
+   */
+  useEffect(() => {
+    // Initialise GTM on component mount
+    getGTM();
+  },[]);
 
   /**
    * Initialise gtm snippet
    */
-  getGTM() {
+  const getGTM = () => {
     TagManager.initialize({
-      gtmId: this.site.get('GTM').id,
+      gtmId: site.get('GTM').id,
       dataLayer: {
         site: [{
           category: 'giftaid',
-          pageCategory: this.site.get('GTM').application,
+          pageCategory: site.get('GTM').application,
           pageSubCategory: '',
           environment: process.env.REACT_APP_ENVIRONMENT,
         }],
       },
     });
-  }
-  /**
-   * Update has completed
-   * @param completed
-   */
-  updateHasCompleted(completed) {
-    this.setState({ updateCompleted: completed }, this.updateCompleting);
-  }
+  };
 
-  /**
-   * Update is completing
-   */
-  updateCompleting() {
-    if (this.state.updateCompleted) {
-      this.setState({ updateCompleting: false });
-    } else {
-      this.setState({ updateCompleting: true });
-    }
-  }
-  /**
-   * Submit has completed
-   * @param completed
-   */
-  submitHasCompleted(completed) {
-    this.setState({ isCompleted: completed }, this.isCompleting);
-  }
 
-  /**
-   * Submit is completing
-   */
-  isCompleting() {
-    if (this.state.isCompleted) {
-      this.setState({ isCompleting: false });
-    } else {
-      this.setState({ isCompleting: true });
-    }
-  }
-  render() {
-    const childProps = {
-      ...this.state,
-      updateHasCompleted: this.updateHasCompleted,
-      submitHasCompleted: this.submitHasCompleted,
-    };
-    return (
-      <div className="App">
-        <CookieConsentMessage />
-        <Header />
+  const childProps = {
+    isCompleted,
+    submitted: (status) => setIsCompleted(status),
+  };
 
-        <MetaTags>
-          <title>
-            Gift Aid declaration | Comic Relief
-          </title>
-          <meta name="description" content={this.site.get('meta').description} />
-          <meta property="og:title" content="Gift Aid your donation" />
-          <meta property="og:image" content="/images/thank-you-mob.jpg" />
-          <meta property="og:site_name" content="Comic Relief" />
-          <meta property="og:url" content={window.location.href} />
-          <meta property="og:description" content={this.site.get('meta').description} />
-          <meta name="keywords" content={this.site.get('meta').keywords} />
-        </MetaTags>
+  return (
+    <div className="App">
+      <CookieConsentMessage />
+      <Header />
 
-        <Raven dsn="https://25f53d059e1f488f9d0f000ffd500585@sentry.io/1228720" />
+      <MetaTags>
+        <title>
+          Gift Aid declaration | Comic Relief
+        </title>
+        <meta name="description" content={site.get('meta').description} />
+        <meta property="og:title" content="Gift Aid your donation" />
+        <meta property="og:image" content="/images/thank-you-mob.jpg" />
+        <meta property="og:site_name" content="Comic Relief" />
+        <meta property="og:url" content={window.location.href} />
+        <meta property="og:description" content={site.get('meta').description} />
+        <meta name="keywords" content={site.get('meta').keywords} />
+      </MetaTags>
 
-        <Router>
-          <div>
-            <ScrollToTop />
-            <Switch>
-              <AppliedRoute exact path="/" component={GiftAidForm} props={childProps} />
-              <CompletedRoute path="/success" component={Success} props={childProps} />
-              <Route path="/sorry" component={Sorry} />
+      <Raven dsn="https://25f53d059e1f488f9d0f000ffd500585@sentry.io/1228720" />
 
-              <UpdateCompletedRoute
-                path="/update/success"
-                component={UpdateSuccess}
-                props={childProps}
-              />
-              <Route path="/update/sorry" component={UpdateSorry} />
+      <Router>
+        <div>
+          <ScrollToTop />
+          <Switch>
 
-              <AppliedRoute
-                path="/update/:transaction_id"
-                component={UpdateForm}
-                props={childProps}
-              />
-              <AppliedRoute path="/update" component={UpdateForm} props={childProps} />
+            <Route exact path="/sorry" component={Sorry} />
+            <CompletedRoute exact path="/success" component={Success} props={childProps} />
+            <CompletedRoute
+              exact path="/update/success"
+              component={Success}
+              props={childProps}
+            />
+            <Route exact path="/update/sorry" component={Sorry} />
+            <DefaultRoute exact path="/update/:transaction_id" component={GiftAidPage} props={childProps} />
+            <DefaultRoute exact path="/update" component={GiftAidPage} props={childProps} />
+            <DefaultRoute exact path="/" component={GiftAidPage} props={childProps} />
+            <Redirect push to="/" />
 
-              <Redirect push to="/" />
-            </Switch>
-          </div>
-        </Router>
+          </Switch>
+        </div>
+      </Router>
 
-        <Footer campaign="comicrelief" copy="copyright 2018" />
+      <Footer campaign="comicrelief" copy="copyright 2018" />
 
-      </div>
-    );
-  }
+    </div>
+  );
+
 }
 
 export default App;
