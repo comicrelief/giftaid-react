@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PromoHeader from '../../components/PromoHeader/PromoHeader';
 import SiteService from '../../service/Site.service';
 
+// context
+import FormContext from '../../context/FormContext';
+
 const Success = (props) => {
+
+  const form = useContext(FormContext);
 
   const site = new SiteService();
 
-  const [state, setState] = useState(props.location.state);
-
-  const redirectPath = props.location.pathname === 'success'
-  || props.location.pathname === '/success' ? '/' : '/update';
+  const [state, setState] = useState(form.successState);
 
   const additionalClass = props.location.pathname === 'success'
   || props.location.pathname === '/success' ? '' : 'update-success-wrapper';
@@ -17,19 +19,15 @@ const Success = (props) => {
 
   useEffect(() => {
     document.title = `Success${site.get('title_postfix')}`;
-    if (typeof props.location.state === 'undefined' || props.isCompleted === false) {
-      goBack();
+    if (typeof form.successState === 'undefined' || form.isCompleted === false) {
+      props.history.push({
+        pathname: '/',
+      });
     }
     return () => {
       setState(null);
     };
   });
-
-  const goBack = () => {
-    props.history.push({
-      pathname: redirectPath,
-    });
-  };
 
   return (
     <div>

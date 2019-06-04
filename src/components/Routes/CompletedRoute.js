@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-export default ({ component: C, props: cProps, ...rest }) =>
-  (<Route
-    {...rest}
+import FormContext from '../../context/FormContext';
 
-    render={props =>
-      (cProps.isCompleted
-        ? <C {...props} {...cProps} />
-        : <Redirect
-          to="/"
-        />)}
-  />);
+export default ({ component: C, props: cProps, ...rest }) => {
+
+  const form = useContext(FormContext);
+
+  return (
+    <Route
+      {...rest}
+
+      render={props =>
+        (form.isCompleted
+          ? <C {...props} />
+          : <Redirect
+            to="/"
+          />)}
+    />
+  );
+};

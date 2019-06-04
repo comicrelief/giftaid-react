@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import propTypes from "prop-types";
 
 import axios from 'axios';
 
+// form components
 import UpdateForm from './UpdateForm/index';
 import SubmitForm from './SubmitForm/index';
+
+// context
+import FormContext from '../../context/FormContext';
 
 // Get util functions and variables
 import {
@@ -18,6 +22,8 @@ import {
 
 function GiftAid(props) {
 
+  const form = useContext(FormContext);
+
   // Declare state variables
   const [path, setPath] = useState(props.location.pathname); // initialise path param state
   const [updating, setUpdating] = useState(props.location.pathname !== '/'); // initialise updating param state
@@ -27,7 +33,6 @@ function GiftAid(props) {
    *
    */
   useEffect(() => {
-    props.submitted(false);  // reset submitted state
 
     return () => {
       // GiftAid component unmounts
@@ -43,7 +48,6 @@ function GiftAid(props) {
     setPath(props.location.pathname)
   }, [props]);
 
-
   /**
    * Submits form
    * and redirects to success or sorry page
@@ -57,13 +61,13 @@ function GiftAid(props) {
     // post form data and settings to endpoint
     axios.post(routes.endpoint, formValues)
       .then(() => {
-        props.submitted(true);
+        form.submitted(true);
+        form.setSuccessState({
+          firstname: formValues.firstname,
+          giftAidChoice: routes.giftAidChoice !== undefined ? routes.giftAidChoice : formValues.confirm,
+        });
         props.history.push({
           pathname: routes.successPath,
-          state: {
-            firstname: formValues.firstname,
-            giftAidChoice: routes.giftAidChoice !== undefined ? routes.giftAidChoice : formValues.confirm,
-          },
         });
       })
       .catch(() => {

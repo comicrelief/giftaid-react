@@ -19,6 +19,9 @@ import GiftAidPage from '../../pages/GiftAid/';
 import Success from '../../pages/Success/Success';
 import Sorry from '../../pages/Sorry/Sorry';
 
+//Context provider
+import { FormProvider } from '../../context/FormContext';
+
 // Site config
 import SiteService from '../../service/Site.service';
 const site = new SiteService();
@@ -27,6 +30,12 @@ function App (props) {
 
   // Declare state variables
   const [isCompleted, setIsCompleted] = useState(false); // initialise isCompleted state
+
+  const initialState = {
+    firstname: undefined,
+    giftAidChoice: undefined,
+  };
+  const [successState, setSuccessState] = useState(initialState); // initialise successState state
 
   /**
    * App mounts
@@ -57,6 +66,8 @@ function App (props) {
   const childProps = {
     isCompleted,
     submitted: (status) => setIsCompleted(status),
+    successState,
+    setSuccessState: (state) => setSuccessState(state),
   };
 
   return (
@@ -80,25 +91,24 @@ function App (props) {
       <Raven dsn="https://25f53d059e1f488f9d0f000ffd500585@sentry.io/1228720" />
 
       <Router>
-        <div>
+        <FormProvider value={childProps}>
           <ScrollToTop />
           <Switch>
 
             <Route exact path="/sorry" component={Sorry} />
-            <CompletedRoute exact path="/success" component={Success} props={childProps} />
+            <CompletedRoute exact path="/success" component={Success} />
             <CompletedRoute
               exact path="/update/success"
               component={Success}
-              props={childProps}
             />
             <Route exact path="/update/sorry" component={Sorry} />
-            <DefaultRoute exact path="/update/:transaction_id" component={GiftAidPage} props={childProps} />
-            <DefaultRoute exact path="/update" component={GiftAidPage} props={childProps} />
-            <DefaultRoute exact path="/" component={GiftAidPage} props={childProps} />
+            <DefaultRoute exact path="/update/:transaction_id" component={GiftAidPage} />
+            <DefaultRoute exact path="/update" component={GiftAidPage} />
+            <DefaultRoute exact path="/" component={GiftAidPage} />
             <Redirect push to="/" />
 
           </Switch>
-        </div>
+        </FormProvider>
       </Router>
 
       <Footer campaign="comicrelief" copy="copyright 2018" />
