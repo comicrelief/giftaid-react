@@ -1,15 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import InputField from "@comicrelief/storybook/src/components/InputField";
+import FormContext from "../../context/FormContext";
 
 // import defaultInputFieldsData from "../../UpdateForm/defaultUpdateFields";
 
 const InputFields = (props) => {
 
-  const [showErrorMessages, setShowErrorMessages] = useState(props.showErrorMessages);
+  // initialise form context
+  const formContext = React.useContext(FormContext);
 
+  const [showErrorMessages, setShowErrorMessages] = useState(formContext.showErrorMessages);
 
   useEffect(() => {
-    setShowErrorMessages(props.showErrorMessages);
+    setShowErrorMessages(formContext.showErrorMessages);
   },[props]);
 
   const createInputFields = () => {
@@ -17,7 +20,7 @@ const InputFields = (props) => {
     const allFields = props.allFields;
 
     // Remove the transaction id field if not value is present in the url
-    if (props.urlTransID !== undefined && allFields.transactionId !== undefined) {
+    if (props.urlTransactionId !== undefined && allFields.transactionId !== undefined) {
       delete allFields.transactionId;
     }
     const inputFields = [];
@@ -39,7 +42,7 @@ const InputFields = (props) => {
       setBackgroundColor={prop.type === 'checkbox'}
       additionalText={prop.additionalText}
       showErrorMessage={showErrorMessages}
-      isValid={(state, name) => { props.setValidity(state, name); }}
+      isValid={(state, name) => { formContext.setValidity(state, name); }}
     />));
     return inputFields;
   };

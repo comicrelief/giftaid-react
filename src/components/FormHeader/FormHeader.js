@@ -1,17 +1,21 @@
 import React, {useEffect, useState} from 'react';
+import FormContext from "../../context/FormContext";
 
 const FormHeader = (props) => {
 
+  // initialise form context
+  const formContext = React.useContext(FormContext);
+
   const [page, setPage] = useState(typeof props.page !== 'undefined' ? props.page : '');
-  const [urlTransID, setUrlTransID] = useState(props.urlTransID);
+  const [urlTransactionId, setUrlTransactionId] = useState(formContext.urlTransactionId);
 
   useEffect(() => {
     setPage(props.page);
-    setUrlTransID(props.urlTransID);
+    setUrlTransactionId(formContext.urlTransactionId);
 
     return () => {
       setPage(undefined);
-      setUrlTransID(undefined);
+      setUrlTransactionId(undefined);
     }
   }, []);
 
@@ -45,9 +49,9 @@ const FormHeader = (props) => {
         :
         ''
       }
-      {typeof urlTransID !== 'undefined' && urlTransID !== null ?
+      {typeof urlTransactionId !== 'undefined' && urlTransactionId !== null ?
         <p className="text-align-centre transaction-id">
-          Transaction ID: {urlTransID}
+          Transaction ID: {urlTransactionId}
         </p>
         :
         ''

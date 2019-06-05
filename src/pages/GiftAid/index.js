@@ -1,78 +1,104 @@
 import React, { useState, useEffect, useContext } from "react";
-import propTypes from "prop-types";
 
+import propTypes from "prop-types";
 import axios from 'axios';
+import browser from "browser-detect";
 
 // form components
 import UpdateForm from './UpdateForm/index';
 import SubmitForm from './SubmitForm/index';
 
 // context
-import FormContext from '../../context/FormContext';
+import AppContext from '../../context/AppContext';
 
 // Get util functions and variables
+import { getValidation } from './utils/getValidation';
+import { scrollToError } from './utils/scrollToError';
+
 import {
-  getRoutes,
-  getValidity,
-  scrollToError,
   hiddenFields,
   postCodePattern,
-  justInTimeLinkText,
-} from './utils';
+  justInTimeLinkText
+} from './utils/giftaidDefaults';
+
+
 
 function GiftAid(props) {
 
-  const form = useContext(FormContext);
+  // get props from context
+  const app = useContext(AppContext);
 
   // Declare state variables
-  const [path, setPath] = useState(props.location.pathname); // initialise path param state
-  const [updating, setUpdating] = useState(props.location.pathname !== '/'); // initialise updating param state
+  // initialise updating param state
+  // set to true if path contains
+  // the string update
+  const [updating, setUpdating] = useState(props.location.pathname.includes("update"));
+  const isBrowser = browser();
+
+  const [supportedAriaAttributes, setSupportedAriaAttributes] = useState(isBrowser.name === 'firefox' && isBrowser.os.match('Windows') ?
+    { 'aria-live': 'assertive', 'aria-relevant': 'additions removals' } : { 'aria-live': 'assertive', role: 'status' });
 
   /**
    * GiftAid component mounts
    *
    */
   useEffect(() => {
-
     return () => {
       // GiftAid component unmounts
       setUpdating(false); // reset updating state
+      setSupportedAriaAttributes(null);
     }
   }, []);
 
   /**
-   * Set path on mount and update
-   * if props changes
+   * Render Url Transaction Id Error
    */
-  useEffect(() => {
-    setPath(props.location.pathname)
-  }, [props]);
+  const renderUrlTransactionIdError = (state) => {
+    return (
+      <div
+        id="field-error--urlTransID"
+        className="form__field-error-container form__field-error-container--text"
+        {...supportedAriaAttributes}
+      >
+        { state.valid === false ?
+          <span className="url-error">{state.message}</span>
+          :
+          ''
+        }
+      </div>
+    );
+  };
 
   /**
    * Submits form
    * and redirects to success or sorry page
    * @param formValues
+   * @param params
    */
-  const submitForm = (formValues) => {
-
-    // Get route variables based on form type
-    const routes = getRoutes(path);
+  const submitForm = (formValues, params) => {
 
     // post form data and settings to endpoint
-    axios.post(routes.endpoint, formValues)
+    axios.post(params.endpoint, formValues)
       .then(() => {
-        form.submitted(true);
-        form.setSuccessState({
+
+        // set completed state
+        app.submitted(true);
+
+        // set success page variables
+        app.setSuccessState({
           firstname: formValues.firstname,
-          giftAidChoice: routes.giftAidChoice !== undefined ? routes.giftAidChoice : formValues.confirm,
+          giftAidChoice: params.giftAidChoice,
         });
+
+        // redirect to success page
         props.history.push({
-          pathname: routes.successPath,
+          pathname: params.successPath,
         });
       })
       .catch(() => {
+        // redirect to failure page
         props.history.push({
-          pathname: routes.sorryPath,
+          pathname: params.sorryPath,
         });
       });
   };
@@ -81,21 +107,22 @@ function GiftAid(props) {
     <React.Fragment>
       { updating ? (
         <UpdateForm
-          submit={(values) => submitForm(values)}
-          urlTransID={props.match.params.transaction_id}
+          submit={(formValues, params) => submitForm(formValues, params)}
+          urlTransactionId={props.match.params.transaction_id}
+          renderUrlTransactionIdError={(state) => renderUrlTransactionIdError(state)}
           hiddenFields={hiddenFields}
           postCodePattern={postCodePattern}
-          scrollToError={(idError) => scrollToError(idError)}
-          getValidation={(validation) => getValidity(validation)}
+          scrollToError={(idErrorState) => scrollToError(idErrorState)}
+          getValidation={(validation) => getValidation(validation)}
           justInTimeLinkText={justInTimeLinkText}
           title="Update Form"
         />
       ) : (
         <SubmitForm
-          submit={(values) => submitForm(values)}
+          submit={(formValues, params) => submitForm(formValues, params)}
           hiddenFields={hiddenFields}
           scrollToError={() => scrollToError()}
-          getValidation={(validation) => getValidity(validation)}
+          getValidation={(validation) => getValidation(validation)}
           postCodePattern={postCodePattern}
           justInTimeLinkText={justInTimeLinkText}
           title="Submit Form"

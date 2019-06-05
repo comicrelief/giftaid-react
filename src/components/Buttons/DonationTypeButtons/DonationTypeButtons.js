@@ -1,18 +1,23 @@
 import React, {useEffect, useState} from 'react';
 import RadioButtons from "@comicrelief/storybook/src/components/RadioButtons";
+import FormContext from "../../../context/FormContext";
 
 const DonationTypeButtons = (props) => {
-  const [urlTransID, setUrlTransID] = useState(props.urlTransID);
+
+  // initialise form context
+  const formContext = React.useContext(FormContext);
+
+  const [urlTransactionId, setUrlTransactionId] = useState(formContext.urlTransactionId);
 
   useEffect(() => {
-    setUrlTransID(props.urlTransID);
+    setUrlTransactionId(formContext.urlTransactionId);
 
     return () => {
-      setUrlTransID(undefined);
+      setUrlTransactionId(undefined);
     }
   }, []);
 
-  if (urlTransID) {
+  if (urlTransactionId) {
     return (
       <div>
         <h3 className="form--update__title form--update__title--donation text-align-centre">
@@ -25,9 +30,9 @@ const DonationTypeButtons = (props) => {
           label="How did you make your donation?"
           required
           options={props.donationTypeChoices}
-          showErrorMessage={props.showErrorMessages}
+          showErrorMessage={formContext.showErrorMessages}
           ref={props.setRef}
-          isValid={(state, id) => { props.setValidity(state, id); }}
+          isValid={(state, id) => { formContext.setValidity(state, id); }}
         />
       </div>
     );

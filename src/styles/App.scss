@@ -30,11 +30,11 @@ $image-path: "/images/";
 @import "../../node_modules/@comicrelief/pattern-lab/sass/themes/donate/components/header/header";
 
 /* Specific styles for giftaid app */
-@import "../components/PromoHeader/PromoHeader";
-@import "../pages/Success/Success";
-@import "../pages/Sorry/Sorry";
-@import "../pages/GiftAid/SubmitForm/styles/SubmitForm";
-@import "../pages/GiftAid/UpdateForm/styles/UpdateForm";
+@import "PromoHeader";
+@import "Success";
+@import "Sorry";
+@import "SubmitForm";
+@import "UpdateForm";
 
 footer[role=contentinfo] {
   background: #29022c!important;

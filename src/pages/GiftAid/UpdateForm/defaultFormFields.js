@@ -44,7 +44,7 @@ export const giftAidButtonChoices = [
 * Default Update Form Fields
 *
 */
-export const defaultUpdateFormFields = {
+export const defaultFormFields = {
 
   transactionId: {
     id: 'transactionId',
@@ -154,14 +154,3 @@ export const defaultUpdateFormFieldValidations = {
 export const transactionIdErrorMessage = 'This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter';
 
 export const transactionIdPattern = '^[a-zA-Z0-9-]{5,}$';
-
-export default {
-  DONATION_TYPES,
-  donationTypeChoices,
-  giftAidButtonChoices,
-  defaultUpdateFormFields,
-  defaultUpdateFormFieldValidations,
-  transactionIdErrorMessage,
-  transactionIdPattern
-
-};

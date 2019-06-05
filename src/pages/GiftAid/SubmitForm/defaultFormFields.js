@@ -3,7 +3,7 @@
 * Default Submit Form Fields
 *
 */
-export const defaultSubmitFormFields = {
+export const defaultFormFields = {
 
   giftaidCheck: {
     id: 'giftaid',
@@ -217,7 +217,7 @@ export const marketingConsentData = {
 };
 
 export default {
-  defaultSubmitFormFields,
+  defaultSubmitFormFields: defaultFormFields,
   defaultSubmitFormFieldValidations,
   marketingConsentData
 }

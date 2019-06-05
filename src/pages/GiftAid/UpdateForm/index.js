@@ -5,26 +5,31 @@ import PostcodeLookup from "@comicrelief/storybook/src/components/PostcodeLookup
 
 import Form from '../../../components/Form';
 import FormHeader from "../../../components/FormHeader/FormHeader";
-import Button from "../../../components/Button";
-import TransactionIdError from './TransactionIdError/TransactionIdError';
-import DonationTypeButtons from './Buttons/DonationTypeButtons/DonationTypeButtons';
-import GiftAidClaimChoiceButtons from './Buttons/GiftAidClaimChoiceButtons/GiftAidClaimChoiceButtons';
-import JustInTime from '../JustInTime';
-import InputFields from '../InputFields/InputFields';
+import FormButton from "../../../components/Buttons/FormButton";
+
+import DonationTypeButtons from '../../../components/Buttons/DonationTypeButtons/DonationTypeButtons';
+import GiftAidClaimChoiceButtons from '../../../components/Buttons/GiftAidClaimChoiceButtons/GiftAidClaimChoiceButtons';
+import JustInTime from '../../../components/JustInTime';
+import InputFields from '../../../components/InputFields/InputFields';
 
 // fields data
 import {
   donationTypeChoices,
   giftAidButtonChoices,
-  defaultUpdateFormFields,
+  defaultFormFields,
   defaultUpdateFormFieldValidations,
   transactionIdErrorMessage,
   transactionIdPattern as transIdPattern,
-} from './Fields/defaultUpdateFormFields';
+} from './defaultFormFields';
+
+// Get util functions
+import { getPathParams } from '../utils/getPathParams';
 
 // Function to get form values
-import { getFormValues } from './utils/getFormValues';
+import { getFormValues } from '../utils/getFormValues';
 
+//Context provider
+import { FormProvider } from '../../../context/FormContext';
 
 // initialise scroll time out
 let scrollTimeout;
@@ -34,13 +39,17 @@ function UpdateForm(props) {
   // Declare state variables
   const [validation, setValidation] = useState(defaultUpdateFormFieldValidations); // initialise form fields validation state
 
+  const [inputFieldProps, setInputFieldProps] = useState(defaultFormFields); // initialise form inputFieldProps state
+
   const [validating, setValidating] = useState(false); // initialise form validating state
   const [formValidity, setFormValidity] = useState(false); // initialise form validity state
   const [showErrorMessages, setShowErrorMessages] = useState(false); // initialise form error message state
   const [formDataError, setFormDataError] = useState(null); // initialise form data error state
   const [formDataSuccess, setFormDataSuccess] = useState(null); // initialise form data success state
-  const [urlTransactionIdError, setUrlTransactionIdError] = useState(false); // initialise urlTransactionIdError state
-  const [urlTransID, setUrlTransID] = useState(props.urlTransID); // initialise url Trans ID value from parent
+
+  const [urlTransactionId, setUrlTransactionId] = useState(props.urlTransactionId); // initialise with url Trans ID value from parent
+
+  const [urlIdValidity, setUrlIdValidity] = useState({ valid: true, message: transactionIdErrorMessage}); // initialise urlTransactionIdError state
 
   const [refs, setRefs] = useState(null); // initialise form fields refs state
 
@@ -49,15 +58,17 @@ function UpdateForm(props) {
    * Component mounts and updates
    */
   useEffect(() => {
-    // Set url Trans ID value from parent
+
+    // Set url Transaction ID value from parent
     // on mount and update
-    setUrlTransID(props.urlTransID);
+    setUrlTransactionId(props.urlTransactionId);
     // Reset states on component unmount
     return () => {
       setFormDataError(null);
       setFormDataSuccess(null);
-      setUrlTransID(undefined);
+      setUrlTransactionId(undefined);
       setRefs(undefined);
+      setInputFieldProps(null)
     }
   }, []);
 
@@ -66,14 +77,17 @@ function UpdateForm(props) {
    * on component mount or update
    */
   useEffect(() => {
+
     // Url trans Id is present
-    if (urlTransID !== undefined) {
+    if (urlTransactionId !== undefined) {
       // Delete transactionId form field
+      delete inputFieldProps.transactionId;
       delete validation.transactionId;
     } else {
       // Else, delete the donation type radiobuttons
       delete validation.donationType;
     }
+    // setInputFieldProps(validation);
   }, []);
 
   /**
@@ -81,7 +95,7 @@ function UpdateForm(props) {
    * component update
    */
   useEffect(() => {
-    if ((showErrorMessages && !formValidity && validating) || urlTransactionIdError) {
+    if ((showErrorMessages && !formValidity && validating) || urlIdValidity.valid === false ) {
       // timeout needed for error class names to appear
       scrollTimeout = setTimeout(() => { scrollToError(); }, 500);
     }
@@ -93,7 +107,7 @@ function UpdateForm(props) {
    */
   const scrollToError = () => {
     setValidating(false);
-    props.scrollToError(urlTransactionIdError);
+    props.scrollToError(urlIdValidity.valid === false);
     clearTimeout(scrollTimeout);
   };
 
@@ -153,94 +167,98 @@ function UpdateForm(props) {
   const validateForm = (e) => {
     e.preventDefault();
 
-    const formValues = getFormValues(validation, urlTransID);
+    const formValues = getFormValues(validation, urlTransactionId, true);
 
     // validate transactionId
     const transIdValidity = validateTransactionId(formValues.donationID);
 
     const validity = props.getValidation(validation);
 
-    // update state accordingly
     if (validity !== true || !transIdValidity) {
+      // update states accordingly
       setFormValidity(false);
       setShowErrorMessages(true);
       setValidating(true);
-      if (!transIdValidity && urlTransID !== undefined) {
-        setUrlTransactionIdError(true);
+      if (!transIdValidity && urlTransactionId !== undefined) {
+        // set state for url id validity
+        setUrlIdValidity({...urlIdValidity, valid: false });
       }
     } else {
+      // update states accordingly
       setFormValidity(true);
       setShowErrorMessages(false);
       setValidating(false);
-      setUrlTransactionIdError(false);
-      props.submit(formValues);
+
+      // set state for url id validity
+      setUrlIdValidity({...urlIdValidity, valid: true });
+
+      // Get submit params
+      const params = getPathParams(true, formValues.confirm);
+
+      //Submits form to endpoint
+      props.submit(formValues, params);
     }
   };
 
+  const childProps = {
+    urlTransactionId: urlTransactionId,
+    showErrorMessages: showErrorMessages,
+    formDataSuccess: formDataSuccess,
+    formDataError: formDataError,
+    refs: refs,
+    setValidity: setValidity,
+  };
+
   return (
-    <Form
-      className="update-giftaid__form"
-      formDataSuccess={formDataSuccess}
-      formDataError={formDataError}
-    >
-      <FormHeader
-        page="update"
-        urlTransID={urlTransID}
-      />
-      <TransactionIdError
-        urlTransactionIdError={urlTransactionIdError}
-        transactionIdErrorMessage={transactionIdErrorMessage}
-      />
+    <FormProvider value={childProps}>
+      <Form
+        className="update-giftaid__form"
+      >
 
-      <div className="form-fields--wrapper">
-
-        <DonationTypeButtons
-          donationTypeChoices={donationTypeChoices}
-          showErrorMessages={showErrorMessages}
-          setRef={refs}
-          urlTransID={urlTransID}
-          setValidity={setValidity}
+        <FormHeader
+          page="update"
         />
+        { props.renderUrlTransactionIdError(urlIdValidity)}
 
-        <h3 className="form--update__title form--update__title--giftaid text-align-centre">
-          Who is changing their declaration?
-        </h3>
+        <div className="form-fields--wrapper">
 
-        <InputFields
-          setRef={refs}
-          urlTransID={urlTransID}
-          allFields={defaultUpdateFormFields}
-          setValidity={setValidity}
-          showErrorMessages={showErrorMessages}
-        />
+          <DonationTypeButtons
+            donationTypeChoices={donationTypeChoices}
+          />
 
-        <PostcodeLookup
-          ref={refs}
-          label="Postal address"
-          showErrorMessages={showErrorMessages}
-          pattern={props.postCodePattern}
-          isAddressValid={
-            (validation) => {
-              Object.keys(validation).map(key => setValidity(validation[key], key));
+          <h3 className="form--update__title form--update__title--giftaid text-align-centre">
+            Who is changing their declaration?
+          </h3>
+
+          <InputFields
+            allFields={inputFieldProps}
+          />
+
+          <PostcodeLookup
+            ref={refs}
+            label="Postal address"
+            showErrorMessages={showErrorMessages}
+            pattern={props.postCodePattern}
+            isAddressValid={
+              (validation) => {
+                Object.keys(validation).map(key => setValidity(validation[key], key));
+              }
             }
-          }
+          />
+        </div>
+        <GiftAidClaimChoiceButtons
+          giftAidButtonChoices={giftAidButtonChoices}
         />
-      </div>
-      <GiftAidClaimChoiceButtons
-        giftAidButtonChoices={giftAidButtonChoices}
-        showErrorMessages={showErrorMessages}
-        setRef={refs}
-        setValidity={setValidity}
-      />
-      <Button
-        onClick={e => validateForm(e)}
-        text="Update Declaration"
-      />
+        <FormButton
+          onClick={e => validateForm(e)}
+          text="Update Declaration"
+        />
 
-      <JustInTime
-        justInTimeLinkText={props.justInTimeLinkText}
-      />
-    </Form>
+        <JustInTime
+          text={props.justInTimeLinkText}
+        />
+      </Form>
+    </FormProvider>
   );
 }
 

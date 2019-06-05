@@ -20,10 +20,11 @@ import Success from '../../pages/Success/Success';
 import Sorry from '../../pages/Sorry/Sorry';
 
 //Context provider
-import { FormProvider } from '../../context/FormContext';
+import { GiftAidProvider } from '../../context/AppContext';
 
 // Site config
 import SiteService from '../../service/Site.service';
+
 const site = new SiteService();
 
 function App (props) {
@@ -91,7 +92,7 @@ function App (props) {
       <Raven dsn="https://25f53d059e1f488f9d0f000ffd500585@sentry.io/1228720" />
 
       <Router>
-        <FormProvider value={childProps}>
+        <GiftAidProvider value={childProps}>
           <ScrollToTop />
           <Switch>
 
@@ -108,7 +109,7 @@ function App (props) {
             <Redirect push to="/" />
 
           </Switch>
-        </FormProvider>
+        </GiftAidProvider>
       </Router>
 
       <Footer campaign="comicrelief" copy="copyright 2018" />

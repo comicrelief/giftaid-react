@@ -7,19 +7,25 @@ import MarketingConsent from '@comicrelief/storybook/src/components/MarketingCon
 
 import Form from '../../../components/Form';
 import FormHeader from '../../../components/FormHeader/FormHeader';
-import Button from '../../../components/Button';
-import InputFields from "../InputFields/InputFields";
-import JustInTime from "../JustInTime";
+import FormButton from '../../../components/Buttons/FormButton';
+import InputFields from "../../../components/InputFields/InputFields";
+import JustInTime from "../../../components/JustInTime";
 
 // fields data
 import {
-  defaultSubmitFormFields,
+  defaultFormFields,
   defaultSubmitFormFieldValidations,
   marketingConsentData
-} from './Fields/defaultSubmitFormFields';
+} from './defaultFormFields';
+
+// Get util functions
+import { getPathParams } from '../utils/getPathParams';
 
 // Function to get form values
-import { getFormValues } from './utils/getFormValues';
+import { getFormValues } from '../utils/getFormValues';
+
+//Context provider
+import { FormProvider } from '../../../context/FormContext';
 
 let scrollTimeout;
 
@@ -62,7 +68,7 @@ function SubmitForm(props) {
    * Handle set input fields
    */
   const setInputField = () => {
-    setInputFieldProps(mergeInputFieldProps(defaultSubmitFormFields))
+    setInputFieldProps(mergeInputFieldProps(defaultFormFields))
   };
 
   /**
@@ -135,67 +141,79 @@ function SubmitForm(props) {
 
     let validity = props.getValidation(validation);
 
-    // update state accordingly
     if (validity !== true ) {
+      // update states accordingly
       setFormValidity(false);
       setShowErrorMessages(true);
       setValidating(true);
+
       // timeout needed for error class names to appear
       scrollTimeout = setTimeout(() => { scrollToError(); }, 500);
 
     } else {
+      // update states accordingly
       setFormValidity(true);
       setShowErrorMessages(false);
       setValidating(false);
-      props.submit(formValues);
+
+      // Get submit params
+      const params = getPathParams(false);
+
+      props.submit(formValues, params);
     }
   };
 
+
+  const childProps = {
+    showErrorMessages: showErrorMessages,
+    formDataSuccess: formDataSuccess,
+    formDataError: formDataError,
+    refs: refs,
+    setValidity: setValidity,
+  };
+
   return (
-    <Form
-      className="giftaid__form"
-      formDataSuccess={formDataSuccess}
-      formDataError={formDataError}
-    >
-      <FormHeader
-        page="submit"
-      />
+    <FormProvider value={childProps}>
+      <Form
+        className="giftaid__form"
+      >
+        <FormHeader
+          page="submit"
+        />
 
-      <InputFields
-        allFields={inputFieldProps}
-        setValidity={setValidity}
-        showErrorMessages={showErrorMessages}
-      />
+        <InputFields
+          allFields={inputFieldProps}
+        />
 
-      <PostcodeLookup
-        ref={refs}
-        label="Postal address"
-        showErrorMessages={showErrorMessages}
-        pattern={props.postCodePattern}
-        isAddressValid={
-          (validation) => {
-            Object.keys(validation).map(key => setValidity(validation[key], key));
+        <PostcodeLookup
+          ref={refs}
+          label="Postal address"
+          showErrorMessages={showErrorMessages}
+          pattern={props.postCodePattern}
+          isAddressValid={
+            (validation) => {
+              Object.keys(validation).map(key => setValidity(validation[key], key));
+            }
           }
-        }
-      />
-      <MarketingConsent
-        getValidation={(validation) => {
-          Object.keys(validation).forEach(key => setValidity(validation[key], key));
-        }}
-        itemData={marketingConsentData}
-        showErrorMessages={showErrorMessages}
-      />
-      <Button
-        onClick={e => validateForm(e)}
-        text="Gift Aid your donation"
-      />
+        />
+        <MarketingConsent
+          getValidation={(validation) => {
+            Object.keys(validation).forEach(key => setValidity(validation[key], key));
+          }}
+          itemData={marketingConsentData}
+          showErrorMessages={showErrorMessages}
+        />
+        <FormButton
+          onClick={e => validateForm(e)}
+          text="Gift Aid your donation"
+        />
 
-      <JustInTime
-        submit
-        justInTimeLinkText={props.justInTimeLinkText}
-      />
-    </Form>
-
+        <JustInTime
+          submit
+          text={props.justInTimeLinkText}
+        />
+      </Form>
+    </FormProvider>
   );
 }
 SubmitForm.defaultProps = {

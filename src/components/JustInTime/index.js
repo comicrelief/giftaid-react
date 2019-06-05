@@ -33,7 +33,7 @@ const JustInTimeComponent = (props) => {
   };
 
   return (
-    <JustInTime linkText={props.justInTimeLinkText}>
+    <JustInTime linkText={props.text}>
       { props.submit || props.submit !== undefined ? submitMessage() : updateMessage() }
     </JustInTime>
   );

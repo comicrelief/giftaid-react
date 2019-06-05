@@ -2,16 +2,18 @@ import React, { useState, useEffect, useContext } from 'react';
 import PromoHeader from '../../components/PromoHeader/PromoHeader';
 import SiteService from '../../service/Site.service';
 
-// context
-import FormContext from '../../context/FormContext';
+// import context
+import AppContext from '../../context/AppContext';
 
 const Success = (props) => {
 
-  const form = useContext(FormContext);
+  // get context
+  const app = useContext(AppContext);
 
   const site = new SiteService();
 
-  const [state, setState] = useState(form.successState);
+  // initialise state with prop from context
+  const [state, setState] = useState(app.successState);
 
   const additionalClass = props.location.pathname === 'success'
   || props.location.pathname === '/success' ? '' : 'update-success-wrapper';
@@ -19,7 +21,7 @@ const Success = (props) => {
 
   useEffect(() => {
     document.title = `Success${site.get('title_postfix')}`;
-    if (typeof form.successState === 'undefined' || form.isCompleted === false) {
+    if (typeof app.successState === 'undefined' || app.isCompleted === false) {
       props.history.push({
         pathname: '/',
       });
