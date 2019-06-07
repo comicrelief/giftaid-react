@@ -26,12 +26,17 @@ const Success = (props) => {
   const additionalClass = props.location.pathname === 'success'
   || props.location.pathname === '/success' ? '' : 'update-success-wrapper';
 
+  const redirectPath = props.location.pathname === 'success'
+  || props.location.pathname === '/success' ? '/' : '/update';
+
+  console.log('redirectPath: ', redirectPath);
 
   useEffect(() => {
     document.title = `Success${site.get('title_postfix')}`;
+    console.log('Success Page Mounts');
     if (typeof state === 'undefined' || app.isCompleted === false) {
       props.history.push({
-        pathname: '/',
+        pathname: redirectPath,
       });
     }
     return () => {
