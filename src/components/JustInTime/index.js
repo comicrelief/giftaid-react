@@ -2,40 +2,24 @@ import React from 'react';
 
 import JustInTime from '@comicrelief/storybook/src/components/JustInTime/JustInTime';
 
+const SubmitMessage = React.lazy(() => import('./SubmitMessage'));
+const UpdateMessage = React.lazy(() => import('./UpdateMessage'));
+
 const JustInTimeComponent = (props) => {
 
-  const submitMessage = () => {
-    return (
-      <div>
-        <p>
-          <strong>
-            Name, phone number and address:
-            {' '}
-          </strong>
-          we need these details to process a Gift Aid claim on your donation.
-        </p>
-      </div>
-    );
-  };
-
-  const updateMessage = () => {
-    return (
-      <div>
-        <p>
-          <strong>Name, email and address: </strong>
-          we need this information to identify your donation
-          and update the gift aid status on your donation.
-        </p>
-        <p>We will only use your phone number to match your SMS donations to your gift aid status.
-        </p>
-      </div>
-    );
-  };
+  const loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>;
 
   return (
-    <JustInTime linkText={props.text}>
-      { props.submit || props.submit !== undefined ? submitMessage() : updateMessage() }
-    </JustInTime>
+    <React.Suspense fallback={loading()}>
+      <JustInTime linkText={props.text}>
+        {
+          props.submit || props.submit !== undefined
+          ? <SubmitMessage/>
+          : <UpdateMessage/>
+        }
+      </JustInTime>
+    </React.Suspense>
+
   );
 };
 

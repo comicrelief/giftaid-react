@@ -1,9 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
-import PromoHeader from '../../components/PromoHeader/PromoHeader';
+
 import SiteService from '../../service/Site.service';
 
 // import context
 import AppContext from '../../context/AppContext';
+
+// Fallback suspense loading
+import Loading from '../../components/Loading';
+
+// lazy load components
+const PromoHeader = React.lazy(() => import('../../components/PromoHeader/PromoHeader'));
+const ThankYou = React.lazy(() => import('./ThankYou'));
+const ImpactMessage = React.lazy(() => import('./ImpactMessage'));
 
 const Success = (props) => {
 
@@ -21,7 +29,7 @@ const Success = (props) => {
 
   useEffect(() => {
     document.title = `Success${site.get('title_postfix')}`;
-    if (typeof app.successState === 'undefined' || app.isCompleted === false) {
+    if (typeof state === 'undefined' || app.isCompleted === false) {
       props.history.push({
         pathname: '/',
       });
@@ -32,49 +40,19 @@ const Success = (props) => {
   });
 
   return (
-    <div>
-      <PromoHeader />
-      <div className={`success-wrapper ${additionalClass}`}>
-        <div className="success-wrapper--inner">
+    <React.Suspense fallback={ <Loading />}>
+      <div>
+        <PromoHeader />
+        <div className={`success-wrapper ${additionalClass}`}>
+          <div className="success-wrapper--inner">
+            <ThankYou/>
 
-          {state && state.firstname !== undefined && (state.giftAidChoice === '1'
-            || state.giftAidChoice === undefined
-            || state.giftAidChoice === null)
-            ? (
-              <div>
-                <h1>Thank you, <br /> {state.firstname}!</h1>
-                <p>
-                  We’ve registered your Gift Aid declaration,
-                  we’ll use it to pay for our operational costs.
-                </p>
-              </div>
-            )
-            : null }
-
-          {state && state.giftAidChoice === '0'
-            ? (
-              <div>
-                <h1>Thanks for letting us know</h1>
-                <p>
-                  We won’t claim Gift Aid for your donation
-                </p>
-              </div>
-            )
-            : null }
-
-          <h2>Your donation makes a big difference</h2>
-          <p>
-            Comic Relief currently supports more than 2,000 projects in the UK and around
-            the world, tackling issues like gender injustice and mental illness.
-          </p>
-          <div>
-            <a href="https://www.comicrelief.com/your-impact" className="btn btn--red">
-              Read More
-            </a>
+            <ImpactMessage />
           </div>
         </div>
       </div>
-    </div>
+    </React.Suspense>
+
   );
 
 };

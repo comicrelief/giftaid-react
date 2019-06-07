@@ -1,12 +1,12 @@
-
 /**
  * Function to Scroll to and focus on field(s) with error
- * @param urlTransIDError Boolean
+ * @param state Object
  */
-export const scrollToError = (urlTransIDError = false) => {
+export const scrollToError = (state = {}) => {
 
   // Scroll to transactionId field / url parameter error message
-  if (urlTransIDError) {
+  // if present
+  if (state.urlTransactionId.valid === false) {
     document.querySelector('#field-error--urlTransID').scrollIntoView('smooth');
   }
 

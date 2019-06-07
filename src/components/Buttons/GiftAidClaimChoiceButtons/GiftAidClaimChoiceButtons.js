@@ -1,12 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import RadioButtons from "@comicrelief/storybook/src/components/RadioButtons";
+
 import FormContext from "../../../context/FormContext";
 
 const GiftAidClaimChoiceButtons = (props) => {
 
-  // initialise form context
-  const formContext = React.useContext(FormContext);
-
+  // initialise context
+  const {
+    formValidityState,
+    setFieldValidity,
+    refs,
+  } = useContext(FormContext); // get props from context
 
   return (
     <div>
@@ -20,9 +24,9 @@ const GiftAidClaimChoiceButtons = (props) => {
         label="Can we claim Gift Aid on your donation?"
         required
         options={props.giftAidButtonChoices}
-        showErrorMessage={formContext.showErrorMessages}
-        ref={formContext.setRef}
-        isValid={(state, id) => { formContext.setValidity(state, id); }}
+        showErrorMessage={formValidityState.showErrorMessages}
+        ref={refs}
+        isValid={ (state, id) => setFieldValidity(state, id) }
       />
     </div>
   );

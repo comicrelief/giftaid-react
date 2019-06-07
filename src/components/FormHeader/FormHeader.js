@@ -1,21 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
+
 import FormContext from "../../context/FormContext";
 
 const FormHeader = (props) => {
 
-  // initialise form context
-  const formContext = React.useContext(FormContext);
+  const { urlTransactionId } = useContext(FormContext); // get states from context
 
   const [page, setPage] = useState(typeof props.page !== 'undefined' ? props.page : '');
-  const [urlTransactionId, setUrlTransactionId] = useState(formContext.urlTransactionId);
 
   useEffect(() => {
     setPage(props.page);
-    setUrlTransactionId(formContext.urlTransactionId);
-
     return () => {
       setPage(undefined);
-      setUrlTransactionId(undefined);
     }
   }, []);
 

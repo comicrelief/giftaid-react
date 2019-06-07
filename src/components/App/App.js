@@ -66,7 +66,7 @@ function App (props) {
 
   const childProps = {
     isCompleted,
-    submitted: (status) => setIsCompleted(status),
+    setIsCompleted: (status) => setIsCompleted(status),
     successState,
     setSuccessState: (state) => setSuccessState(state),
   };

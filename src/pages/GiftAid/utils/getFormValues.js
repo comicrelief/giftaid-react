@@ -1,5 +1,4 @@
 import SiteService from "../../../service/Site.service";
-import { DONATION_TYPES } from "../UpdateForm/defaultFormFields";
 
 const site = new SiteService();
 const url = site.getCurrentUrl();
@@ -44,14 +43,12 @@ export const getFormValues = (validation, urlId = null, update = false) => {
   });
 
   // Create a Donation id field for Update Form
-  if ((typeof validation.transactionId !== 'undefined'
-    && validation.transactionId) || urlId !== null) {
+  if ((typeof validation.transactionId !== 'undefined' && validation.transactionId) || urlId !== null) {
 
     fieldValues.donationID = typeof validation.transactionId !== 'undefined'
     && validation.transactionId
       ? validation.transactionId.value : urlId;
   }
-
 
   // Create donation type field for Update Form
   fieldValues.donationType = typeof validation.donationType !== 'undefined'
@@ -66,6 +63,7 @@ export const getFormValues = (validation, urlId = null, update = false) => {
   // Create name based on Form type
   const name = update ? 'GiftAidUpdate' : 'GiftAid';
 
+  // remove giftaid form field if it exists
   if (fieldValues.giftAidClaimChoice !== undefined) {
 
     // Delete giftAidClaimChoice form field
@@ -81,3 +79,13 @@ export const getFormValues = (validation, urlId = null, update = false) => {
   }, fieldValues);
 };
 
+
+/*
+* Donation Types
+*
+*/
+const DONATION_TYPES = {
+  SMS: 'sms',
+  ONLINE: 'online',
+  CALL_CENTRE: 'call centre',
+};

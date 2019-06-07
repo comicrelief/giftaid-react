@@ -1,28 +1,29 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import InputField from "@comicrelief/storybook/src/components/InputField";
+
 import FormContext from "../../context/FormContext";
 
 // import defaultInputFieldsData from "../../UpdateForm/defaultUpdateFields";
 
 const InputFields = (props) => {
 
-  // initialise form context
-  const formContext = React.useContext(FormContext);
+  // initialise context
+  const {
+    formValidityState,
+    setFieldValidity,
+  } = useContext(FormContext); // get props from context
 
-  const [showErrorMessages, setShowErrorMessages] = useState(formContext.showErrorMessages);
+  const [showErrorMessages, setShowErrorMessages] = useState(formValidityState.showErrorMessages);
+
+  const [allFields, setAllFields] = useState(props.allFields);
 
   useEffect(() => {
-    setShowErrorMessages(formContext.showErrorMessages);
-  },[props]);
+    setAllFields(props.allFields);
+    setShowErrorMessages(formValidityState.showErrorMessages);
+  });
 
   const createInputFields = () => {
 
-    const allFields = props.allFields;
-
-    // Remove the transaction id field if not value is present in the url
-    if (props.urlTransactionId !== undefined && allFields.transactionId !== undefined) {
-      delete allFields.transactionId;
-    }
     const inputFields = [];
     Object.entries(allFields).map(([field, prop]) => inputFields.push(<InputField
       key={field}
@@ -42,7 +43,7 @@ const InputFields = (props) => {
       setBackgroundColor={prop.type === 'checkbox'}
       additionalText={prop.additionalText}
       showErrorMessage={showErrorMessages}
-      isValid={(state, name) => { formContext.setValidity(state, name); }}
+      isValid={(state, name) => setFieldValidity(state, name)}
     />));
     return inputFields;
   };

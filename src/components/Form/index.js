@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 
+// import context
 import FormContext from '../../context/FormContext';
 
 const Form = ({children, ...props}) => {
 
-  // initialise form context
-  const formContext = React.useContext(FormContext);
+  const { formValidityState } = useContext(FormContext); // get states from context
 
   return (
     <main role="main">
@@ -14,8 +14,8 @@ const Form = ({children, ...props}) => {
           id="form"
           noValidate
           className={props.className}
-          data-success={formContext.dataSuccess}
-          data-error={formContext.dataError}
+          data-success={formValidityState.formDataSuccess}
+          data-error={formValidityState.formDataError}
         >
           { children }
         </form>
