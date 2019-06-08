@@ -7,11 +7,12 @@ import Raven from 'react-raven';
 
 
 //Context provider
-import { GiftAidProvider } from '../../context/AppContext';
+import { AppProvider } from '../../context/AppContext';
 
 // Site config
 import SiteService from '../../service/Site.service';
 
+// Fallback suspense loading
 import Loading from "../Loading";
 
 
@@ -99,7 +100,7 @@ function App (props) {
         <Raven dsn="https://25f53d059e1f488f9d0f000ffd500585@sentry.io/1228720" />
 
         <Router>
-          <GiftAidProvider value={childProps}>
+          <AppProvider value={childProps}>
             <ScrollToTop />
             <Switch>
 
@@ -116,7 +117,7 @@ function App (props) {
               <Redirect push to="/" />
 
             </Switch>
-          </GiftAidProvider>
+          </AppProvider>
         </Router>
 
         <Footer campaign="comicrelief" copy="copyright 2018" />
