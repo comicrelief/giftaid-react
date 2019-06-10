@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 
 import propTypes from "prop-types";
 import axios from 'axios';
@@ -48,7 +48,7 @@ function GiftAid(props) {
 
   const [fieldValidation, setFieldValidation] = useState(getFieldValidations(update)); // intitialise field validation state based on form type
 
-  const [refs, setRefs] = useState(null); // initialise form fields refs state
+  const inputRef = useRef(null);
 
   // initialise URL transaction id state if available
   const [urlTransactionId, setUrlTransactionId] = useState(props.match.params.transaction_id);
@@ -63,7 +63,6 @@ function GiftAid(props) {
       setFormValidityState(initialValidity);
       setFieldValidation({});
       setUpdating(false);
-      setRefs(null);
       setUrlTransactionId(null);
     }
   }, []);
@@ -187,7 +186,7 @@ function GiftAid(props) {
     hiddenFields,
     postCodePattern,
     justInTimeLinkText,
-    refs,
+    refs: inputRef,
     formValidityState,
     fieldValidation,
     setFieldValidation: (validation) => setFieldValidation(validation),
