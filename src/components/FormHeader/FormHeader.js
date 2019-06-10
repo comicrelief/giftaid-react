@@ -1,10 +1,13 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
-import FormContext from "../../context/FormContext";
+
+import Loading from '../Loading';
+
+const SubmitHeader = React.lazy(() => import('./Submit'));
+const UpdateHeader = React.lazy(() => import('./Update'));
 
 const FormHeader = (props) => {
 
-  const { urlTransactionId } = useContext(FormContext); // get states from context
 
   const [page, setPage] = useState(typeof props.page !== 'undefined' ? props.page : '');
 
@@ -22,36 +25,15 @@ const FormHeader = (props) => {
         Giftaid it
         </span>
       </h1>
-      <h2 className="sub-title">
-        {page === 'update' ?
-          <div>Edit your Gift Aid declaration</div>
+      <React.Suspense fallback={ <Loading /> }>
+        { page === 'update' ?
+
+          <UpdateHeader />
           :
-          <div>
-            Gift aid your donation and the
-            {' '}
-            <strong>
-              Government will give us 25%
-            </strong>
-            {' '}
-            on top of it.
-          </div>
+          <SubmitHeader />
         }
-      </h2>
-      { page === 'update' ?
-        <p className="text-align-centre">
-          We can claim Gift Aid from personal donations made by UK taxpayers:
-          the Government gives us back 25% of their value.
-        </p>
-        :
-        ''
-      }
-      {typeof urlTransactionId !== 'undefined' && urlTransactionId !== null ?
-        <p className="text-align-centre transaction-id">
-          Transaction ID: {urlTransactionId}
-        </p>
-        :
-        ''
-      }
+      </React.Suspense>
+
     </div>
   );
 };
