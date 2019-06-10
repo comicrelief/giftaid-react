@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Yes = (props) => {
+const GiftAidConfirmMessage = (props) => {
 
   return (
     <div>
@@ -14,4 +14,4 @@ const Yes = (props) => {
 
 };
 
-export default Yes;
+export default GiftAidConfirmMessage;

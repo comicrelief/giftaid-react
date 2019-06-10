@@ -3,8 +3,8 @@ import React, {useContext} from 'react';
 // import context
 import AppContext from '../../../context/AppContext';
 
-import Yes from './Yes';
-import No from './No';
+import GiftAidConfirmMessage from './GiftAidConfirmMessage';
+import GiftAidCancelMessage from './GiftAidCancelMessage';
 
 
 const ThankYou = (props) => {
@@ -16,11 +16,11 @@ const ThankYou = (props) => {
     <React.Fragment>
       { state !== undefined && state.firstname !== undefined && state.giftAidChoice !== '0'
         ?
-        <Yes
+        <GiftAidConfirmMessage
           firstname={state.firstname}
         />
         :
-        <No/>
+        <GiftAidCancelMessage/>
       }
     </React.Fragment>
 

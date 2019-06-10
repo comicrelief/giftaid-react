@@ -1,6 +1,6 @@
 import React from 'react';
 
-const No = (props) => {
+const GiftAidCancelMessage = (props) => {
 
   return (
     <div>
@@ -13,4 +13,4 @@ const No = (props) => {
 
 };
 
-export default No;
+export default GiftAidCancelMessage;
