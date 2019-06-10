@@ -1,7 +1,7 @@
 
 // form validity initial values
-// import {transactionIdErrorMessage} from "../../components/Form/UpdateForm/defaultFormFields";
 
+// Transaction Id Default Message
 const transactionIdErrorMessage = 'This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter';
 
 export const initialValidity = {
@@ -16,6 +16,10 @@ export const initialValidity = {
   }
 };
 
+/**
+ * Function to return the default form
+ * field validations based on type
+ */
 export const getFieldValidations = (update = false) => {
   if (update) {
     return defaultUpdateFormFieldValidations;

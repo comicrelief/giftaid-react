@@ -1,6 +1,4 @@
 
-// import { getValidation } from "./getValidation";
-
 const transactionIdPattern = '^[a-zA-Z0-9-]{5,}$';
 
 /**
