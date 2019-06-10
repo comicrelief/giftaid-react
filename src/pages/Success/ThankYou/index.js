@@ -7,7 +7,6 @@ const ThankYou = (props) => {
 
   // get context
   const { successState: state } = useContext(AppContext);
-  // const state = app.successState;
 
   if (state !== undefined && state.firstname !== undefined && state.giftAidChoice !== '0') {
     return (
