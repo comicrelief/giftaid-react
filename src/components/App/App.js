@@ -9,7 +9,7 @@ import Raven from 'react-raven';
 import CookieConsentMessage from '@comicrelief/storybook/src/components/CookieConsentMessage/CookieConsentMessage';
 import Footer from '@comicrelief/storybook/src/components/Footer/Footer';
 
-import ScrollToTop from './ScrollToTop/ScrollToTop';
+import ScrollToTop from '../ScrollToTop/ScrollToTop';
 import Header from '../Header/Header';
 import DefaultRoute from '../Routes/DefaultRoute';
 import CompletedRoute from '../Routes/CompletedRoute';

@@ -9,9 +9,10 @@ const ScrollToTop = () => {
    * ScrollToTop mounts
    */
   useEffect(() => {
-    // ScrollToTop componentDidUpdate
+    // ScrollToTop componentDidMount
+    // and after every render
     window.scrollTo(0, 0);
-  },[]);
+  });
 
   return null;
 };

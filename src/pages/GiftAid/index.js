@@ -4,8 +4,8 @@ import propTypes from "prop-types";
 import axios from 'axios';
 
 // import components
-import UpdateForm from '../../components/Form/UpdateForm';
-import SubmitForm from '../../components/Form/SubmitForm';
+import UpdateForm from './UpdateForm';
+import SubmitForm from './SubmitForm';
 
 
 // context

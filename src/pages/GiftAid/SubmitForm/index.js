@@ -4,11 +4,11 @@ import propTypes from 'prop-types';
 // import components
 import PostcodeLookup from "@comicrelief/storybook/src/components/PostcodeLookup";
 import MarketingConsent from '@comicrelief/storybook/src/components/MarketingConsent/MarketingConsent';
-import Form from '../index';
-import FormHeader from '../../FormHeader/FormHeader';
-import FormButton from '../../Buttons/FormButton';
-import InputFields from '../../InputFields/InputFields';
-import JustInTime from '../../JustInTime';
+import Form from '../../../components/Form/index';
+import FormHeader from '../../../components/FormHeader/FormHeader';
+import FormButton from '../../../components/Buttons/FormButton/index';
+import InputFields from '../../../components/InputFields/InputFields';
+import JustInTime from '../../../components/JustInTime/index';
 
 
 // fields data
@@ -17,7 +17,7 @@ import { defaultFormFields } from './defaultFormFields';
 import { marketingConsentData } from './marketingConsentData';
 
 // Util functions
-import { mergeInputFieldProps } from '../../../pages/GiftAid/utils/mergeInputFieldProps';
+import { mergeInputFieldProps } from '../utils/mergeInputFieldProps';
 
 // import context
 import FormContext from "../../../context/FormContext";

@@ -2,13 +2,13 @@ import React, { useState, useEffect, useContext } from 'react';
 
 // import components
 import PostcodeLookup from "@comicrelief/storybook/src/components/PostcodeLookup";
-import Form from '../index';
-import FormHeader from '../../FormHeader/FormHeader';
-import FormButton from '../../Buttons/FormButton';
-import DonationTypeButtons from '../../Buttons/DonationTypeButtons/DonationTypeButtons';
-import GiftAidClaimChoiceButtons from '../../Buttons/GiftAidClaimChoiceButtons/GiftAidClaimChoiceButtons';
-import InputFields from '../../InputFields/InputFields';
-import JustInTime from '../../JustInTime';
+import Form from '../../../components/Form/index';
+import FormHeader from '../../../components/FormHeader/FormHeader';
+import FormButton from '../../../components/Buttons/FormButton/index';
+import DonationTypeButtons from '../../../components/Buttons/DonationTypeButtons/DonationTypeButtons';
+import GiftAidClaimChoiceButtons from '../../../components/Buttons/GiftAidClaimChoiceButtons/GiftAidClaimChoiceButtons';
+import InputFields from '../../../components/InputFields/InputFields';
+import JustInTime from '../../../components/JustInTime/index';
 import UrlTransactionIdError from './UrlTransactionIdError';
 
 
