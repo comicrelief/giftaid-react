@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 // import components
 import SubmitHeader from './SubmitHeader';
-import UpdateHeader from './SubmitHeader';
+import UpdateHeader from './UpdateHeader';
 
 
 const FormHeader = (props) => {
