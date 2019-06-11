@@ -10,6 +10,19 @@ ignore:
     - '@comicrelief/storybook > @storybook/react > @storybook/core > shelljs':
         reason: Ignore error until a patch or a new version is available.
         expires: '2019-12-22T15:42:26.262Z'
+  SNYK-JS-JSYAML-173999:
+    - '@comicrelief/storybook > @storybook/react > @storybook/core > css-loader > cssnano > postcss-svgo > svgo > js-yaml':
+        reason: None given
+        expires: '2019-12-20T15:42:22.722Z'
+
+  'SNYK-JS-MARKED-174116':
+    - '@comicrelief/storybook > @storybook/addon-info > marksy > marked':
+        reason: None given.
+        expires: '2019-12-22T15:42:26.262Z'
+    - '@comicrelief/storybook > @storybook/react > markdown-loader > marked':
+        reason: None given.
+        expires: '2019-12-22T15:42:26.262Z'
+
 # patches apply the minimum changes required to fix a vulnerability
 patch:
   'npm:tunnel-agent:20170305':

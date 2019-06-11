@@ -125,7 +125,7 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
     })
 
     it('verify Your Gift Aid declaration',() => {
-        cy.get('#form > div:nth-child(4) > h3').should('contain','Your Gift Aid declaration')
+        cy.get('#form > div:nth-child(3) > h3').should('contain','Your Gift Aid declaration')
         cy.get('#giftAidClaimChoice > legend').should('contain','Can we claim Gift Aid on your donation?')
         cy.get('button[type=submit]').click()
         cy.get('#field-error--giftAidClaimChoice > span').should('contain','This field is required')
