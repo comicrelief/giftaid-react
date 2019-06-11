@@ -1,17 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
 
+// import components
+import PromoHeader from '../../components/PromoHeader/PromoHeader';
+import ThankYou from './ThankYou';
+import ImpactMessage from './ImpactMessage';
+
+
 import SiteService from '../../service/Site.service';
 
 // import context
 import AppContext from '../../context/AppContext';
 
-// Fallback suspense loading
-import Loading from '../../components/Loading';
-
-// lazy load components
-const PromoHeader = React.lazy(() => import('../../components/PromoHeader/PromoHeader'));
-const ThankYou = React.lazy(() => import('./ThankYou'));
-const ImpactMessage = React.lazy(() => import('./ImpactMessage'));
 
 const Success = (props) => {
 
@@ -44,18 +43,16 @@ const Success = (props) => {
   });
 
   return (
-    <React.Suspense fallback={ <Loading />}>
-      <div>
-        <PromoHeader />
-        <div className={`success-wrapper ${additionalClass}`}>
-          <div className="success-wrapper--inner">
-            <ThankYou/>
+    <div>
+      <PromoHeader />
+      <div className={`success-wrapper ${additionalClass}`}>
+        <div className="success-wrapper--inner">
+          <ThankYou/>
 
-            <ImpactMessage />
-          </div>
+          <ImpactMessage />
         </div>
       </div>
-    </React.Suspense>
+    </div>
 
   );
 

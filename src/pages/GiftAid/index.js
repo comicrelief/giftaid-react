@@ -3,6 +3,11 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import propTypes from "prop-types";
 import axios from 'axios';
 
+// import components
+import UpdateForm from '../../components/Form/UpdateForm';
+import SubmitForm from '../../components/Form/SubmitForm';
+
+
 // context
 import AppContext from '../../context/AppContext';
 
@@ -21,14 +26,6 @@ import {
 
 // get default variables
 import { hiddenFields, postCodePattern, justInTimeLinkText } from './utils/giftaidDefaults';
-
-// Fallback suspense loading
-import Loading from "../../components/Loading";
-
-// lazy load form components
-const UpdateForm = React.lazy(() => import('../../components/Form/UpdateForm'));
-const SubmitForm = React.lazy(() => import('../../components/Form/SubmitForm'));
-
 
 let scrollTimeout;
 
@@ -195,22 +192,18 @@ function GiftAid(props) {
   };
 
   return (
-    <React.Suspense fallback={<Loading />}>
+    <FormProvider value={childProps}>
 
-      <FormProvider value={childProps}>
-
-        { updating ? (
-          <UpdateForm
-            title="Update Form"
-          />
-        ) : (
-          <SubmitForm
-            title="Submit Form"
-          />
-        )}
-      </FormProvider>
-
-    </React.Suspense>
+      { updating ? (
+        <UpdateForm
+          title="Update Form"
+        />
+      ) : (
+        <SubmitForm
+          title="Submit Form"
+        />
+      )}
+    </FormProvider>
   );
 }
 

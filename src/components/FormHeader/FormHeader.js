@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
+// import components
+import SubmitHeader from './SubmitHeader';
+import UpdateHeader from './SubmitHeader';
 
-import Loading from '../Loading';
-
-const SubmitHeader = React.lazy(() => import('./Submit'));
-const UpdateHeader = React.lazy(() => import('./Update'));
 
 const FormHeader = (props) => {
 
@@ -25,14 +24,14 @@ const FormHeader = (props) => {
         Giftaid it
         </span>
       </h1>
-      <React.Suspense fallback={ <Loading /> }>
+      <React.Fragment>
         { page === 'update' ?
 
           <UpdateHeader />
           :
           <SubmitHeader />
         }
-      </React.Suspense>
+      </React.Fragment>
 
     </div>
   );

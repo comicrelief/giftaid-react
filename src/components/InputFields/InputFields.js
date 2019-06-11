@@ -3,7 +3,6 @@ import InputField from "@comicrelief/storybook/src/components/InputField";
 
 import FormContext from "../../context/FormContext";
 
-// import defaultInputFieldsData from "../../UpdateForm/defaultUpdateFields";
 
 const InputFields = (props) => {
 

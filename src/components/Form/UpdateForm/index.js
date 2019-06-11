@@ -1,27 +1,22 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-// Components
+// import components
 import PostcodeLookup from "@comicrelief/storybook/src/components/PostcodeLookup";
+import Form from '../index';
+import FormHeader from '../../FormHeader/FormHeader';
+import FormButton from '../../Buttons/FormButton';
+import DonationTypeButtons from '../../Buttons/DonationTypeButtons/DonationTypeButtons';
+import GiftAidClaimChoiceButtons from '../../Buttons/GiftAidClaimChoiceButtons/GiftAidClaimChoiceButtons';
+import InputFields from '../../InputFields/InputFields';
+import JustInTime from '../../JustInTime';
+import UrlTransactionIdError from './UrlTransactionIdError';
+
 
 // fields data
 import { defaultFormFields, donationTypeChoices, giftAidButtonChoices } from './defaultFormFields';
 
 // import context
 import FormContext from '../../../context/FormContext';
-
-// Fallback suspense loading
-import Loading from "../../Loading";
-
-// Lazy load components
-const Form = React.lazy(() => import('../index'));
-const FormHeader = React.lazy(() => import('../../FormHeader/FormHeader'));
-const FormButton = React.lazy(() => import('../../Buttons/FormButton'));
-const DonationTypeButtons = React.lazy(() => import('../../Buttons/DonationTypeButtons/DonationTypeButtons'));
-const GiftAidClaimChoiceButtons = React.lazy(() => import('../../Buttons/GiftAidClaimChoiceButtons/GiftAidClaimChoiceButtons'));
-const InputFields = React.lazy(() => import('../../InputFields/InputFields'));
-const JustInTime = React.lazy(() => import('../../JustInTime'));
-
-const UrlTransactionIdError = React.lazy(() => import('./UrlTransactionIdError'));
 
 
 function UpdateForm(props) {
@@ -66,49 +61,44 @@ function UpdateForm(props) {
 
   return (
 
-    <React.Suspense fallback={ <Loading /> }>
+    <Form className="giftaid__form update-giftaid__form">
 
-      <Form className="giftaid__form update-giftaid__form">
+      <FormHeader page="update" />
 
-        <FormHeader page="update" />
+      <UrlTransactionIdError />
 
-        <UrlTransactionIdError />
+      <div className="form-fields--wrapper">
 
-        <div className="form-fields--wrapper">
+        <DonationTypeButtons donationTypeChoices={donationTypeChoices} />
 
-          <DonationTypeButtons donationTypeChoices={donationTypeChoices} />
+        <h3
+          className="form--update__title form--update__title--giftaid text-align-centre">
+          Who is changing their declaration?
+        </h3>
 
-          <h3
-            className="form--update__title form--update__title--giftaid text-align-centre">
-            Who is changing their declaration?
-          </h3>
+        <InputFields allFields={inputFieldProps} />
 
-          <InputFields allFields={inputFieldProps} />
-
-          <PostcodeLookup
-            ref={refs}
-            label="Postal address"
-            showErrorMessages={formValidityState.showErrorMessages}
-            pattern={postCodePattern}
-            isAddressValid={
-              (validation) => {
-                Object.keys(validation).map(key => setFieldValidity(validation[key], key));
-              }
+        <PostcodeLookup
+          ref={refs}
+          label="Postal address"
+          showErrorMessages={formValidityState.showErrorMessages}
+          pattern={postCodePattern}
+          isAddressValid={
+            (validation) => {
+              Object.keys(validation).map(key => setFieldValidity(validation[key], key));
             }
-          />
+          }
+        />
 
-        </div>
+      </div>
 
-        <GiftAidClaimChoiceButtons giftAidButtonChoices={giftAidButtonChoices} />
+      <GiftAidClaimChoiceButtons giftAidButtonChoices={giftAidButtonChoices} />
 
-        <FormButton onClick={e => submitForm(e)} text="Update Declaration" />
+      <FormButton onClick={e => submitForm(e)} text="Update Declaration" />
 
-        <JustInTime text={justInTimeLinkText} />
+      <JustInTime text={justInTimeLinkText} />
 
-      </Form>
-
-    </React.Suspense>
-
+    </Form>
   );
 }
 
