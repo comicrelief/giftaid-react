@@ -6,16 +6,17 @@
     <meta name="theme-color" content="#000000">
     <meta http-equiv="Content-Security-Policy"
           content="default-src 'self';
-                    script-src 'self' https://d1dzosnobbm2xt.cloudfront.net;
-                    connect-src 'none';
-                    child-src 'none';
-                    object-src 'none'">
-    <meta http-equiv="Content-Security-Policy"
-          content="default-src 'self';
-                    script-src 'self' https://d1lrmurultm79g.cloudfront.net;
-                    connect-src 'none';
-                    child-src 'none';
-                    object-src 'none'">
+          base-uri 'self';
+          style-src 'self' 'unsafe-inline' blob:;
+          font-src 'self' 'unsafe-inline' https://*.cloudfront.net;
+          img-src 'self' https:;
+          script-src 'self' 'unsafe-inline'
+          https://*.cloudfront.net
+          https://www.google-analytics.com
+          https://www.googletagmanager.com;
+          connect-src 'self' https://*.comicrelief.com;
+          child-src 'none';
+          object-src 'none' " >
     <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
