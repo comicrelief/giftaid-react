@@ -1,10 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'none';
+          frame-ancestors 'none';
+          manifest-src 'self';
+          base-uri 'self';
+          style-src 'self' 'unsafe-inline' blob:;
+          font-src 'self' 'unsafe-inline' https://*.cloudfront.net;
+          img-src 'self' https:;
+          script-src 'self'
+          'unsafe-inline'
+          https://*.cloudfront.net
+          https://www.google-analytics.com
+          https://www.googletagmanager.com;
+          connect-src 'self' https://*.comicrelief.com;
+          child-src 'none';
+          object-src 'none' " >
     <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubdomains; preload">
-    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="Referrer-Policy" content="same-origin">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="XSS-Protection" content="1; mode=block">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Content-Type-Options" content="nosniff">
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
@@ -41,27 +60,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <script>
-      // Declare CSP policy
-      let cspScriptPolicy = "default-src 'none'; "; // fallback for the other fetch directives
-      cspScriptPolicy += "manifest-src 'self'; "; // valid sources of application manifest files
-      cspScriptPolicy += "base-uri 'self'; "; // restricts the URLs which can be used in a document's <base> element
-      cspScriptPolicy += "style-src 'self' 'unsafe-inline' blob:; "; // valid sources for stylesheets
-      cspScriptPolicy += "font-src 'self' 'unsafe-inline' https://*.cloudfront.net; "; // valid sources for fonts
-      cspScriptPolicy += "img-src 'self' https:; "; // valid sources for images and favicons
-      cspScriptPolicy += "script-src 'self' 'unsafe-inline' https://*.cloudfront.net\n" + // valid sources for scripts
-        "      https://www.google-analytics.com\n" +
-        "      https://www.googletagmanager.com;\n" +
-        "      connect-src 'self' https://*.comicrelief.com; ";
-      cspScriptPolicy += "child-src 'none'; "; // valid sources for web workers and nested browsing contexts
-      cspScriptPolicy += "object-src 'none'; "; // valid sources for object elements
-      cspScriptPolicy += "form-action 'none'; "; // valid form sources
 
-      // Inject a <meta> tag
-      let cspMetaTag = document.createElement('meta');
-      cspMetaTag.setAttribute('http-equiv', 'Content-Security-Policy');
-      cspMetaTag.setAttribute('content', cspScriptPolicy);
-      document.getElementsByTagName('head')[0].appendChild(cspMetaTag);
-    </script>
   </body>
 </html>
