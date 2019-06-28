@@ -9,15 +9,16 @@
           frame-ancestors 'self';
           manifest-src 'self';
           base-uri 'self';
-          style-src 'self' 'unsafe-inline' blob:;
-          font-src 'self' 'unsafe-inline' https://*.cloudfront.net;
-          img-src 'self' https:;
+          style-src 'self' 'unsafe-inline' blob: https://fonts.googleapis.com https://*.netlify.com;
+          font-src 'self' 'unsafe-inline' https://*.cloudfront.net https://fonts.gstatic.com https://*.netlify.com;
+          img-src 'self' https: data: https://*.googletagmanager.com;
           script-src 'self'
           'unsafe-inline'
           https://*.cloudfront.net
+          https://*.netlify.com
           https://www.google-analytics.com
           https://www.googletagmanager.com;
-          connect-src 'self' https://*.comicrelief.com;
+          connect-src 'self' https://*.comicrelief.com https://*.netlify.com;
           child-src 'none';
           object-src 'none';
           form-action 'none'" >
