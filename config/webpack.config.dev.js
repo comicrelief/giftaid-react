@@ -4,6 +4,7 @@ const autoprefixer = require('autoprefixer');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CspHtmlWebpackPlugin = require('csp-html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
@@ -168,6 +169,131 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
+      cspPlugin: { //adds CSP Meta tag plugin
+        enabled: true,
+        policy: {
+          'default-src': "'none'",
+          'frame-ancestors': "'self'",
+          'manifest-src': "'self'",
+          'base-uri': "'self'",
+          'style-src': [
+            "'self'",
+            "'unsafe-inline'",
+            "blob:",
+            "https://fonts.googleapis.com",
+            "https://*.netlify.com"
+          ],
+          'font-src': [
+            "'self'",
+            "'unsafe-inline'",
+            "https://*.cloudfront.net",
+            "https://fonts.gstatic.com",
+            "https://*.netlify.com"
+          ],
+          'img-src': [
+            "'self'",
+            "data:",
+            "https://*.googletagmanager.com",
+          ],
+          'script-src': [
+            "'self'",
+            "'unsafe-inline'",
+            "http://cdn.polyfill.io",
+            "https://*.google.com",
+            "https://*.cloudfront.net",
+            "https://*.netlify.com",
+            "https://www.gstatic.com",
+            "https://www.google-analytics.com",
+            "https://www.googletagmanager.com"
+          ],
+          'connect-src': [
+            "'self'",
+            "https://*.comicrelief.com",
+            "https://sentry.io",
+            "https://*.netlify.com"
+          ],
+          'frame-src': [
+            "'self'",
+            "https://*.comicrelief.com",
+            "https://*.google.com",
+            "https://*.netlify.com"
+          ],
+          'child-src': "'none'",
+          'object-src': "'none'",
+          'form-action': "'none'"
+        },
+        hashEnabled: {
+          'script-src': false,
+          'style-src': false
+        },
+        nonceEnabled: {
+          'script-src': false,
+          'style-src': false
+        }
+      },
+    }),
+    // Creates the CSP meta tag in index.html.
+    new CspHtmlWebpackPlugin({
+      'default-src': "'none'",
+      'frame-ancestors': "'self'",
+      'manifest-src': "'self'",
+      'base-uri': "'self'",
+      'style-src': [
+        "'self'",
+        "'unsafe-inline'",
+        "blob:",
+        "https://fonts.googleapis.com",
+        "https://*.netlify.com"
+      ],
+      'font-src': [
+        "'self'",
+        "'unsafe-inline'",
+        "https://*.cloudfront.net",
+        "https://fonts.gstatic.com",
+        "https://*.netlify.com"
+      ],
+      'img-src': [
+        "'self'",
+        "data:",
+        "https://*.googletagmanager.com",
+      ],
+      'script-src': [
+        "'self'",
+        "'unsafe-inline'",
+        "http://cdn.polyfill.io",
+        "https://*.google.com",
+        "https://*.cloudfront.net",
+        "https://*.netlify.com",
+        "https://www.gstatic.com",
+        "https://www.google-analytics.com",
+        "https://www.googletagmanager.com"
+      ],
+      'connect-src': [
+        "'self'",
+        "https://*.comicrelief.com",
+        "https://sentry.io",
+        "https://*.netlify.com"
+      ],
+      'frame-src': [
+        "'self'",
+        "https://*.comicrelief.com",
+        "https://*.google.com",
+        "https://*.netlify.com"
+      ],
+      'child-src': "'none'",
+      'object-src': "'none'",
+      'form-action': "'none'"
+    }, {
+      enabled: true,
+      hashingMethod: 'sha256',
+      hashEnabled: {
+        'script-src': false,
+        'style-src': false
+      },
+      nonceEnabled: {
+        'script-src': false,
+        'style-src': false
+      }
     }),
     new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
     new webpack.NamedModulesPlugin(),

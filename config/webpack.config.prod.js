@@ -4,6 +4,7 @@ const autoprefixer = require('autoprefixer');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CspHtmlWebpackPlugin = require('csp-html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -285,6 +286,133 @@ module.exports = {
         minifyCSS: true,
         minifyURLs: true,
       },
+      cspPlugin: { //adds CSP Meta tag plugin
+        enabled: true,
+        policy: {
+          'default-src': "'none'",
+          'frame-ancestors': "'self'",
+          'manifest-src': "'self'",
+          'base-uri': "'self'",
+          'style-src': [
+            "'self'",
+            "'unsafe-inline'",
+            "blob:",
+            "https://fonts.googleapis.com",
+            "https://*.netlify.com"
+          ],
+          'font-src': [
+            "'self'",
+            "'unsafe-inline'",
+            "https://*.cloudfront.net",
+            "https://fonts.gstatic.com",
+            "https://*.netlify.com"
+          ],
+          'img-src': [
+            "'self'",
+            "https:",
+            "data:",
+            "https://*.googletagmanager.com",
+          ],
+          'script-src': [
+            "'self'",
+            "'unsafe-inline'",
+            "http://cdn.polyfill.io",
+            "https://*.google.com",
+            "https://*.cloudfront.net",
+            "https://*.netlify.com",
+            "https://www.gstatic.com",
+            "https://www.google-analytics.com",
+            "https://www.googletagmanager.com"
+          ],
+          'connect-src': [
+            "'self'",
+            "https://*.comicrelief.com",
+            "https://sentry.io",
+            "https://*.netlify.com"
+          ],
+          'frame-src': [
+            "'self'",
+            "https://*.comicrelief.com",
+            "https://*.google.com",
+            "https://*.netlify.com"
+          ],
+          'child-src': "'none'",
+          'object-src': "'none'",
+          'form-action': "'none'"
+        },
+        hashEnabled: {
+          'script-src': false,
+          'style-src': false
+        },
+        nonceEnabled: {
+          'script-src': false,
+          'style-src': false
+        }
+      },
+    }),
+    // Creates the CSP meta tag in index.html.
+    new CspHtmlWebpackPlugin({
+      'default-src': "'none'",
+      'frame-ancestors': "'self'",
+      'manifest-src': "'self'",
+      'base-uri': "'self'",
+      'style-src': [
+        "'self'",
+        "'unsafe-inline'",
+        "blob:",
+        "https://fonts.googleapis.com",
+        "https://*.netlify.com"
+      ],
+      'font-src': [
+        "'self'",
+        "'unsafe-inline'",
+        "https://*.cloudfront.net",
+        "https://fonts.gstatic.com",
+        "https://*.netlify.com"
+      ],
+      'img-src': [
+        "'self'",
+        "https:",
+        "data:",
+        "https://*.googletagmanager.com",
+      ],
+      'script-src': [
+        "'self'",
+        "'unsafe-inline'",
+        "http://cdn.polyfill.io",
+        "https://*.google.com",
+        "https://*.cloudfront.net",
+        "https://*.netlify.com",
+        "https://www.gstatic.com",
+        "https://www.google-analytics.com",
+        "https://www.googletagmanager.com"
+      ],
+      'connect-src': [
+        "'self'",
+        "https://*.comicrelief.com",
+        "https://sentry.io",
+        "https://*.netlify.com"
+      ],
+      'frame-src': [
+        "'self'",
+        "https://*.comicrelief.com",
+        "https://*.google.com",
+        "https://*.netlify.com"
+      ],
+      'child-src': "'none'",
+      'object-src': "'none'",
+      'form-action': "'none'"
+    }, {
+      enabled: true,
+      hashingMethod: 'sha256',
+      hashEnabled: {
+        'script-src': false,
+        'style-src': false
+      },
+      nonceEnabled: {
+        'script-src': false,
+        'style-src': false
+      }
     }),
     // Makes some environment variables available in index.html.
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
