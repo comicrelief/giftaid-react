@@ -181,14 +181,14 @@ module.exports = {
             "'unsafe-inline'",
             "blob:",
             "https://fonts.googleapis.com",
-            "https://*--giftaid-react.netlify.com"
+            "https://*.netlify.com"
           ],
           'font-src': [
             "'self'",
             "'unsafe-inline'",
             "https://*.cloudfront.net",
             "https://fonts.gstatic.com",
-            "https://*--giftaid-react.netlify.com"
+            "https://*.netlify.com"
           ],
           'img-src': [
             "'self'",
@@ -201,7 +201,7 @@ module.exports = {
             "http://cdn.polyfill.io",
             "https://*.google.com",
             "https://*.cloudfront.net",
-            "https://*--giftaid-react.netlify.com",
+            "https://*.netlify.com",
             "https://www.gstatic.com",
             "https://www.google-analytics.com",
             "https://www.googletagmanager.com"
@@ -210,13 +210,13 @@ module.exports = {
             "'self'",
             "https://*.comicrelief.com",
             "https://sentry.io",
-            "https://*--giftaid-react.netlify.com"
+            "https://*.netlify.com"
           ],
           'frame-src': [
             "'self'",
             "https://*.comicrelief.com",
             "https://*.google.com",
-            "https://*--giftaid-react.netlify.com"
+            "https://*.netlify.com"
           ],
           'child-src': "'none'",
           'object-src': "'none'",
@@ -243,14 +243,14 @@ module.exports = {
         "'unsafe-inline'",
         "blob:",
         "https://fonts.googleapis.com",
-        "https://*--giftaid-react.netlify.com"
+        "https://*.netlify.com"
       ],
       'font-src': [
         "'self'",
         "'unsafe-inline'",
         "https://*.cloudfront.net",
         "https://fonts.gstatic.com",
-        "https://*--giftaid-react.netlify.com"
+        "https://*.netlify.com"
       ],
       'img-src': [
         "'self'",
@@ -263,7 +263,7 @@ module.exports = {
         "http://cdn.polyfill.io",
         "https://*.google.com",
         "https://*.cloudfront.net",
-        "https://*--giftaid-react.netlify.com",
+        "https://*.netlify.com",
         "https://www.gstatic.com",
         "https://www.google-analytics.com",
         "https://www.googletagmanager.com"
@@ -272,13 +272,13 @@ module.exports = {
         "'self'",
         "https://*.comicrelief.com",
         "https://sentry.io",
-        "https://*--giftaid-react.netlify.com"
+        "https://*.netlify.com"
       ],
       'frame-src': [
         "'self'",
         "https://*.comicrelief.com",
         "https://*.google.com",
-        "https://*--giftaid-react.netlify.com"
+        "https://*.netlify.com"
       ],
       'child-src': "'none'",
       'object-src': "'none'",
