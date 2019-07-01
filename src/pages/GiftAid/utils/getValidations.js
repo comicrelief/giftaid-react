@@ -126,7 +126,7 @@ export const defaultUpdateFormFieldValidations = {
     value: undefined,
     message: '',
   },
-  emailaddress: {
+  email: {
     valid: true,
     value: undefined,
     message: '',
