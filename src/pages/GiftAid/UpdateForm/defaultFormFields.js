@@ -76,7 +76,7 @@ export const defaultFormFields = {
   emailAddress: {
     id: 'emailaddress',
     type: 'email',
-    name: 'emailaddress',
+    name: 'email',
     label: 'Email address',
     required: false,
   }

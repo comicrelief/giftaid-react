@@ -151,6 +151,7 @@ function GiftAid(props) {
     e.preventDefault();
 
     const formValues = getFormValues(fieldValidation, urlTransactionId, updating); // get form values
+
     const { validity, validationState } = validateForm(fieldValidation, formValues, formValidityState); // validate form
     setFormValidityState(validationState); // update form validation state
 
