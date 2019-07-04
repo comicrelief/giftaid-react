@@ -33,7 +33,7 @@
     "react-router-config": "^4.4.0-beta.8",
     "react-router-dom": "^4.2.2",
     "resolve": "1.6.0",
-    "snyk": "^1.175.0",
+    "snyk": "^1.189.0",
     "susy": "^3.0.3",
     "whatwg-fetch": "2.0.3"
   },
