@@ -118,5 +118,12 @@ button[type="submit"] {
   }
 }
 
+/* Overriding CR.com styles as they look a bit ugly in this context */
 
-
+h1, h2, h3, h4, h5, .text--label, label {
+  text-transform: none;
+  strong {
+    font-family: "Sailec-Bold", sans-serif;
+    font-weight: normal;
+  }
+}
