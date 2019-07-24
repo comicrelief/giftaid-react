@@ -70,7 +70,7 @@ const validateTransactionId = (donationID) => new RegExp(transactionIdPattern).t
 const getValidation = (validation) => {
   let validity = true;
   Object.keys(validation).map((key) => {
-    if (validation[key].valid !== true && validation[key].valid !== "" && validation[key].valid !== null) {
+    if (validation[key].valid !== true ) {
       validity = false;
     }
     return true;
