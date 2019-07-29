@@ -69,9 +69,15 @@ const validateTransactionId = (donationID) => new RegExp(transactionIdPattern).t
  */
 const getValidation = (validation) => {
   let validity = true;
+  let thisFieldValidity;
+
   Object.keys(validation).map((key) => {
-    if (validation[key].valid !== true ) {
+
+    thisFieldValidity = validation[key].valid;
+
+    if (thisFieldValidity === false || thisFieldValidity !== '') {
       validity = false;
+      console.log('INVALID! - ', key, ' - is invalid')
     }
     return true;
   });
