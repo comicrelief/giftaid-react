@@ -75,8 +75,6 @@ const getValidation = (validation) => {
 
     thisField = validation[key];
 
-    console.log(key, thisField);
-
     /**
       * As we're not passing any 'required' flags to this function, a quick fix to wave our
       * optional email field through, but only if it's valid or empty
