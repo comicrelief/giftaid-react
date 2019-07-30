@@ -69,9 +69,18 @@ const validateTransactionId = (donationID) => new RegExp(transactionIdPattern).t
  */
 const getValidation = (validation) => {
   let validity = true;
+  let thisField;
+
   Object.keys(validation).map((key) => {
-    if (validation[key].valid !== true ) {
-      validity = false;
+
+    thisField = validation[key];
+
+    /**
+      * As we're not passing any 'required' flags to this function, a quick fix to wave our
+      * optional email field through, but only if it's valid or empty
+      */
+    if (thisField.valid !== true && ( key !== 'email' || thisField.showErrorMessage === true )) {
+        validity = false;
     }
     return true;
   });
