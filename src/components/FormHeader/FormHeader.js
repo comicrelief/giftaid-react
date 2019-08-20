@@ -1,7 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+// import components
+import SubmitHeader from './SubmitHeader';
+import UpdateHeader from './UpdateHeader';
+
 
 const FormHeader = (props) => {
-  const page = typeof props.page !== 'undefined' ? props.page : '';
+
+
+  const [page, setPage] = useState(typeof props.page !== 'undefined' ? props.page : '');
+
+  useEffect(() => {
+    setPage(props.page);
+    return () => {
+      setPage(undefined);
+    }
+  }, []);
+
   return (
     <div>
       <h1 className="giftaid-title">
@@ -9,36 +24,15 @@ const FormHeader = (props) => {
         Giftaid it
         </span>
       </h1>
-      <h2 className="sub-title">
-        {page === 'update' ?
-          <div>Edit your Gift Aid declaration</div>
+      <React.Fragment>
+        { page === 'update' ?
+
+          <UpdateHeader />
           :
-          <div>
-            Gift aid your donation and the
-            {' '}
-            <strong>
-              Government will give us 25%
-            </strong>
-            {' '}
-            on top of it.
-          </div>
+          <SubmitHeader />
         }
-      </h2>
-      { page === 'update' ?
-        <p className="text-align-centre">
-          We can claim Gift Aid from personal donations made by UK taxpayers:
-          the Government gives us back 25% of their value.
-        </p>
-        :
-        ''
-      }
-      {typeof props.urlTransID !== 'undefined' ?
-        <p className="text-align-centre transaction-id">
-          Transaction ID: {props.urlTransID}
-        </p>
-        :
-        ''
-      }
+      </React.Fragment>
+
     </div>
   );
 };

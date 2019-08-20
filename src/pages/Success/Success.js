@@ -1,62 +1,62 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+
+// import components
 import PromoHeader from '../../components/PromoHeader/PromoHeader';
+import ThankYou from './ThankYou';
+import ImpactMessage from './ImpactMessage';
+
+
 import SiteService from '../../service/Site.service';
 
-class Success extends Component {
-  /**
-   * Success constructor
-   */
-  constructor() {
-    super();
-    this.site = new SiteService();
-  }
+// import context
+import AppContext from '../../context/AppContext';
 
-  componentDidMount() {
-    document.title = `Success${this.site.get('title_postfix')}`;
-    if (typeof this.props.location.state === 'undefined') {
-      this.goBack();
+
+const Success = (props) => {
+
+  // get context
+  const app = useContext(AppContext);
+
+  const site = new SiteService();
+
+  // initialise state with prop from context
+  const [state, setState] = useState(app.successState);
+
+  const additionalClass = props.location.pathname === 'success'
+  || props.location.pathname === '/success' ? '' : 'update-success-wrapper';
+
+  const redirectPath = props.location.pathname === 'success'
+  || props.location.pathname === '/success' ? '/' : '/update';
+
+
+  useEffect(() => {
+    document.title = `Success${site.get('title_postfix')}`;
+
+    if (typeof state === 'undefined' || app.isCompleted === false) {
+      props.history.push({
+        pathname: redirectPath,
+      });
     }
-  }
+    return () => {
+      setState(null);
+    };
+  });
 
-  /**
-   * Go back to homepage
-   */
-  goBack() {
-    this.props.history.push({
-      pathname: '/',
-    });
-  }
-  render() {
-    return (
-      <div>
-        <PromoHeader />
-        <div className="success-wrapper">
-          <div className="success-wrapper--inner">
-            {this.props.location.state && this.props.location.state.firstname !== undefined
-              ? (
-                <h1>Thank you, <br /> {this.props.location.state.firstname}!</h1>
-              )
-              : <h1>Thank you!</h1>
-            }
-            <p>
-              We’ve registered your Gift Aid declaration, we’ll use it to pay for our operational
-              costs.
-            </p>
-            <h2>Your donation makes a big difference</h2>
-            <p>
-              Comic Relief currently supports more than 2,000 projects in the UK and around
-              the world, tackling issues like gender injustice and mental illness.
-            </p>
-            <div>
-              <a href="https://www.comicrelief.com/your-impact" className="btn btn--red">
-                Read More
-              </a>
-            </div>
-          </div>
+  return (
+    <div>
+      <PromoHeader />
+      <div className={`success-wrapper ${additionalClass}`}>
+        <div className="success-wrapper--inner">
+          <ThankYou/>
+
+          <ImpactMessage />
         </div>
       </div>
-    );
-  }
-}
+    </div>
+
+  );
+
+};
+
 
 export default Success;
