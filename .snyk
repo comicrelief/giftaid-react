@@ -37,6 +37,8 @@ patch:
     - imagemin-webpack-plugin > imagemin-optipng > optipng-bin > bin-wrapper > download > caw > tunnel-agent:
         patched: '2018-11-20T15:39:30.684Z'
   SNYK-JS-AXIOS-174505:
+    - axios:
+        patched: '2019-05-06T02:45:27.808Z'
     - '@comicrelief/storybook > axios':
         patched: '2019-06-11T10:14:46.517Z'
   SNYK-JS-LODASH-450202:
