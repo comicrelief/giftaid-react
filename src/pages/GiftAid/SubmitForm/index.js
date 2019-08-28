@@ -12,7 +12,7 @@ import JustInTime from '../../../components/JustInTime/index';
 
 
 // fields data
-import { defaultFormFields } from './defaultFormFields';
+import { submitFormFields } from './SubmitFormFields';
 
 import { marketingConsentData } from './marketingConsentData';
 
@@ -32,7 +32,10 @@ function SubmitForm(props) {
     postCodePattern,
     justInTimeLinkText,
     setFieldValidity,
+    fieldValidation,
+    setFieldValidation,
     submitForm,
+    msisdn,
   } = useContext(FormContext); // get states from context
 
   // Declare state variables
@@ -43,18 +46,45 @@ function SubmitForm(props) {
    */
   useEffect(() => {
     // Handle set input fields on component mount
+    console.log('Submit mounts');
     setInputField();
+
     return () => {
+      console.log('Submit unmounts');
       setInputFieldProps([]); // reset on component unmount
     }
   },[]);
+
+  useEffect(() => {
+    console.log('Submit mounts - msisdn: ', msisdn);
+    if (msisdn !== undefined && msisdn !== null) {
+
+      const mobileNumber = msisdn.replace('44', '0');
+      fieldValidation.mobile.valid = true;
+      fieldValidation.mobile.value = mobileNumber;
+      // document.getElementById('field-input--mobile').value = msisdn;
+      inputFieldProps.phoneNumber.fieldValue = { valid: true, value: mobileNumber };
+      setInputFieldProps(inputFieldProps);
+      setFieldValidation(fieldValidation);
+      /*inputFieldProps.mobile.valid = true;
+      inputFieldProps.mobile.value = msisdn;
+      fieldValidation.mobile.valid = true;
+      fieldValidation.mobile.value = msisdn;
+      setFieldValidation(fieldValidation);*/
+    }
+    console.log('Submit mounts - inputFieldProps: ', inputFieldProps);
+    console.log('Submit mounts - fieldValidation: ', fieldValidation);
+    return () => {
+
+    }
+  },[msisdn]);
 
   /**
    * Handle set input fields
    */
   const setInputField = () => {
     // merge input fields with default form fields
-    setInputFieldProps(mergeInputFieldProps(defaultFormFields, props));
+    setInputFieldProps(mergeInputFieldProps(submitFormFields, props));
   };
 
 

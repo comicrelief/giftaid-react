@@ -43,6 +43,7 @@ const InputFields = (props) => {
       additionalText={prop.additionalText}
       showErrorMessage={showErrorMessages}
       isValid={(state, name) => setFieldValidity(state, name)}
+      fieldValue={prop.fieldValue}
     />));
     return inputFields;
   };

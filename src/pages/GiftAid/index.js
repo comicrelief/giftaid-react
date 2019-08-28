@@ -47,6 +47,12 @@ function GiftAid(props) {
 
   const inputRef = useRef(null);
 
+  // initialise URL token state if available
+  const [token, setToken] = useState(props.match.params.token);
+
+  // initialise MSISDN state
+  const [msisdn, setMSISDN] = useState(null);
+
   // initialise URL transaction id state if available
   const [urlTransactionId, setUrlTransactionId] = useState(props.match.params.transaction_id);
 
@@ -54,15 +60,61 @@ function GiftAid(props) {
    * GiftAid component mounts
    */
   useEffect(() => {
+    console.log('Giftaid mounts');
     setPathParams(getPathParams(updating));
+    decryptToken(token);
     return () => { // GiftAid component unmounts
+      console.log('Giftaid unmounts');
       // reset states
       setFormValidityState(initialValidity);
       setFieldValidation({});
       setUpdating(false);
       setUrlTransactionId(null);
+      setToken(null);
+      setMSISDN(null);
     }
   }, []);
+
+  /**
+   * Fetches decrypted MSISDN using token
+   * @param cipherText
+   */
+  const decryptToken = (cipherText) => {
+    if (cipherText) {
+      const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
+      axios.get(`${ENDPOINT_URL}token/get/${cipherText}`)
+        .then((response) => {
+
+          console.log('fieldValidation: ', fieldValidation);
+          console.log('decryptToken data: ', response.data);
+          console.log('decryptToken response.data.data.status: ', response.data.data.status);
+          if (response.data.data.status === 'success') {
+            setMSISDN(response.data.data.response);
+            const fieldValidationState = fieldValidation;
+            fieldValidationState.mobile.valid = true;
+            fieldValidationState.mobile.value = response.data.data.response;
+            fieldValidationState.mobile.message = '';
+            console.log('Set Mobile to: ', response.data.data.response);
+            setFieldValidation(fieldValidationState);
+            /*setFieldValidation({...fieldValidation, mobile: {
+                ...fieldValidation.mobile,
+                value: response.data.data.response,
+              }});*/
+            /*setFieldValidity({
+              valid: true,
+              value: response.data.data.response,
+              message: '',
+            }, 'mobile');*/
+          }
+
+          console.log('fieldValidation - after: ', fieldValidation);
+        })
+        .catch((error) => {
+          console.log('decryptToken data: ', error);
+        })
+    }
+  };
+
 
   /**
    * Handle validity state on component update
@@ -181,6 +233,7 @@ function GiftAid(props) {
   // Pass context props to child components
   const childProps = {
     urlTransactionId,
+    msisdn,
     hiddenFields,
     postCodePattern,
     justInTimeLinkText,

@@ -44,7 +44,7 @@ export const giftAidButtonChoices = [
 * Default Update Form Fields
 *
 */
-export const defaultFormFields = {
+export const updateFormFields = {
 
   transactionId: {
     id: 'transactionId',

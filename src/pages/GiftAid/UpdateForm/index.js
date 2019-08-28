@@ -13,7 +13,7 @@ import UrlTransactionIdError from './UrlTransactionIdError';
 
 
 // fields data
-import { defaultFormFields, donationTypeChoices, giftAidButtonChoices } from './defaultFormFields';
+import { updateFormFields, donationTypeChoices, giftAidButtonChoices } from './UpdateFormFields';
 
 // import context
 import FormContext from '../../../context/FormContext';
@@ -35,7 +35,7 @@ function UpdateForm(props) {
   } = useContext(FormContext); // get props from context
 
   // Declare state variables
-  const [inputFieldProps, setInputFieldProps] = useState(defaultFormFields); // initialise form inputFieldProps state
+  const [inputFieldProps, setInputFieldProps] = useState(updateFormFields); // initialise form inputFieldProps state
 
   /**
    * Component mounts and updates
