@@ -88,9 +88,7 @@ function GiftAid(props) {
             setMSISDN(response.data.data.response);
           }
         })
-        .catch((error) => {
-          console.log('decryptToken -- error: ', error);
-        })
+        .catch()
     }
   };
 
