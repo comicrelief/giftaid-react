@@ -424,6 +424,11 @@ export const defaultUpdateFormFieldValidations = {
 };
 
 
+export const getRoute = (route) => {
+  return `${process.env.REACT_APP_ENDPOINT_URL}${route}`;
+};
+
+
 
 
 

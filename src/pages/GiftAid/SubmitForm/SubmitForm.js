@@ -17,7 +17,7 @@ import { submitFormFields } from '../SubmitFormFields';
 import { marketingConsentData } from './marketingConsentData';
 
 // Util functions
-import { mergeInputFieldProps,  } from '../utils/Utils';
+import { mergeInputFieldProps } from '../utils/Utils';
 
 // import context
 import FormContext from "../../../context/FormContext";
@@ -27,16 +27,17 @@ function SubmitForm(props) {
 
   // initialise context
   const {
-    formValidityState,
     refs,
+    setFieldValidity,
     postCodePattern,
     justInTimeLinkText,
-    setFieldValidity,
+    formValidityState,
     fieldValidation,
     setFieldValidation,
     submitForm,
-    msisdn,
   } = useContext(FormContext); // get states from context
+
+  const { msisdn } = props;
 
   // Declare state variables
   const [inputFieldProps, setInputFieldProps] = useState([]); // initialise form inputFieldProps state
@@ -45,6 +46,7 @@ function SubmitForm(props) {
    * Component mounts and updates
    */
   useEffect(() => {
+    console.log('Submit Mount --- msisdn: ', msisdn);
     // Handle set input fields on component mount
     setInputField();
     return () => {

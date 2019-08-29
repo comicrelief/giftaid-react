@@ -25,6 +25,7 @@ import {
   validateForm,
   getFieldValidations,
   initialValidity,
+  getRoute,
 } from './utils/Utils';
 
 
@@ -81,8 +82,7 @@ function GiftAid(props) {
    */
   const decryptToken = (cipherText) => {
     if (cipherText) {
-      const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
-      axios.get(`${ENDPOINT_URL}token/get/${cipherText}`)
+      axios.get(getRoute(`token/get/${cipherText}`)) // send request to endpoint
         .then((response) => {
           if (response.data.data.status === 'success') {
             setMSISDN(response.data.data.response);
@@ -102,7 +102,6 @@ function GiftAid(props) {
     // if validation fails, scroll to error
     if ((formValidityState.showErrorMessages && !formValidityState.formValidity
       && formValidityState.validating) || formValidityState.urlTransactionId.valid === false ) {
-
       // update validation state
       setFormValidityState({
         ...formValidityState,
@@ -178,11 +177,8 @@ function GiftAid(props) {
    * @param e
    */
   const submitForm = (e) => {
-
     e.preventDefault();
-
     const formValues = getFormValues(fieldValidation, urlTransactionId, updating); // get form values
-
     const { validity, validationState } = validateForm(fieldValidation, formValues, formValidityState); // validate form
     setFormValidityState(validationState); // update form validation state
 
@@ -208,32 +204,32 @@ function GiftAid(props) {
   };
 
 
-
   // Pass context props to child components
-  const childProps = {
+  const contextProps = {
     urlTransactionId,
-    msisdn,
     hiddenFields,
     postCodePattern,
     justInTimeLinkText,
-    refs: inputRef,
     formValidityState,
     fieldValidation,
     setFieldValidation: (validation) => setFieldValidation(validation),
+    setFieldValidity: (state, name) => setFieldValidity(state, name),
+    refs: inputRef,
     submitForm: (e) => submitForm(e),
-    setFieldValidity: (state, name) => setFieldValidity(state, name)
   };
 
   return (
-    <FormProvider value={childProps}>
+    <FormProvider value={contextProps}>
 
       { updating ? (
         <UpdateForm
           title="Update Form"
+          urlTransactionId={urlTransactionId}
         />
       ) : (
         <SubmitForm
           title="Submit Form"
+          msisdn={msisdn}
         />
       )}
     </FormProvider>

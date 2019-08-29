@@ -23,16 +23,18 @@ function UpdateForm(props) {
 
   // initialise context
   const {
-    urlTransactionId,
-    formValidityState,
     refs,
+    setFieldValidity,
     postCodePattern,
     justInTimeLinkText,
-    setFieldValidity,
+    formValidityState,
     fieldValidation,
     setFieldValidation,
     submitForm,
   } = useContext(FormContext); // get props from context
+
+
+  const { urlTransactionId } = props;
 
   // Declare state variables
   const [inputFieldProps, setInputFieldProps] = useState(updateFormFields); // initialise form inputFieldProps state
@@ -41,6 +43,7 @@ function UpdateForm(props) {
    * Component mounts and updates
    */
   useEffect(() => {
+    console.log('Update Mount --- props: ', props);
     // Delete if url trans Id if present
     // on component mount or update
     if (urlTransactionId !== undefined) {
