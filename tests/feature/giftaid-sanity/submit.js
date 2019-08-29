@@ -2,11 +2,12 @@ module.exports = {
 
  '@tags': ['sanity', 'submit'],
 
-    beforeEach : function(client) {
+   /* beforeEach : function(client) {
     client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
     },
-
+*/
    'Verify all elements present on giftaid submit': function (client) {
+     client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
      client
        .waitForElementVisible('body', 1000)
        .assert.elementPresent('#field-label--giftaid')
@@ -30,6 +31,7 @@ module.exports = {
    },
 
    'User completes main giftaid journey': function (client) {
+     client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
      client.page.mainGA().fillForm(client);
      client.waitForElementVisible('div > h1', 2000);
      client.expect.element('div > h1').text.to.equal('Thank you,\n' +
@@ -38,6 +40,7 @@ module.exports = {
    },
 
    'Verify error messages on giftaid form': function (client) {
+     client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
      client.click('button[type=submit]');
      client.assert.containsText('#field-error--giftaid>span', 'To Gift Aid your donation you need to tick the checkbox');
      client.assert.containsText('#field-error--mobile>span', 'Please fill in your mobile number');
@@ -52,6 +55,7 @@ module.exports = {
    },
 
    'Submit form without checking giftaid cliam should give error message': function (client) {
+     client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
      client.waitForElementPresent('#field-label--giftaid', 1000);
      client.setValue('#field-input--mobile', '07123456789');
      client.setValue('#field-input--firstname', 'test');
@@ -68,6 +72,7 @@ module.exports = {
    },
 
    'Submit form with empty mobile number should give error message': function (client) {
+     client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
      client.waitForElementPresent('#field-label--giftaid', 1000);
      client.click('#field-label--giftaid');
      client.setValue('#field-input--firstname', 'test');
@@ -84,6 +89,7 @@ module.exports = {
    },
 
    'Submit form with empty first name should give error message': function (client) {
+     client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
      client.waitForElementPresent('#field-label--giftaid', 1000);
      client.click('#field-label--giftaid');
      client.setValue('#field-input--mobile', '07123456789');
@@ -100,6 +106,7 @@ module.exports = {
    },
 
    'Submit form with empty last name should give error message': function (client) {
+     client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
      client.waitForElementPresent('#field-label--giftaid', 1000);
      client.click('#field-label--giftaid');
      client.setValue('#field-input--mobile', '07123456789');
@@ -116,6 +123,7 @@ module.exports = {
     },
 
    'Submit form with empty postcode should give error message': function (client) {
+     client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
      client.waitForElementPresent('#field-label--giftaid', 1000);
      client.click('#field-label--giftaid');
      client.setValue('#field-input--mobile', '07123456789');
@@ -129,6 +137,7 @@ module.exports = {
     },
 
    'Submit form with empty town should give error message': function (client) {
+     client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
      client.waitForElementPresent('#field-label--giftaid', 1000);
      client.click('#field-label--giftaid');
      client.setValue('#field-input--mobile', '07123456789');
@@ -146,6 +155,7 @@ module.exports = {
     },
 
    'Validate marketing prefs': function (client) {
+     client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
      client.waitForElementPresent('#field-label--giftaid', 1000);
      client.click('#field-label--giftaid');
      client.setValue('#field-input--mobile', '07123456789');
@@ -200,5 +210,15 @@ module.exports = {
      'test!');
      client.end();
 
-   }
+   },
+
+
+  'User completes main giftaid journey from link with token': function (client) {
+    client.url(process.env.BASE_URL + 'uX8R5SzcKfk=').maximizeWindow().waitForElementVisible('body', 1000);
+    client.page.mainGA().fillFormPrefilledMobile(client);
+    client.waitForElementVisible('div > h1', 2000);
+    client.expect.element('div > h1').text.to.equal('Thank you,\n' +
+      'test!');
+    client.end();
+  },
 };
