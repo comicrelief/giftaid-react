@@ -52,7 +52,6 @@ function UpdateForm(props) {
       delete fieldValidation.donationType;
     }
     setFieldValidation(fieldValidation);
-
     // Reset states on component unmount
     return () => {
       setInputFieldProps([]);

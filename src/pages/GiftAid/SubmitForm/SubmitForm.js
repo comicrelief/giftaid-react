@@ -17,7 +17,7 @@ import { submitFormFields } from '../SubmitFormFields';
 import { marketingConsentData } from './marketingConsentData';
 
 // Util functions
-import { mergeInputFieldProps } from '../utils/mergeInputFieldProps';
+import { mergeInputFieldProps,  } from '../utils/Utils';
 
 // import context
 import FormContext from "../../../context/FormContext";
@@ -46,43 +46,33 @@ function SubmitForm(props) {
    */
   useEffect(() => {
     // Handle set input fields on component mount
-    console.log('Submit mounts');
     setInputField();
-
     return () => {
-      console.log('Submit unmounts');
       setInputFieldProps([]); // reset on component unmount
     }
-  },[]);
-
-  useEffect(() => {
-    console.log('Submit mounts - msisdn: ', msisdn);
-    if (msisdn !== undefined && msisdn !== null) {
-
-      const mobileNumber = msisdn.replace('44', '0');
-      fieldValidation.mobile.valid = true;
-      fieldValidation.mobile.value = mobileNumber;
-      // document.getElementById('field-input--mobile').value = msisdn;
-      inputFieldProps.phoneNumber.fieldValue = { valid: true, value: mobileNumber };
-      setInputFieldProps(inputFieldProps);
-      setFieldValidation(fieldValidation);
-      /*inputFieldProps.mobile.valid = true;
-      inputFieldProps.mobile.value = msisdn;
-      fieldValidation.mobile.valid = true;
-      fieldValidation.mobile.value = msisdn;
-      setFieldValidation(fieldValidation);*/
-    }
-    console.log('Submit mounts - inputFieldProps: ', inputFieldProps);
-    console.log('Submit mounts - fieldValidation: ', fieldValidation);
-    return () => {
-
-    }
-  },[msisdn]);
+  });
 
   /**
    * Handle set input fields
    */
   const setInputField = () => {
+    console.log('setInputField -- msisdn: ', msisdn);
+    if (msisdn !== undefined && msisdn !== null) {
+      let mobileNumber = msisdn;
+      if (msisdn.startsWith('44')) {
+        mobileNumber = msisdn.replace('44', '0'); // replace starting 44 with 0
+      }
+      // Update validation field
+      fieldValidation.mobile.valid = true;
+      fieldValidation.mobile.value = mobileNumber;
+
+      // set form input to value
+      document.getElementById('field-input--mobile').value = mobileNumber;
+
+      // update input field property
+      submitFormFields.phoneNumber.fieldValue = { valid: true, value: mobileNumber, message: '' };
+    }
+    setFieldValidation(fieldValidation);
     // merge input fields with default form fields
     setInputFieldProps(mergeInputFieldProps(submitFormFields, props));
   };

@@ -14,18 +14,19 @@ import AppContext from '../../context/AppContext';
 //Context provider
 import { FormProvider } from '../../context/FormContext';
 
-// Get util functions
-import { getFormValues } from './utils/getFormValues';
-import { getPathParams } from './utils/getPathParams';
-import { validateForm } from './utils/validateForm';
-import { scrollToError } from './utils/scrollToError';
+// Import utility functions
 import {
-  getFieldValidations,  // form field validations
-  initialValidity // form validity initial values
-} from './utils/getValidations';
+  getFormValues,
+  scrollToError,
+  getPathParams,
+  hiddenFields,
+  postCodePattern,
+  justInTimeLinkText,
+  validateForm,
+  getFieldValidations,
+  initialValidity,
+} from './utils/Utils';
 
-// get default variables
-import { hiddenFields, postCodePattern, justInTimeLinkText } from './utils/giftaidDefaults';
 
 let scrollTimeout;
 
@@ -36,15 +37,10 @@ function GiftAid(props) {
 
   // Declare states
   const update = props.location.pathname.includes("update"); // initialise updating param state
-
   const [updating, setUpdating] = useState(update); // set to true if path contains the string update
-
   const [pathParams, setPathParams] = useState({}); // initialise submit path param state
-
   const [formValidityState, setFormValidityState] = useState(initialValidity); // intitialise form validity states
-
   const [fieldValidation, setFieldValidation] = useState(getFieldValidations(update)); // intitialise field validation state based on form type
-
   const inputRef = useRef(null);
 
   // initialise URL token state if available
@@ -60,11 +56,14 @@ function GiftAid(props) {
    * GiftAid component mounts
    */
   useEffect(() => {
-    console.log('Giftaid mounts');
-    setPathParams(getPathParams(updating));
-    decryptToken(token);
-    return () => { // GiftAid component unmounts
-      console.log('Giftaid unmounts');
+    setPathParams(getPathParams(updating)); // update path states
+    setToken(props.match.params.token); // update token state
+    setUrlTransactionId(props.match.params.transaction_id); // update url transaction id state
+    if (token) {
+      decryptToken(token); // decrypt token to MSISDN
+    }
+    return () => {
+      // GiftAid component unmounts
       // reset states
       setFormValidityState(initialValidity);
       setFieldValidation({});
@@ -75,6 +74,7 @@ function GiftAid(props) {
     }
   }, []);
 
+
   /**
    * Fetches decrypted MSISDN using token
    * @param cipherText
@@ -84,33 +84,12 @@ function GiftAid(props) {
       const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
       axios.get(`${ENDPOINT_URL}token/get/${cipherText}`)
         .then((response) => {
-
-          console.log('fieldValidation: ', fieldValidation);
-          console.log('decryptToken data: ', response.data);
-          console.log('decryptToken response.data.data.status: ', response.data.data.status);
           if (response.data.data.status === 'success') {
             setMSISDN(response.data.data.response);
-            const fieldValidationState = fieldValidation;
-            fieldValidationState.mobile.valid = true;
-            fieldValidationState.mobile.value = response.data.data.response;
-            fieldValidationState.mobile.message = '';
-            console.log('Set Mobile to: ', response.data.data.response);
-            setFieldValidation(fieldValidationState);
-            /*setFieldValidation({...fieldValidation, mobile: {
-                ...fieldValidation.mobile,
-                value: response.data.data.response,
-              }});*/
-            /*setFieldValidity({
-              valid: true,
-              value: response.data.data.response,
-              message: '',
-            }, 'mobile');*/
           }
-
-          console.log('fieldValidation - after: ', fieldValidation);
         })
         .catch((error) => {
-          console.log('decryptToken data: ', error);
+          console.log('decryptToken -- error: ', error);
         })
     }
   };
