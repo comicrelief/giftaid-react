@@ -12,7 +12,7 @@ import JustInTime from '../../../components/JustInTime/index';
 
 
 // fields data
-import { submitFormFields } from '../SubmitFormFields';
+import { submitFormFields } from './SubmitFormFields';
 
 import { marketingConsentData } from './marketingConsentData';
 
