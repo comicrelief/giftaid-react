@@ -13,7 +13,7 @@ import UrlTransactionIdError from './UrlTransactionIdError';
 
 
 // fields data
-import { updateFormFields, donationTypeChoices, giftAidButtonChoices } from './UpdateFormFields';
+import { updateFormFields, donationTypeChoices, giftAidButtonChoices } from '../UpdateFormFields';
 
 // import context
 import FormContext from '../../../context/FormContext';
