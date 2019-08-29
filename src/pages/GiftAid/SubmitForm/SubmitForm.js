@@ -46,7 +46,6 @@ function SubmitForm(props) {
    * Component mounts and updates
    */
   useEffect(() => {
-    console.log('Submit Mount --- msisdn: ', msisdn);
     // Handle set input fields on component mount
     setInputField();
     return () => {
@@ -58,7 +57,6 @@ function SubmitForm(props) {
    * Handle set input fields
    */
   const setInputField = () => {
-    console.log('setInputField -- msisdn: ', msisdn);
     if (msisdn !== undefined && msisdn !== null) {
       let mobileNumber = msisdn;
       if (msisdn.startsWith('44')) {
