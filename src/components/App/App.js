@@ -17,15 +17,14 @@ import GiftAidPage from '../../pages/GiftAid';
 import Success from '../../pages/Success/Success';
 import Sorry from '../../pages/Sorry/Sorry';
 
-
 //Context provider
 import { AppProvider } from '../../context/AppContext';
 
 // Site config
 import SiteService from '../../service/Site.service';
 
-
 const site = new SiteService();
+
 
 function App (props) {
 
@@ -42,8 +41,7 @@ function App (props) {
    * App mounts
    */
   useEffect(() => {
-    // Initialise GTM on component mount
-    getGTM();
+    getGTM(); // Initialise GTM on component mount
   },[]);
 
   /**
@@ -106,6 +104,7 @@ function App (props) {
             <Route exact path="/update/sorry" render={props => <Sorry {...props} />}/>
             <DefaultRoute exact path="/update/:transaction_id" component={GiftAidPage} />
             <DefaultRoute exact path="/update" component={GiftAidPage} />
+            <DefaultRoute exact path="/:token" component={GiftAidPage} />
             <DefaultRoute exact path="/" component={GiftAidPage} />
             <Redirect push to="/" />
 

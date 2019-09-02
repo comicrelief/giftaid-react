@@ -138,3 +138,25 @@ describe('Ensure redirect functionality from Success page', () => {
   });
 });
 
+describe('Ensure mobile number is prefilled', () => {
+  it('Visit Submit page', () => {
+    cy.visit('/uX8R5SzcKfk=').wait(1000)
+  });
+
+  it('Verify title and header', () => {
+    cy.title().should('eq', 'Gift Aid declaration | Comic Relief');
+    cy.get('.giftaid-title>span').should('contain', 'Giftaid it')
+
+  });
+
+  it('Verify mobile field is prefilled', () => {
+    cy
+      .get('#field-input--giftaid').should('have.value', "")
+      .get('#field-input--mobile').should('have.value', "07777111222")
+      .get('#field-input--firstname').should('have.value', "")
+      .get('#field-input--lastname').should('have.value', "")
+      .get('#field-input--postcode').should('have.value', "")
+  });
+
+});
+

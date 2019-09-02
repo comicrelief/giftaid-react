@@ -3,7 +3,7 @@
 * Default Submit Form Fields
 *
 */
-export const defaultFormFields = {
+export const submitFormFields = {
 
   giftaidCheck: {
     id: 'giftaid',
