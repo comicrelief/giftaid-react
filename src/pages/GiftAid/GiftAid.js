@@ -163,7 +163,6 @@ function GiftAid(props) {
         }
         const cloneFieldValidation = fieldValidation;
         cloneFieldValidation[name] = childState;
-        // setFieldValidation({...fieldValidation, [name]: childState});
         setFieldValidation({...cloneFieldValidation});
 
         return {
