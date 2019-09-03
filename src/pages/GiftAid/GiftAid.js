@@ -166,7 +166,7 @@ function GiftAid(props) {
         setFieldValidation({...cloneFieldValidation});
 
         return {
-          ...fieldValidation,
+          ...cloneFieldValidation,
         };
       }
     }
