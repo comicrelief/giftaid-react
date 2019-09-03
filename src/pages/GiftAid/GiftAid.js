@@ -161,12 +161,11 @@ function GiftAid(props) {
             }
           });
         }
-        const cloneFieldValidation = fieldValidation;
-        cloneFieldValidation[name] = childState;
-        setFieldValidation({...cloneFieldValidation});
+        fieldValidation[name] = childState;
+        setFieldValidation({...fieldValidation});
 
         return {
-          ...cloneFieldValidation,
+          ...fieldValidation,
         };
       }
     }
