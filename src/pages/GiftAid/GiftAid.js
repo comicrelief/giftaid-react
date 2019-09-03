@@ -161,7 +161,11 @@ function GiftAid(props) {
             }
           });
         }
-        setFieldValidation({...fieldValidation, [name]: childState});
+        const cloneFieldValidation = fieldValidation;
+        cloneFieldValidation[name] = childState;
+        // setFieldValidation({...fieldValidation, [name]: childState});
+        setFieldValidation({...cloneFieldValidation});
+
         return {
           ...fieldValidation,
         };
@@ -175,6 +179,7 @@ function GiftAid(props) {
    * @param e
    */
   const submitForm = (e) => {
+
     e.preventDefault();
     const formValues = getFormValues(fieldValidation, urlTransactionId, updating); // get form values
     const { validity, validationState } = validateForm(fieldValidation, formValues, formValidityState); // validate form

@@ -198,7 +198,6 @@ export const validateForm = (validation, formValues = {}, formValidity = {}) => 
       validating: true,
     };
     if (transIdValidity !== null && !transIdValidity && donationId !== undefined && donationId !== null) {
-
       // set transaction id failed state
       validationState.urlTransactionId = {
         ...formValidity.urlTransactionId,
