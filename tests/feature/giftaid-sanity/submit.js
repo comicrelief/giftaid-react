@@ -9,7 +9,6 @@ module.exports = {
    'Verify all elements present on giftaid submit': function (client) {
      client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
      client
-       .waitForElementVisible('body', 1000)
        .assert.elementPresent('#field-label--giftaid')
        .assert.elementPresent('#field-input--mobile')
        .assert.elementPresent('#field-input--firstname')
