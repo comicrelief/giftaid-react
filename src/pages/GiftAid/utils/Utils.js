@@ -207,16 +207,15 @@ export const validateForm = (validation, formValues = {}, formValidity = {}) => 
       }
     }
   }
-  if (formValues.email) {
-    console.log('email', formValues.email);
-    TagManager.dataLayer({
-      dataLayer: {
-        user: {
-          userEmail: formValues.email === "" ? 'N' : formValues.email,
-        },
+  const email = formValues.email && formValues.email !== "" ? formValues.email : 'N';
+  console.log('email', email)
+  TagManager.dataLayer({
+    dataLayer: {
+      user: {
+        userEmail: email,
       },
-    });
-  }
+    },
+  });
   return {
     validity: fieldValidity && (transIdValidity === null || transIdValidity),
     validationState,
