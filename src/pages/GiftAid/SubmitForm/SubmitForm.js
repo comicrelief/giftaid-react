@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
 import propTypes from 'prop-types';
-import TagManager from 'react-gtm-module';
 
 // import components
 import PostcodeLookup from "@comicrelief/storybook/src/components/PostcodeLookup";
@@ -51,20 +50,6 @@ function SubmitForm(props) {
     setInputField();
     return () => {
       setInputFieldProps([]); // reset on component unmount
-    }
-  });
-
-  useEffect(() => {
-    if (fieldValidation.permissionEmail.fieldValidation.email && fieldValidation.permissionEmail.fieldValidation.email !== null ) {
-      const email = fieldValidation.permissionEmail.fieldValidation.email.value;
-      console.log('fieldValidation', fieldValidation, 'email', email);
-      TagManager.dataLayer({
-        dataLayer: {
-          user: [{
-            userEmail: email === "" ? 'N' : email,
-          }],
-        },
-      });
     }
   });
 
