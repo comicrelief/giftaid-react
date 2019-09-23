@@ -208,12 +208,12 @@ export const validateForm = (validation, formValues = {}, formValidity = {}) => 
     }
   }
   const email = formValues.email && formValues.email !== "" ? formValues.email : 'N';
-  console.log('email', email)
   TagManager.dataLayer({
     dataLayer: {
       user: {
         userEmail: email,
       },
+      event: 'custUserEmail',
     },
   });
   return {

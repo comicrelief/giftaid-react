@@ -58,9 +58,15 @@ function App (props) {
           pageSubCategory: '',
           environment: process.env.REACT_APP_ENVIRONMENT,
         }],
+      },
+    });
+
+    TagManager.dataLayer({
+      dataLayer: {
         user: {
-          userEmail: "N"
+          userEmail: 'N',
         },
+        event: 'custUserEmail',
       },
     });
   };
