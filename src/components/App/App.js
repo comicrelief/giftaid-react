@@ -35,6 +35,7 @@ function App (props) {
     firstname: undefined,
     giftAidChoice: undefined,
   };
+  
   const [successState, setSuccessState] = useState(initialState); // initialise successState state
 
   /**
@@ -57,6 +58,15 @@ function App (props) {
           pageSubCategory: '',
           environment: process.env.REACT_APP_ENVIRONMENT,
         }],
+      },
+    });
+
+    TagManager.dataLayer({
+      dataLayer: {
+        user: {
+          userEmail: 'N',
+        },
+        event: 'custUserEmail',
       },
     });
   };

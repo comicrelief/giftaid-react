@@ -1,4 +1,5 @@
 import SiteService from "../../../service/Site.service";
+import TagManager from 'react-gtm-module';
 
 const site = new SiteService();
 const url = site.getCurrentUrl();
@@ -206,6 +207,15 @@ export const validateForm = (validation, formValues = {}, formValidity = {}) => 
       }
     }
   }
+  const email = formValues.email && formValues.email !== "" ? formValues.email : 'N';
+  TagManager.dataLayer({
+    dataLayer: {
+      user: {
+        userEmail: email,
+      },
+      event: 'custUserEmail',
+    },
+  });
   return {
     validity: fieldValidity && (transIdValidity === null || transIdValidity),
     validationState,
