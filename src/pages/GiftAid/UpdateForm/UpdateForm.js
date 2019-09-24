@@ -43,7 +43,6 @@ function UpdateForm(props) {
    * Component mounts and updates
    */
   useEffect(() => {
-    console.log('Update Mount --- props: ', props);
     // Delete if url trans Id if present
     // on component mount or update
     if (urlTransactionId !== undefined) {
