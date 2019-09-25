@@ -298,7 +298,8 @@ module.exports = {
             "'unsafe-inline'",
             "blob:",
             "https://fonts.googleapis.com",
-            "https://*.netlify.com"
+            "https://*.netlify.com",
+            "https://www.tagmanager.google.com"
           ],
           'font-src': [
             "'self'",
@@ -322,7 +323,8 @@ module.exports = {
             "https://*.netlify.com",
             "https://www.gstatic.com",
             "https://www.google-analytics.com",
-            "https://www.googletagmanager.com"
+            "https://www.googletagmanager.com",
+            "https://www.tagmanager.google.com"
           ],
           'connect-src': [
             "'self'",
