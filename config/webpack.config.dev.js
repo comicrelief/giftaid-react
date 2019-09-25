@@ -182,7 +182,7 @@ module.exports = {
             "blob:",
             "https://fonts.googleapis.com",
             "https://*.netlify.com",
-            "https://www.tagmanager.google.com"
+            "https://tagmanager.google.com/debug/css.css"
           ],
           'font-src': [
             "'self'",
