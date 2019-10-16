@@ -1,7 +1,7 @@
 const submitCommands = {
   fillForm: function (client) {
     return client
-      .click('#field-input--giftaid')
+      .click('#field-label--giftaid')
       .setValue('#field-input--mobile', '07123456789')
       .setValue('#field-input--firstname', 'test')
       .setValue('#field-input--lastname', 'user')
@@ -15,7 +15,7 @@ const submitCommands = {
   },
   fillFormPrefilledMobile: function (client) {
     return client
-      .click('#field-input--giftaid')
+      .click('#field-label--giftaid')
       .setValue('#field-input--firstname', 'test')
       .setValue('#field-input--lastname', 'user')
       .setValue('#field-input--postcode', 'se1 7tp')

@@ -9,7 +9,7 @@ const updateCommands = {
       .pause(200)
       .setValue('#field-input--address1', '21 test road')
       .setValue('#field-input--town', 'London')
-      .click('input[type="radio"][value="1"]')
+      .click('#giftAidClaimChoice>div:nth-child(2)>label')
       .click('button[type=submit]')
       .pause(5000);
     },

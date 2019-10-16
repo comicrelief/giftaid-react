@@ -152,7 +152,6 @@ module.exports = {
      client.assert.containsText('#field-error--town', 'Please fill in your town/city');
      client.end();
     },
-
    'Validate marketing prefs': function (client) {
      client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
      client.waitForElementPresent('#field-label--giftaid', 1000);
@@ -168,40 +167,40 @@ module.exports = {
      client.expect.element('.form__row--marketing-consent>div>p:nth-child(2)').text.to.equal('How would you like to hear from us?');
      //email
      client.waitForElementVisible('#field-wrapper--Email', 1000);
-     client.click('input[name="permissionEmail"][value="no"]');
-     client.assert.value('input[name="permissionEmail"][value="no"]', 'no');
+     client.click('#field-wrapper--Email>div:nth-child(2)>label');
+     client.assert.containsText('#field-wrapper--Email>div:nth-child(2)>label', 'No');
      client.assert.elementNotPresent('#field-input--email');
-     client.click('input[name="permissionEmail"][value="yes"]');
-     client.assert.value('input[name="permissionEmail"][value="yes"]', 'yes');
+     client.click('#field-wrapper--Email>div:nth-child(1)>label');
+     client.assert.containsText('#field-wrapper--Email>div:nth-child(1)>label', 'Yes');
      client.assert.elementPresent('#field-input--email');
      client.setValue('#field-input--email','test@.com');
      client.waitForElementPresent('#field-error--email', 2000);
      client.assert.containsText('#field-error--email', 'Please fill in a valid email address');
      client.clearValue('#field-input--email');
-     client.waitForElementVisible('#field-wrapper--Post', 1000);
-     client.click('input[name="permissionPost"][value="no"]');
+     client.click('button[type=submit]');
      client.assert.containsText('#field-error--email', 'Please fill in your email address');
-     client.setValue('#field-input--email', 'test@comicrelief.com');
-     client.assert.elementNotPresent('#field-error--email');
      //post
      client.waitForElementVisible('#field-wrapper--Post', 2000);
-     client.click('input[name="permissionPost"][value="no"]');
-     client.assert.value('input[name="permissionEmail"][value="no"]', 'no');
-     client.click('input[name="permissionPost"][value="yes"]');
-     client.assert.value('input[name="permissionPost"][value="yes"]', 'yes');
+     client.click('#field-wrapper--Post>div:nth-child(2)>label');
+     client.assert.containsText('#field-wrapper--Post>div:nth-child(2)>label', 'No');
+     client.click('#field-wrapper--Post>div:nth-child(1)>label');
+     client.assert.containsText('#field-wrapper--Post>div:nth-child(1)>label', 'Yes');
      //phone
      client.waitForElementVisible('#field-wrapper--Phone', 2000);
-     client.click('input[name="permissionPhone"][value="no"]');
-     client.assert.value('input[name="permissionPhone"][value="no"]', 'no');
-     client.click('input[name="permissionPhone"][value="yes"]');
-     client.assert.value('input[name="permissionPhone"][value="yes"]', 'yes');
+     client.click('#field-wrapper--Phone>div:nth-child(2)>label');
+     client.assert.containsText('#field-wrapper--Phone>div:nth-child(2)>label', 'No');
+     client.click('#field-wrapper--Phone>div:nth-child(1)>label');
+     client.assert.containsText('#field-wrapper--Phone>div:nth-child(1)>label', 'Yes');
      //SMS
      client.waitForElementVisible('#field-wrapper--SMS', 2000);
-     client.click('input[name="permissionSMS"][value="no"]');
-     client.assert.value('input[name="permissionSMS"][value="no"]', 'no');
-     client.click('input[name="permissionSMS"][value="yes"]');
-     client.assert.value('input[name="permissionSMS"][value="yes"]', 'yes');
+     client.click('#field-wrapper--SMS>div:nth-child(2)>label');
+     client.assert.containsText('#field-wrapper--SMS>div:nth-child(2)>label', 'No');
+     client.click('#field-wrapper--SMS>div:nth-child(1)>label');
+     client.assert.containsText('#field-wrapper--SMS>div:nth-child(1)>label', 'Yes');
 
+     //enter valid email
+     client.setValue('#field-input--email', 'test@comicrelief.com');
+     client.assert.elementNotPresent('#field-error--email');
      client.click('button[type=submit]');
      client.pause(5000);
      client.waitForElementVisible('div > h1', 2000);
@@ -212,12 +211,12 @@ module.exports = {
    },
 
 
-  'User completes main giftaid journey from link with token': function (client) {
-    client.url(process.env.BASE_URL + 'uX8R5SzcKfk=').maximizeWindow().waitForElementVisible('body', 1000);
-    client.page.mainGA().fillFormPrefilledMobile(client);
-    client.waitForElementVisible('div > h1', 2000);
-    client.expect.element('div > h1').text.to.equal('Thank you,\n' +
-      'test!');
-    client.end();
-  },
+   'User completes main giftaid journey from link with token': function (client) {
+     client.url(process.env.BASE_URL + 'uX8R5SzcKfk=').maximizeWindow().waitForElementVisible('body', 1000);
+     client.page.mainGA().fillFormPrefilledMobile(client);
+     client.waitForElementVisible('div > h1', 2000);
+     client.expect.element('div > h1').text.to.equal('Thank you,\n' +
+       'test!');
+     client.end();
+   },
 };

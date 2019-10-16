@@ -49,7 +49,7 @@ module.exports = {
   'User completes giftaid update journey from sms': function (client) {
     //sms
     client.url(process.env.BASE_URL + 'update/3D487A59-716B-440D-BD43-50ED301DD9BA').maximizeWindow().waitForElementVisible('body', 1000);
-    client.click('input[type="radio"][value="sms"]');
+    client.click('#donationType>div:nth-child(2)>label');
     client.page.updateGA().fillFormUpdateYes(client);
     client.waitForElementVisible('div.success-wrapper--inner>div>h1', 1000);
     client.expect.element('div.success-wrapper--inner>div>h1').text.to.equal('Thank you,\n' + 'test!');
@@ -60,7 +60,7 @@ module.exports = {
     //online
     client.url(process.env.BASE_URL + 'update/bb9aa5c9-5d93-4a34-a102-aaf378d16a73').maximizeWindow().waitForElementVisible('body', 1000);
     client.expect.element('p.text-align-centre.transaction-id').text.to.equal('Transaction ID: bb9aa5c9-5d93-4a34-a102-aaf378d16a73');
-    client.click('input[type="radio"][value="online"]');
+    client.click('#donationType>div:nth-child(3)>label');
     client.page.updateGA().fillFormUpdateYes(client);
     client.waitForElementVisible('div.success-wrapper--inner > div > h1', 1000);
     client.expect.element('div.success-wrapper--inner>div>h1').text.to.equal('Thank you,\n' + 'test!');
@@ -69,8 +69,9 @@ module.exports = {
 
   'User completes giftaid update journey from call centre': function (client) {
     //call centre
-    client.url(process.env.BASE_URL + 'update').maximizeWindow().waitForElementVisible('body', 1000);
-    client.setValue('#field-input--transactionId', '5c6a89f170022');
+    client.url(process.env.BASE_URL + 'update/bc7ba5c9-5d93-4a34-a102-aaf378d16a74').maximizeWindow().waitForElementVisible('body', 1000);
+    client.expect.element('p.text-align-centre.transaction-id').text.to.equal('Transaction ID: bc7ba5c9-5d93-4a34-a102-aaf378d16a74');
+      client.click('#donationType>div:nth-child(4)>label');
     client.page.updateGA().fillFormUpdateYes(client);
     client.waitForElementVisible('div.success-wrapper--inner>div>h1', 1000);
     client.expect.element('div.success-wrapper--inner>div>h1').text.to.equal('Thank you,\n' + 'test!');
@@ -88,7 +89,7 @@ module.exports = {
 
   'Verify url error message on Giftaid update form with invalid UUID': function (client) {
     client.url(process.env.BASE_URL + 'update/test').maximizeWindow().waitForElementVisible('body', 1000);
-    client.click('input[type="radio"][value="online"]');
+    client.click('#donationType>div:nth-child(3)>label');
     client.page.updateGA().fillFormUpdateYes(client);
     client.assert.containsText('#field-error--urlTransID>span', 'This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter')
     client.end();
