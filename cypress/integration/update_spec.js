@@ -236,19 +236,7 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
     })
 
     it('verify footer menu', () => {
-        cy.get('a[href*="/contact-us"]').should('contain', 'Contact us')
-        cy.get('a[href*="/working-with-us"]').should('contain', 'Partners')
-        cy.get('a[href*="/careers"]').should('contain', 'Careers')
-        cy.get('a[href*="/legal"]').should('contain', 'Legal')
-        cy.get('a[href*="/press-releases"]').should('contain', 'Press Area')
-        cy.get('a[href*="/reporting-concerns"]').should('contain', 'Reporting concerns')
-        cy.get('a[href*="/update-your-preferences"]').should('contain', 'Update your preferences')
-        cy.get('a[href*="/privacy-notice"]').should('contain', 'Privacy')
-        cy.get('a[href*="/cookies-policy"]').should('contain', 'Cookies')
-        cy.get('a[href*="/frequently-asked-questions"]').should('contain', 'FAQs')
-        cy.get('a[href*="/accessibility"]').should('contain', 'Accessibility')
-        cy.get('a[href*="/sitemap"]').should('contain', 'Sitemap')
-        cy.get('a[href*="/comic-reliefs-statement"]').should('contain', 'Modern slavery and human trafficking')
+        cy.get('a[href*="https://www.comicrelief.com/contact-us"]').should('contain', 'Contact Us')
     })
 
     it('Verify footer copyright', () => {
