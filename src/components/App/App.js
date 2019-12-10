@@ -35,7 +35,7 @@ function App (props) {
     firstname: undefined,
     giftAidChoice: undefined,
   };
-  
+
   const [successState, setSuccessState] = useState(initialState); // initialise successState state
 
   /**
@@ -90,9 +90,6 @@ function App (props) {
           Gift Aid declaration | Comic Relief
         </title>
         <meta name="description" content={site.get('meta').description} />
-        <meta property="og:title" content="Gift Aid your donation" />
-        <meta property="og:image" content="/images/thank-you-mob.jpg" />
-        <meta property="og:site_name" content="Comic Relief" />
         <meta property="og:url" content={window.location.href} />
         <meta property="og:description" content={site.get('meta').description} />
         <meta name="keywords" content={site.get('meta').keywords} />
