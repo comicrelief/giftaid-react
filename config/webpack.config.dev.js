@@ -206,7 +206,8 @@ module.exports = {
             "https://www.gstatic.com",
             "https://www.google-analytics.com",
             "https://www.googletagmanager.com",
-            "https://www.tagmanager.google.com"
+            "https://www.tagmanager.google.com",
+            "https://connect.facebook.net"
           ],
           'connect-src': [
             "'self'",
