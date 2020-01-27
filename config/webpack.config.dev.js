@@ -268,7 +268,8 @@ module.exports = {
         "https://*.netlify.com",
         "https://www.gstatic.com",
         "https://www.google-analytics.com",
-        "https://www.googletagmanager.com"
+        "https://www.googletagmanager.com",
+        "https://connect.facebook.net"
       ],
       'connect-src': [
         "'self'",
