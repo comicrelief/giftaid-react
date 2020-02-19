@@ -1,24 +1,24 @@
 import React from 'react';
 
 import Logo from './Logo';
-import { url } from '../../pages/GiftAid/utils/Utils';
-import SiteConfig from '../../config/site.json';
+import SiteService from '../../service/Site.service';
 
 const Header = () => {
-	const isCR = url.includes('comic');
+	const { logo, alt, home_url, title_postfix} = new SiteService().config;
+	const title = title_postfix.substring(2).trim();
 	return (
 		<header className='header' role='banner'>
 			<div className='header__inner-wrapper'>
 				<div id='block-branding' className='block block-branding'>
 					<Logo
 						href={
-							isCR ? SiteConfig.CRGIFTAID.logo : SiteConfig.SRGIFTAID.home_url
+							home_url
 						}
 						className='site-logo'
-						title='Comic Relief'
+						title={title}
 						rel='home noopener noreferrer'
-						logo={isCR ? SiteConfig.CRGIFTAID.logo : SiteConfig.SRGIFTAID.logo}
-						alt={isCR ? SiteConfig.CRGIFTAID.alt : SiteConfig.SRGIFTAID.alt}
+						logo={logo}
+						alt={alt}
 					/>
 				</div>
 			</div>

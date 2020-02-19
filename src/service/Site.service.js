@@ -1,7 +1,12 @@
 import SiteConfig from '../config/site.json';
 
-const SITE = process.env.REACT_APP_SITE;
-const DEFAULT_SITE = 'CRGIFTAID';
+let SITE = process.env.REACT_APP_SITE;
+let DEFAULT_SITE = 'CRGIFTAID';
+
+if(window.location.hostname.includes('sportrelief')) {
+  SITE = 'SRGIFTAID';
+  DEFAULT_SITE = 'SRGIFTAID';
+}
 
 /**
  * SiteService class

@@ -2,7 +2,7 @@ import SiteService from "../../../service/Site.service";
 import TagManager from 'react-gtm-module';
 
 const site = new SiteService();
-export const url = site.getCurrentUrl();
+const url = site.getCurrentUrl();
 const campaign = site.get('campaign').name;
 const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
 
