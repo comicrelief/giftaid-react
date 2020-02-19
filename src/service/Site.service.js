@@ -82,7 +82,7 @@ export default class SiteService {
   getCampaign(url) {
     // let campaign;
     if (url.includes('sportrelief')) {
-      this.campaign = 'SR18';
+      this.campaign = 'SR20';
     } else if (url.includes('rednoseday')) {
       this.campaign = 'RND19';
     } else {
