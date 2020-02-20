@@ -83,48 +83,48 @@ function App(props) {
 	};
 
 	return (
-		<div className='App'>
+		<div className="App">
 			<Header />
 
 			<MetaTags>
 				<title>Gift Aid declaration | Comic Relief</title>
-				<meta name='description' content={site.get('meta').description} />
-				<meta property='og:url' content={window.location.href} />
+				<meta name="description" content={site.get('meta').description} />
+				<meta property="og:url" content={window.location.href} />
 				<meta
-					property='og:description'
+					property="og:description"
 					content={site.get('meta').description}
 				/>
-				<meta name='keywords' content={site.get('meta').keywords} />
+				<meta name="keywords" content={site.get('meta').keywords} />
 			</MetaTags>
 
-			<Raven dsn='https://25f53d059e1f488f9d0f000ffd500585@sentry.io/1228720' />
+			<Raven dsn="https://25f53d059e1f488f9d0f000ffd500585@sentry.io/1228720" />
 
 			<Router>
 				<AppProvider value={childProps}>
 					<ScrollToTop />
 					<Switch>
-						<Route exact path='/sorry' render={props => <Sorry {...props} />} />
-						<CompletedRoute exact path='/success' component={Success} />
-						<CompletedRoute exact path='/update/success' component={Success} />
+						<Route exact path="/sorry" render={props => <Sorry {...props} />} />
+						<CompletedRoute exact path="/success" component={Success} />
+						<CompletedRoute exact path="/update/success" component={Success} />
 						<Route
 							exact
-							path='/update/sorry'
+							path="/update/sorry"
 							render={props => <Sorry {...props} />}
 						/>
 						<DefaultRoute
 							exact
-							path='/update/:transaction_id'
+							path="/update/:transaction_id"
 							component={GiftAidPage}
 						/>
-						<DefaultRoute exact path='/update' component={GiftAidPage} />
-						<DefaultRoute exact path='/:token' component={GiftAidPage} />
-						<DefaultRoute exact path='/' component={GiftAidPage} />
-						<Redirect push to='/' />
+						<DefaultRoute exact path="/update" component={GiftAidPage} />
+						<DefaultRoute exact path="/:token" component={GiftAidPage} />
+						<DefaultRoute exact path="/" component={GiftAidPage} />
+						<Redirect push to="/" />
 					</Switch>
 				</AppProvider>
 			</Router>
 
-			<Footer campaign='comicrelief' copy='copyright 2018' />
+			<Footer campaign="comicrelief" copy="copyright 2018" />
 		</div>
 	);
 }
