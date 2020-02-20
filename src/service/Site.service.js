@@ -3,7 +3,7 @@ import SiteConfig from '../config/site.json';
 let SITE = process.env.REACT_APP_SITE;
 let DEFAULT_SITE = 'CRGIFTAID';
 
-if(window.location.hostname.includes('sportrelief')) {
+if(!window.location.hostname.includes('sportrelief')) {
   SITE = 'SRGIFTAID';
   DEFAULT_SITE = 'SRGIFTAID';
 }

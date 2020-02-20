@@ -14,7 +14,7 @@ const Header = () => {
 						href={
 							home_url
 						}
-						className={!home_url.includes('sport')? 'site-logo': 'sr-logo'}
+						className={!home_url.includes('sportrelief')? 'site-logo': 'sr-logo'}
 						title={title}
 						rel='home noopener noreferrer'
 						logo={logo}
