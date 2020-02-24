@@ -4,9 +4,7 @@ import TagManager from 'react-gtm-module';
 const site = new SiteService();
 const url = site.getCurrentUrl();
 const campaign = site.get('campaign').name;
-
 const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
-
 
 /**
  * Function to Scroll to and focus on field(s) with error

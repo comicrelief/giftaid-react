@@ -1,26 +1,29 @@
 import React from 'react';
-import logo from './images/CR18-logo.svg';
 
 import Logo from './Logo';
+import SiteService from '../../service/Site.service';
 
-const Header = (props) => {
-
-  return (
-    <header className="header" role="banner">
-      <div className="header__inner-wrapper">
-        <div id="block-branding" className="block block-branding">
-          <Logo
-            href="https://www.comicrelief.com"
-            className="site-logo"
-            title="Comic Relief"
-            rel="home noopener noreferrer"
-            logo={logo}
-            alt="Go to Comic Relief"
-          />
-        </div>
-      </div>
-    </header>
-  );
+const Header = () => {
+	const { logo, alt, home_url, title_postfix } = new SiteService().config;
+	const title = title_postfix.substring(2).trim();
+	return (
+		<header className='header' role='banner'>
+			<div className='header__inner-wrapper'>
+				<div id='block-branding' className='block block-branding'>
+					<Logo
+						href={home_url}
+						className={
+							!home_url.includes('sportrelief') ? 'site-logo' : 'sr-logo'
+						}
+						title={title}
+						rel='home noopener noreferrer'
+						logo={logo}
+						alt={alt}
+					/>
+				</div>
+			</div>
+		</header>
+	);
 };
 
 export default Header;
