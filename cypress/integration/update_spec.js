@@ -236,7 +236,7 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
     })
 
     it('verify footer menu', () => {
-        cy.get('a[href*="https://www.comicrelief.com/contact-us"]').should('contain', 'Contact Us')
+        cy.get('nav ul li a[href*="https://www.comicrelief.com/contact-us"]').should('contain', 'Contact Us')
     })
 })
 
