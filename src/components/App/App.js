@@ -157,7 +157,7 @@ function App(props) {
 				</AppProvider>
 			</Router>
 
-			<Footer copy={copy} campaign="comicrelief" fallbackMenu={fallbackMenu} />
+			<Footer copy={copy} campaign={isSRCampaign ? 'sportrelief' : 'comicrelief'} fallbackMenu={fallbackMenu} />
 		</div>
 	);
 }
