@@ -82,7 +82,7 @@ function App(props) {
 		setSuccessState: state => setSuccessState(state),
 	};
 
-	const isSRCampaign = window.location.hostname.includes('sportrelief');
+	const isSRCampaign = true;
 
 	const copy = isSRCampaign
 		? `Sport Relief is an initiative of Comic Relief. Comic Relief is the trading name of Charity Projects, a registered charity in England and Wales (326568) and Scotland (SC039730), which is a company limited by
@@ -157,7 +157,7 @@ function App(props) {
 				</AppProvider>
 			</Router>
 
-			<Footer copy={copy} campaign={!isSRCampaign ? 'sportrelief' : 'comicrelief'} fallbackMenu={fallbackMenu} />
+			<Footer copy={copy} campaign={isSRCampaign ? 'sportrelief' : 'comicrelief'} fallbackMenu={fallbackMenu} />
 		</div>
 	);
 }
