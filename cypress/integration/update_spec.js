@@ -236,12 +236,13 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
     })
 
     it('verify footer menu', () => {
-        cy.get('a[href*="https://www.comicrelief.com/contact-us"]').should('contain', 'Contact Us')
+        cy.wait(5000)
+          .get('footer nav.menu--footer ul li a[href*="https://www.comicrelief.com/contact-us"]').should('contain', 'Contact Us')
     })
 
     it('Verify footer copyright', () => {
       cy.wait(5000)
-        .get('div.footer__copyright > p').should('contain','Comic Relief is the trading name of Charity Projects, a registered charity in England and Wales (326568) and Scotland (SC039730), which is a company limited by guarantee registered in England and Wales (01806414). Registered address: 1st Floor, 89 Albert Embankment, London, SE1 7TP.')
+        .get('footer div.footer__copyright > p').should('contain','Comic Relief is the trading name of Charity Projects, a registered charity in England and Wales (326568) and Scotland (SC039730), which is a company limited by guarantee registered in England and Wales (01806414). Registered address: 1st Floor, 89 Albert Embankment, London, SE1 7TP.')
     })
 })
 
