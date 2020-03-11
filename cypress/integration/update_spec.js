@@ -242,7 +242,7 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
 
     it('Verify footer copyright', () => {
       cy.visit('/update')
-        .get('footer div.footer__copyright > p').should('be.visible').should('contain', 'Comic Relief is the trading name of Charity Projects, a registered charity in England and Wales (326568) and Scotland (SC039730), ')
+        .get('footer div.footer__copyright > p').should('be.visible').should('contain', 'Comic Relief is the trading name of Charity Projects, a registered charity in England and Wales (326568) and Scotland (SC039730),')
     })
 })
 
