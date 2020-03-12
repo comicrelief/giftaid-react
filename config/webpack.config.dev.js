@@ -214,7 +214,7 @@ module.exports = {
             "'self'",
             "https://*.comicrelief.com",
             "https://*.sportrelief.com",
-            // "https://sentry.io",
+            "https://sentry.io",
             "https://*.netlify.com"
           ],
           'frame-src': [
@@ -279,7 +279,7 @@ module.exports = {
         "'self'",
         "https://*.comicrelief.com",
         "https://*.sportrelief.com",
-        // "https://sentry.io",
+        "https://sentry.io",
         "https://*.netlify.com"
       ],
       'frame-src': [
