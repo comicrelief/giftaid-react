@@ -208,7 +208,8 @@ module.exports = {
             "https://www.googletagmanager.com",
             "https://www.tagmanager.google.com",
             "https://connect.facebook.net",
-            "https://sjs.bizographics.com"
+            "https://sjs.bizographics.com",
+            "https://snap.licdn.com"
           ],
           'connect-src': [
             "'self'",
@@ -221,7 +222,8 @@ module.exports = {
             "'self'",
             "https://*.comicrelief.com",
             "https://*.google.com",
-            "https://*.netlify.com"
+            "https://*.netlify.com",
+            "https://*.doubleclick.net"
           ],
           'child-src': "'none'",
           'object-src': "'none'",
@@ -273,7 +275,8 @@ module.exports = {
         "https://www.google-analytics.com",
         "https://www.googletagmanager.com",
         "https://connect.facebook.net",
-        "https://sjs.bizographics.com"
+        "https://sjs.bizographics.com",
+        "https://snap.licdn.com"
       ],
       'connect-src': [
         "'self'",
@@ -286,7 +289,8 @@ module.exports = {
         "'self'",
         "https://*.comicrelief.com",
         "https://*.google.com",
-        "https://*.netlify.com"
+        "https://*.netlify.com",
+        "https://*.doubleclick.net"
       ],
       'child-src': "'none'",
       'object-src': "'none'",
