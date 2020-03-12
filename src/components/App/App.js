@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import MetaTags from 'react-meta-tags';
 import TagManager from 'react-gtm-module';
-import Raven from 'react-raven';
+// import Raven from 'react-raven';
 
 // import components
 import Footer from '@comicrelief/storybook/src/components/Footer/Footer';
@@ -131,7 +131,7 @@ function App(props) {
 				<meta name="keywords" content={site.get('meta').keywords} />
 			</MetaTags>
 
-			<Raven dsn="https://25f53d059e1f488f9d0f000ffd500585@sentry.io/1228720" />
+			{/* <Raven dsn="https://25f53d059e1f488f9d0f000ffd500585@sentry.io/1228720" /> */}
 
 			<Router>
 				<AppProvider value={childProps}>
