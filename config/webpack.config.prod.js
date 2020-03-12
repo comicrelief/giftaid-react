@@ -331,6 +331,7 @@ module.exports = {
           'connect-src': [
             "'self'",
             "https://*.comicrelief.com",
+            "https://*.sportrelief.com",
             "https://sentry.io",
             "https://*.netlify.com"
           ],
@@ -396,6 +397,7 @@ module.exports = {
       'connect-src': [
         "'self'",
         "https://*.comicrelief.com",
+        "https://*.sportrelief.com",
         "https://sentry.io",
         "https://*.netlify.com"
       ],

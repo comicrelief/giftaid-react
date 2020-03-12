@@ -82,6 +82,40 @@ function App(props) {
 		setSuccessState: state => setSuccessState(state),
 	};
 
+	const isSRCampaign = true;
+
+	const copy = isSRCampaign
+		? `Sport Relief is an initiative of Comic Relief. Comic Relief is the trading name of Charity Projects, a registered charity in England and Wales (326568) and Scotland (SC039730),
+		which is a company limited by
+	guarantee registered in England and Wales (01806414). Registered address: 89 Albert Embankment, London SE1 7TP.`
+		: 'Comic Relief is the trading name of Charity Projects, a registered charity in England and Wales (326568) and Scotland (SC039730), which is a company limited by guarantee registered in England and Wales (01806414). Registered address: 1st Floor, 89 Albert Embankment, London, SE1 7TP.';
+
+	const fallbackFooterMenuCR = [
+		{
+			url: 'https://lite.comicrelief.com/legal/privacy-notice',
+			title: 'Privacy notice',
+		},
+		{
+			url: 'https://lite.comicrelief.com/legal/',
+			title: 'Legal',
+		},
+	];
+
+	const fallbackFooterMenuSR = [
+		{
+			url: 'https://lite.sportrelief.com/terms-of-use',
+			title: 'Legal',
+		},
+		{
+			url: 'https://lite.sportrelief.com/privacy-notice',
+			title: 'Privacy notice',
+		},
+	];
+
+	const fallbackMenu = isSRCampaign
+		? fallbackFooterMenuSR
+		: fallbackFooterMenuCR;
+
 	return (
 		<div className="App">
 			<Header />
@@ -124,7 +158,7 @@ function App(props) {
 				</AppProvider>
 			</Router>
 
-			<Footer campaign="comicrelief" copy="copyright 2018" />
+			<Footer copy={copy} campaign={isSRCampaign ? 'sportrelief' : 'comicrelief'} fallbackMenu={fallbackMenu} />
 		</div>
 	);
 }
