@@ -7,7 +7,7 @@ import {
 	Switch,
 } from 'react-router-dom';
 import MetaTags from 'react-meta-tags';
-import TagManager from 'react-gtm-module';
+// import TagManager from 'react-gtm-module';
 import Raven from 'react-raven';
 
 // import components
@@ -44,36 +44,36 @@ function App(props) {
 	 * App mounts
 	 */
 	useEffect(() => {
-		getGTM(); // Initialise GTM on component mount
+		// getGTM(); // Initialise GTM on component mount
 	}, []);
 
 	/**
 	 * Initialise gtm snippet
 	 */
-	const getGTM = () => {
-		TagManager.initialize({
-			gtmId: site.get('GTM').id,
-			dataLayer: {
-				site: [
-					{
-						category: 'giftaid',
-						pageCategory: site.get('GTM').application,
-						pageSubCategory: '',
-						environment: process.env.REACT_APP_ENVIRONMENT,
-					},
-				],
-			},
-		});
+	// const getGTM = () => {
+	// 	TagManager.initialize({
+	// 		gtmId: site.get('GTM').id,
+	// 		dataLayer: {
+	// 			site: [
+	// 				{
+	// 					category: 'giftaid',
+	// 					pageCategory: site.get('GTM').application,
+	// 					pageSubCategory: '',
+	// 					environment: process.env.REACT_APP_ENVIRONMENT,
+	// 				},
+	// 			],
+	// 		},
+	// 	});
 
-		TagManager.dataLayer({
-			dataLayer: {
-				user: {
-					userEmail: 'N',
-				},
-				event: 'custUserEmail',
-			},
-		});
-	};
+	// 	TagManager.dataLayer({
+	// 		dataLayer: {
+	// 			user: {
+	// 				userEmail: 'N',
+	// 			},
+	// 			event: 'custUserEmail',
+	// 		},
+	// 	});
+	// };
 
 	const childProps = {
 		isCompleted,
