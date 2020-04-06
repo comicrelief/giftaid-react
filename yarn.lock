@@ -665,10 +665,9 @@
     susy "^2.2.12"
     underscore.string "3.3.5"
 
-"@comicrelief/storybook@1.23.1":
-  version "1.23.1"
-  resolved "https://registry.yarnpkg.com/@comicrelief/storybook/-/storybook-1.23.1.tgz#102e9e8de98ff00f69b041588d4128c99379642a"
-  integrity sha512-TuJeumTJeMwj13NGTJgeg4NXvKLJlknkYtknGBDIaIPNoFC4cjEpaMlHmdb6TDl5lrfsv+sqQxNUVsqIwrGSxw==
+"@comicrelief/storybook@1.24.1":
+  version "1.24.1"
+  resolved "https://registry.yarnpkg.com/@comicrelief/storybook/-/storybook-1.24.1.tgz#a7bb935fd4bf539b213b403028bc37eab1c4bf9c"
   dependencies:
     "@comicrelief/pattern-lab" "*"
     "@storybook/addon-info" "3"
@@ -677,6 +676,7 @@
     axios ">=0.18.1"
     babel-polyfill "^6.26.0"
     browser-detect "^0.2.28"
+    dompurify "^2.0.8"
     prop-types "15"
     radium "0"
     react "^16.4.2"
@@ -4857,6 +4857,10 @@ domhandler@^2.3.0:
   resolved "https://registry.yarnpkg.com/domhandler/-/domhandler-2.4.2.tgz#8805097e933d65e85546f726d60f5eb88b44f803"
   dependencies:
     domelementtype "1"
+
+dompurify@^2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.0.8.tgz#6ef89d2d227d041af139c7b01d9f67ed59c2eb3c"
 
 domutils@1.5.1:
   version "1.5.1"

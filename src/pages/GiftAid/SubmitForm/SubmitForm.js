@@ -22,6 +22,12 @@ import { mergeInputFieldProps } from '../utils/Utils';
 // import context
 import FormContext from "../../../context/FormContext";
 
+import BigNightInCopy from './BigNightInCopy';
+
+// Site config
+import SiteService from '../../../service/Site.service';
+
+const site = new SiteService();
 
 function SubmitForm(props) {
 
@@ -41,6 +47,14 @@ function SubmitForm(props) {
 
   // Declare state variables
   const [inputFieldProps, setInputFieldProps] = useState([]); // initialise form inputFieldProps state
+
+  const marketingProps = {};
+  
+  // Set additional props for MarketingConsent based on site
+  if (site.getSite() !== 'BIGNIGHT') {
+    marketingProps.copy1 = BigNightInCopy.copy1;
+    marketingProps.copy2 = BigNightInCopy.copy2;
+  }
 
   /**
    * Component mounts and updates
@@ -104,6 +118,7 @@ function SubmitForm(props) {
         }}
         itemData={marketingConsentData}
         showErrorMessages={formValidityState.showErrorMessages}
+        {...marketingProps}
       />
 
       <FormButton onClick={(e) => submitForm(e)} text="Gift Aid your donation" />
