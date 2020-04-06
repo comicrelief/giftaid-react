@@ -21,6 +21,9 @@ import GiftAidPage from '../../pages/GiftAid';
 import Success from '../../pages/Success/Success';
 import Sorry from '../../pages/Sorry/Sorry';
 
+// import fall back menu links
+import getFallbackMenuItems from './FallbackLinks';
+
 //Context provider
 import { AppProvider } from '../../context/AppContext';
 
@@ -79,88 +82,73 @@ function App(props) {
 
 	const childProps = {
 		isCompleted,
-		setIsCompleted: status => setIsCompleted(status),
+		setIsCompleted: (status) => setIsCompleted(status),
 		successState,
-		setSuccessState: state => setSuccessState(state),
+		setSuccessState: (state) => setSuccessState(state),
 	};
 
-	const isSRCampaign = window.location.hostname.includes('sportrelief');
+	const isSRCampaign = site.getCurrentUrl().includes('sportrelief');
 
-	const copy = isSRCampaign
+	const footerCopy = isSRCampaign
 		? `Sport Relief is an initiative of Comic Relief. Comic Relief is the trading name of Charity Projects, a registered charity in England and Wales (326568) and Scotland (SC039730),
 		which is a company limited by
 	guarantee registered in England and Wales (01806414). Registered address: 89 Albert Embankment, London SE1 7TP.`
 		: 'Comic Relief is the trading name of Charity Projects, a registered charity in England and Wales (326568) and Scotland (SC039730), which is a company limited by guarantee registered in England and Wales (01806414). Registered address: 1st Floor, 89 Albert Embankment, London, SE1 7TP.';
 
-	const fallbackFooterMenuCR = [
-		{
-			url: 'https://lite.comicrelief.com/legal/privacy-notice',
-			title: 'Privacy notice',
-		},
-		{
-			url: 'https://lite.comicrelief.com/legal/',
-			title: 'Legal',
-		},
-	];
-
-	const fallbackFooterMenuSR = [
-		{
-			url: 'https://lite.sportrelief.com/terms-of-use',
-			title: 'Legal',
-		},
-		{
-			url: 'https://lite.sportrelief.com/privacy-notice',
-			title: 'Privacy notice',
-		},
-	];
-
-	const fallbackMenu = isSRCampaign
-		? fallbackFooterMenuSR
-		: fallbackFooterMenuCR;
+	const fallbackMenu = getFallbackMenuItems(site.getSite());
 
 	return (
 		<div className={`site-${site.getSite().toLowerCase()}`}>
 			<Header />
 
 			<MetaTags>
-				<title>Gift Aid declaration { site.get('title_postfix') }</title>
-				<meta name="description" content={site.get('meta').description} />
-				<meta property="og:url" content={window.location.href} />
+				<title>Gift Aid declaration {site.get('title_postfix')}</title>
+				<meta name='description' content={site.get('meta').description} />
+				<meta property='og:hostname' content={window.location.href} />
 				<meta
-					property="og:description"
+					property='og:description'
 					content={site.get('meta').description}
 				/>
-				<meta name="keywords" content={site.get('meta').keywords} />
+				<meta name='keywords' content={site.get('meta').keywords} />
 			</MetaTags>
 
-			<Raven dsn="https://25f53d059e1f488f9d0f000ffd500585@sentry.io/1228720" />
+			<Raven dsn='https://25f53d059e1f488f9d0f000ffd500585@sentry.io/1228720' />
 
 			<Router>
 				<AppProvider value={childProps}>
 					<ScrollToTop />
 					<Switch>
-						<Route exact path="/sorry" render={props => <Sorry {...props} />} />
-						<CompletedRoute exact path="/success" component={Success} />
-						<CompletedRoute exact path="/update/success" component={Success} />
 						<Route
 							exact
-							path="/update/sorry"
-							render={props => <Sorry {...props} />}
+							path='/sorry'
+							render={(props) => <Sorry {...props} />}
+						/>
+						<CompletedRoute exact path='/success' component={Success} />
+						<CompletedRoute exact path='/update/success' component={Success} />
+						<Route
+							exact
+							path='/update/sorry'
+							render={(props) => <Sorry {...props} />}
 						/>
 						<DefaultRoute
 							exact
-							path="/update/:transaction_id"
+							path='/update/:transaction_id'
 							component={GiftAidPage}
 						/>
-						<DefaultRoute exact path="/update" component={GiftAidPage} />
-						<DefaultRoute exact path="/:token" component={GiftAidPage} />
-						<DefaultRoute exact path="/" component={GiftAidPage} />
-						<Redirect push to="/" />
+						<DefaultRoute exact path='/update' component={GiftAidPage} />
+						<DefaultRoute exact path='/:token' component={GiftAidPage} />
+						<DefaultRoute exact path='/' component={GiftAidPage} />
+						<Redirect push to='/' />
 					</Switch>
 				</AppProvider>
 			</Router>
 
-			<Footer copy={copy} campaign={isSRCampaign ? 'sportrelief' : 'comicrelief'} fallbackMenu={fallbackMenu} />
+			<Footer
+				copy={footerCopy}
+				campaign={isSRCampaign ? 'sportrelief' : 'comicrelief'}
+				fallbackMenu={fallbackMenu}
+				forceFallback={site.getSite() === 'BIGNIGHTIN'}
+			/>
 		</div>
 	);
 }
