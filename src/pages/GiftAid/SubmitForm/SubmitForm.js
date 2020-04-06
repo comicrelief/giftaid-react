@@ -49,9 +49,9 @@ function SubmitForm(props) {
   const [inputFieldProps, setInputFieldProps] = useState([]); // initialise form inputFieldProps state
 
   const marketingProps = {};
-  
+
   // Set additional props for MarketingConsent based on site
-  if (site.getSite() !== 'BIGNIGHT') {
+  if (site.getSite() === 'BIGNIGHT') {
     marketingProps.copy1 = BigNightInCopy.copy1;
     marketingProps.copy2 = BigNightInCopy.copy2;
   }
