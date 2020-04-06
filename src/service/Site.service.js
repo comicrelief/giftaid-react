@@ -1,13 +1,5 @@
 import SiteConfig from '../config/site.json';
 
-let SITE = process.env.REACT_APP_SITE;
-let DEFAULT_SITE = 'CRGIFTAID';
-
-if(window.location.hostname.includes('sportrelief')) {
-  SITE = 'SRGIFTAID';
-  DEFAULT_SITE = 'SRGIFTAID';
-}
-
 /**
  * SiteService class
  */
@@ -16,10 +8,10 @@ export default class SiteService {
    * SiteService Constructor
    */
   constructor() {
-    this.setConfig();
+    this.site = this.getSite();
     this.url = null;
     this.timestamp = null;
-    this.campaign = null;
+    this.config = this.getSiteConfiguration();
   }
 
   /**
@@ -32,26 +24,34 @@ export default class SiteService {
   }
 
   /**
-   * Get Site
-   * @return {*}
+   * Get the current site
+   * @return {string}
    */
   getSite() {
-    return this.site;
+    const hostname = window.location.hostname;
+
+    if(hostname.includes('sportrelief')) {
+      return 'SR';
+    }
+
+    if(hostname.includes('rednoseday')) {
+      return 'RND';
+    }
+
+    if(hostname.includes('bignightin')) {
+      return 'BIGNIGHTIN';
+    }
+
+    return 'CR';
   }
 
   /**
-   * Set configuration
+   * get site configuration
    * @return {*}
    * @private
    */
-  setConfig() {
-    if (typeof SiteConfig[SITE] !== 'undefined') {
-      this.site = SITE;
-      return this.config = SiteConfig[SITE];
-    }
-
-    this.site = DEFAULT_SITE;
-    return this.config = SiteConfig[DEFAULT_SITE];
+  getSiteConfiguration() {
+    return SiteConfig[this.site];
   }
 
   /**
@@ -65,6 +65,7 @@ export default class SiteService {
     } else {
       this.url = window.location.protocol + '//' + window.location.host + '/';
     }
+
     return this.url;
   }
 
@@ -76,24 +77,6 @@ export default class SiteService {
   getTimestamp() {
     this.timestamp = Math.floor(Date.now() / 1000);
     return this.timestamp;
-  }
-
-
-  /**
-   * Gets the campaign name based on the url
-   * @param url
-   * @return {*}
-   */
-  getCampaign(url) {
-    // let campaign;
-    if (url.includes('sportrelief')) {
-      this.campaign = 'SR20';
-    } else if (url.includes('rednoseday')) {
-      this.campaign = 'RND19';
-    } else {
-      this.campaign = 'CR';
-    }
-    return this.campaign;
   }
 }
 

@@ -27,6 +27,8 @@ import { AppProvider } from '../../context/AppContext';
 // Site config
 import SiteService from '../../service/Site.service';
 
+import './app.scss';
+
 const site = new SiteService();
 
 function App(props) {
@@ -117,11 +119,11 @@ function App(props) {
 		: fallbackFooterMenuCR;
 
 	return (
-		<div className="App">
+		<div className={`site-${site.getSite().toLowerCase()}`}>
 			<Header />
 
 			<MetaTags>
-				<title>Gift Aid declaration | Comic Relief</title>
+				<title>Gift Aid declaration { site.get('title_postfix') }</title>
 				<meta name="description" content={site.get('meta').description} />
 				<meta property="og:url" content={window.location.href} />
 				<meta
