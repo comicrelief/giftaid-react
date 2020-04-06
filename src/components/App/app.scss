@@ -1,0 +1,15 @@
+.site-bignightin header[role=banner].header #block-branding .site-logo{
+  width: 100%;
+
+  img {
+    width: 100%;
+  }
+
+  @media screen and (min-width: 740px) {
+    width: 550px;
+
+    img {
+      width: 550px;
+    }
+  }
+}

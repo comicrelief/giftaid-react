@@ -1,5 +1,5 @@
 {
-  "CRGIFTAID": {
+  "CR": {
     "title": "Giftaid",
     "title_postfix": " | Comic Relief",
     "logo": "/images/cr_logo.svg",
@@ -20,7 +20,7 @@
       "description": "Gift aid your text donation and the UK Government will give Comic Relief 25% on top of your donation. It doesn't cost you a penny, and helps to keep us going."
     }
   },
-  "SRGIFTAID": {
+  "SR": {
     "title": "Giftaid",
     "title_postfix": " | Sport Relief",
     "logo": "/images/sr20.svg",
@@ -39,6 +39,48 @@
     "meta": {
       "keywords": "Comic Relief Giftaid, Sport Relief Giftaid, Red Nose Day Giftaid",
       "description": "Gift aid your text donation and the UK Government will give Comic Relief 25% on top of your donation. It doesn't cost you a penny, and helps to keep us going."
+    }
+  },
+  "RND": {
+    "title": "Giftaid",
+    "title_postfix": " | Red Nose Day",
+    "logo": "/images/rnd_logo.svg",
+    "favicon": "/images/favicon/cr/favicon.ico",
+    "alt": "Go to Red Nose Day",
+    "home_url": "https://www.comicrelief.com/rednoseday",
+    "menu_tye": "comicrelief",
+    "campaign": {
+      "id": "General",
+      "name": "RND19"
+    },
+    "GTM": {
+      "id": "GTM-TC9H9D",
+      "application": "rnd_giftaid"
+    },
+    "meta": {
+      "keywords": "Comic Relief Giftaid, Sport Relief Giftaid, Red Nose Day Giftaid",
+      "description": "Gift aid your text donation and the UK Government will give Comic Relief 25% on top of your donation. It doesn't cost you a penny, and helps to keep us going."
+    }
+  },
+  "BIGNIGHTIN": {
+    "title": "Giftaid",
+    "title_postfix": " | Big Night In",
+    "logo": "/images/big_night_in.svg",
+    "favicon": "/images/favicon/cr/favicon.ico",
+    "alt": "Go to Big Night In Homepage",
+    "home_url": "https://www.bbc.co.uk/bignightin",
+    "menu_tye": "comicrelief",
+    "campaign": {
+      "id": "General",
+      "name": "CV19"
+    },
+    "GTM": {
+      "id": "GTM-NLZJRZN",
+      "application": "bni_giftaid"
+    },
+    "meta": {
+      "keywords": "Big Night In Giftaid",
+      "description": "Gift aid your text donation and the UK Government will give Big Night In 25% on top of your donation. It doesn't cost you a penny, and helps to keep us going."
     }
   }
 }
