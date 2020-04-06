@@ -35,11 +35,11 @@ const fallbackFooterMenuBN = [
 	},
 ];
 
-const getFallbackMenuItems = (hostname) => {
-	switch (hostname) {
-		case hostname.includes('sportrelief'):
+const getFallbackMenuItems = (type) => {
+	switch (type) {
+		case 'SR':
 			return fallbackFooterMenuSR;
-		case hostname.includes('bignightin'):
+			case 'BIGNIGHTIN':
 			return fallbackFooterMenuBN;
 		default:
 			return fallbackFooterMenuCR;
