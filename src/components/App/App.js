@@ -87,8 +87,8 @@ function App(props) {
 		setSuccessState: (state) => setSuccessState(state),
 	};
 
-	const url = window.location.hostname;
-	const isSRCampaign = url.includes('sportrelief');
+	const { hostname } = window.location;
+	const isSRCampaign = hostname.includes('sportrelief');
 
 	const footerCopy = isSRCampaign
 		? `Sport Relief is an initiative of Comic Relief. Comic Relief is the trading name of Charity Projects, a registered charity in England and Wales (326568) and Scotland (SC039730),
@@ -96,7 +96,7 @@ function App(props) {
 	guarantee registered in England and Wales (01806414). Registered address: 89 Albert Embankment, London SE1 7TP.`
 		: 'Comic Relief is the trading name of Charity Projects, a registered charity in England and Wales (326568) and Scotland (SC039730), which is a company limited by guarantee registered in England and Wales (01806414). Registered address: 1st Floor, 89 Albert Embankment, London, SE1 7TP.';
 
-	const fallbackMenu = getFallbackMenuItems(url);
+	const fallbackMenu = getFallbackMenuItems(hostname);
 
 	return (
 		<div className={`site-${site.getSite().toLowerCase()}`}>
@@ -105,7 +105,7 @@ function App(props) {
 			<MetaTags>
 				<title>Gift Aid declaration {site.get('title_postfix')}</title>
 				<meta name='description' content={site.get('meta').description} />
-				<meta property='og:url' content={window.location.href} />
+				<meta property='og:hostname' content={window.location.href} />
 				<meta
 					property='og:description'
 					content={site.get('meta').description}
@@ -148,7 +148,7 @@ function App(props) {
 				copy={footerCopy}
 				campaign={isSRCampaign ? 'sportrelief' : 'comicrelief'}
 				fallbackMenu={fallbackMenu}
-				forceFallback={url.includes('bignightin')}
+				forceFallback={hostname.includes('bignightin')}
 			/>
 		</div>
 	);
