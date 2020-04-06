@@ -39,7 +39,7 @@ const getFallbackMenuItems = (type) => {
 	switch (type) {
 		case 'SR':
 			return fallbackFooterMenuSR;
-			case 'BIGNIGHTIN':
+		case 'BIGNIGHTIN':
 			return fallbackFooterMenuBN;
 		default:
 			return fallbackFooterMenuCR;
