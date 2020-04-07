@@ -10,7 +10,6 @@ import FormButton from '../../../components/Buttons/FormButton/index';
 import InputFields from '../../../components/InputFields/InputFields';
 import JustInTime from '../../../components/JustInTime/index';
 
-
 // fields data
 import { submitFormFields } from './SubmitFormFields';
 

@@ -30,6 +30,8 @@ import { AppProvider } from '../../context/AppContext';
 // Site config
 import SiteService from '../../service/Site.service';
 
+import FooterCopy from './FooterCopy';
+
 import './app.scss';
 
 const site = new SiteService();
@@ -88,17 +90,13 @@ function App(props) {
 	};
 
 	const isSRCampaign = site.getCurrentUrl().includes('sportrelief');
-
-	const footerCopy = isSRCampaign
-		? `Sport Relief is an initiative of Comic Relief. Comic Relief is the trading name of Charity Projects, a registered charity in England and Wales (326568) and Scotland (SC039730),
-		which is a company limited by
-	guarantee registered in England and Wales (01806414). Registered address: 89 Albert Embankment, London SE1 7TP.`
-		: 'Comic Relief is the trading name of Charity Projects, a registered charity in England and Wales (326568) and Scotland (SC039730), which is a company limited by guarantee registered in England and Wales (01806414). Registered address: 1st Floor, 89 Albert Embankment, London, SE1 7TP.';
-
-	const fallbackMenu = getFallbackMenuItems(site.getSite());
+	const thisSite = site.getSite();
+    const footerCopy = (FooterCopy[thisSite] ? FooterCopy[thisSite] : FooterCopy.CR);
+	const fallbackMenu = getFallbackMenuItems(thisSite);
+	const isBigNightIn = thisSite === 'BIGNIGHTIN';
 
 	return (
-		<div className={`site-${site.getSite().toLowerCase()}`}>
+		<div className={`site-${thisSite.toLowerCase()}`}>
 			<Header />
 
 			<MetaTags>
@@ -147,7 +145,9 @@ function App(props) {
 				copy={footerCopy}
 				campaign={isSRCampaign ? 'sportrelief' : 'comicrelief'}
 				fallbackMenu={fallbackMenu}
-				forceFallback={site.getSite() === 'BIGNIGHTIN'}
+				forceFallback={isBigNightIn}
+				noSocial={isBigNightIn}
+
 			/>
 		</div>
 	);
