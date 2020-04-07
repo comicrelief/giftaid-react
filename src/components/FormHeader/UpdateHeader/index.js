@@ -13,7 +13,7 @@ const UpdateHeader = (props) => {
       </h2>
       <p className="text-align-centre">
         We can claim Gift Aid from personal donations made by UK taxpayers:
-        the Government gives us back 25% of their value.
+        the Government gives back 25% of their value. This will be split 50/50 between Comic Relief and BBC Children in Need as per your donation.
       </p>
       {typeof urlTransactionId !== 'undefined' && urlTransactionId !== null ?
         <p className="text-align-centre transaction-id">

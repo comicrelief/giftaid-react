@@ -26,7 +26,7 @@ export const donationTypeChoices = [
 */
 export const giftAidButtonChoices = [
   {
-    label: 'Yes, I would like Comic Relief to claim Gift Aid on my donation and any donations I make in the future or have made in the past 4 years *',
+    label: 'Yes, I would like BBC Children in Need and Comic Relief to claim Gift Aid on my donation. *',
     additionalText: '&#42; By ticking I state I am a UK taxpayer making a personal donation and understand' +
       'that if I pay less Income Tax and/or Capital Gains Tax than the amount of Gift Aid claimed on all my ' +
       'donations, it is my responsibility to pay any difference. [Find out more](http://www.comicrelief.com)',

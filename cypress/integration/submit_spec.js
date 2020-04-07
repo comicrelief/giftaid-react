@@ -125,7 +125,7 @@ describe('Ensure redirect functionality from Success page', () => {
     cy
       .title().should('eq', 'Gift Aid declaration | Comic Relief')
       .get('.giftaid-title>span').should('contain', 'Giftaid it')
-      .get('#form > div:nth-child(1) > h2').should('contain', 'Gift aid your donation and the Government will give us 25% on top of it.')
+      .get('#form > div:nth-child(1) > h2').should('contain', 'Gift aid your donation and the Government will give 25% on top of it.')
   });
 
   it('Giftaid page is empty', () => {
