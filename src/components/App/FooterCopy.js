@@ -19,4 +19,3 @@ const FooterCopy = {
   };
   
   export default FooterCopy;
-  
