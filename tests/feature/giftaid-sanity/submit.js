@@ -164,7 +164,7 @@ module.exports = {
      client.pause(2000);
      client.setValue('#field-input--address1', '21 test road');
      client.setValue('#field-input--town', 'London');
-     client.expect.element('.form__row--marketing-consent>div>p:nth-child(2)').text.to.equal('How would you like to hear from us?');
+     client.expect.element('.form__row--marketing-consent>div>div>p:nth-child(2)').text.to.equal('How would you like to hear from us?');
      //email
      client.waitForElementVisible('#field-wrapper--Email', 1000);
      client.click('#field-wrapper--Email>div:nth-child(2)>label');
