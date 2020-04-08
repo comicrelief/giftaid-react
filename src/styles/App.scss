@@ -39,5 +39,15 @@ $image-path: "/images/";
 
 footer[role=contentinfo] {
   background: #29022c!important;
+
+  .footer__copyright {
+    margin: 0 auto;
+    width: 90%;
+    max-width: 1000px;
+
+    p {
+      line-height: 18px;
+    }
+  }
 }
 
