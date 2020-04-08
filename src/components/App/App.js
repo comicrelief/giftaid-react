@@ -147,7 +147,6 @@ function App(props) {
 				fallbackMenu={fallbackMenu}
 				forceFallback={isBigNightIn}
 				noSocial={isBigNightIn}
-
 			/>
 		</div>
 	);
