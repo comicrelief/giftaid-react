@@ -50,7 +50,7 @@ function SubmitForm(props) {
   const marketingProps = {};
 
   // Set additional props for MarketingConsent based on site
-  if (site.getSite() === 'BIGNIGHT') {
+  if (site.getSite() === 'BIGNIGHTIN') {
     marketingProps.copy1 = BigNightInCopy.copy1;
     marketingProps.copy2 = BigNightInCopy.copy2;
   }
