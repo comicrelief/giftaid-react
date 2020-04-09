@@ -23,11 +23,12 @@ const Success = (props) => {
   const [state, setState] = useState(app.successState);
 
   const additionalClass = props.location.pathname === 'success'
-  || props.location.pathname === '/success' ? '' : 'update-success-wrapper';
+    || props.location.pathname === '/success' ? '' : 'update-success-wrapper';
 
   const redirectPath = props.location.pathname === 'success'
-  || props.location.pathname === '/success' ? '/' : '/update';
+    || props.location.pathname === '/success' ? '/' : '/update';
 
+  const isBigNightIn = site.getSite() === 'BIGNIGHTIN';
 
   useEffect(() => {
     document.title = `Success${site.get('title_postfix')}`;
@@ -44,12 +45,15 @@ const Success = (props) => {
 
   return (
     <div>
-      <PromoHeader />
+      
+      {!isBigNightIn && <PromoHeader />}
+
       <div className={`success-wrapper ${additionalClass}`}>
         <div className="success-wrapper--inner">
-          <ThankYou/>
+          <ThankYou />
 
-          <ImpactMessage />
+          {!isBigNightIn && <ImpactMessage />}
+
         </div>
       </div>
     </div>
