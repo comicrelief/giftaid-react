@@ -104,6 +104,55 @@ module.exports = {
      client.end();
    },
 
+   'Submit form with empty last name should give error message': function (client) {
+     client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
+     client.waitForElementPresent('#field-label--giftaid', 1000);
+     client.click('#field-label--giftaid');
+     client.setValue('#field-input--mobile', '07123456789');
+     client.setValue('#field-input--firstname', 'test');
+     client.setValue('#field-input--postcode', 'se1 7tp');
+     client.click('#postcode_button');
+     client.click('#field-select--addressSelect');
+     client.click('#field-select--addressSelect>option:nth-child(6)');
+     client.click('button[type=submit]');
+     client.pause(2000);
+     client.expect.element('div > h1').text.to.not.equal('Sorry!');
+     client.assert.containsText('#field-error--lastname', 'Please fill in your last name');
+     client.end();
+   },
+
+   'Submit form with empty postcode should give error message': function (client) {
+     client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
+     client.waitForElementPresent('#field-label--giftaid', 1000);
+     client.click('#field-label--giftaid');
+     client.setValue('#field-input--mobile', '07123456789');
+     client.setValue('#field-input--firstname', 'test');
+     client.setValue('#field-input--lastname', 'user');
+     client.click('button[type=submit]');
+     client.pause(2000);
+     client.expect.element('div > h1').text.to.not.equal('Sorry!');
+     client.assert.containsText('#field-error--postcode', 'Please enter your postcode');
+     client.end();
+   },
+
+   'Submit form with empty town should give error message': function (client) {
+     client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
+     client.waitForElementPresent('#field-label--giftaid', 1000);
+     client.click('#field-label--giftaid');
+     client.setValue('#field-input--mobile', '07123456789');
+     client.setValue('#field-input--firstname', 'test');
+     client.setValue('#field-input--lastname', 'user');
+     client.setValue('#field-input--postcode', 'se1 7tp');
+     client.click('a[aria-describedby=field-error--addressDetails]');
+     client.pause(200);
+     client.setValue('#field-input--address1', '21 test road');
+     client.click('button[type=submit]');
+     client.pause(2000);
+     client.expect.element('div > h1').text.to.not.equal('Sorry!');
+     client.assert.containsText('#field-error--town', 'Please fill in your town/city');
+     client.end();
+    },
+
    'Validate marketing prefs': function (client) {
      client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
      client.waitForElementPresent('#field-label--giftaid', 1000);
