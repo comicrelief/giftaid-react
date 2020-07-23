@@ -1038,3 +1038,8 @@ patch:
         patched: '2020-05-01T02:47:01.937Z'
     - '@comicrelief/storybook > @storybook/react > babel-preset-stage-0 > babel-preset-stage-1 > babel-preset-stage-2 > babel-preset-stage-3 > babel-plugin-transform-async-generator-functions > babel-helper-remap-async-to-generator > babel-helper-function-name > babel-template > babel-traverse > babel-types > lodash':
         patched: '2020-05-01T02:47:01.937Z'
+  SNYK-JS-TREEKILL-536781:
+    - snyk > snyk-sbt-plugin > tree-kill:
+        patched: '2019-12-12T02:52:53.538Z'
+    - '@comicrelief/storybook > snyk > snyk-sbt-plugin > tree-kill':
+        patched: '2019-12-12T02:52:53.538Z'
