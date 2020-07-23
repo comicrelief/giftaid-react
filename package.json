@@ -45,8 +45,7 @@
     "cy:open": "cypress open",
     "test": "run-p --race start cy:run",
     "snyk-protect": "snyk protect",
-    "prepare": "yarn run snyk-protect",
-    "prepublish": "npm run snyk-protect"
+    "prepublish": "yarn snyk-protect"
   },
   "babel": {
     "presets": [
