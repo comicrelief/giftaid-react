@@ -40,7 +40,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "feature-test": "export NODE_ENV=development; node_modules/.bin/nightwatch --tag sanity -e default,ie --retries 2",
+    "feature-test": "export NODE_ENV=development; node_modules/.bin/nightwatch --tag sanity -e chrome,ie --retries 2",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
     "test": "run-p --race start cy:run",
@@ -87,7 +87,7 @@
     "imagemin-webpack-plugin": "^2.3.0",
     "loader-utils": "^1.1.0",
     "mini-css-extract-plugin": "^0.7.0",
-    "nightwatch": "^1.0.19",
+    "nightwatch": "^1.3.7",
     "node-sass": "^4.12.0",
     "node-sass-glob-importer": "^5.1.0",
     "npm-run-all": "^4.1.3",
