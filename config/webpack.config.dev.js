@@ -206,11 +206,15 @@ module.exports = {
             "https://www.gstatic.com",
             "https://www.google-analytics.com",
             "https://www.googletagmanager.com",
-            "https://www.tagmanager.google.com"
+            "https://www.tagmanager.google.com",
+            "https://connect.facebook.net",
+            "https://sjs.bizographics.com",
+            "https://snap.licdn.com"
           ],
           'connect-src': [
             "'self'",
             "https://*.comicrelief.com",
+            "https://*.sportrelief.com",
             "https://sentry.io",
             "https://*.netlify.com"
           ],
@@ -218,7 +222,8 @@ module.exports = {
             "'self'",
             "https://*.comicrelief.com",
             "https://*.google.com",
-            "https://*.netlify.com"
+            "https://*.netlify.com",
+            "https://*.doubleclick.net"
           ],
           'child-src': "'none'",
           'object-src': "'none'",
@@ -268,11 +273,15 @@ module.exports = {
         "https://*.netlify.com",
         "https://www.gstatic.com",
         "https://www.google-analytics.com",
-        "https://www.googletagmanager.com"
+        "https://www.googletagmanager.com",
+        "https://connect.facebook.net",
+        "https://sjs.bizographics.com",
+        "https://snap.licdn.com"
       ],
       'connect-src': [
         "'self'",
         "https://*.comicrelief.com",
+        "https://*.sportrelief.com",
         "https://sentry.io",
         "https://*.netlify.com"
       ],
@@ -280,7 +289,8 @@ module.exports = {
         "'self'",
         "https://*.comicrelief.com",
         "https://*.google.com",
-        "https://*.netlify.com"
+        "https://*.netlify.com",
+        "https://*.doubleclick.net"
       ],
       'child-src': "'none'",
       'object-src': "'none'",

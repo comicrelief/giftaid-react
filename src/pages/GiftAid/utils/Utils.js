@@ -4,9 +4,7 @@ import TagManager from 'react-gtm-module';
 const site = new SiteService();
 const url = site.getCurrentUrl();
 const campaign = site.get('campaign').name;
-
 const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
-
 
 /**
  * Function to Scroll to and focus on field(s) with error
@@ -159,7 +157,7 @@ export const justInTimeLinkText = 'Why do we collect this info?';
 * REGEX for transactionId
 *
 */
-const transactionIdPattern = '^[a-zA-Z0-9-]{5,}$';
+const transactionIdPattern = '^[a-zA-Z0-9-_]{5,}$';
 
 /**
  * Function to validate form

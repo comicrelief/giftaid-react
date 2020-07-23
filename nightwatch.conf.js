@@ -4,7 +4,7 @@ const nightwatch = {
   selenium: {
     "start_process": false,
     "host" : "hub-cloud.browserstack.com",
-    port: 80,
+    port: 443,
   },
 
   common_capabilities: {
@@ -24,12 +24,13 @@ const nightwatch = {
   },
 
   test_settings: {
-    default: {
+    default: {},
+      chrome: {
       desiredCapabilities: {
         os: 'Windows',
         os_version: '10',
         browser: 'Chrome',
-        browser_version: '70.0',
+        browser_version: '83.0',
         resolution: '1024x768',
         name: 'Giftaid - Sanity',
       },
@@ -62,13 +63,13 @@ const nightwatch = {
 };
 
 // Code to support common capabilites
-for(var i in nightwatch.test_settings){
-  var config = nightwatch.test_settings[i];
+for(const testSetting in nightwatch.test_settings){
+  const config = nightwatch.test_settings[testSetting];
   config['selenium_host'] = nightwatch.selenium.host;
   config['selenium_port'] = nightwatch.selenium.port;
   config['desiredCapabilities'] = config['desiredCapabilities'] || {};
-  for(var j in nightwatch.common_capabilities){
-    config['desiredCapabilities'][j] = config['desiredCapabilities'][j] || nightwatch.common_capabilities[j];
+  for(const commonCapability in nightwatch.common_capabilities){
+    config['desiredCapabilities'][commonCapability] = config['desiredCapabilities'][commonCapability] || nightwatch.common_capabilities[commonCapability];
   }
 }
 

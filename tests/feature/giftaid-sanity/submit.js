@@ -119,7 +119,7 @@ module.exports = {
      client.expect.element('div > h1').text.to.not.equal('Sorry!');
      client.assert.containsText('#field-error--lastname', 'Please fill in your last name');
      client.end();
-    },
+   },
 
    'Submit form with empty postcode should give error message': function (client) {
      client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
@@ -133,7 +133,7 @@ module.exports = {
      client.expect.element('div > h1').text.to.not.equal('Sorry!');
      client.assert.containsText('#field-error--postcode', 'Please enter your postcode');
      client.end();
-    },
+   },
 
    'Submit form with empty town should give error message': function (client) {
      client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
@@ -152,6 +152,7 @@ module.exports = {
      client.assert.containsText('#field-error--town', 'Please fill in your town/city');
      client.end();
     },
+
    'Validate marketing prefs': function (client) {
      client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
      client.waitForElementPresent('#field-label--giftaid', 1000);
@@ -164,7 +165,7 @@ module.exports = {
      client.pause(2000);
      client.setValue('#field-input--address1', '21 test road');
      client.setValue('#field-input--town', 'London');
-     client.expect.element('.form__row--marketing-consent>div>p:nth-child(2)').text.to.equal('How would you like to hear from us?');
+     client.expect.element('.form__row--marketing-consent>div>div>p:nth-child(2)').text.to.equal('How would you like to hear from us?');
      //email
      client.waitForElementVisible('#field-wrapper--Email', 1000);
      client.click('#field-wrapper--Email>div:nth-child(2)>label');
@@ -177,8 +178,23 @@ module.exports = {
      client.waitForElementPresent('#field-error--email', 2000);
      client.assert.containsText('#field-error--email', 'Please fill in a valid email address');
      client.clearValue('#field-input--email');
+     client.setValue('#field-input--email','#@%^%#$@#$@#.com');
+     client.waitForElementPresent('#field-error--email', 2000);
+     client.assert.containsText('#field-error--email', 'Please fill in a valid email address');
+     client.clearValue('#field-input--email');
+     client.setValue('#field-input--email','email@-example.com');
+     client.waitForElementPresent('#field-error--email', 2000);
+     client.assert.containsText('#field-error--email', 'Please fill in a valid email address');
+     client.clearValue('#field-input--email');
+     client.setValue('#field-input--email','email.example.com');
+     client.waitForElementPresent('#field-error--email', 2000);
+     client.assert.containsText('#field-error--email', 'Please fill in a valid email address');
+     client.clearValue('#field-input--email');
      client.click('button[type=submit]');
      client.assert.containsText('#field-error--email', 'Please fill in your email address');
+     client.setValue('#field-input--email','exampleexampleexample@exampleexampleexample.com');
+     client.assert.elementNotPresent('#field-error--email');
+     client.clearValue('#field-input--email');
      //post
      client.waitForElementVisible('#field-wrapper--Post', 2000);
      client.click('#field-wrapper--Post>div:nth-child(2)>label');
