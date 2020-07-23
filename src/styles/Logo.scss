@@ -1,0 +1,24 @@
+header[role=banner].header {
+  height: auto;
+
+  #block-branding {
+    .site-logo {
+      img {
+        width: 100px;
+      }
+    }
+
+    .sr-logo {
+      display: inline-block;
+      width: 110px;
+
+      img {
+        width: 100%;
+      }
+
+      @include breakpoint($screen-md) {
+        width: 130px;
+      }
+    }
+  }
+}
