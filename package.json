@@ -61,6 +61,11 @@
     "babel-core": "6.25.0",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.4",
+<<<<<<< HEAD
+=======
+    "babel-plugin-named-asset-import": "^0.3.0",
+    "babel-preset-react-app": "^5.0.0",
+>>>>>>> 84116f09d82f83fb440cb9163eb2088d761f9b2c
     "babel-runtime": "6.26.0",
     "case-sensitive-paths-webpack-plugin": "^2.1.2",
     "copy-webpack-plugin": "^4.6.0",
