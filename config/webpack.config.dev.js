@@ -122,6 +122,7 @@ module.exports = {
             loader: require.resolve('babel-loader'),
             options: {
               cacheDirectory: true,
+              presets: ['react-app']
             },
           },
           {
