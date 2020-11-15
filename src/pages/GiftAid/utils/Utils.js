@@ -74,7 +74,7 @@ export const getFormValues = (validation, urlId = null, update = false) => {
     }
     // set Giftaid choice for update form
     if (key === 'giftAidClaimChoice') {
-      fieldValues.confirm = value; // reassign to confirm field
+      fieldValues.confirm = value * 1; // reassign to confirm field
     }
     // set values for marketing consent checkboxes and fields
     if (/^permission/.test(key) && value !== null) {
