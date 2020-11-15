@@ -171,7 +171,7 @@ module.exports = {
       inject: true,
       template: paths.appHtml,
       cspPlugin: { //adds CSP Meta tag plugin
-        enabled: true,
+        enabled: false,
         policy: {
           'default-src': "'none'",
           'frame-ancestors': "'self'",
