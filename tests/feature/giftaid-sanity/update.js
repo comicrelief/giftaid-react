@@ -80,7 +80,7 @@ module.exports = {
 
   'User selects "no" for giftaid update declaration': function (client) {
     client.url(process.env.BASE_URL + 'update').maximizeWindow().waitForElementVisible('body', 1000);
-    client.setValue('#field-input--transactionId', 'D-BEX1501');
+    client.setValue('#field-input--transactionId', 'bc7ba5c9-5d93-4a34-a102-aaf378d16a74');
     client.page.updateNo().fillFormUpdateNo(client);
     client.waitForElementVisible('div.success-wrapper--inner>div>h1', 1000);
     client.expect.element('div.success-wrapper--inner>div>h1').text.to.equal('Thanks for letting us know');
