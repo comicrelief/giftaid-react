@@ -14,7 +14,7 @@ const ThankYou = (props) => {
 
   return (
     <React.Fragment>
-      { state !== undefined && state.firstname !== undefined && state.giftAidChoice !== '0'
+      { state !== undefined && state.firstname !== undefined && state.giftAidChoice !== 0
         ?
         <GiftAidConfirmMessage
           firstname={state.firstname}
