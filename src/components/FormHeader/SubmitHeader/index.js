@@ -1,7 +1,7 @@
 import React from 'react';
 import SiteService from '../../../service/Site.service';
 
-const SubmitHeader = props => {
+const SubmitHeader = () => {
   const site = new SiteService();
   switch (site.getSite()) {
     case 'BIGNIGHTIN':

@@ -53,6 +53,22 @@ function GiftAid(props) {
   const [urlTransactionId, setUrlTransactionId] = useState(props.match.params.transaction_id);
 
   /**
+   * Fetches decrypted MSISDN using token
+   * @param cipherText
+   */
+  const decryptToken = cipherText => {
+    if (cipherText) {
+      axios.get(getRoute(`token/get/${cipherText}`)) // send request to endpoint
+        .then(response => {
+          if (response.data.data.status === 'success') {
+            setMSISDN(response.data.data.response);
+          }
+        })
+        .catch();
+    }
+  };
+
+  /**
    * GiftAid component mounts
    */
   useEffect(() => {
@@ -72,23 +88,7 @@ function GiftAid(props) {
       setToken(null);
       setMSISDN(null);
     };
-  }, []);
-
-  /**
-   * Fetches decrypted MSISDN using token
-   * @param cipherText
-   */
-  const decryptToken = cipherText => {
-    if (cipherText) {
-      axios.get(getRoute(`token/get/${cipherText}`)) // send request to endpoint
-        .then(response => {
-          if (response.data.data.status === 'success') {
-            setMSISDN(response.data.data.response);
-          }
-        })
-        .catch();
-    }
-  };
+  }, [props.match.params.token, props.match.params.transaction_id, token, updating]);
 
   /**
    * Handle validity state on component update
@@ -103,7 +103,7 @@ function GiftAid(props) {
         validating: false
       });
     }
-  }, []);
+  }, [formValidityState]);
 
   /**
    * Handle scroll to error on component update
@@ -163,7 +163,7 @@ function GiftAid(props) {
           ...fieldValidation
         };
       }
-    }
+    } return null;
   };
 
   /**
@@ -231,11 +231,10 @@ function GiftAid(props) {
 }
 
 GiftAid.defaultProps = {
-  inputFieldOverrides: {},
   history: { push: { } }
 };
 GiftAid.propTypes = {
-  inputFieldOverrides: propTypes.shape(propTypes.shape)
+  history: propTypes.shape(propTypes.shape)
 };
 
 export default GiftAid;

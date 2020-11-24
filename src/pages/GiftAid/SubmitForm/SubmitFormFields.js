@@ -15,7 +15,7 @@ switch (site.getSite()) {
 * Default Submit Form Fields
 *
 */
-export const submitFormFields = {
+const submitFormFields = {
 
   giftaidCheck: {
     id: 'giftaid',
@@ -57,3 +57,5 @@ export const submitFormFields = {
     pattern: '^[a-zA-Z0-9][a-zA-Z0-9\'.,/()& -]{0,24}$'
   }
 };
+
+export default submitFormFields;

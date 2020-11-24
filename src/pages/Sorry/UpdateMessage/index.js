@@ -4,7 +4,7 @@ import React from 'react';
 * Update Sorry Page Message
 *
 */
-const UpdateMessage = props => (
+const UpdateMessage = () => (
   <div>
     <p>
       We aren’t able to process your Gift Aid update request at the moment.

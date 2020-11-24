@@ -7,7 +7,7 @@ const isBrowser = browser();
 const supportedAriaAttributes = isBrowser.name === 'firefox' && isBrowser.os.match('Windows')
   ? { 'aria-live': 'assertive', 'aria-relevant': 'additions removals' } : { 'aria-live': 'assertive', role: 'status' };
 
-const UrlTransactionIdError = props => {
+const UrlTransactionIdError = () => {
   const { formValidityState: { urlTransactionId } } = useContext(FormContext); // get states from context
 
   if (urlTransactionId.valid === false) {

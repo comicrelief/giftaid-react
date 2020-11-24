@@ -17,7 +17,7 @@ const InputFields = props => {
   useEffect(() => {
     setAllFields(props.allFields);
     setShowErrorMessages(formValidityState.showErrorMessages);
-  });
+  }, [props.allFields, formValidityState.showErrorMessages]);
 
   const createInputFields = () => {
     const inputFields = [];

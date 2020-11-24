@@ -6,6 +6,16 @@ const url = site.getCurrentUrl();
 const campaign = site.get('campaign').name;
 const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
 
+/*
+* Donation Types
+*
+*/
+const DONATION_TYPES = {
+  SMS: 'sms',
+  ONLINE: 'online',
+  CALL_CENTRE: 'call centre'
+};
+
 /**
  * Function to Scroll to and focus on field(s) with error
  * @param state Object
@@ -70,7 +80,7 @@ export const getFormValues = (validation, urlId = null, update = false) => {
     }
     // set Giftaid choice for update form
     if (key === 'giftAidClaimChoice') {
-      fieldValues.confirm = parseInt(value); // reassign to confirm field
+      fieldValues.confirm = parseInt(value, 10); // reassign to confirm field
     }
     // set values for marketing consent checkboxes and fields
     if (/^permission/.test(key) && value !== null) {
@@ -120,16 +130,6 @@ export const getFormValues = (validation, urlId = null, update = false) => {
 };
 
 /*
-* Donation Types
-*
-*/
-const DONATION_TYPES = {
-  SMS: 'sms',
-  ONLINE: 'online',
-  CALL_CENTRE: 'call centre'
-};
-
-/*
 * Common form variables
 *
 */
@@ -152,6 +152,39 @@ export const justInTimeLinkText = 'Why do we collect this info?';
 *
 */
 const transactionIdPattern = '^[a-zA-Z0-9-_]{5,}$';
+
+/**
+ * Validates transactionId using REGEX pattern
+ * @param donationID
+ * @returns Boolean
+ */
+const validateTransactionId = donationID => new RegExp(transactionIdPattern).test(donationID);
+
+/**
+ * Checks if any field is invalid.
+ * If invalid fields: shows error sets state to show errorMessages.
+ * If all fields valid: sets form validity to true
+ * @param validation Object
+ */
+const getValidation = validation => {
+  let validity = true;
+  let thisField;
+
+  Object.keys(validation).map(key => {
+    thisField = validation[key];
+
+    /**
+     * As we're not passing any 'required' flags to this function, a quick fix to wave our
+     * optional email field through, but only if it's valid or empty
+     */
+    if (thisField.valid !== true && (key !== 'email' || thisField.showErrorMessage === true)) {
+      validity = false;
+    }
+    return true;
+  });
+
+  return validity;
+};
 
 /**
  * Function to validate form
@@ -211,39 +244,6 @@ export const validateForm = (validation, formValues = {}, formValidity = {}) => 
   };
 };
 
-/**
- * Validates transactionId using REGEX pattern
- * @param donationID
- * @returns Boolean
- */
-const validateTransactionId = donationID => new RegExp(transactionIdPattern).test(donationID);
-
-/**
- * Checks if any field is invalid.
- * If invalid fields: shows error sets state to show errorMessages.
- * If all fields valid: sets form validity to true
- * @param validation Object
- */
-const getValidation = validation => {
-  let validity = true;
-  let thisField;
-
-  Object.keys(validation).map(key => {
-    thisField = validation[key];
-
-    /**
-     * As we're not passing any 'required' flags to this function, a quick fix to wave our
-     * optional email field through, but only if it's valid or empty
-     */
-    if (thisField.valid !== true && (key !== 'email' || thisField.showErrorMessage === true)) {
-      validity = false;
-    }
-    return true;
-  });
-
-  return validity;
-};
-
 // form validity initial values
 export const initialValidity = {
   validating: false,
@@ -255,17 +255,6 @@ export const initialValidity = {
     valid: true,
     errorMessage: 'This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter'
   }
-};
-
-/**
- * Function to return the default form
- * field validations based on type
- */
-export const getFieldValidations = (update = false) => {
-  if (update) {
-    return defaultUpdateFormFieldValidations;
-  }
-  return defaultSubmitFormFieldValidations;
 };
 
 /*
@@ -416,6 +405,17 @@ export const defaultUpdateFormFieldValidations = {
     value: undefined,
     message: ''
   }
+};
+
+/**
+ * Function to return the default form
+ * field validations based on type
+ */
+export const getFieldValidations = (update = false) => {
+  if (update) {
+    return defaultUpdateFormFieldValidations;
+  }
+  return defaultSubmitFormFieldValidations;
 };
 
 export const getRoute = route => `${process.env.REACT_APP_ENDPOINT_URL}${route}`;

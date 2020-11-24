@@ -4,7 +4,7 @@ import React from 'react';
 import UpdateMessage from './UpdateMessage';
 import SubmitMessage from './SubmitMessage';
 
-const Sorry = props => (
+const Sorry = () => (
   <div className="container">
 
     <div className="container--inner">

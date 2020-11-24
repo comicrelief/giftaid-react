@@ -3,7 +3,7 @@
 * For Submit Form
 *
 */
-export const marketingConsentData = {
+const marketingConsentData = {
   Questions: [
     {
       id: 'permissionEmail',
@@ -83,3 +83,5 @@ export const marketingConsentData = {
     }
   ]
 };
+
+export default marketingConsentData;

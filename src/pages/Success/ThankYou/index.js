@@ -6,7 +6,7 @@ import AppContext from '../../../context/AppContext';
 import GiftAidConfirmMessage from './GiftAidConfirmMessage';
 import GiftAidCancelMessage from './GiftAidCancelMessage';
 
-const ThankYou = props => {
+const ThankYou = () => {
   // get context
   const { successState: state } = useContext(AppContext);
 

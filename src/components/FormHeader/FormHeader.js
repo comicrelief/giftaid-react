@@ -12,7 +12,7 @@ const FormHeader = props => {
     return () => {
       setPage(undefined);
     };
-  }, []);
+  }, [setPage, props.page]);
 
   return (
     <div>

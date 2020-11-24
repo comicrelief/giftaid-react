@@ -54,7 +54,7 @@ function UpdateForm(props) {
     return () => {
       setInputFieldProps([]);
     };
-  }, []);
+  }, [fieldValidation, inputFieldProps.transactionId, setFieldValidation, urlTransactionId]);
 
   return (
 

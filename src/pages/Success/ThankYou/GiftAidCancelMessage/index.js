@@ -1,6 +1,6 @@
 import React from 'react';
 
-const GiftAidCancelMessage = props => (
+const GiftAidCancelMessage = () => (
   <div>
     <h1>Thanks for letting us know</h1>
     <p>

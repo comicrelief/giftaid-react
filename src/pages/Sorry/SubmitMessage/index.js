@@ -4,7 +4,7 @@ import React from 'react';
 * Submit Sorry Page Message
 *
 */
-const SubmitMessage = props => (
+const SubmitMessage = () => (
   <div>
     <p>
       We’re really sorry, but with people across the UK rushing to Gift Aid

@@ -36,7 +36,7 @@ import './app.scss';
 
 const site = new SiteService();
 
-function App(props) {
+function App() {
   // Declare state variables
   const [isCompleted, setIsCompleted] = useState(false); // initialise isCompleted state
 
@@ -48,15 +48,7 @@ function App(props) {
   const [successState, setSuccessState] = useState(initialState); // initialise successState state
 
   /**
-	 * App mounts
-	 */
-  useEffect(() => {
-    getGTM(); // Initialise GTM on component mount
-  }, []);
-
-  /**
-	 * Initialise gtm snippet
-	 */
+    * Initialise gtm snippet  */
   const getGTM = () => {
     TagManager.initialize({
       gtmId: site.get('GTM').id,
@@ -81,6 +73,13 @@ function App(props) {
       }
     });
   };
+
+  /**
+    * App mounts
+  */
+  useEffect(() => {
+    getGTM(); // Initialise GTM on component mount
+  }, []);
 
   const childProps = {
     isCompleted,

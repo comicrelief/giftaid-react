@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import FormContext from '../../../context/FormContext';
 import SiteService from '../../../service/Site.service';
 
-const UpdateHeader = props => {
+const UpdateHeader = () => {
   const { urlTransactionId } = useContext(FormContext); // get states from context
   const site = new SiteService();
   let claimCopy = null;

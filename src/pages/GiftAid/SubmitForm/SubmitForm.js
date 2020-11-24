@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import propTypes from 'prop-types';
+// import { ThemeProvider } from 'styled-components';
+
+import {
+  ThemeProvider,
+  crTheme
+} from '@comicrelief/component-library';
 
 // import components
 import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup';
@@ -13,9 +19,9 @@ import InputFields from '../../../components/InputFields/InputFields';
 import JustInTime from '../../../components/JustInTime/index';
 
 // fields data
-import { submitFormFields } from './SubmitFormFields';
+import submitFormFields from './SubmitFormFields';
 
-import { marketingConsentData } from './marketingConsentData';
+import marketingConsentData from './marketingConsentData';
 
 // Util functions
 import { mergeInputFieldProps } from '../utils/Utils';
@@ -29,10 +35,6 @@ import BigNightInCopy from './BigNightInCopy';
 import SiteService from '../../../service/Site.service';
 
 const site = new SiteService();
-
-const theme = {
-  color: () => 'red'
-};
 
 function SubmitForm(props) {
   // initialise context
@@ -61,17 +63,6 @@ function SubmitForm(props) {
   }
 
   /**
-   * Component mounts and updates
-   */
-  useEffect(() => {
-    // Handle set input fields on component mount
-    setInputField();
-    return () => {
-      setInputFieldProps([]); // reset on component unmount
-    };
-  });
-
-  /**
    * Handle set input fields
    */
   const setInputField = () => {
@@ -95,42 +86,57 @@ function SubmitForm(props) {
     setInputFieldProps(mergeInputFieldProps(submitFormFields, props));
   };
 
+  /**
+   * Component mounts and updates
+   */
+  useEffect(() => {
+    // Handle set input fields on component mount
+    setInputField();
+    return () => {
+      setInputFieldProps([]); // reset on component unmount
+    };
+  });
+
   return (
 
-    <Form className="giftaid__form">
+    <ThemeProvider theme={crTheme}>
 
-      <FormHeader page="submit" />
+      <Form className="giftaid__form">
 
-      <InputFields allFields={inputFieldProps} />
+        <Input id="Testing" name="Testing" label="Testing" type="text" />
 
-      <PostcodeLookup
-        ref={refs}
-        label="Postal address"
-        showErrorMessages={formValidityState.showErrorMessages}
-        pattern={postCodePattern}
-        isAddressValid={
+        <FormHeader page="submit" />
+
+        <InputFields allFields={inputFieldProps} />
+
+        <PostcodeLookup
+          ref={refs}
+          label="Postal address"
+          showErrorMessages={formValidityState.showErrorMessages}
+          pattern={postCodePattern}
+          isAddressValid={
           validation => {
             Object.keys(validation).map(key => setFieldValidity(validation[key], key));
           }
         }
-      />
+        />
 
-      <MarketingConsent
-        getValidation={validation => {
-          Object.keys(validation).forEach(key => setFieldValidity(validation[key], key));
-        }}
-        itemData={marketingConsentData}
-        showErrorMessages={formValidityState.showErrorMessages}
-        {...marketingProps}
-      />
+        <MarketingConsent
+          getValidation={validation => {
+            Object.keys(validation).forEach(key => setFieldValidity(validation[key], key));
+          }}
+          itemData={marketingConsentData}
+          showErrorMessages={formValidityState.showErrorMessages}
+          {...marketingProps}
+        />
 
-      <Input id="text" name="text" label="text" type="text" />
+        <FormButton onClick={e => submitForm(e)} text="Gift Aid your donation" />
 
-      <FormButton onClick={e => submitForm(e)} text="Gift Aid your donation" />
+        <JustInTime submit text={justInTimeLinkText} />
 
-      <JustInTime submit text={justInTimeLinkText} />
+      </Form>
 
-    </Form>
+    </ThemeProvider>
 
   );
 }
@@ -139,7 +145,8 @@ SubmitForm.defaultProps = {
   history: { push: { } }
 };
 SubmitForm.propTypes = {
-  inputFieldOverrides: propTypes.shape(propTypes.shape)
+  inputFieldOverrides: propTypes.shape(propTypes.shape),
+  history: propTypes.shape(propTypes.shape)
 };
 
 export default SubmitForm;
