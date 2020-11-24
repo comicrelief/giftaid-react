@@ -80,7 +80,8 @@ module.exports = {
         include: [
           paths.appSrc,
           path.resolve(paths.appNodeModules, '@comicrelief/pattern-lab'),
-          path.resolve(paths.appNodeModules, '@comicrelief/storybook')
+          path.resolve(paths.appNodeModules, '@comicrelief/storybook'),
+          path.resolve(paths.appNodeModules, '@comicrelief/component-library')
         ],
       },
       {
@@ -88,7 +89,8 @@ module.exports = {
         include: [
           paths.appSrc,
           path.resolve(paths.appNodeModules, '@comicrelief/pattern-lab'),
-          path.resolve(paths.appNodeModules, '@comicrelief/storybook')
+          path.resolve(paths.appNodeModules, '@comicrelief/storybook'),
+          path.resolve(paths.appNodeModules, '@comicrelief/component-library')
         ],
         use: [{
           loader: "style-loader" // creates style nodes from JS strings
@@ -117,7 +119,8 @@ module.exports = {
             include: [
               paths.appSrc,
               path.resolve(paths.appNodeModules, '@comicrelief/pattern-lab'),
-              path.resolve(paths.appNodeModules, '@comicrelief/storybook')
+              path.resolve(paths.appNodeModules, '@comicrelief/storybook'),
+              path.resolve(paths.appNodeModules, '@comicrelief/component-library')
             ],
             loader: require.resolve('babel-loader'),
             options: {

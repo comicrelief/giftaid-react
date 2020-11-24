@@ -5,18 +5,15 @@ import JustInTime from '@comicrelief/storybook/src/components/JustInTime/JustInT
 import SubmitMessage from './SubmitMessage';
 import UpdateMessage from './UpdateMessage';
 
-const JustInTimeComponent = (props) => {
-
-  return (
-    <JustInTime linkText={props.text}>
-      {
+const JustInTimeComponent = props => (
+  <JustInTime linkText={props.text}>
+    {
         props.submit || props.submit !== undefined
-          ? <SubmitMessage/>
-          : <UpdateMessage/>
+          ? <SubmitMessage />
+          : <UpdateMessage />
       }
-    </JustInTime>
+  </JustInTime>
 
-  );
-};
+);
 
 export default JustInTimeComponent;

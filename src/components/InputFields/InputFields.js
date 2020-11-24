@@ -1,15 +1,13 @@
-import React, {useContext, useEffect, useState} from 'react';
-import InputField from "@comicrelief/storybook/src/components/InputField";
+import React, { useContext, useEffect, useState } from 'react';
+import InputField from '@comicrelief/storybook/src/components/InputField';
 
-import FormContext from "../../context/FormContext";
+import FormContext from '../../context/FormContext';
 
-
-const InputFields = (props) => {
-
+const InputFields = props => {
   // initialise context
   const {
     formValidityState,
-    setFieldValidity,
+    setFieldValidity
   } = useContext(FormContext); // get props from context
 
   const [showErrorMessages, setShowErrorMessages] = useState(formValidityState.showErrorMessages);
@@ -22,7 +20,6 @@ const InputFields = (props) => {
   });
 
   const createInputFields = () => {
-
     const inputFields = [];
     Object.entries(allFields).map(([field, prop]) => inputFields.push(<InputField
       key={field}

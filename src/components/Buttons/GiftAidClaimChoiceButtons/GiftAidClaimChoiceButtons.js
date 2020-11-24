@@ -1,15 +1,14 @@
-import React, {useContext} from 'react';
-import RadioButtons from "@comicrelief/storybook/src/components/RadioButtons";
+import React, { useContext } from 'react';
+import RadioButtons from '@comicrelief/storybook/src/components/RadioButtons';
 
-import FormContext from "../../../context/FormContext";
+import FormContext from '../../../context/FormContext';
 
-const GiftAidClaimChoiceButtons = (props) => {
-
+const GiftAidClaimChoiceButtons = props => {
   // initialise context
   const {
     formValidityState,
     setFieldValidity,
-    refs,
+    refs
   } = useContext(FormContext); // get props from context
 
   return (
@@ -26,7 +25,7 @@ const GiftAidClaimChoiceButtons = (props) => {
         options={props.giftAidButtonChoices}
         showErrorMessage={formValidityState.showErrorMessages}
         ref={refs}
-        isValid={ (state, id) => setFieldValidity(state, id) }
+        isValid={(state, id) => setFieldValidity(state, id)}
       />
     </div>
   );

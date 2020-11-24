@@ -1,17 +1,18 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, {
+  useState, useEffect, useContext, useRef
+} from 'react';
 
-import propTypes from "prop-types";
+import propTypes from 'prop-types';
 import axios from 'axios';
 
 // import components
 import UpdateForm from './UpdateForm';
 import SubmitForm from './SubmitForm';
 
-
 // context
 import AppContext from '../../context/AppContext';
 
-//Context provider
+// Context provider
 import { FormProvider } from '../../context/FormContext';
 
 // Import utility functions
@@ -25,19 +26,17 @@ import {
   validateForm,
   getFieldValidations,
   initialValidity,
-  getRoute,
+  getRoute
 } from './utils/Utils';
-
 
 let scrollTimeout;
 
 function GiftAid(props) {
-
   // initialise and get props from context
   const { setIsCompleted, setSuccessState } = useContext(AppContext);
 
   // Declare states
-  const update = props.location.pathname.includes("update"); // initialise updating param state
+  const update = props.location.pathname.includes('update'); // initialise updating param state
   const [updating, setUpdating] = useState(update); // set to true if path contains the string update
   const [pathParams, setPathParams] = useState({}); // initialise submit path param state
   const [formValidityState, setFormValidityState] = useState(initialValidity); // intitialise form validity states
@@ -72,26 +71,24 @@ function GiftAid(props) {
       setUrlTransactionId(null);
       setToken(null);
       setMSISDN(null);
-    }
+    };
   }, []);
-
 
   /**
    * Fetches decrypted MSISDN using token
    * @param cipherText
    */
-  const decryptToken = (cipherText) => {
+  const decryptToken = cipherText => {
     if (cipherText) {
       axios.get(getRoute(`token/get/${cipherText}`)) // send request to endpoint
-        .then((response) => {
+        .then(response => {
           if (response.data.data.status === 'success') {
             setMSISDN(response.data.data.response);
           }
         })
-        .catch()
+        .catch();
     }
   };
-
 
   /**
    * Handle validity state on component update
@@ -99,11 +96,11 @@ function GiftAid(props) {
   useEffect(() => {
     // if validation fails, scroll to error
     if ((formValidityState.showErrorMessages && !formValidityState.formValidity
-      && formValidityState.validating) || formValidityState.urlTransactionId.valid === false ) {
+      && formValidityState.validating) || formValidityState.urlTransactionId.valid === false) {
       // update validation state
       setFormValidityState({
         ...formValidityState,
-        validating: false,
+        validating: false
       });
     }
   }, []);
@@ -118,9 +115,8 @@ function GiftAid(props) {
     return () => {
       // clear timeout on component unmount
       clearTimeout(scrollTimeout);
-    }
+    };
   });
-
 
   /**
    * Updates validation state for form fields
@@ -128,7 +124,6 @@ function GiftAid(props) {
    * @param name
    */
   const setFieldValidity = (childState, name) => {
-
     const prevStateField = fieldValidation[name];
     const fieldUndefined = prevStateField === undefined;
     const valueUndefined = typeof prevStateField !== 'undefined' && prevStateField.value === undefined;
@@ -136,8 +131,8 @@ function GiftAid(props) {
     const newState = (fieldUndefined === false && newValue) || (valueUndefined === true || newValue);
 
     // set field validation for marketing consent fields if present
-    const marketingConsentFieldsChanged = fieldUndefined === false &&
-      (childState.fieldValidation !== prevStateField.fieldValidation);
+    const marketingConsentFieldsChanged = fieldUndefined === false
+      && (childState.fieldValidation !== prevStateField.fieldValidation);
 
     if ((prevStateField && newState) || marketingConsentFieldsChanged === true) {
       if (name === 'emailaddress' && childState.value === '') { // make email field optional
@@ -147,8 +142,8 @@ function GiftAid(props) {
             valid: true,
             value: childState.value,
             message: childState.message,
-            showErrorMessage: false,
-          },
+            showErrorMessage: false
+          }
         });
       } else {
         // Reset url transaction Id state
@@ -157,15 +152,15 @@ function GiftAid(props) {
             ...formValidityState,
             urlTransactionId: {
               ...formValidityState.urlTransactionId,
-              valid: true,
+              valid: true
             }
           });
         }
         fieldValidation[name] = childState;
-        setFieldValidation({...fieldValidation});
+        setFieldValidation({ ...fieldValidation });
 
         return {
-          ...fieldValidation,
+          ...fieldValidation
         };
       }
     }
@@ -176,8 +171,7 @@ function GiftAid(props) {
    * and redirects to success or sorry page
    * @param e
    */
-  const submitForm = (e) => {
-
+  const submitForm = e => {
     e.preventDefault();
     const formValues = getFormValues(fieldValidation, urlTransactionId, updating); // get form values
     const { validity, validationState } = validateForm(fieldValidation, formValues, formValidityState); // validate form
@@ -189,21 +183,20 @@ function GiftAid(props) {
           setIsCompleted(true); // set completed state
           setSuccessState({ // set success page variables
             firstname: formValues.firstname,
-            giftAidChoice: formValues.confirm,
+            giftAidChoice: formValues.confirm
           });
           props.history.push({
-            pathname: pathParams.successPath, // redirect to success page
+            pathname: pathParams.successPath // redirect to success page
           });
         })
         .catch(() => {
           props.history.push({
-            pathname: pathParams.sorryPath, // redirect to failure page
+            pathname: pathParams.sorryPath // redirect to failure page
           });
         });
     }
     return null;
   };
-
 
   // Pass context props to child components
   const contextProps = {
@@ -213,10 +206,10 @@ function GiftAid(props) {
     justInTimeLinkText,
     formValidityState,
     fieldValidation,
-    setFieldValidation: (validation) => setFieldValidation(validation),
+    setFieldValidation: validation => setFieldValidation(validation),
     setFieldValidity: (state, name) => setFieldValidity(state, name),
     refs: inputRef,
-    submitForm: (e) => submitForm(e),
+    submitForm: e => submitForm(e)
   };
 
   return (
@@ -239,10 +232,10 @@ function GiftAid(props) {
 
 GiftAid.defaultProps = {
   inputFieldOverrides: {},
-  history: { push: { } },
+  history: { push: { } }
 };
 GiftAid.propTypes = {
-  inputFieldOverrides: propTypes.shape(propTypes.shape),
+  inputFieldOverrides: propTypes.shape(propTypes.shape)
 };
 
 export default GiftAid;

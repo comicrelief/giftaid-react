@@ -1,9 +1,11 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import propTypes from 'prop-types';
 
 // import components
-import PostcodeLookup from "@comicrelief/storybook/src/components/PostcodeLookup";
+import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup';
 import MarketingConsent from '@comicrelief/storybook/src/components/MarketingConsent/MarketingConsent';
+import Input from '@comicrelief/component-library/src/components/Atoms/Input/Input';
+
 import Form from '../../../components/Form/index';
 import FormHeader from '../../../components/FormHeader/FormHeader';
 import FormButton from '../../../components/Buttons/FormButton/index';
@@ -19,7 +21,7 @@ import { marketingConsentData } from './marketingConsentData';
 import { mergeInputFieldProps } from '../utils/Utils';
 
 // import context
-import FormContext from "../../../context/FormContext";
+import FormContext from '../../../context/FormContext';
 
 import BigNightInCopy from './BigNightInCopy';
 
@@ -28,8 +30,11 @@ import SiteService from '../../../service/Site.service';
 
 const site = new SiteService();
 
-function SubmitForm(props) {
+const theme = {
+  color: () => 'red'
+};
 
+function SubmitForm(props) {
   // initialise context
   const {
     refs,
@@ -39,7 +44,7 @@ function SubmitForm(props) {
     formValidityState,
     fieldValidation,
     setFieldValidation,
-    submitForm,
+    submitForm
   } = useContext(FormContext); // get states from context
 
   const { msisdn } = props;
@@ -63,7 +68,7 @@ function SubmitForm(props) {
     setInputField();
     return () => {
       setInputFieldProps([]); // reset on component unmount
-    }
+    };
   });
 
   /**
@@ -90,10 +95,9 @@ function SubmitForm(props) {
     setInputFieldProps(mergeInputFieldProps(submitFormFields, props));
   };
 
-
   return (
 
-    <Form className="giftaid__form" >
+    <Form className="giftaid__form">
 
       <FormHeader page="submit" />
 
@@ -105,14 +109,14 @@ function SubmitForm(props) {
         showErrorMessages={formValidityState.showErrorMessages}
         pattern={postCodePattern}
         isAddressValid={
-          (validation) => {
+          validation => {
             Object.keys(validation).map(key => setFieldValidity(validation[key], key));
           }
         }
       />
 
       <MarketingConsent
-        getValidation={(validation) => {
+        getValidation={validation => {
           Object.keys(validation).forEach(key => setFieldValidity(validation[key], key));
         }}
         itemData={marketingConsentData}
@@ -120,7 +124,9 @@ function SubmitForm(props) {
         {...marketingProps}
       />
 
-      <FormButton onClick={(e) => submitForm(e)} text="Gift Aid your donation" />
+      <Input id="text" name="text" label="text" type="text" />
+
+      <FormButton onClick={e => submitForm(e)} text="Gift Aid your donation" />
 
       <JustInTime submit text={justInTimeLinkText} />
 
@@ -130,10 +136,10 @@ function SubmitForm(props) {
 }
 SubmitForm.defaultProps = {
   inputFieldOverrides: {},
-  history: { push: { } },
+  history: { push: { } }
 };
 SubmitForm.propTypes = {
-  inputFieldOverrides: propTypes.shape(propTypes.shape),
+  inputFieldOverrides: propTypes.shape(propTypes.shape)
 };
 
 export default SubmitForm;

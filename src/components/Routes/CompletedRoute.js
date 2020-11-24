@@ -4,7 +4,6 @@ import { Route, Redirect } from 'react-router-dom';
 import AppContext from '../../context/AppContext';
 
 export default ({ component: C, props: cProps, ...rest }) => {
-
   const app = useContext(AppContext);
 
   const redirectPath = window.location.pathname === 'success'
@@ -13,7 +12,7 @@ export default ({ component: C, props: cProps, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={ props => (app.isCompleted ? <C {...props} /> : <Redirect to={redirectPath} />)}
+      render={props => (app.isCompleted ? <C {...props} /> : <Redirect to={redirectPath} />)}
     />
   );
 };

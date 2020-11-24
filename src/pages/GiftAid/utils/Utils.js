@@ -1,5 +1,5 @@
-import SiteService from "../../../service/Site.service";
 import TagManager from 'react-gtm-module';
+import SiteService from '../../../service/Site.service';
 
 const site = new SiteService();
 const url = site.getCurrentUrl();
@@ -40,20 +40,16 @@ export const mergeInputFieldProps = (defaultInputFieldsProps, props) => {
   return inputFields;
 };
 
-
 /**
  * Create endpoint params for form submission
  * based on form type
  * @param update
  */
-export const getPathParams = (update = false) => {
-  return {
-    endpoint: typeof update !== 'undefined' && update ? ENDPOINT_URL + 'update' : ENDPOINT_URL,
-    successPath: typeof update !== 'undefined' && update ? '/update/success' : '/success',
-    sorryPath: typeof update !== 'undefined' && update ? '/update/sorry' : '/sorry',
-  };
-};
-
+export const getPathParams = (update = false) => ({
+  endpoint: typeof update !== 'undefined' && update ? ENDPOINT_URL + 'update' : ENDPOINT_URL,
+  successPath: typeof update !== 'undefined' && update ? '/update/success' : '/success',
+  sorryPath: typeof update !== 'undefined' && update ? '/update/sorry' : '/sorry'
+});
 
 /**
  * Function to Create form fields
@@ -66,7 +62,7 @@ export const getFormValues = (validation, urlId = null, update = false) => {
   // create field values
   const fieldValues = {};
 
-  Object.keys(validation).map((key) => {
+  Object.keys(validation).map(key => {
     let value = validation[key].value;
     // Set Giftaid choice for submit form
     if (key === 'confirm') {
@@ -89,7 +85,6 @@ export const getFormValues = (validation, urlId = null, update = false) => {
 
   // Create a Donation id field for Update Form
   if ((typeof validation.transactionId !== 'undefined' && validation.transactionId) || urlId !== null) {
-
     fieldValues.donationID = typeof validation.transactionId !== 'undefined'
     && validation.transactionId
       ? validation.transactionId.value : urlId;
@@ -110,20 +105,19 @@ export const getFormValues = (validation, urlId = null, update = false) => {
 
   // remove giftaid claim field if it exists
   if (fieldValues.giftAidClaimChoice !== undefined) {
-
     // Delete giftAidClaimChoice form field
     delete fieldValues.giftAidClaimChoice;
   }
 
-  return Object.assign({}, {
-    campaign: campaign,
+  return {
+    campaign,
     transSource: `${campaign}_${name}`,
     transSourceUrl: url,
     transType: name,
     timestamp: site.getTimestamp(),
-  }, fieldValues);
+    ...fieldValues
+  };
 };
-
 
 /*
 * Donation Types
@@ -132,7 +126,7 @@ export const getFormValues = (validation, urlId = null, update = false) => {
 const DONATION_TYPES = {
   SMS: 'sms',
   ONLINE: 'online',
-  CALL_CENTRE: 'call centre',
+  CALL_CENTRE: 'call centre'
 };
 
 /*
@@ -167,7 +161,6 @@ const transactionIdPattern = '^[a-zA-Z0-9-_]{5,}$';
  * @return Object
  */
 export const validateForm = (validation, formValues = {}, formValidity = {}) => {
-
   const donationId = formValues.donationID !== undefined ? formValues.donationID : null;
 
   // validate donation id if present
@@ -183,40 +176,38 @@ export const validateForm = (validation, formValues = {}, formValidity = {}) => 
     validating: false,
     urlTransactionId: {
       ...formValidity.urlTransactionId,
-      valid: true,
+      valid: true
     }
   };
   // Validation fails for fields or transactionId
-  if (fieldValidity !== true || (transIdValidity !== true && transIdValidity !== null) ) {
-
+  if (fieldValidity !== true || (transIdValidity !== true && transIdValidity !== null)) {
     // set failed fields state
     validationState = {
       ...formValidity,
       formValidity: false,
       showErrorMessages: true,
-      validating: true,
+      validating: true
     };
     if (transIdValidity !== null && !transIdValidity && donationId !== undefined && donationId !== null) {
-
       // set transaction id failed state
       validationState.urlTransactionId = {
         ...formValidity.urlTransactionId,
-        valid: false,
-      }
+        valid: false
+      };
     }
   }
-  const email = formValues.email && formValues.email !== "" ? formValues.email : 'N';
+  const email = formValues.email && formValues.email !== '' ? formValues.email : 'N';
   TagManager.dataLayer({
     dataLayer: {
       user: {
-        userEmail: email,
+        userEmail: email
       },
-      event: 'custUserEmail',
-    },
+      event: 'custUserEmail'
+    }
   });
   return {
     validity: fieldValidity && (transIdValidity === null || transIdValidity),
-    validationState,
+    validationState
   };
 };
 
@@ -225,8 +216,7 @@ export const validateForm = (validation, formValues = {}, formValidity = {}) => 
  * @param donationID
  * @returns Boolean
  */
-const validateTransactionId = (donationID) => new RegExp(transactionIdPattern).test(donationID);
-
+const validateTransactionId = donationID => new RegExp(transactionIdPattern).test(donationID);
 
 /**
  * Checks if any field is invalid.
@@ -234,19 +224,18 @@ const validateTransactionId = (donationID) => new RegExp(transactionIdPattern).t
  * If all fields valid: sets form validity to true
  * @param validation Object
  */
-const getValidation = (validation) => {
+const getValidation = validation => {
   let validity = true;
   let thisField;
 
-  Object.keys(validation).map((key) => {
-
+  Object.keys(validation).map(key => {
     thisField = validation[key];
 
     /**
      * As we're not passing any 'required' flags to this function, a quick fix to wave our
      * optional email field through, but only if it's valid or empty
      */
-    if (thisField.valid !== true && ( key !== 'email' || thisField.showErrorMessage === true )) {
+    if (thisField.valid !== true && (key !== 'email' || thisField.showErrorMessage === true)) {
       validity = false;
     }
     return true;
@@ -254,7 +243,6 @@ const getValidation = (validation) => {
 
   return validity;
 };
-
 
 // form validity initial values
 export const initialValidity = {
@@ -289,79 +277,78 @@ export const defaultSubmitFormFieldValidations = {
   confirm: {
     valid: false,
     value: undefined,
-    message: '',
+    message: ''
   },
   mobile: {
     valid: false,
     value: undefined,
-    message: '',
+    message: ''
   },
   firstname: {
     valid: false,
     value: undefined,
-    message: '',
+    message: ''
   },
   lastname: {
     valid: false,
     value: undefined,
-    message: '',
+    message: ''
   },
   postcode: {
     valid: false,
     value: undefined,
-    message: '',
+    message: ''
   },
   address1: {
     valid: false,
     value: undefined,
-    message: '',
+    message: ''
   },
   address2: {
     valid: true,
     value: undefined,
-    message: '',
+    message: ''
   },
   address3: {
     valid: true,
     value: undefined,
-    message: '',
+    message: ''
   },
   town: {
     valid: false,
     value: undefined,
-    message: '',
+    message: ''
   },
   country: {
     valid: false,
     value: undefined,
-    message: '',
+    message: ''
   },
   permissionEmail: {
     isFieldsHidden: false,
     value: null,
     valid: true,
-    fieldValidation: {},
+    fieldValidation: {}
   },
   permissionPost: {
     isFieldsHidden: false,
     value: null,
     valid: true,
-    fieldValidation: false,
+    fieldValidation: false
   },
   permissionPhone: {
     isFieldsHidden: false,
     value: null,
     valid: true,
-    fieldValidation: false,
+    fieldValidation: false
   },
   permissionSMS: {
     isFieldsHidden: false,
     value: null,
     valid: true,
-    fieldValidation: false,
-  },
+    fieldValidation: false
+  }
 };
-
 
 /*
 * Default Update Form Field
@@ -372,72 +359,63 @@ export const defaultUpdateFormFieldValidations = {
   firstname: {
     valid: false,
     value: undefined,
-    message: '',
+    message: ''
   },
   lastname: {
     valid: false,
     value: undefined,
-    message: '',
+    message: ''
   },
   email: {
     valid: true,
     value: undefined,
-    message: '',
+    message: ''
   },
   postcode: {
     valid: false,
     value: undefined,
-    message: '',
+    message: ''
   },
   address1: {
     valid: false,
     value: undefined,
-    message: '',
+    message: ''
   },
   address2: {
     valid: true,
     value: undefined,
-    message: '',
+    message: ''
   },
   address3: {
     valid: true,
     value: undefined,
-    message: '',
+    message: ''
   },
   town: {
     valid: false,
     value: undefined,
-    message: '',
+    message: ''
   },
   country: {
     valid: false,
     value: undefined,
-    message: '',
+    message: ''
   },
   giftAidClaimChoice: {
     valid: false,
     value: undefined,
-    message: '',
+    message: ''
   },
   donationType: {
     valid: false,
     value: undefined,
-    message: '',
+    message: ''
   },
   transactionId: {
     valid: false,
     value: undefined,
-    message: '',
-  },
+    message: ''
+  }
 };
 
-
-export const getRoute = (route) => {
-  return `${process.env.REACT_APP_ENDPOINT_URL}${route}`;
-};
-
-
-
-
-
-
+export const getRoute = route => `${process.env.REACT_APP_ENDPOINT_URL}${route}`;

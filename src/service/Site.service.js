@@ -30,15 +30,15 @@ export default class SiteService {
   getSite() {
     const hostname = window.location.hostname;
 
-    if(hostname.includes('sportrelief')) {
+    if (hostname.includes('sportrelief')) {
       return 'SR';
     }
 
-    if(hostname.includes('rednoseday')) {
+    if (hostname.includes('rednoseday')) {
       return 'RND';
     }
 
-    if(hostname.includes('bignightin')) {
+    if (hostname.includes('bignightin')) {
       return 'BIGNIGHTIN';
     }
 
@@ -69,7 +69,6 @@ export default class SiteService {
     return this.url;
   }
 
-
   /**
    * Gets the timestamp and formats it
    * @return string
@@ -79,4 +78,3 @@ export default class SiteService {
     return this.timestamp;
   }
 }
-

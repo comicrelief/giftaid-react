@@ -1,10 +1,9 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 
 // import context
 import FormContext from '../../context/FormContext';
 
-const Form = ({children, ...props}) => {
-
+const Form = ({ children, ...props }) => {
   const { formValidityState } = useContext(FormContext); // get states from context
 
   return (
