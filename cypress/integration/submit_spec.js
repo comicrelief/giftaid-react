@@ -100,7 +100,7 @@ describe('e2e test', () => {
       cy.get('#field-input--email').should('be.visible')
       cy.get('button[type=submit]').click()
       cy.get('#field-error--email>span').should('contain', 'Please fill in your email address')
-      cy.get('#field-input--email').type('qatest@comicrelief.com')
+      cy.get('#field-input--email').type('giftaid-staging@email.sls.comicrelief.com')
     })
 
 
