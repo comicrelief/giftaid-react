@@ -3,7 +3,7 @@ const updateCommands = {
     return client
       .setValue('#field-input--firstname', 'test')
       .setValue('#field-input--lastname', 'user')
-      .setValue('#field-input--emailaddress', 'test@comicrelief.com')
+      .setValue('#field-input--emailaddress', 'giftaid-staging@email.sls.comicrelief.com')
       .setValue('#field-input--postcode', 'se1 7tp')
       .click('a[aria-describedby=field-error--addressDetails]')
       .pause(200)
