@@ -41,9 +41,9 @@ export const scrollToError = (state = {}) => {
  * @param props
  * @returns {object}
  */
-export const mergeInputFieldProps = (defaultInputFieldsProps, props) => {
+export const mergeInputFieldProps = (defaultInputFieldsProps, inputFieldOverrides) => {
   const inputFields = defaultInputFieldsProps;
-  const overrides = props.inputFieldOverrides;
+  const overrides = inputFieldOverrides;
   Object.entries(overrides).forEach(([key]) => {
     Object.assign(inputFields[key], overrides[key]);
   });
@@ -313,6 +313,7 @@ export const defaultSubmitFormFieldValidations = {
     value: undefined,
     message: ''
   },
+  // Old Marketing Prefs
   permissionEmail: {
     isFieldsHidden: false,
     value: null,
@@ -336,6 +337,34 @@ export const defaultSubmitFormFieldValidations = {
     value: null,
     valid: true,
     fieldValidation: false
+  },
+  // New Marketing Prefs fields
+  mp_permissionEmail: {
+    isFieldsHidden: false,
+    value: null,
+    valid: true,
+    fieldValidation: {}
+  },
+  mp_permissionPost: {
+    isFieldsHidden: false,
+    value: null,
+    valid: true,
+    fieldValidation: false
+  },
+  mp_permissionPhone: {
+    isFieldsHidden: false,
+    value: null,
+    valid: true,
+    fieldValidation: false
+  },
+  mp_permissionSMS: {
+    isFieldsHidden: false,
+    value: null,
+    valid: true,
+    fieldValidation: false
+  },
+  mp_email: {
+    value: null
   }
 };
 
