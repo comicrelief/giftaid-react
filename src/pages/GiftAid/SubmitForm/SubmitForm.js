@@ -136,18 +136,19 @@ function SubmitForm(submitProps) {
 
       <Formik
         validationSchema={validationSchema}
-        initialValues={new_MP_initialValues}
-        validateOnChange={false}
+        validateOnChange
         validateOnBlur
         validateOnMount
+        initialValues={new_MP_initialValues}
         validate={values => { console.log('Validate:', values); }}
-
       >{({
         handleChange, setFieldValue, setFieldTouched, isValid, values, errors, touched
       }) => (
 
         <Form className="giftaid__form" NoValidate>
+
           <FormHeader page="submit" />
+
           <InputFields allFields={inputFieldProps} />
 
           <PostcodeLookup
@@ -177,14 +178,14 @@ function SubmitForm(submitProps) {
             {() => { passFormikValidation(values, errors); }}
           </WithOnValidationChangeHandler>
 
-          <MarketingConsent
+          {/* <MarketingConsent
             getValidation={validation => {
               Object.keys(validation).forEach(key => setFieldValidity(validation[key], key));
             }}
             itemData={marketingConsentData}
             showErrorMessages={formValidityState.showErrorMessages}
             {...marketingProps}
-          />
+          /> */}
 
           <FormButton onClick={e => submitForm(e)} text="Gift Aid your donation" />
 
@@ -204,7 +205,9 @@ SubmitForm.defaultProps = {
   history: { push: { } }
 };
 SubmitForm.propTypes = {
+  // eslint-disable-next-line react/no-unused-prop-types
   inputFieldOverrides: propTypes.shape(propTypes.shape),
+  // eslint-disable-next-line react/no-unused-prop-types
   history: propTypes.shape(propTypes.shape)
 };
 
