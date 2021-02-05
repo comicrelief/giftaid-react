@@ -13,8 +13,7 @@ import {
 
 // import components
 import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup';
-import MarketingConsent from '@comicrelief/storybook/src/components/MarketingConsent/MarketingConsent';
-import { setInitialValues, buildValidationSchema } from './marketingPrefsConfig';
+import { setInitialValues, buildValidationSchema } from '@comicrelief/component-library/src/components/Organisms/MarketingPreferencesDS/_MarketingPreferencesDS';
 
 import Form from '../../../components/Form/index';
 import FormHeader from '../../../components/FormHeader/FormHeader';
@@ -24,7 +23,7 @@ import JustInTime from '../../../components/JustInTime/index';
 
 // fields data
 import submitFormFields from './SubmitFormFields';
-import marketingConsentData from './marketingConsentData';
+// import marketingConsentData from './marketingConsentData';
 
 // Util functions
 import { mergeInputFieldProps } from '../utils/Utils';
@@ -36,14 +35,15 @@ import BigNightInCopy from './BigNightInCopy';
 // Site config
 import SiteService from '../../../service/Site.service';
 
-// let formikErrors = {};
-
 const site = new SiteService();
 
 /* START: New Marketing preferences config */
-const new_MP_initialValues = setInitialValues();
-const new_MP_validation = buildValidationSchema();
-const { validationSchema, options } = new_MP_validation;
+const initialMpValues = setInitialValues();
+const mpValidation = buildValidationSchema();
+const {
+  validationSchema,
+  validationOptions
+} = mpValidation;
 /* END: New Marketing preferences config */
 
 function SubmitForm(submitProps) {
@@ -51,11 +51,11 @@ function SubmitForm(submitProps) {
   const {
     refs,
     setFieldValidity,
+    setFieldValidation,
     postCodePattern,
     justInTimeLinkText,
     formValidityState,
     fieldValidation,
-    setFieldValidation,
     submitForm
   } = useContext(FormContext); // get states from context
 
@@ -108,45 +108,45 @@ function SubmitForm(submitProps) {
   });
 
   // Customised wrapper function
-  const customSetFieldValue = (name, value, setFieldValue) => {
+  const handleCheckChange = (name, value, setFieldValue) => {
     setFieldValue(name, value);
     // Force validation to remove any old errors?
   };
 
-  const passFormikValidation = (values, errors) => {
+  const passFormikValidation = (values, errors, type) => {
     Object.keys(values).forEach(key => {
       const thisError = errors[key];
-      let thisVal = typeof values[key] === 'string' ? values[key] : values[key][0]; // Handle checkboxes.. TO-DO: maybe do this within component?
+      let thisVal = typeof values[key] === 'string' ? values[key] : values[key][0]; // Handle checkboxes
       thisVal = (thisVal !== undefined ? thisVal : null); // Handles the empty checkbox array from Formik
 
+      // Validation object per how the existing 'setFieldValidity' function requires
       const validityObject = {
-        value: thisVal, // TO-DO: for some reason, the value reset (when re-hiding the field) isn't reflected here..
+        value: thisVal,
         valid: thisError === undefined,
         showErrorMessages: thisError !== undefined,
         message: thisError
       };
 
+      // 'setFieldValidity' is passed as context prop from GiftAid component;
+      // this allows for Formik values/validation to be included in the overall validation
       setFieldValidity(validityObject, key);
     });
   };
 
   return (
-
     <ThemeProvider theme={crTheme}>
 
       <Formik
+        initialValues={initialMpValues}
         validationSchema={validationSchema}
         validateOnChange
         validateOnBlur
         validateOnMount
-        initialValues={new_MP_initialValues}
-        validate={values => { console.log('Validate:', values); }}
       >{({
-        handleChange, setFieldValue, setFieldTouched, isValid, values, errors, touched
+        handleChange, setFieldValue, setFieldTouched, isValid, values, errors, touched, validateField
       }) => (
 
         <Form className="giftaid__form" NoValidate>
-
           <FormHeader page="submit" />
 
           <InputFields allFields={inputFieldProps} />
@@ -163,29 +163,22 @@ function SubmitForm(submitProps) {
           <MarketingPreferencesDS
             formValues={values}
             handleInputChange={handleChange}
-            handleCheckChange={(name, value) => customSetFieldValue(name, value, setFieldValue)}
             handleTouchedReset={setFieldTouched}
-            validation={{ errors, touched, options }}
+            validation={{ errors, touched, validationOptions }}
+            setFieldValue={setFieldValue}
+            validateField={validateField}
+            // inputFieldOverrides={fieldOverrides}
           />
 
           {/* As Formik doesn't provide callbacks, let's use this handy plugin to pass values and errors
-          to the existing validation functionality any value or validation event happens */}
+          to the existing validation functionality when a change happens */}
           <WithOnChangeHandler>
             {() => { passFormikValidation(values, errors); }}
           </WithOnChangeHandler>
 
-          <WithOnValidationChangeHandler>
-            {() => { passFormikValidation(values, errors); }}
-          </WithOnValidationChangeHandler>
-
-          {/* <MarketingConsent
-            getValidation={validation => {
-              Object.keys(validation).forEach(key => setFieldValidity(validation[key], key));
-            }}
-            itemData={marketingConsentData}
-            showErrorMessages={formValidityState.showErrorMessages}
-            {...marketingProps}
-          /> */}
+          {/* <WithOnValidationChangeHandler>
+            {() => { passFormikValidation(values, errors, 'onValidate'); }}
+          </WithOnValidationChangeHandler> */}
 
           <FormButton onClick={e => submitForm(e)} text="Gift Aid your donation" />
 
@@ -193,9 +186,7 @@ function SubmitForm(submitProps) {
 
         </Form>
       )}
-
       </Formik>
-
     </ThemeProvider>
 
   );

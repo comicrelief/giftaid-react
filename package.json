@@ -37,7 +37,8 @@
     "styled-components": "^5.2.1",
     "susy": "^3.0.3",
     "whatwg-fetch": "2.0.3",
-    "yup": "^0.31.0"
+    "yup": "^0.32.8",
+    "yup-phone": "^1.2.19"
   },
   "scripts": {
     "start": "node scripts/start.js",

@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 import React, {
   useState, useEffect, useContext, useRef
 } from 'react';
@@ -124,28 +125,18 @@ function GiftAid(props) {
    * @param name
    */
   const setFieldValidity = (childState, name) => {
-    // console.log(name, 'childstate:', childState);
     const prevStateField = fieldValidation[name]; // what's been stored before
     const fieldUndefined = prevStateField === undefined; // if we haven't already stored anything for this field
     const valueUndefined = typeof prevStateField !== 'undefined' && prevStateField.value === undefined; // if we HAVE stored it previously but with no value
     const newValue = typeof prevStateField !== 'undefined' && prevStateField.value !== childState.value; // if we HAVE stored the field before and the value has changed
     const newState = (fieldUndefined === false && newValue) || (valueUndefined === true || newValue); // if we're updating an existing field, or
 
-    if (name === 'Xmp_permissionEmail') {
-      console.log(name, ':');
-      console.log(' - prevStateField', prevStateField);
-      console.log(' - fieldUndefined', fieldUndefined);
-      console.log(' - valueUndefined', valueUndefined);
-      console.log(' - newValue', newValue);
-      console.log(' - newState', newState);
-      console.log('');
+    // TO-DO: switch statement to map mobile, and address fields to MP counterparts
+    if (name === 'mobile') {
+      console.log('mobile is:', childState.value);
     }
 
-    // set field validation for marketing consent fields if present
-    const marketingConsentFieldsChanged = fieldUndefined === false
-      && (childState.fieldValidation !== prevStateField.fieldValidation);
-
-    if ((prevStateField && newState) || marketingConsentFieldsChanged === true) {
+    if ((prevStateField && newState)) {
       if (name === 'emailaddress' && childState.value === '') { // make email field optional
         setFieldValidation({
           ...fieldValidation,
@@ -190,7 +181,7 @@ function GiftAid(props) {
     setFormValidityState(validationState); // update form validation state
 
     if (validity) { // submit form if no errors
-      console.log('formValues', formValues);
+      // console.log('formValues', formValues);
       axios.post(pathParams.endpoint, formValues) // post form data and settings to endpoint
         .then(() => {
           setIsCompleted(true); // set completed state
