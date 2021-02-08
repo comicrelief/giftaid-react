@@ -125,16 +125,19 @@ function GiftAid(props) {
    * @param name
    */
   const setFieldValidity = (childState, name) => {
+    if (name.includes('mp')) {
+      // console.log('MP field', name);
+      // TO-DO: switch statement to map mobile, and address fields to MP counterparts
+      // if (name === 'mobile') {
+      //   console.log('mobile is:', childState.value);
+      // }
+    }
+
     const prevStateField = fieldValidation[name]; // what's been stored before
     const fieldUndefined = prevStateField === undefined; // if we haven't already stored anything for this field
     const valueUndefined = typeof prevStateField !== 'undefined' && prevStateField.value === undefined; // if we HAVE stored it previously but with no value
     const newValue = typeof prevStateField !== 'undefined' && prevStateField.value !== childState.value; // if we HAVE stored the field before and the value has changed
     const newState = (fieldUndefined === false && newValue) || (valueUndefined === true || newValue); // if we're updating an existing field, or
-
-    // TO-DO: switch statement to map mobile, and address fields to MP counterparts
-    if (name === 'mobile') {
-      console.log('mobile is:', childState.value);
-    }
 
     if ((prevStateField && newState)) {
       if (name === 'emailaddress' && childState.value === '') { // make email field optional

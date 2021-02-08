@@ -114,6 +114,7 @@ function SubmitForm(submitProps) {
   };
 
   const passFormikValidation = (values, errors, type) => {
+    /// sconsole.log('passFormikValidation');
     Object.keys(values).forEach(key => {
       const thisError = errors[key];
       let thisVal = typeof values[key] === 'string' ? values[key] : values[key][0]; // Handle checkboxes
@@ -124,12 +125,14 @@ function SubmitForm(submitProps) {
         value: thisVal,
         valid: thisError === undefined,
         showErrorMessages: thisError !== undefined,
-        message: thisError
+        message: thisError !== undefined ? thisError : ''
       };
+
+      // console.log('validityObject for', key, ':', validityObject);
 
       // 'setFieldValidity' is passed as context prop from GiftAid component;
       // this allows for Formik values/validation to be included in the overall validation
-      setFieldValidity(validityObject, key);
+      // setFieldValidity(validityObject, key);
     });
   };
 
@@ -142,6 +145,7 @@ function SubmitForm(submitProps) {
         validateOnChange
         validateOnBlur
         validateOnMount
+
       >{({
         handleChange, setFieldValue, setFieldTouched, isValid, values, errors, touched, validateField
       }) => (
@@ -176,6 +180,7 @@ function SubmitForm(submitProps) {
             {() => { passFormikValidation(values, errors); }}
           </WithOnChangeHandler>
 
+          {/* TO-DO: unsure this happens on every required action; doesn't run on non-required fields */}
           {/* <WithOnValidationChangeHandler>
             {() => { passFormikValidation(values, errors, 'onValidate'); }}
           </WithOnValidationChangeHandler> */}
