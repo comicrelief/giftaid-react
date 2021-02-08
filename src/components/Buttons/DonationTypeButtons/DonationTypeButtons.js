@@ -1,16 +1,15 @@
 import React, { useContext } from 'react';
-import RadioButtons from "@comicrelief/storybook/src/components/RadioButtons";
+import RadioButtons from '@comicrelief/storybook/src/components/RadioButtons';
 
-import FormContext from "../../../context/FormContext";
+import FormContext from '../../../context/FormContext';
 
-const DonationTypeButtons = (props) => {
-
+const DonationTypeButtons = props => {
   // initialise context
   const {
     urlTransactionId,
     formValidityState,
     refs,
-    setFieldValidity,
+    setFieldValidity
   } = useContext(FormContext); // get props from context
 
   if (urlTransactionId) {

@@ -1,10 +1,10 @@
 const BigNightInCopy = {
 
-    copy1: `<p>Sign up to hear more about BBC Children in Need and Comic Relief's work.
+  copy1: `<p>Sign up to hear more about BBC Children in Need and Comic Relief's work.
               You'll hear from each charity about what they do and will be subject to each charity's privacy policy.</p>
               <p>How would you like to hear from Children in Need and Comic Relief?</p>`,
-  
-    copy2: `<p> You can update your communication preferences with either charity at any time. </p>
+
+  copy2: `<p> You can update your communication preferences with either charity at any time. </p>
               <p> For Comic Relief go to <a
                   href="https://www.comicrelief.com/update-your-preferences"
                   target="_blank"
@@ -28,7 +28,7 @@ const BigNightInCopy = {
                   target="_blank"
                   rel="noopener noreferrer"
                   class="link inline"
-              >privacy policy</a> for more details. </p>`,
-  };
-  
-  export default BigNightInCopy;
+              >privacy policy</a> for more details. </p>`
+};
+
+export default BigNightInCopy;

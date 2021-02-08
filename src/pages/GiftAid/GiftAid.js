@@ -1,17 +1,19 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+/* eslint-disable no-unreachable */
+import React, {
+  useState, useEffect, useContext, useRef
+} from 'react';
 
-import propTypes from "prop-types";
+import propTypes from 'prop-types';
 import axios from 'axios';
 
 // import components
 import UpdateForm from './UpdateForm';
 import SubmitForm from './SubmitForm';
 
-
 // context
 import AppContext from '../../context/AppContext';
 
-//Context provider
+// Context provider
 import { FormProvider } from '../../context/FormContext';
 
 // Import utility functions
@@ -25,23 +27,21 @@ import {
   validateForm,
   getFieldValidations,
   initialValidity,
-  getRoute,
+  getRoute
 } from './utils/Utils';
-
 
 let scrollTimeout;
 
 function GiftAid(props) {
-
   // initialise and get props from context
   const { setIsCompleted, setSuccessState } = useContext(AppContext);
 
   // Declare states
-  const update = props.location.pathname.includes("update"); // initialise updating param state
-  const [updating, setUpdating] = useState(update); // set to true if path contains the string update
+  const isUpdatePage = props.location.pathname.includes('update'); // initialise updating param state
+  const [isUpdating, setIsUpdating] = useState(isUpdatePage); // set to true if path contains the string update
   const [pathParams, setPathParams] = useState({}); // initialise submit path param state
   const [formValidityState, setFormValidityState] = useState(initialValidity); // intitialise form validity states
-  const [fieldValidation, setFieldValidation] = useState(getFieldValidations(update)); // intitialise field validation state based on form type
+  const [fieldValidation, setFieldValidation] = useState(getFieldValidations(isUpdatePage)); // intitialise field validation state based on form type
   const inputRef = useRef(null);
 
   // initialise URL token state if available
@@ -54,10 +54,26 @@ function GiftAid(props) {
   const [urlTransactionId, setUrlTransactionId] = useState(props.match.params.transaction_id);
 
   /**
+   * Fetches decrypted MSISDN using token
+   * @param cipherText
+   */
+  const decryptToken = cipherText => {
+    if (cipherText) {
+      axios.get(getRoute(`token/get/${cipherText}`)) // send request to endpoint
+        .then(response => {
+          if (response.data.data.status === 'success') {
+            setMSISDN(response.data.data.response);
+          }
+        })
+        .catch();
+    }
+  };
+
+  /**
    * GiftAid component mounts
    */
   useEffect(() => {
-    setPathParams(getPathParams(updating)); // update path states
+    setPathParams(getPathParams(isUpdating)); // update path states
     setToken(props.match.params.token); // update token state
     setUrlTransactionId(props.match.params.transaction_id); // update url transaction id state
     if (token) {
@@ -68,30 +84,12 @@ function GiftAid(props) {
       // reset states
       setFormValidityState(initialValidity);
       setFieldValidation({});
-      setUpdating(false);
+      setIsUpdating(false);
       setUrlTransactionId(null);
       setToken(null);
       setMSISDN(null);
-    }
-  }, []);
-
-
-  /**
-   * Fetches decrypted MSISDN using token
-   * @param cipherText
-   */
-  const decryptToken = (cipherText) => {
-    if (cipherText) {
-      axios.get(getRoute(`token/get/${cipherText}`)) // send request to endpoint
-        .then((response) => {
-          if (response.data.data.status === 'success') {
-            setMSISDN(response.data.data.response);
-          }
-        })
-        .catch()
-    }
-  };
-
+    };
+  }, [props.match.params.token, props.match.params.transaction_id, token, isUpdating]);
 
   /**
    * Handle validity state on component update
@@ -99,14 +97,14 @@ function GiftAid(props) {
   useEffect(() => {
     // if validation fails, scroll to error
     if ((formValidityState.showErrorMessages && !formValidityState.formValidity
-      && formValidityState.validating) || formValidityState.urlTransactionId.valid === false ) {
+      && formValidityState.validating) || formValidityState.urlTransactionId.valid === false) {
       // update validation state
       setFormValidityState({
         ...formValidityState,
-        validating: false,
+        validating: false
       });
     }
-  }, []);
+  }, [formValidityState]);
 
   /**
    * Handle scroll to error on component update
@@ -118,9 +116,8 @@ function GiftAid(props) {
     return () => {
       // clear timeout on component unmount
       clearTimeout(scrollTimeout);
-    }
+    };
   });
-
 
   /**
    * Updates validation state for form fields
@@ -128,18 +125,21 @@ function GiftAid(props) {
    * @param name
    */
   const setFieldValidity = (childState, name) => {
+    if (name.includes('mp')) {
+      // console.log('MP field', name);
+      // TO-DO: switch statement to map mobile, and address fields to MP counterparts
+      // if (name === 'mobile') {
+      //   console.log('mobile is:', childState.value);
+      // }
+    }
 
-    const prevStateField = fieldValidation[name];
-    const fieldUndefined = prevStateField === undefined;
-    const valueUndefined = typeof prevStateField !== 'undefined' && prevStateField.value === undefined;
-    const newValue = typeof prevStateField !== 'undefined' && prevStateField.value !== childState.value;
-    const newState = (fieldUndefined === false && newValue) || (valueUndefined === true || newValue);
+    const prevStateField = fieldValidation[name]; // what's been stored before
+    const fieldUndefined = prevStateField === undefined; // if we haven't already stored anything for this field
+    const valueUndefined = typeof prevStateField !== 'undefined' && prevStateField.value === undefined; // if we HAVE stored it previously but with no value
+    const newValue = typeof prevStateField !== 'undefined' && prevStateField.value !== childState.value; // if we HAVE stored the field before and the value has changed
+    const newState = (fieldUndefined === false && newValue) || (valueUndefined === true || newValue); // if we're updating an existing field, or
 
-    // set field validation for marketing consent fields if present
-    const marketingConsentFieldsChanged = fieldUndefined === false &&
-      (childState.fieldValidation !== prevStateField.fieldValidation);
-
-    if ((prevStateField && newState) || marketingConsentFieldsChanged === true) {
+    if ((prevStateField && newState)) {
       if (name === 'emailaddress' && childState.value === '') { // make email field optional
         setFieldValidation({
           ...fieldValidation,
@@ -147,8 +147,8 @@ function GiftAid(props) {
             valid: true,
             value: childState.value,
             message: childState.message,
-            showErrorMessage: false,
-          },
+            showErrorMessage: false
+          }
         });
       } else {
         // Reset url transaction Id state
@@ -157,18 +157,19 @@ function GiftAid(props) {
             ...formValidityState,
             urlTransactionId: {
               ...formValidityState.urlTransactionId,
-              valid: true,
+              valid: true
             }
           });
         }
+
         fieldValidation[name] = childState;
-        setFieldValidation({...fieldValidation});
+        setFieldValidation({ ...fieldValidation });
 
         return {
-          ...fieldValidation,
+          ...fieldValidation
         };
       }
-    }
+    } return null;
   };
 
   /**
@@ -176,34 +177,33 @@ function GiftAid(props) {
    * and redirects to success or sorry page
    * @param e
    */
-  const submitForm = (e) => {
-
+  const submitForm = e => {
     e.preventDefault();
-    const formValues = getFormValues(fieldValidation, urlTransactionId, updating); // get form values
+    const formValues = getFormValues(fieldValidation, urlTransactionId, isUpdating); // get form values
     const { validity, validationState } = validateForm(fieldValidation, formValues, formValidityState); // validate form
     setFormValidityState(validationState); // update form validation state
 
     if (validity) { // submit form if no errors
+      // console.log('formValues', formValues);
       axios.post(pathParams.endpoint, formValues) // post form data and settings to endpoint
         .then(() => {
           setIsCompleted(true); // set completed state
           setSuccessState({ // set success page variables
             firstname: formValues.firstname,
-            giftAidChoice: formValues.confirm,
+            giftAidChoice: formValues.confirm
           });
           props.history.push({
-            pathname: pathParams.successPath, // redirect to success page
+            pathname: pathParams.successPath // redirect to success page
           });
         })
         .catch(() => {
           props.history.push({
-            pathname: pathParams.sorryPath, // redirect to failure page
+            pathname: pathParams.sorryPath // redirect to failure page
           });
         });
     }
     return null;
   };
-
 
   // Pass context props to child components
   const contextProps = {
@@ -213,16 +213,16 @@ function GiftAid(props) {
     justInTimeLinkText,
     formValidityState,
     fieldValidation,
-    setFieldValidation: (validation) => setFieldValidation(validation),
+    setFieldValidation: validation => setFieldValidation(validation),
     setFieldValidity: (state, name) => setFieldValidity(state, name),
     refs: inputRef,
-    submitForm: (e) => submitForm(e),
+    submitForm: e => submitForm(e)
   };
 
   return (
     <FormProvider value={contextProps}>
 
-      { updating ? (
+      { isUpdating ? (
         <UpdateForm
           title="Update Form"
           urlTransactionId={urlTransactionId}
@@ -238,11 +238,10 @@ function GiftAid(props) {
 }
 
 GiftAid.defaultProps = {
-  inputFieldOverrides: {},
-  history: { push: { } },
+  history: { push: { } }
 };
 GiftAid.propTypes = {
-  inputFieldOverrides: propTypes.shape(propTypes.shape),
+  history: propTypes.shape(propTypes.shape)
 };
 
 export default GiftAid;

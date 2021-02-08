@@ -5,15 +5,12 @@ import PromoHeader from '../../components/PromoHeader/PromoHeader';
 import ThankYou from './ThankYou';
 import ImpactMessage from './ImpactMessage';
 
-
 import SiteService from '../../service/Site.service';
 
 // import context
 import AppContext from '../../context/AppContext';
 
-
-const Success = (props) => {
-
+const Success = props => {
   // get context
   const app = useContext(AppContext);
 
@@ -35,7 +32,7 @@ const Success = (props) => {
 
     if (typeof state === 'undefined' || app.isCompleted === false) {
       props.history.push({
-        pathname: redirectPath,
+        pathname: redirectPath
       });
     }
     return () => {
@@ -45,7 +42,7 @@ const Success = (props) => {
 
   return (
     <div>
-      
+
       {!isBigNightIn && <PromoHeader />}
 
       <div className={`success-wrapper ${additionalClass}`}>
@@ -59,8 +56,6 @@ const Success = (props) => {
     </div>
 
   );
-
 };
-
 
 export default Success;

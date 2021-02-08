@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 
 // import components
-import PostcodeLookup from "@comicrelief/storybook/src/components/PostcodeLookup";
+import PostcodeLookup from '@comicrelief/storybook/src/components/PostcodeLookup';
 import Form from '../../../components/Form/index';
 import FormHeader from '../../../components/FormHeader/FormHeader';
 import FormButton from '../../../components/Buttons/FormButton/index';
@@ -11,16 +11,13 @@ import InputFields from '../../../components/InputFields/InputFields';
 import JustInTime from '../../../components/JustInTime/index';
 import UrlTransactionIdError from './UrlTransactionIdError';
 
-
 // fields data
 import { updateFormFields, donationTypeChoices, giftAidButtonChoices } from './UpdateFormFields';
 
 // import context
 import FormContext from '../../../context/FormContext';
 
-
 function UpdateForm(props) {
-
   // initialise context
   const {
     refs,
@@ -30,9 +27,8 @@ function UpdateForm(props) {
     formValidityState,
     fieldValidation,
     setFieldValidation,
-    submitForm,
+    submitForm
   } = useContext(FormContext); // get props from context
-
 
   const { urlTransactionId } = props;
 
@@ -57,8 +53,8 @@ function UpdateForm(props) {
     // Reset states on component unmount
     return () => {
       setInputFieldProps([]);
-    }
-  }, []);
+    };
+  }, [fieldValidation, inputFieldProps.transactionId, setFieldValidation, urlTransactionId]);
 
   return (
 
@@ -73,7 +69,8 @@ function UpdateForm(props) {
         <DonationTypeButtons donationTypeChoices={donationTypeChoices} />
 
         <h3
-          className="form--update__title form--update__title--giftaid text-align-centre">
+          className="form--update__title form--update__title--giftaid text-align-centre"
+        >
           Who is changing their declaration?
         </h3>
 
@@ -85,7 +82,7 @@ function UpdateForm(props) {
           showErrorMessages={formValidityState.showErrorMessages}
           pattern={postCodePattern}
           isAddressValid={
-            (validation) => {
+            validation => {
               Object.keys(validation).map(key => setFieldValidity(validation[key], key));
             }
           }

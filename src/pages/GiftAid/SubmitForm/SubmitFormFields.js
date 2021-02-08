@@ -1,20 +1,21 @@
 import SiteService from '../../../service/Site.service';
+
 const site = new SiteService();
 let label = null;
-switch(site.getSite()) {
+switch (site.getSite()) {
   case 'BIGNIGHTIN':
     label = 'Yes, I would like BBC Children in Need and Comic Relief to claim Gift Aid on my donation. *';
-  break;
+    break;
   default:
     label = 'Yes, I would like Comic Relief to claim Gift Aid on my donation and any donations I make in the future or have made in the past 4 years *';
-  break;
-};
+    break;
+}
 
 /*
 * Default Submit Form Fields
 *
 */
-export const submitFormFields = {
+const submitFormFields = {
 
   giftaidCheck: {
     id: 'giftaid',
@@ -57,3 +58,4 @@ export const submitFormFields = {
   }
 };
 
+export default submitFormFields;

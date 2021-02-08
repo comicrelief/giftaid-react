@@ -1,14 +1,15 @@
 import SiteService from '../../../service/Site.service';
+
 const site = new SiteService();
 let giftAidButtonChoicesLabel = null;
-switch(site.getSite()) {
+switch (site.getSite()) {
   case 'BIGNIGHTIN':
     giftAidButtonChoicesLabel = 'Yes, I would like BBC Children in Need and Comic Relief to claim Gift Aid on my donation. *';
-  break;
+    break;
   default:
     giftAidButtonChoicesLabel = 'Yes, I would like Comic Relief to claim Gift Aid on my donation and any donations I make in the future or have made in the past 4 years *';
-  break;
-};
+    break;
+}
 
 /*
 * Donation Types
@@ -17,7 +18,7 @@ switch(site.getSite()) {
 export const DONATION_TYPES = {
   SMS: 'sms',
   ONLINE: 'online',
-  CALL_CENTRE: 'call centre',
+  CALL_CENTRE: 'call centre'
 };
 
 /*
@@ -27,7 +28,7 @@ export const DONATION_TYPES = {
 export const donationTypeChoices = [
   { label: 'SMS', value: DONATION_TYPES.SMS },
   { label: 'Online', value: DONATION_TYPES.ONLINE },
-  { label: 'Call centre', value: DONATION_TYPES.CALL_CENTRE },
+  { label: 'Call centre', value: DONATION_TYPES.CALL_CENTRE }
 ];
 
 /*
@@ -38,18 +39,16 @@ export const donationTypeChoices = [
 export const giftAidButtonChoices = [
   {
     label: giftAidButtonChoicesLabel,
-    additionalText: '&#42; By ticking I state I am a UK taxpayer making a personal donation and understand' +
-      'that if I pay less Income Tax and/or Capital Gains Tax than the amount of Gift Aid claimed on all my ' +
-      'donations, it is my responsibility to pay any difference. [Find out more](http://www.comicrelief.com)',
-    value: 1,
+    additionalText: '&#42; By ticking I state I am a UK taxpayer making a personal donation and understand'
+      + 'that if I pay less Income Tax and/or Capital Gains Tax than the amount of Gift Aid claimed on all my '
+      + 'donations, it is my responsibility to pay any difference. [Find out more](http://www.comicrelief.com)',
+    value: 1
   },
   {
     label: 'No',
-    value: 0,
-  },
+    value: 0
+  }
 ];
-
-
 
 /*
 * Default Update Form Fields
@@ -89,6 +88,6 @@ export const updateFormFields = {
     type: 'email',
     name: 'email',
     label: 'Email address',
-    required: false,
+    required: false
   }
 };

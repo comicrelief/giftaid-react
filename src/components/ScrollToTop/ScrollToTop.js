@@ -11,11 +11,11 @@ const ScrollToTop = () => {
   useEffect(() => {
     // ScrollToTop componentDidMount
     // and after every render
+    // eslint-disable-next-line
     window.scrollTo(0, 0);
   });
 
   return null;
 };
-
 
 export default withRouter(ScrollToTop);

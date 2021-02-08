@@ -1,11 +1,9 @@
-
-
 /*
 * Marketing Consent Data
 * For Submit Form
 *
 */
-export const marketingConsentData = {
+const marketingConsentData = {
   Questions: [
     {
       id: 'permissionEmail',
@@ -31,7 +29,7 @@ export const marketingConsentData = {
           name: 'email',
           label: 'Email address',
           placeholder: 'example@email.com',
-          required: true,
+          required: true
         }
       ]
     },
@@ -85,3 +83,5 @@ export const marketingConsentData = {
     }
   ]
 };
+
+export default marketingConsentData;

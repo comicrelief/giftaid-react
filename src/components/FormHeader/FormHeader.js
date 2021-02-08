@@ -4,34 +4,30 @@ import React, { useEffect, useState } from 'react';
 import SubmitHeader from './SubmitHeader';
 import UpdateHeader from './UpdateHeader';
 
-
-const FormHeader = (props) => {
-
-
+const FormHeader = props => {
   const [page, setPage] = useState(typeof props.page !== 'undefined' ? props.page : '');
 
   useEffect(() => {
     setPage(props.page);
     return () => {
       setPage(undefined);
-    }
-  }, []);
+    };
+  }, [setPage, props.page]);
 
   return (
     <div>
       <h1 className="giftaid-title">
         <span className="visually-hidden">
-        Giftaid it
+          Giftaid it
         </span>
       </h1>
-      <React.Fragment>
-        { page === 'update' ?
+      <>
+        { page === 'update'
 
-          <UpdateHeader />
-          :
-          <SubmitHeader />
+          ? <UpdateHeader />
+          : <SubmitHeader />
         }
-      </React.Fragment>
+      </>
 
     </div>
   );

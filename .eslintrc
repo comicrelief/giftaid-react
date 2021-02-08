@@ -1,9 +1,33 @@
 {
-  "extends": "react-app",
-  "env": {
-    "browser": true
-  },
+  "extends": ["airbnb"],
+  "plugins": ["react-hooks"],
   "rules": {
+    "comma-dangle": ["error", {
+      "arrays": "never",
+      "objects": "never",
+      "imports": "never",
+      "exports": "never",
+      "functions": "never"
+    }],
+    "react/jsx-props-no-spreading": ["error", {
+      "html": "ignore",
+      "custom": "ignore",
+      "exceptions": [""]
+    }],
+    "arrow-parens": [2, "as-needed", { "requireForBlockBody": false }],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "react/jsx-filename-extension": "off",
+    "react/no-danger": "off",
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["importers/**/*.js"]}],
+    "react/jsx-curly-newline": "off", // already handled by prettier, but differently, so we have to disable one
+    "quotes": [
+      2,
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ],
     "func-names": ["error", "never"],
     "no-param-reassign": "off",
     "no-return-assign": "off",
@@ -15,10 +39,17 @@
     "class-methods-use-this": "off",
     "prefer-destructuring": "off",
     "react/prefer-stateless-function": "off",
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/prop-types": "off",
     "react/destructuring-assignment": 0,
     "react/no-access-state-in-setstate": 0,
-    "react/jsx-one-expression-per-line": "off"
+    "react/jsx-one-expression-per-line": "off",
+    "camelcase" : "off"
+  },
+  "env": {
+    "jest": true,
+    "browser": true
+  },
+  "globals": {
+    "window": true
   }
 }
