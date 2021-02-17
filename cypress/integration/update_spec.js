@@ -9,7 +9,7 @@ const lastName = faker.name.lastName();
 const successUrl = '/update/success';
 const giftAidChecked = ( Math.random() > 0.5 ) ? '1' : '0';
 const transactionIdErrorMessage = 'This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter';
-const successYesMessage = 'We’ve registered your Gift Aid declaration, we’ll use it to pay for our operational costs.';
+const successYesMessage = 'We’ve registered your Gift Aid declaration.';
 const successNoMessage = 'We won’t claim Gift Aid for your donation';
 
 describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on donation', () => {

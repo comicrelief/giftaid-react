@@ -14,9 +14,6 @@ const SubmitMessage = (props) => {
       </p>
       <h2>Please try again in 5</h2>
       <p>
-        Gift Aid costs you nothing, and we use it to pay for our operational costs.
-      </p>
-      <p>
         If it’s been longer than 15 minutes please make a note of the website
         address:
         {' '}
