@@ -17,8 +17,7 @@ const GiftAidConfirmMessage = (props) => {
         </p>
         :
         <p>
-          We’ve registered your Gift Aid declaration,
-          we’ll use it to pay for our operational costs.
+          We’ve registered your Gift Aid declaration.
         </p>
          }
     </div>
