@@ -31,7 +31,7 @@ module.exports = {
 
    'User completes main giftaid journey': function (client) {
      client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
-     client.page.mainGA().fillForm(client);
+     client.page.form().fillForm(client);
      client.waitForElementVisible('div > h1', 2000);
      client.expect.element('div > h1').text.to.equal('Thank you,\n' +
      'test!');
@@ -229,7 +229,7 @@ module.exports = {
 
    'User completes main giftaid journey from link with token': function (client) {
      client.url(process.env.BASE_URL + 'uX8R5SzcKfk=').maximizeWindow().waitForElementVisible('body', 1000);
-     client.page.mainGA().fillFormPrefilledMobile(client);
+     client.page.form().fillFormPrefilledMobile(client);
      client.waitForElementVisible('div > h1', 2000);
      client.expect.element('div > h1').text.to.equal('Thank you,\n' +
        'test!');
