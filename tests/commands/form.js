@@ -1,11 +1,6 @@
-const ChanceJS = require('chance');
+const faker = require('faker');
 
-const chance = new ChanceJS();
-
-const randomString = chance.string({
-  length: 5,
-  pool: 'abcdefghijklmnopqrstuvwxyz',
-});
+const randomString = faker.lorem.word(5);
 
 
 const commands = {
@@ -15,11 +10,7 @@ const commands = {
    * @return {string}
    */
   randomString() {
-    const randomString = chance.string({
-      length: 5,
-      pool: 'abcdefghijklmnopqrstuvwxyz',
-    });
-    return Date.now().toString() + randomString;
+    return Date.now().toString() + faker.lorem.word(5);
   },
 
   /**
@@ -45,7 +36,7 @@ const commands = {
    * Populate the giftaid using postcode lookup
    * @param client
    */
-  fillFormPrefilledMobile: function (client) {
+  fillFormWithPostcodeLookup: function (client) {
     return client
       .click('#field-label--giftaid')
       .setValue('#field-input--firstname', 'test')
@@ -67,19 +58,14 @@ const commands = {
    * @param donationType
    * @param giftaid
    * @param userData
-   * @param isPaypal
    */
-  fillToPayment(client, baseUrl, amount, donationType, giftaid = false, userData = {}, isPaypal = false) {
+  fillToPayment(client, baseUrl, amount, donationType, giftaid = false, userData = {}) {
     commands.populateFromStartToGiftAidSection(client, baseUrl, donationType, amount);
 
     if (typeof donationType === 'undefined' || donationType === 'single') {
       client.pause(3000);
       client.waitForElementVisible('#giving_type_selector>div>div:nth-child(1)', 5000);
       client.click('#giving_type_selector>div>div:nth-child(1)');
-
-      // if (isPaypal !== true) {
-      //   commands.selectCurrency(client);
-      // }
     }
 
     client.click('button#comicrelief_payinbundle_payment_amount_submit');
@@ -87,14 +73,12 @@ const commands = {
       console.log('giftaid:', giftaid);
       client.click('input#field-input--giftaid');
     }
-    if (!isPaypal) {
-      client
-        .waitForElementVisible('#comicrelief_payinbundle_payment_card', 5000)
-        .click('button#comicrelief_payinbundle_payment_card')
-        .waitForElementVisible('#comicrelief_payinbundle_payment_submit', 3000);
+    client
+      .waitForElementVisible('#comicrelief_payinbundle_payment_card', 5000)
+      .click('button#comicrelief_payinbundle_payment_card')
+      .waitForElementVisible('#comicrelief_payinbundle_payment_submit', 3000);
 
-      commands.populateFromAddressToPaymentSection(client, userData);
-    }
+    commands.populateFromAddressToPaymentSection(client, userData);
   },
 
   /**
@@ -152,6 +136,13 @@ const commands = {
       .pause(5000);
   },
 
+  /**
+   * Fill card form
+   * @param client
+   * @param cardNumber
+   * @param expiration
+   * @param cvc
+   */
   fillCardForm(client, cardNumber, expiration, cvc) {
 
     return client

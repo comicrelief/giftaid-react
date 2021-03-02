@@ -44,7 +44,7 @@ module.exports = {
     console.log('transactionId is:', transactionId);
     client.url(process.env.BASE_URL + 'update').maximizeWindow().waitForElementVisible('body', 1000);
     client.setValue('#field-input--transactionId', transactionId);
-    client.page.giftaidYes().fillFormUpdateYes(client);
+    client.page.giftaid().fillFormUpdateYes(client);
     client.waitForElementVisible('div.success-wrapper--inner>div>h1', 1000);
     client.expect.element('div.success-wrapper--inner>div>h1').text.to.equal('Thank you,\n' + 'test!');
     client.end();
@@ -58,7 +58,7 @@ module.exports = {
     client.url(process.env.BASE_URL + `update/${transactionId}`).maximizeWindow().waitForElementVisible('body', 1000);
     client.expect.element('p.text-align-centre.transaction-id').text.to.equal(`Transaction ID: ${transactionId}`);
     client.click('#donationType>div:nth-child(2)>label');
-    client.page.giftaidYes().fillFormUpdateYes(client);
+    client.page.giftaid().fillFormUpdateYes(client);
     client.waitForElementVisible('div.success-wrapper--inner>div>h1', 1000);
     client.expect.element('div.success-wrapper--inner>div>h1').text.to.equal('Thank you,\n' + 'test!');
     client.end();
@@ -72,7 +72,7 @@ module.exports = {
     client.url(process.env.BASE_URL + `update/${transactionId}`).maximizeWindow().waitForElementVisible('body', 1000);
     client.expect.element('p.text-align-centre.transaction-id').text.to.equal(`Transaction ID: ${transactionId}`);
     client.click('#donationType>div:nth-child(3)>label');
-    client.page.giftaidYes().fillFormUpdateYes(client);
+    client.page.giftaid().fillFormUpdateYes(client);
     client.waitForElementVisible('div.success-wrapper--inner > div > h1', 1000);
     client.expect.element('div.success-wrapper--inner>div>h1').text.to.equal('Thank you,\n' + 'test!');
     client.end();
@@ -86,7 +86,7 @@ module.exports = {
     client.url(process.env.BASE_URL + `update/${transactionId}`).maximizeWindow().waitForElementVisible('body', 1000);
     client.expect.element('p.text-align-centre.transaction-id').text.to.equal(`Transaction ID: ${transactionId}`);
       client.click('#donationType>div:nth-child(4)>label');
-    client.page.giftaidYes().fillFormUpdateYes(client);
+    client.page.giftaid().fillFormUpdateYes(client);
     client.waitForElementVisible('div.success-wrapper--inner>div>h1', 1000);
     client.expect.element('div.success-wrapper--inner>div>h1').text.to.equal('Thank you,\n' + 'test!');
     client.end();
@@ -95,7 +95,7 @@ module.exports = {
   'User selects "no" for giftaid update declaration': function (client) {
     client.url(process.env.BASE_URL + 'update').maximizeWindow().waitForElementVisible('body', 1000);
     client.setValue('#field-input--transactionId', 'D-BEX1501');
-    client.page.giftaidNo().fillFormUpdateNo(client);
+    client.page.giftaid().fillFormUpdateNo(client);
     client.waitForElementVisible('div.success-wrapper--inner>div>h1', 1000);
     client.expect.element('div.success-wrapper--inner>div>h1').text.to.equal('Thanks for letting us know');
     client.end();
@@ -104,7 +104,7 @@ module.exports = {
   'Verify url error message on Giftaid update form with invalid UUID': function (client) {
     client.url(process.env.BASE_URL + 'update/test').maximizeWindow().waitForElementVisible('body', 1000);
     client.click('#donationType>div:nth-child(3)>label');
-    client.page.giftaidYes().fillFormUpdateYes(client);
+    client.page.giftaid().fillFormUpdateYes(client);
     client.assert.containsText('#field-error--urlTransID>span', 'This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter');
     client.end();
   },

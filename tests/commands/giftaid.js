@@ -1,14 +1,27 @@
-const ChanceJS = require('chance');
+const faker = require('faker');
 
-const chance = new ChanceJS();
-
-const randomString = chance.string({
-  length: 5,
-  pool: 'abcdefghijklmnopqrstuvwxyz',
-});
+const randomString = faker.lorem.word(5);
 
 
 const updateCommands = {
+
+  /**
+   * Populate the giftaid update form with no to giftaid declaration
+   * @param client
+   */
+  fillFormUpdateNo: function (client) {
+    return client
+      .setValue('#field-input--firstname', 'test')
+      .setValue('#field-input--lastname', 'user' + randomString)
+      .setValue('#field-input--postcode', 'se1 7tp')
+      .click('a[aria-describedby=field-error--addressDetails]')
+      .pause(200)
+      .setValue('#field-input--address1', '21 test road')
+      .setValue('#field-input--town', 'London')
+      .click('#giftAidClaimChoice>div:nth-child(3)>label')
+      .click('button[type=submit]')
+      .pause(5000);
+    },
 
   /**
    * Populate the giftaid update form with yes to giftaid declaration
@@ -31,5 +44,5 @@ const updateCommands = {
 };
 
 module.exports = {
-  commands: [updateCommands],
+    commands: [updateCommands],
 };

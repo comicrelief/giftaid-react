@@ -33,16 +33,17 @@ module.exports = {
 
       const browserIdleHandler = client.page.timeout().browserIdleHandler(client);
 
-
+      console.log('Fetching supporter from ERP');
       const supporter = await erpNextTester.findOne('Supporter', { filters: [{field: "first_name", value: firstName}, {field: "last_name", value: lastName}] });
 
       const supporterId = supporter.name;
-      console.log('Fetching supporter id from ERP:', supporterId);
+      console.log('supporterId', supporterId)
       client.assert.equal(supporter.first_name, firstName, 'firstName');
       client.assert.equal(supporter.last_name, lastName, 'lastName');
 
+      clearInterval(browserIdleHandler);
+      console.log('Fetching gift aid mandate from ERP');
       const giftaidMandate = await erpNextTester.findOne('Gift Aid Mandate', {
-        fields: ['*'],
         filters: [
           {
             field: 'supporter',
@@ -50,11 +51,9 @@ module.exports = {
           },
         ],
       });
-      const giftaidMandateId = giftaidMandate.name;
-      console.log('Fetching gift aid mandate id from ERP:', giftaidMandateId);
+      console.log('giftaidMandateId', giftaidMandate.name)
       client.assert.equal(giftaidMandate.supporter, supporterId, 'supporterId');
       client.assert.equal(giftaidMandate.source, 'Giftaid Submit', 'Giftaid Submit');
-      clearInterval(browserIdleHandler);
 
       done();
     });
