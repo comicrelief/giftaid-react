@@ -9,7 +9,7 @@ const lastName = faker.name.lastName();
 const successUrl = '/update/success';
 const giftAidChecked = ( Math.random() > 0.5 ) ? '1' : '0';
 const transactionIdErrorMessage = 'This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter';
-const successYesMessage = 'We’ve registered your Gift Aid declaration, we’ll use it to pay for our operational costs.';
+const successYesMessage = 'We’ve registered your Gift Aid declaration.';
 const successNoMessage = 'We won’t claim Gift Aid for your donation';
 
 describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on donation', () => {
@@ -89,7 +89,7 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
     it('email input field validation', () => {
       cy.get('#field-input--emailaddress').clear().type('test-@%comicrelief.com')
       cy.get('#field-error--emailaddress > span').should('contain','Please fill in a valid email address')
-      cy.get('#field-input--emailaddress').clear().type('test@comicrelief.com')
+      cy.get('#field-input--emailaddress').clear().type('giftaid-staging@email.sls.comicrelief.com')
       cy.get('#field-error--emailaddress > span').should('be.not.visible')
     })
 
@@ -157,7 +157,7 @@ describe('e2e test typing transaction ID and choosing "No" to claim gift aid on 
         cy.get('#field-input--transactionId').clear().type('2D487A59-716B-440D-BD43-50ED301DD9BA')
         cy.get('#field-input--firstname').clear().type(firstName)
         cy.get('#field-input--lastname').clear().type(lastName)
-        cy.get('#field-input--emailaddress').clear().type('test@comicrelief.com')
+        cy.get('#field-input--emailaddress').clear().type('giftaid-staging@email.sls.comicrelief.com')
         cy.get('#field-input--postcode').clear().type('hp2 6lq')
         cy.get('#postcode_button').click()
         cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
@@ -179,7 +179,7 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
         cy.get('input[type="radio"]').check('sms').should('be.checked')
         cy.get('#field-input--firstname').clear().type(firstName)
         cy.get('#field-input--lastname').clear().type(lastName)
-        cy.get('#field-input--emailaddress').clear().type('test@comicrelief.com')
+        cy.get('#field-input--emailaddress').clear().type('giftaid-staging@email.sls.comicrelief.com')
         cy.get('#field-input--postcode').clear().type('hp2 6lq')
         cy.get('#postcode_button').click()
         cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
@@ -198,7 +198,7 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
         cy.get('input[type="radio"]').check('online').should('be.checked')
         cy.get('#field-input--firstname').clear().type(firstName)
         cy.get('#field-input--lastname').clear().type(lastName)
-        cy.get('#field-input--emailaddress').clear().type('test@comicrelief.com')
+        cy.get('#field-input--emailaddress').clear().type('giftaid-staging@email.sls.comicrelief.com')
         cy.get('#field-input--postcode').clear().type('hp2 6lq')
         cy.get('#postcode_button').click()
         cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
@@ -218,7 +218,7 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
         cy.get('#field-input--transactionId').clear().type('5c6a9920355f6')
         cy.get('#field-input--firstname').clear().type(firstName)
         cy.get('#field-input--lastname').clear().type(lastName)
-        cy.get('#field-input--emailaddress').clear().type('test@comicrelief.com')
+        cy.get('#field-input--emailaddress').clear().type('giftaid-staging@email.sls.comicrelief.com')
         cy.get('#field-input--postcode').clear().type('hp2 6lq')
         cy.get('#postcode_button').click()
         cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
@@ -278,7 +278,7 @@ describe('Ensure url validation if string is less than 5 characters', () => {
     cy.get('input[type="radio"]').check('online').should('be.checked')
     cy.get('#field-input--firstname').clear().type(firstName)
     cy.get('#field-input--lastname').clear().type(lastName)
-    cy.get('#field-input--emailaddress').clear().type('test@comicrelief.com')
+    cy.get('#field-input--emailaddress').clear().type('giftaid-staging@email.sls.comicrelief.com')
     cy.get('#field-input--postcode').clear().type('hp2 6lq')
     cy.get('#postcode_button').click()
     cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
