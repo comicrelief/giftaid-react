@@ -31,7 +31,7 @@
     "snyk": "^1.316.1",
     "susy": "^3.0.3",
     "whatwg-fetch": "2.0.3",
-    "uuid": "latest"
+    "uuid": "8.3.2"
   },
   "scripts": {
     "start": "node scripts/start.js",

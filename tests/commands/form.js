@@ -2,12 +2,6 @@ const ChanceJS = require('chance');
 
 const chance = new ChanceJS();
 
-const randomString = chance.string({
-  length: 5,
-  pool: 'abcdefghijklmnopqrstuvwxyz',
-});
-
-
 const commands = {
 
   /**
@@ -31,7 +25,7 @@ const commands = {
       .click('#field-label--giftaid')
       .setValue('#field-input--mobile', '07123456789')
       .setValue('#field-input--firstname', 'test')
-      .setValue('#field-input--lastname', 'user' + randomString)
+      .setValue('#field-input--lastname', 'user')
       .setValue('#field-input--postcode', 'se1 7tp')
       .click('a[aria-describedby=field-error--addressDetails]')
       .pause(200)
