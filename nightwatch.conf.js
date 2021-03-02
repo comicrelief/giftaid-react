@@ -38,7 +38,7 @@ const nightwatch = {
 
     // controls the timeout value for async hooks. Expects the done() callback to be invoked within this time
     // or an error is thrown
-    asyncHookTimeout : 700 * 1000, // timeout for .perform method for instance.
+    asyncHookTimeout : 300 * 1000, // timeout for .perform method for instance.
 
     // controls the timeout value for when running async unit tests. Expects the done() callback to be invoked within this time
     // or an error is thrown
@@ -68,7 +68,7 @@ const nightwatch = {
       path: '',
     },
     request_timeout_options: {
-      timeout: 1000 * 1000,
+      timeout: 200 * 1000,
     },
   },
 
