@@ -2,7 +2,6 @@ const faker = require('faker');
 
 const randomString = faker.lorem.word(5);
 
-
 const updateCommands = {
 
   /**

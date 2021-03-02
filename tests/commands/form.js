@@ -2,7 +2,6 @@ const faker = require('faker');
 
 const randomString = faker.lorem.word(5);
 
-
 const commands = {
 
   /**
@@ -36,7 +35,7 @@ const commands = {
    * Populate the giftaid using postcode lookup
    * @param client
    */
-  fillFormWithPostcodeLookup: function (client) {
+  fillFormPrefilledMobile: function (client) {
     return client
       .click('#field-label--giftaid')
       .setValue('#field-input--firstname', 'test')
