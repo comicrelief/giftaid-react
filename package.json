@@ -30,8 +30,8 @@
     "react-router-dom": "^4.2.2",
     "snyk": "^1.316.1",
     "susy": "^3.0.3",
-    "whatwg-fetch": "2.0.3",
-    "uuid": "8.3.2"
+    "uuid": "8.3.0",
+    "whatwg-fetch": "2.0.3"
   },
   "scripts": {
     "start": "node scripts/start.js",
