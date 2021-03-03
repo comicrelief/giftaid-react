@@ -17,6 +17,10 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: Obtain registry authToken from env
+          command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+
       # Download and cache dependencies
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
