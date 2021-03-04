@@ -104,11 +104,7 @@ const nightwatch = {
     //     name: 'Giftaid - Sanity',
     //   },
     // },
-  },
-  test_workers: {
-    enabled: true,
-    workers: 'auto',
-  },
+  }
 };
 
 // Code to support common capabilites
@@ -119,6 +115,13 @@ for(const testSetting in nightwatch.test_settings){
   config['desiredCapabilities'] = config['desiredCapabilities'] || {};
   for(const commonCapability in nightwatch.common_capabilities){
     config['desiredCapabilities'][commonCapability] = config['desiredCapabilities'][commonCapability] || nightwatch.common_capabilities[commonCapability];
+  }
+}
+
+if (!process.env.RUN_SERIAL) {
+  nightwatch.test_workers = {
+    enabled: true,
+    workers: 'auto',
   }
 }
 
