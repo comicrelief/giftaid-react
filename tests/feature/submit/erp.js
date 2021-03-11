@@ -30,28 +30,30 @@ module.exports = {
       `${firstName}!`);
 
     client.perform(async (done) => {
+      try{
+        console.log('Fetching supporter from ERP');
+        const supporter = await erpNextTester.findOne('Supporter', { filters: [{field: "first_name", value: firstName}, {field: "last_name", value: lastName}] });
 
-      console.log('Fetching supporter from ERP');
-      const supporter = await erpNextTester.findOne('Supporter', { filters: [{field: "first_name", value: firstName}, {field: "last_name", value: lastName}] });
+        const supporterId = supporter.name;
+        console.log('supporterId', supporterId)
+        client.assert.equal(supporter.first_name, firstName, 'firstName');
+        client.assert.equal(supporter.last_name, lastName, 'lastName');
 
-      const supporterId = supporter.name;
-      console.log('supporterId', supporterId)
-      client.assert.equal(supporter.first_name, firstName, 'firstName');
-      client.assert.equal(supporter.last_name, lastName, 'lastName');
-
-      console.log('Fetching gift aid mandate from ERP');
-      const giftaidMandate = await erpNextTester.findOne('Gift Aid Mandate', {
-        filters: [
-          {
-            field: 'supporter',
-            value: supporterId,
-          },
-        ],
-      });
-      console.log('giftaidMandateId', giftaidMandate.name)
-      client.assert.equal(giftaidMandate.supporter, supporterId, 'supporterId');
-      client.assert.equal(giftaidMandate.source, 'Giftaid Submit', 'Giftaid Submit');
-
+        console.log('Fetching gift aid mandate from ERP');
+        const giftaidMandate = await erpNextTester.findOne('Gift Aid Mandate', {
+          filters: [
+            {
+              field: 'supporter',
+              value: supporterId,
+            },
+          ],
+        });
+        console.log('giftaidMandateId', giftaidMandate.name)
+        client.assert.equal(giftaidMandate.supporter, supporterId, 'supporterId');
+        client.assert.equal(giftaidMandate.source, 'Giftaid Submit', 'Giftaid Submit');
+      } catch(error) {
+        client.assert.fail(error);
+      }
       done();
     });
     client.end();
