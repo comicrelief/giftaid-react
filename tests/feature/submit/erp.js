@@ -31,8 +31,6 @@ module.exports = {
 
     client.perform(async (client, done) => {
 
-      const browserIdleHandler = client.page.timeout().browserIdleHandler(client);
-
       console.log('Fetching supporter from ERP');
       const supporter = await erpNextTester.findOne('Supporter', { filters: [{field: "first_name", value: firstName}, {field: "last_name", value: lastName}] });
 
@@ -41,7 +39,6 @@ module.exports = {
       client.assert.equal(supporter.first_name, firstName, 'firstName');
       client.assert.equal(supporter.last_name, lastName, 'lastName');
 
-      clearInterval(browserIdleHandler);
       console.log('Fetching gift aid mandate from ERP');
       const giftaidMandate = await erpNextTester.findOne('Gift Aid Mandate', {
         filters: [

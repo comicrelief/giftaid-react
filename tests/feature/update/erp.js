@@ -57,8 +57,6 @@ module.exports = {
 
       client.perform(async (client, done) => {
 
-        const browserIdleHandler = client.page.timeout().browserIdleHandler(client);
-
         console.log('Fetching donation from ERP', transactionId);
         const donation = await erpNextTester.get('Donation', transactionId);
 
@@ -93,7 +91,6 @@ module.exports = {
         console.log('giftaidMandateId', giftaidMandate.name)
         client.assert.equal(giftaidMandate.supporter, supporterId, 'supporterId');
 
-        clearInterval(browserIdleHandler);
         const giftaidClaimId = donation.giftaid_claim;
         console.log('Fetching gift aid claim id from ERP');
         const giftaidClaim = await erpNextTester.findOne('Gift Aid Claim', {
