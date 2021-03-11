@@ -29,7 +29,7 @@ module.exports = {
     client.expect.element('div > h1').text.to.equal('Thank you,\n' +
       `${firstName}!`);
 
-    client.perform(async (client, done) => {
+    client.perform(async (done) => {
 
       console.log('Fetching supporter from ERP');
       const supporter = await erpNextTester.findOne('Supporter', { filters: [{field: "first_name", value: firstName}, {field: "last_name", value: lastName}] });

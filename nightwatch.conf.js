@@ -17,7 +17,7 @@ const nightwatch = {
   globals: {
     // controls the timeout value for async hooks. Expects the done() callback to be invoked within this time
     // or an error is thrown
-    asyncHookTimeout : 400 * 1000, // timeout for .perform method for instance.
+    asyncHookTimeout : 300 * 1000, // timeout for .perform method for instance.
     // ensure process is closing as in some cases, process hang forever.
     after: (done)=> {
       done();

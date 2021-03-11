@@ -35,7 +35,7 @@ const tests = {};
       console.log('transactionId:', transactionId);
     });
 
-    client.perform(async (client, done) => {
+    client.perform(async (done) => {
       console.log('Fetching donation from ERP', transactionId);
       const donation = await erpNextTester.get('Donation', transactionId);
 
