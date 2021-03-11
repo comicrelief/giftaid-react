@@ -12,6 +12,9 @@ const nightwatch = {
 
   webdriver: {
     keep_alive: true, // keep session alive
+    timeout_options: {
+      timeout: 300 * 1000
+    }
   },
 
   globals: {
