@@ -55,21 +55,21 @@ const tests = {};
         client.assert.equal(supporter.first_name, 'test', 'firstName');
         client.assert.equal(supporter.last_name, lastName, 'lastName');
 
-        // client.url(process.env.BASE_URL + 'update').maximizeWindow().waitForElementVisible('body', 1000);
-        // client.setValue('#field-input--transactionId', transactionId);
-        // client.setValue('#field-input--firstname', 'test')
-        //   .setValue('#field-input--lastname', lastName)
-        //   .setValue('#field-input--emailaddress', email)
-        //   .setValue('#field-input--postcode', 'se17tp')
-        //   .click('a[aria-describedby=field-error--addressDetails]')
-        //   .pause(200)
-        //   .setValue('#field-input--address1', '21 test road')
-        //   .setValue('#field-input--town', 'London')
-        //   .click(`#giftAidClaimChoice>div:nth-child(${giftaid ? 2 : 3})>label`)
-        //   .click('button[type=submit]');
-        // client.waitForElementVisible('div.success-wrapper--inner>div>h1', 3000);
-        // const thankYouMessage = giftaid ? 'Thank you,\ntest!' : 'Thanks for letting us know'
-        // client.expect.element('div.success-wrapper--inner>div>h1').text.to.equal(thankYouMessage);
+        client.url(process.env.BASE_URL + 'update').maximizeWindow().waitForElementVisible('body', 1000);
+        client.setValue('#field-input--transactionId', transactionId);
+        client.setValue('#field-input--firstname', 'test')
+          .setValue('#field-input--lastname', lastName)
+          .setValue('#field-input--emailaddress', email)
+          .setValue('#field-input--postcode', 'se17tp')
+          .click('a[aria-describedby=field-error--addressDetails]')
+          .pause(200)
+          .setValue('#field-input--address1', '21 test road')
+          .setValue('#field-input--town', 'London')
+          .click(`#giftAidClaimChoice>div:nth-child(${giftaid ? 2 : 3})>label`)
+          .click('button[type=submit]');
+        client.waitForElementVisible('div.success-wrapper--inner>div>h1', 3000);
+        const thankYouMessage = giftaid ? 'Thank you,\ntest!' : 'Thanks for letting us know'
+        client.expect.element('div.success-wrapper--inner>div>h1').text.to.equal(thankYouMessage);
 
         console.log('Fetching giftaid mandate from ERP');
         const giftaidMandate = await erpNextTester.findOne('Gift Aid Mandate', {
