@@ -4,7 +4,7 @@ const erpNextTester = new ErpNextTester('', '', '', /* retries */ 20, /* sleep *
 
 const tests = {};
 [false, true].forEach((giftaid) => {
-  tests[`ERP receives a complete giftaid update (${!giftaid && 'un'}claim)`] = function (client)  {
+  tests[`ERP receives a complete giftaid update (${!giftaid ? 'un' : ''}claim)`] = function (client)  {
     const donationType = 'single';
     const randomString = client.page.form().randomString();
     const lastName = 'user' + randomString;
