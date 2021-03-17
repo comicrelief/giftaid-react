@@ -3,7 +3,11 @@ React Frontend for giftaid submissions.
 
 ## Installation
 
+You will need to be a member of the Comic Relief organisation on NPM in order to install this project, as it has the
+private NPM package `@comicrelief/data-models` as a dev dependency.
+
 ```bash
+npm login
 yarn install
 cp .env.dist .env
 ```
