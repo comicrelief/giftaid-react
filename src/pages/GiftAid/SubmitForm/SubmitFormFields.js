@@ -33,7 +33,7 @@ export const submitFormFields = {
     label: 'Mobile number',
     required: true,
     pattern: '^07[0-9]{9}$',
-    helpText: 'Enter the one you used for your text donation',
+    helpText: 'Enter the one you used for your text donation or called to donate on',
     emptyFieldErrorText: 'Please fill in your mobile number',
     invalidErrorText: 'Please enter a valid mobile phone number - it must be the same number that you used to make your donation.'
   },
