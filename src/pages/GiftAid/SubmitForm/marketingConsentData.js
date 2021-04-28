@@ -67,6 +67,16 @@ export const marketingConsentData = {
           name: 'permissionPhone',
           hideFields: false
         }
+      ],
+      field: [
+        {
+          id: 'phone',
+          type: 'tel',
+          name: 'phone',
+          label: 'Telephone number',
+          placeholder: '01234 567890',
+          required: true,
+        }
       ]
     },
     {
