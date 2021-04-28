@@ -21,7 +21,7 @@ export const marketingConsentData = {
           label: 'No',
           value: 'no',
           name: 'permissionEmail',
-          hideFields: true
+          hideFields: false
         }
       ],
       field: [
@@ -58,12 +58,14 @@ export const marketingConsentData = {
         {
           label: 'Yes',
           value: 'yes',
-          name: 'permissionPhone'
+          name: 'permissionPhone',
+          hideFields: false
         },
         {
           label: 'No',
           value: 'no',
-          name: 'permissionPhone'
+          name: 'permissionPhone',
+          hideFields: false
         }
       ]
     },
@@ -80,7 +82,7 @@ export const marketingConsentData = {
           label: 'No',
           value: 'no',
           name: 'permissionSMS'
-        }
+                }
       ]
     }
   ]
