@@ -66,6 +66,8 @@ export const getFormValues = (validation, urlId = null, update = false) => {
   // create field values
   const fieldValues = {};
 
+  console.log('getFormValues');
+
   Object.keys(validation).map((key) => {
     let value = validation[key].value;
     // Set Giftaid choice for submit form
@@ -101,9 +103,9 @@ export const getFormValues = (validation, urlId = null, update = false) => {
     ? validation.donationType.value : DONATION_TYPES.ONLINE;
 
   // Create phone field if permission is set
-  if (fieldValues.permissionPhone === 1 && fieldValues.mobile !== null) {
-    fieldValues.phone = fieldValues.mobile;
-  }
+  // if (fieldValues.permissionPhone === 1 && fieldValues.phone !== null) {
+  //   fieldValues.phone = fieldValues.mobile;
+  // }
 
   // Create name based on Form type
   const name = update ? 'GiftAidUpdate' : 'GiftAid';

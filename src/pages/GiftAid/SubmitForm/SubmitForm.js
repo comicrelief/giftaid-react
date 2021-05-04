@@ -81,11 +81,6 @@ function SubmitForm(props) {
 
       // set form input to value
       document.getElementById('field-input--mobile').value = mobileNumber;
-
-      // update input field property
-      submitFormFields.phoneNumber.fieldValue = { valid: true, value: mobileNumber, message: '' };
-      // TODO: the above passes the main form's mobile value to act as the 'phone' number in MPs;
-      // need to connect this up to the MP field, now we're adding it back in
     }
     setFieldValidation(fieldValidation);
     // merge input fields with default form fields
