@@ -9,7 +9,8 @@ export const marketingConsentData = {
   Questions: [
     {
       id: 'permissionEmail',
-      text: 'Email me',
+      text: "Email me",
+      name: "Email",
       options: [
         {
           label: 'Yes',
@@ -37,7 +38,8 @@ export const marketingConsentData = {
     },
     {
       id: 'permissionPost',
-      text: 'Send me post',
+      text: "Send me post",
+      name: "Post",
       options: [
         {
           label: 'Yes',
@@ -54,6 +56,7 @@ export const marketingConsentData = {
     {
       id: 'permissionPhone',
       text: 'Phone me',
+      name: "Phone",
       options: [
         {
           label: 'Yes',
@@ -74,7 +77,7 @@ export const marketingConsentData = {
           type: 'tel',
           name: 'phone',
           label: 'Telephone number',
-          placeholder: 'Phone number',
+          placeholder: 'Telephone number',
           required: true,
         }
       ]
@@ -82,6 +85,7 @@ export const marketingConsentData = {
     {
       id: 'permissionSMS',
       text: 'Text me',
+      name: "Text",
       options: [
         {
           label: 'Yes',
