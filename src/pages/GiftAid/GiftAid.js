@@ -129,6 +129,8 @@ function GiftAid(props) {
    */
   const setFieldValidity = (childState, name) => {
 
+    // console.log('name', name, 'childState', childState)
+
     const prevStateField = fieldValidation[name];
     const fieldUndefined = prevStateField === undefined;
     const valueUndefined = typeof prevStateField !== 'undefined' && prevStateField.value === undefined;
@@ -139,7 +141,10 @@ function GiftAid(props) {
     const marketingConsentFieldsChanged = fieldUndefined === false &&
       (childState.fieldValidation !== prevStateField.fieldValidation);
 
+    // console.log('marketingConsentFieldsChanged', marketingConsentFieldsChanged);
+
     if ((prevStateField && newState) || marketingConsentFieldsChanged === true) {
+      // THIS DOESN'T APPEAR TO DO ANYTHING?
       if (name === 'emailaddress' && childState.value === '') { // make email field optional
         setFieldValidation({
           ...fieldValidation,
@@ -182,6 +187,8 @@ function GiftAid(props) {
     const formValues = getFormValues(fieldValidation, urlTransactionId, updating); // get form values
     const { validity, validationState } = validateForm(fieldValidation, formValues, formValidityState); // validate form
     setFormValidityState(validationState); // update form validation state
+
+    console.log('posting formValues:', formValues);
 
     if (validity) { // submit form if no errors
       axios.post(pathParams.endpoint, formValues) // post form data and settings to endpoint

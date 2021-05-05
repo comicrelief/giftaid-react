@@ -46,12 +46,15 @@ export const marketingConsentData = {
         {
           label: 'Yes',
           value: 'yes',
-          name: 'permissionPost'
+          name: 'permissionPost',
+          extraInfo : "This will use the address supplied above."
+
         },
         {
           label: 'No',
           value: 'no',
-          name: 'permissionPost'
+          name: 'permissionPost',
+          extraInfo : "This will remove your provided address from any previous post opt-in on our database."
         }
       ]
     },
@@ -71,7 +74,7 @@ export const marketingConsentData = {
           value: 'no',
           name: 'permissionPhone',
           hideFields: false,
-          extraInfo : "Please provide a phone number so we can remove it from our database, otherwise untick this option."
+          extraInfo : "Please provide a telephone number so we can remove it from our database, otherwise untick this option."
         }
       ],
       field: [
@@ -94,15 +97,16 @@ export const marketingConsentData = {
           label: 'Yes',
           value: 'yes',
           name: 'permissionSMS',
-          hideFields: false,
+          hideFields: true,
+          extraInfo : "This will use the mobile number supplied above."
 
         },
         {
           label: 'No',
           value: 'no',
           name: 'permissionSMS',
-          hideFields: false,
-          extraInfo: 'Please provide a mobile number so we can remove it from our database, otherwise untick this option.'
+          hideFields: true,
+          extraInfo : "This will remove your provided mobile number from any previous SMS opt-in on our database."
         }
       ],
     }

@@ -63,10 +63,11 @@ export const getPathParams = (update = false) => {
  * @param update Boolean - Form type
  */
 export const getFormValues = (validation, urlId = null, update = false) => {
+
+  console.log('validation', validation);
+
   // create field values
   const fieldValues = {};
-
-  console.log('getFormValues');
 
   Object.keys(validation).map((key) => {
     let value = validation[key].value;
@@ -78,9 +79,12 @@ export const getFormValues = (validation, urlId = null, update = false) => {
     if (key === 'giftAidClaimChoice') {
       fieldValues.confirm = parseInt(value); // reassign to confirm field
     }
+
     // set values for marketing consent checkboxes and fields
     if (/^permission/.test(key) && value !== null) {
-      if (value === 'yes' && validation[key].fieldValidation !== false) {
+          console.log('perm fields', validation[key].fieldValidation);
+
+      if (validation[key].fieldValidation !== false) {
         const fields = validation[key].fieldValidation;
         Object.keys(fields).forEach(name => fieldValues[name] = fields[name].value);
       }
@@ -103,9 +107,9 @@ export const getFormValues = (validation, urlId = null, update = false) => {
     ? validation.donationType.value : DONATION_TYPES.ONLINE;
 
   // Create phone field if permission is set
-  // if (fieldValues.permissionPhone === 1 && fieldValues.phone !== null) {
-  //   fieldValues.phone = fieldValues.mobile;
-  // }
+  if (fieldValues.permissionPhone === 1 && fieldValues.mobile !== null) {
+    fieldValues.phone = fieldValues.mobile;
+  }
 
   // Create name based on Form type
   const name = update ? 'GiftAidUpdate' : 'GiftAid';
@@ -298,6 +302,11 @@ export const defaultSubmitFormFieldValidations = {
     value: undefined,
     message: '',
   },
+  // phone: {
+  //   value: undefined,
+  //   valid: false,
+  //   message: '',
+  // },
   firstname: {
     valid: false,
     value: undefined,
