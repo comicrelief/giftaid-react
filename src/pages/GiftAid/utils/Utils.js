@@ -82,8 +82,6 @@ export const getFormValues = (validation, urlId = null, update = false) => {
 
     // set values for marketing consent checkboxes and fields
     if (/^permission/.test(key) && value !== null) {
-          console.log('perm fields', validation[key].fieldValidation);
-
       if (validation[key].fieldValidation !== false) {
         const fields = validation[key].fieldValidation;
         Object.keys(fields).forEach(name => fieldValues[name] = fields[name].value);
@@ -302,11 +300,11 @@ export const defaultSubmitFormFieldValidations = {
     value: undefined,
     message: '',
   },
-  // phone: {
-  //   value: undefined,
-  //   valid: false,
-  //   message: '',
-  // },
+  phone: {
+    value: undefined,
+    valid: false,
+    message: '',
+  },
   firstname: {
     valid: false,
     value: undefined,
