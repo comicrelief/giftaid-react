@@ -63,9 +63,6 @@ export const getPathParams = (update = false) => {
  * @param update Boolean - Form type
  */
 export const getFormValues = (validation, urlId = null, update = false) => {
-
-  console.log('validation', validation);
-
   // create field values
   const fieldValues = {};
 
