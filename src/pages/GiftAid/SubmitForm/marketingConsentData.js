@@ -23,7 +23,7 @@ export const marketingConsentData = {
           value: 'no',
           name: 'permissionEmail',
           hideFields: false,
-          extraInfo : "Please provide an email so we can remove it from our database, otherwise untick this option."
+          extraInfo : "Please provide your email so we can remove it from our database, otherwise untick this option."
 
         }
       ],
@@ -47,14 +47,12 @@ export const marketingConsentData = {
           label: 'Yes',
           value: 'yes',
           name: 'permissionPost',
-          extraInfo : "This will use the address supplied above."
-
         },
         {
           label: 'No',
           value: 'no',
           name: 'permissionPost',
-          extraInfo : "This will remove your provided address from any previous post opt-in on our database."
+          extraInfo : "This will remove your provided address from our database if you have opted-in before."
         }
       ]
     },
@@ -74,7 +72,7 @@ export const marketingConsentData = {
           value: 'no',
           name: 'permissionPhone',
           hideFields: false,
-          extraInfo : "Please provide a telephone number so we can remove it from our database, otherwise untick this option."
+          extraInfo : "Please provide your telephone number so we can remove it from our database, otherwise untick this option."
         }
       ],
       field: [
@@ -91,22 +89,20 @@ export const marketingConsentData = {
     {
       id: 'permissionSMS',
       text: 'Text me',
-      name: "Text",
+      name: "SMS",
       options: [
         {
           label: 'Yes',
           value: 'yes',
           name: 'permissionSMS',
-          hideFields: true,
-          extraInfo : "This will use the mobile number supplied above."
-
+          hideFields: true
         },
         {
           label: 'No',
           value: 'no',
           name: 'permissionSMS',
           hideFields: true,
-          extraInfo : "This will remove your provided mobile number from any previous SMS opt-in on our database."
+          extraInfo : "This will remove your provided mobile number from our database if you have opted-in before."
         }
       ],
     }
