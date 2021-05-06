@@ -300,11 +300,6 @@ export const defaultSubmitFormFieldValidations = {
     value: undefined,
     message: '',
   },
-  phone: {
-    value: undefined,
-    valid: false,
-    message: '',
-  },
   firstname: {
     valid: false,
     value: undefined,
