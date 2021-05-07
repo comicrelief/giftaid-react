@@ -1,5 +1,6 @@
 import SiteService from "../../../service/Site.service";
 import TagManager from 'react-gtm-module';
+import axios from 'axios';
 
 const site = new SiteService();
 const url = site.getCurrentUrl();
@@ -65,6 +66,7 @@ export const getPathParams = (update = false) => {
 export const getFormValues = (validation, urlId = null, update = false) => {
   // create field values
   const fieldValues = {};
+  let marketingPrefsOpted = false;
 
   Object.keys(validation).map((key) => {
     let value = validation[key].value;
@@ -84,6 +86,8 @@ export const getFormValues = (validation, urlId = null, update = false) => {
         Object.keys(fields).forEach(name => fieldValues[name] = fields[name].value);
       }
       value = value === 'no' ? 0 : 1;
+
+      marketingPrefsOpted = true; // update this flag if at least one choice has been made
     }
     return fieldValues[key] = value;
   });
@@ -116,13 +120,16 @@ export const getFormValues = (validation, urlId = null, update = false) => {
     delete fieldValues.giftAidClaimChoice;
   }
 
-  return Object.assign({}, {
+  const formValues = Object.assign({}, {
     campaign: campaign,
     transSource: `${campaign}_${name}`,
     transSourceUrl: url,
     transType: name,
     timestamp: site.getTimestamp(),
   }, fieldValues);
+
+  // Pass form values separately from our flag
+  return { formValues, marketingPrefsOpted} ;
 };
 
 
@@ -432,10 +439,59 @@ export const defaultUpdateFormFieldValidations = {
   },
 };
 
-
 export const getRoute = (route) => {
   return `${process.env.REACT_APP_ENDPOINT_URL}${route}`;
 };
+
+/**
+ * @param formFields
+ * @returns {{}}
+ */
+ export const formatMarketingPreferences = (formFields) => {
+  const mpFields = {
+    // Main form fields:
+    firstname: formFields.firstname,
+    lastname: formFields.lastname,
+    address1: formFields.address1,
+    address2: formFields.address2 || null, // non-required field
+    address3: formFields.address3 || null, // non-required field
+    town: formFields.town,
+    postcode: formFields.postcode,
+    country: formFields.country,
+    mobile: formFields.mobile,
+    // MP checkboxes; null when neither choice made per option:
+    permissionEmail: formFields.permissionEmail,
+    permissionPost:  formFields.permissionPost,
+    permissionPhone: formFields.permissionPhone,
+    permissionSMS: formFields.permissionSMS,
+    // Additional MP fields
+    email: formFields.email || null,
+    phone: formFields.phone || null,
+    // General
+    campaign: formFields.campaign,
+    transSource: formFields.transSource,
+    transSourceUrl: formFields.transSourceUrl,
+    transType: 'prefs' // as per MP submission in CR.com Prize platform
+  }
+  
+  return mpFields;
+ };
+
+ /**
+ * @param formFields
+ * @returns Promise
+ */
+ export const sendMarketingPreferences = (mpData) => {
+   const axiosInstance = axios.create({
+    baseURL: process.env.REACT_APP__MARKETING_PREFERENCES_SERVICE_BASE_URL,
+    headers: { 'Content-Type': 'application/json' },
+    timeout: 10000
+  });
+
+  return axiosInstance.post('/', mpData);
+ }
+
+
 
 
 

@@ -26,6 +26,8 @@ import {
   getFieldValidations,
   initialValidity,
   getRoute,
+  formatMarketingPreferences,
+  sendMarketingPreferences,
 } from './utils/Utils';
 
 
@@ -176,32 +178,45 @@ function GiftAid(props) {
    * and redirects to success or sorry page
    * @param e
    */
-  const submitForm = (e) => {
-
+  const submitForm = async (e) => {
     e.preventDefault();
-    const formValues = getFormValues(fieldValidation, urlTransactionId, updating); // get form values
-    const { validity, validationState } = validateForm(fieldValidation, formValues, formValidityState); // validate form
-    setFormValidityState(validationState); // update form validation state
 
-    if (validity) { // submit form if no errors
-      axios.post(pathParams.endpoint, formValues) // post form data and settings to endpoint
-        .then(() => {
-          setIsCompleted(true); // set completed state
-          setSuccessState({ // set success page variables
-            firstname: formValues.firstname,
-            giftAidChoice: formValues.confirm,
+    try {
+      const { formValues, marketingPrefsOpted } = getFormValues(fieldValidation, urlTransactionId, updating); // get form values and MP opt flag
+      const { validity, validationState } = validateForm(fieldValidation, formValues, formValidityState); // validate form
+      setFormValidityState(validationState); // update form validation state
+      
+      // Submit form if form has no errors
+      if (validity) {
+        // Only submit MPs if use has made at least one Yes or No choice
+        if (marketingPrefsOpted) {
+          const formattedPrefs = formatMarketingPreferences(formValues);
+          // Swallow any submission errors as to not stop the main form submission
+          await sendMarketingPreferences(formattedPrefs).catch(() => {})
+        } 
+
+        axios.post(pathParams.endpoint, formValues) // post form data and settings to endpoint
+          .then(() => {
+            setIsCompleted(true); // set completed state
+            setSuccessState({ // set success page variables
+              firstname: formValues.firstname,
+              giftAidChoice: formValues.confirm,
+            });
+            props.history.push({
+              pathname: pathParams.successPath, // redirect to success page
+            });
+          })
+          .catch(() => {
+            props.history.push({
+              pathname: pathParams.sorryPath, // redirect to failure page
+            });
           });
-          props.history.push({
-            pathname: pathParams.successPath, // redirect to success page
-          });
-        })
-        .catch(() => {
-          props.history.push({
-            pathname: pathParams.sorryPath, // redirect to failure page
-          });
-        });
+      }
+      return null;
     }
-    return null;
+    catch (err) {
+      console.log(err);
+    }
   };
 
 
