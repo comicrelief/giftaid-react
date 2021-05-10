@@ -63,7 +63,7 @@ export const getPathParams = (update = false) => {
  * @param urlId String - url Transaction Id
  * @param update Boolean - Form type
  */
-export const getFormValues = (validation, urlId = null, update = false) => {
+export const getFormValues = (validation, urlId = null, update = false, uuid) => {
   // create field values
   const fieldValues = {};
   let marketingPrefsOpted = false;
@@ -126,6 +126,7 @@ export const getFormValues = (validation, urlId = null, update = false) => {
     transSourceUrl: url,
     transType: name,
     timestamp: site.getTimestamp(),
+    uuid, // UUID to associate this GA submission with MP submission
   }, fieldValues);
 
   // Pass form values separately from our flag
@@ -447,7 +448,7 @@ export const getRoute = (route) => {
  * @param formFields
  * @returns {{}}
  */
- export const formatMarketingPreferences = (formFields) => {
+ export const formatMarketingPreferences = (formFields, uuid) => {
   const mpFields = {
     // Main form fields:
     firstname: formFields.firstname,
@@ -471,7 +472,8 @@ export const getRoute = (route) => {
     campaign: formFields.campaign,
     transSource: formFields.transSource,
     transSourceUrl: formFields.transSourceUrl,
-    transType: 'prefs' // as per MP submission in CR.com Prize platform
+    transType: 'prefs', // as per MP submission in CR.com Prize platform
+    uuid, // UUID to associate this MP submission with GA submission
   }
   
   return mpFields;

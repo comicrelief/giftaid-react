@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 
 import propTypes from "prop-types";
 import axios from 'axios';
+import uuid from 'react-uuid'
 
 // import components
 import UpdateForm from './UpdateForm';
@@ -181,8 +182,10 @@ function GiftAid(props) {
   const submitForm = async (e) => {
     e.preventDefault();
 
+    const thisUUID = uuid();
+
     try {
-      const { formValues, marketingPrefsOpted } = getFormValues(fieldValidation, urlTransactionId, updating); // get form values and MP opt flag
+      const { formValues, marketingPrefsOpted } = getFormValues(fieldValidation, urlTransactionId, updating, thisUUID); // get form values and MP opt flag
       const { validity, validationState } = validateForm(fieldValidation, formValues, formValidityState); // validate form
       setFormValidityState(validationState); // update form validation state
       
@@ -190,7 +193,7 @@ function GiftAid(props) {
       if (validity) {
         // Only submit MPs if use has made at least one Yes or No choice
         if (marketingPrefsOpted) {
-          const formattedPrefs = formatMarketingPreferences(formValues);
+          const formattedPrefs = formatMarketingPreferences(formValues, thisUUID);
           // Swallow any submission errors as to not stop the main form submission
           await sendMarketingPreferences(formattedPrefs).catch(() => {})
         } 
