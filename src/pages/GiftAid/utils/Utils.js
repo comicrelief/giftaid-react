@@ -483,7 +483,7 @@ export const getRoute = (route) => {
  */
  export const sendMarketingPreferences = (mpData) => {
    const axiosInstance = axios.create({
-    baseURL: process.env.MARKETINGPREFERENCES_SERVICE_URL,
+    baseURL: process.env.REACT_APP__MARKETING_PREFERENCES_SERVICE_ENDPOINT_URL,
     headers: { 'Content-Type': 'application/json' },
     timeout: 10000
   });
