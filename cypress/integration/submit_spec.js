@@ -110,7 +110,7 @@ describe('e2e test', () => {
     })
 
     it('verify success page', () => {
-        cy.get('button[type=submit]').click().url('/success').wait(1000)
+        cy.get('button[type=submit]').click().url('/success').wait(5000)
         cy.get('.success-wrapper').should('contain', 'Thank you,').and('contain', `${firstName}!`)
     })
 })
