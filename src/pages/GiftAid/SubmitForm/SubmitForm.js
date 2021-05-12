@@ -81,9 +81,6 @@ function SubmitForm(props) {
 
       // set form input to value
       document.getElementById('field-input--mobile').value = mobileNumber;
-
-      // update input field property
-      submitFormFields.phoneNumber.fieldValue = { valid: true, value: mobileNumber, message: '' };
     }
     setFieldValidation(fieldValidation);
     // merge input fields with default form fields

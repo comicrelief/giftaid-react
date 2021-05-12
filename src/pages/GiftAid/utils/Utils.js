@@ -76,9 +76,10 @@ export const getFormValues = (validation, urlId = null, update = false) => {
     if (key === 'giftAidClaimChoice') {
       fieldValues.confirm = parseInt(value); // reassign to confirm field
     }
+
     // set values for marketing consent checkboxes and fields
     if (/^permission/.test(key) && value !== null) {
-      if (value === 'yes' && validation[key].fieldValidation !== false) {
+      if (validation[key].fieldValidation !== false) {
         const fields = validation[key].fieldValidation;
         Object.keys(fields).forEach(name => fieldValues[name] = fields[name].value);
       }
