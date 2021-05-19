@@ -1100,9 +1100,9 @@
     susy "^2.2.12"
     underscore.string "3.3.5"
 
-"@comicrelief/storybook@git://github.com/comicrelief/storybook.git#455_yup_input_validation_override":
-  version "1.27.3"
-  resolved "git://github.com/comicrelief/storybook.git#61fb63b84ece68d56cf2316e8517f881b92d4b7a"
+"@comicrelief/storybook@1.27.4":
+  version "1.27.4"
+  resolved "https://registry.yarnpkg.com/@comicrelief/storybook/-/storybook-1.27.4.tgz#d7e14c67d7a9fc3b559944053b189b2727dd0b77"
   dependencies:
     "@comicrelief/pattern-lab" "*"
     "@storybook/addon-info" "3"
