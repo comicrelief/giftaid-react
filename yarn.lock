@@ -1102,7 +1102,7 @@
 
 "@comicrelief/storybook@git://github.com/comicrelief/storybook.git#455_yup_input_validation_override":
   version "1.27.3"
-  resolved "git://github.com/comicrelief/storybook.git#ff155afa0a28089b54f845960ba1bab8343b5a03"
+  resolved "git://github.com/comicrelief/storybook.git#62e971bfbb7216cc49a9d5dc3621280d7ef05f0e"
   dependencies:
     "@comicrelief/pattern-lab" "*"
     "@storybook/addon-info" "3"
@@ -1459,21 +1459,21 @@
     micromatch "^4.0.2"
     picomatch "^2.2.1"
 
-"@snyk/fix-pipenv-pipfile@0.3.4":
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/@snyk/fix-pipenv-pipfile/-/fix-pipenv-pipfile-0.3.4.tgz#02b7ad30442f4f0f1676d51bd837fc6fcb1dda59"
+"@snyk/fix-pipenv-pipfile@0.3.5":
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/@snyk/fix-pipenv-pipfile/-/fix-pipenv-pipfile-0.3.5.tgz#762d1d01f5dac95cad0ff39e7205aa09e3d19483"
   dependencies:
     bottleneck "2.19.5"
     debug "4.3.1"
     source-map-support "^0.5.16"
     tslib "^1.10.0"
 
-"@snyk/fix@1.599.0":
-  version "1.599.0"
-  resolved "https://registry.yarnpkg.com/@snyk/fix/-/fix-1.599.0.tgz#6b621d1de0c3bc92cdd491eceed9d809fa534041"
+"@snyk/fix@1.602.0":
+  version "1.602.0"
+  resolved "https://registry.yarnpkg.com/@snyk/fix/-/fix-1.602.0.tgz#a01ed78a7117cb722a0f270ae5ef093faf89a727"
   dependencies:
     "@snyk/dep-graph" "^1.21.0"
-    "@snyk/fix-pipenv-pipfile" "0.3.4"
+    "@snyk/fix-pipenv-pipfile" "0.3.5"
     bottleneck "2.19.5"
     chalk "4.1.0"
     child_process "1.0.2"
@@ -6307,8 +6307,8 @@ ejs@^2.7.4:
   resolved "https://registry.yarnpkg.com/ejs/-/ejs-2.7.4.tgz#48661287573dcc53e366c7a1ae52c3a120eec9ba"
 
 electron-to-chromium@^1.2.7, electron-to-chromium@^1.3.30, electron-to-chromium@^1.3.47:
-  version "1.3.730"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.730.tgz#6e1fad8f250827f5524672e572f823b34a6417e1"
+  version "1.3.732"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.732.tgz#2a07a8d61f74f2084b6f6bf2a908605a7a0b2d8d"
 
 electron-to-chromium@^1.3.562:
   version "1.3.562"
@@ -14553,15 +14553,15 @@ snyk-try-require@^2.0.0:
     lru-cache "^5.1.1"
 
 snyk@^1.234.0:
-  version "1.599.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.599.0.tgz#10eb613d6398ee02046834cec3129c13cd64928d"
+  version "1.602.0"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.602.0.tgz#285cbb6351b59373224528328227b44718eb379e"
   dependencies:
     "@open-policy-agent/opa-wasm" "^1.2.0"
     "@snyk/cli-interface" "2.11.0"
     "@snyk/cloud-config-parser" "^1.9.2"
     "@snyk/code-client" "3.5.1"
     "@snyk/dep-graph" "^1.27.1"
-    "@snyk/fix" "1.599.0"
+    "@snyk/fix" "1.602.0"
     "@snyk/gemfile" "1.2.0"
     "@snyk/graphlib" "^2.1.9-patch.3"
     "@snyk/inquirer" "^7.3.3-patch"
