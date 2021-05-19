@@ -1102,7 +1102,7 @@
 
 "@comicrelief/storybook@git://github.com/comicrelief/storybook.git#455_yup_input_validation_override":
   version "1.27.3"
-  resolved "git://github.com/comicrelief/storybook.git#62e971bfbb7216cc49a9d5dc3621280d7ef05f0e"
+  resolved "git://github.com/comicrelief/storybook.git#61fb63b84ece68d56cf2316e8517f881b92d4b7a"
   dependencies:
     "@comicrelief/pattern-lab" "*"
     "@storybook/addon-info" "3"
