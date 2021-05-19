@@ -20,7 +20,7 @@ const updateCommands = {
       .click('#giftAidClaimChoice>div:nth-child(3)>label')
       .click('button[type=submit]')
       .pause(5000);
-    },
+  },
 
   /**
    * Populate the giftaid update form with yes to giftaid declaration
@@ -39,7 +39,7 @@ const updateCommands = {
       .click('#giftAidClaimChoice>div:nth-child(2)>label')
       .click('button[type=submit]')
       .pause(5000);
-    },
+  },
 };
 
 module.exports = {
