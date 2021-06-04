@@ -5,7 +5,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.11.5",
     "@comicrelief/pattern-lab": "7.58.6",
-    "@comicrelief/storybook": "1.27.6",
+    "@comicrelief/storybook": "1.27.7",
     "autoprefixer": "8.5.0",
     "axios": "^0.18.0",
     "browser-detect": "^0.2.28",
