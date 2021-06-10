@@ -89,10 +89,10 @@ describe('e2e test', () => {
   });
 
   it('Verify Marketing Email Marketing preference', () => {
-    cy.get('#field-wrapper--Email > div > #field-label--Yes').check().uncheck();
-    cy.get('#field-wrapper--Email > div > #field-label--No').check().uncheck();
-    cy.get('#field-wrapper--Email > div > #field-label--Yes').check();
-    cy.get('#field-wrapper--Email > div > #field-label--No').should('not.be.checked');
+    cy.get('#field-wrapper--Email > div > #field-label--Yes--Email').check().uncheck();
+    cy.get('#field-wrapper--Email > div > #field-label--No--Email').check().uncheck();
+    cy.get('#field-wrapper--Email > div > #field-label--Yes--Email').check();
+    cy.get('#field-wrapper--Email > div > #field-label--No--Email').should('not.be.checked');
     cy.get('#field-input--email').should('be.visible');
     cy.get('button[type=submit]').click();
     cy.get('#field-error--email>span').should('contain', 'Please fill in your email address');

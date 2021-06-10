@@ -101,11 +101,6 @@ export const getFormValues = (validation, urlId = null, update = false) => {
   && validation.donationType
     ? validation.donationType.value : DONATION_TYPES.ONLINE;
 
-  // Create phone field if permission is set
-  if (fieldValues.permissionPhone === 1 && fieldValues.mobile !== null) {
-    fieldValues.phone = fieldValues.mobile;
-  }
-
   // Create name based on Form type
   const name = update ? 'GiftAidUpdate' : 'GiftAid';
 
