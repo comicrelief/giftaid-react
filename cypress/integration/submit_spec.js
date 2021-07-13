@@ -29,7 +29,7 @@ describe('e2e test', () => {
     cy.get('#field-input--giftaid').click().click();
     cy.get('#field-error--giftaid>span').should('contain', 'To Gift Aid your donation you need to tick the checkbox');
     cy.get('#field-input--giftaid').click();
-    cy.get('#field-error--giftaid>span').should('be.not.visible')
+    cy.get('#field-error--giftaid>span').should('not.exist')
 
   });
 
@@ -41,7 +41,7 @@ describe('e2e test', () => {
     cy.get('#field-input--mobile').clear().type(faker.phone.phoneNumber('02########'));
     cy.get('#field-error--mobile>span').should('contain', 'Please enter a valid mobile phone number - it must be the same number that you used to make your donation.');
     cy.get('#field-input--mobile').clear().type(faker.phone.phoneNumber('07#########'));
-    cy.get('#field-error--mobile>span').should('be.not.visible')
+    cy.get('#field-error--mobile>span').should('not.exist')
   });
 
   it('first name input field validation', () => {
@@ -53,11 +53,11 @@ describe('e2e test', () => {
     cy.get('#field-input--firstname').clear().type('$&717');
     cy.get('#field-error--firstname>span').should('contain', 'This field only accepts 25 alphabetic characters and \' - ');
     cy.get('#field-input--firstname').clear().type('T\'es-t');
-    cy.get('#field-error--firstname>span').should('be.not.visible');
+    cy.get('#field-error--firstname>span').should('not.exist');
     cy.get('#field-input--firstname').clear().type(' '+firstName);
     cy.get('#field-error--firstname>span').should('contain', 'This field only accepts 25 alphabetic characters and \' - ');
     cy.get('#field-input--firstname').clear().type(firstName);
-    cy.get('#field-error--firstname>span').should('be.not.visible')
+    cy.get('#field-error--firstname>span').should('not.exist')
   });
 
   it('last name input field validation', () => {
@@ -67,11 +67,11 @@ describe('e2e test', () => {
     cy.get('#field-input--lastname').type('test@');
     cy.get('#field-error--lastname>span').should('contain', 'This field only accepts 25 alphanumeric characters and , . ( ) / & \' - ');
     cy.get('#field-input--lastname').clear().type('Test-test');
-    cy.get('#field-error--lastname>span').should('be.not.visible');
+    cy.get('#field-error--lastname>span').should('not.exist');
     cy.get('#field-input--lastname').clear().type(' '+lastName);
     cy.get('#field-error--lastname>span').should('contain', 'This field only accepts 25 alphanumeric characters and , . ( ) / & \' - ');
     cy.get('#field-input--lastname').clear().type(lastName);
-    cy.get('#field-error--lastname>span').should('be.not.visible')
+    cy.get('#field-error--lastname>span').should('not.exist')
   });
 
   it('postcode field validation', () => {
