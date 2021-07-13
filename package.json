@@ -16,6 +16,7 @@
     "dotenv": "5.0.1",
     "dotenv-expand": "4.2.0",
     "fs-extra": "5.0.0",
+    "hosted-git-info": "2.8.9",
     "imagemin-gifsicle": "^6.0.1",
     "imagemin-mozjpeg": "^8.0.0",
     "object-assign": "4.1.1",
