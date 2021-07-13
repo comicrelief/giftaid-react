@@ -7,7 +7,7 @@
     "@comicrelief/pattern-lab": "7.58.6",
     "@comicrelief/storybook": "1.27.7",
     "autoprefixer": "8.5.0",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "browser-detect": "^0.2.28",
     "chalk": "2.4.1",
     "classnames": "^2.2.5",
