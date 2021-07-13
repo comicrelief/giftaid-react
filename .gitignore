@@ -24,8 +24,12 @@ yarn-error.log*
 
 .idea
 .DS_Store
+.vscode
 
 .env
+.npmrc
 
 /cypress/videos
 /cypress/screenshots
+
+.vscode/

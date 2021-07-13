@@ -1,25 +1,45 @@
+// check https://github.com/nightwatchjs/nightwatch/issues/408
+require('events').EventEmitter.defaultMaxListeners = 100;
+
 const nightwatch = {
   src_folders: ['tests/feature'],
   page_objects_path: 'tests/commands',
   selenium: {
-    "start_process": false,
-    "host" : "hub-cloud.browserstack.com",
+    'start_process': false,
+    'host' : 'hub-cloud.browserstack.com',
     port: 443,
+  },
+
+  webdriver: {
+    keep_alive: true, // keep session alive
+  },
+
+  globals: {
+    // controls the timeout value for async hooks. Expects the done() callback to be invoked within this time
+    // or an error is thrown
+    asyncHookTimeout : 300 * 1000, // timeout for .perform method for instance.
+    // ensure process is closing as in some cases, process hang forever.
+    after: (done)=> {
+      process.exit(0);
+      done();
+    },
   },
 
   common_capabilities: {
     'browserstack.user': process.env.BROWSERSTACK_USERNAME || 'BROWSERSTACK_USERNAME',
     'browserstack.key': process.env.BROWSERSTACK_ACCESS_KEY || 'BROWSERSTACK_ACCESS_KEY',
-    'name': 'Bstack-[Nightwatch] Parallel Test',
+    'browserstack.selenium_version': "3.141.59", // latest selenium to fix element selectors.
+    'browserstack.idleTimeout': 300,
     acceptSslCerts: true,
     silent: true,
-    live_output : true,
-    request_timeout_options: {
-      timeout: 100000
-    },
+    live_output: false,
+    detailed_output: false,
     screenshots: {
       enabled: false,
       path: '',
+    },
+    request_timeout_options: {
+      timeout: 200 * 1000,
     },
   },
 
@@ -30,7 +50,7 @@ const nightwatch = {
         os: 'Windows',
         os_version: '10',
         browser: 'Chrome',
-        browser_version: '83.0',
+        browser_version: '90.0',
         resolution: '1024x768',
         name: 'Giftaid - Sanity',
       },
@@ -55,11 +75,7 @@ const nightwatch = {
     //     name: 'Giftaid - Sanity',
     //   },
     // },
-  },
-  test_workers: {
-    enabled: true,
-    workers: 'auto',
-  },
+  }
 };
 
 // Code to support common capabilites
@@ -70,6 +86,13 @@ for(const testSetting in nightwatch.test_settings){
   config['desiredCapabilities'] = config['desiredCapabilities'] || {};
   for(const commonCapability in nightwatch.common_capabilities){
     config['desiredCapabilities'][commonCapability] = config['desiredCapabilities'][commonCapability] || nightwatch.common_capabilities[commonCapability];
+  }
+}
+
+if (!process.env.RUN_SERIAL) {
+  nightwatch.test_workers = {
+    enabled: true,
+    workers: 'auto',
   }
 }
 
