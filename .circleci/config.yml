@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # See https://github.com/cypress-io/cypress-docker-images
-      - image: cypress/base:12.18.2
+      - image: cypress/base:14.16.0
         environment:
           TERM: xterm
 
@@ -16,6 +16,10 @@ jobs:
 
     steps:
       - checkout
+
+      - run:
+          name: Obtain registry authToken from env
+          command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
 
       # Download and cache dependencies
       - restore_cache:
