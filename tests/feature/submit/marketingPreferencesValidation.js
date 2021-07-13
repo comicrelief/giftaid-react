@@ -69,23 +69,23 @@ module.exports = {
    client.assert.not.elementPresent('.form__field-wrapper--Email > p.form__field--extra-info', 'Please provide your email so we can remove it from our database, otherwise untick this option.');
    client.assert.visible('label#field-label--email', 'Email address');
    client.assert.value('#field-input--email', 'Test0-9.%&\'+_-@comicrelief-9-8.com.uk');
+   client.clearValue('#field-input--email');
 
    // Post
    client.assert.containsText('.form__field-wrapper--Post > p.form__fieldset--label', 'Send me post');
    client.waitForElementVisible('#field-wrapper--Post', 2000);
-   client.click('#field-wrapper--Post input#field-label--Yes');
-   client.assert.containsText('#field-wrapper--Post label[for="field-label--Yes"]', 'Yes');
-   client.click('#field-wrapper--Post input#field-label--No');
-   client.assert.containsText('#field-wrapper--Post label[for="field-label--No"]', 'No');
-   client.expect.element('.form__field-wrapper--Post > p.form__field--extra-info').text.to.equal('This will remove your provided address from our database if you have opted-in before.');
+   client.click('#field-wrapper--Phone div:nth-child(1) > label');
+   client.assert.containsText('#field-wrapper--Post div:nth-child(1) > label', 'Yes');
+   client.click('#field-wrapper--Phone div:nth-child(2) > label');
+   client.assert.containsText('#field-wrapper--Post div:nth-child(2) > label', 'No');
 
    // Phone - accepts both mobile & telephone numbers
    client.assert.containsText('.form__field-wrapper--Phone > p', 'Phone me');
    client.waitForElementVisible('#field-wrapper--Phone', 2000);
 
    // Yes option
-   client.click('#field-wrapper--Phone input#field-label--Yes');
-   client.assert.containsText('#field-wrapper--Phone label[for="field-label--Yes"]', 'Yes');
+   client.click('#field-wrapper--Phone div:nth-child(1) > label');
+   client.assert.containsText('#field-wrapper--Phone div:nth-child(1) > label', 'Yes');
 
    // empty field
    client.setValue('input#field-input--phone', '07123456789');
@@ -94,56 +94,56 @@ module.exports = {
 
    // mobile number less than 11 digits shows error message
    client.setValue('input#field-input--phone', '0712345678');
-   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number');
+   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number, with no spaces');
    client.clearValue('input#field-input--phone');
 
    // mobile number more than 11 digits shows error message
    client.setValue('input#field-input--phone', '071234567890');
-   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number');
+   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number, with no spaces');
    client.clearValue('input#field-input--phone');
 
-   // mobile number with spaces should not show error
+   // mobile number with spaces should show error
    client.setValue('input#field-input--phone', '0712 345 6789');
-   client.assert.not.elementPresent('div#field-error--phone > span');
+   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number, with no spaces');
    client.clearValue('input#field-input--phone');
 
    // telephone number less than 11 digits shows error message
    client.setValue('input#field-input--phone', '0208569424');
-   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number');
+   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number, with no spaces');
    client.clearValue('input#field-input--phone');
 
    // telephone number more than 11 digits shows error message
    client.setValue('input#field-input--phone', '020856942456');
-   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number');
+   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number, with no spaces');
    client.clearValue('input#field-input--phone');
 
-   // telephone number with spaces should not show error
+   // telephone number with spaces should show error
    client.setValue('input#field-input--phone', '0208 569 4245');
-   client.assert.not.elementPresent('div#field-error--phone > span');
+   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number, with no spaces');
    client.clearValue('input#field-input--phone');
 
    // telephone number with alphabetical chars in between the number should show error
    client.setValue('input#field-input--phone', '0208ab5694245');
    client.assert.elementPresent('div#field-error--phone > span');
-   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number');
+   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number, with no spaces');
    client.clearValue('input#field-input--phone');
 
    // mobile number with alphabetical chars should show error
    client.setValue('input#field-input--phone', '0780ab5694245');
    client.assert.elementPresent('div#field-error--phone > span');
-   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number');
+   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number, with no spaces');
    client.clearValue('input#field-input--phone');
 
    // telephone number starting with alphabetical chars should show error
    client.setValue('input#field-input--phone', 'abcv07805694245');
    client.assert.elementPresent('div#field-error--phone > span');
-   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number');
+   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number, with no spaces');
    client.clearValue('input#field-input--phone');
 
    // telephone number ending with alphabetical chars should show error
    client.setValue('input#field-input--phone', '07805694245dfef');
    client.assert.elementPresent('div#field-error--phone > span');
-   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number');
+   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number, with no spaces');
    client.clearValue('input#field-input--phone');
 
    // telephone number starting with '+' should not show error
@@ -162,24 +162,21 @@ module.exports = {
    client.clearValue('input#field-input--phone');
 
    // clicking 'No' should not clear the value present in the phone field
-   client.click('#field-wrapper--Phone input#field-label--No');
-   client.assert.containsText('#field-wrapper--Phone label[for="field-label--No"]', 'No');
+   client.click('#field-wrapper--Phone div:nth-child(2) > label');
+   client.assert.containsText('#field-wrapper--Phone div:nth-child(2) > label', 'No');
    client.clearValue('input#field-input--phone');
    client.setValue('input#field-input--phone', telephone);
    client.assert.value('input#field-input--phone', telephone);
-   client.expect.element('.form__field-wrapper--Phone > p.form__field--extra-info').text.to.equal('Please provide your telephone number so we can remove it from our database, otherwise untick this option.');
 
    // SMS
    client.waitForElementVisible('#field-wrapper--SMS', 2000);
-   client.click('#field-wrapper--SMS input#field-label--No');
-   client.assert.containsText('#field-wrapper--SMS label[for="field-label--No"]', 'No');
-   client.expect.element('.form__field-wrapper--SMS > p.form__field--extra-info').text.to.equal('This will remove your provided mobile number from our database if you have opted-in before.');
+   client.click('#field-wrapper--SMS div:nth-child(2) > label');
+   client.assert.containsText('#field-wrapper--SMS div:nth-child(2) > label', 'No');
    client.assert.containsText('.form__field-wrapper--SMS > p', 'Text me');
-   client.click('#field-wrapper--SMS input#field-label--Yes');
-   client.assert.containsText('#field-wrapper--SMS label[for="field-label--Yes"]', 'Yes');
+   client.click('#field-wrapper--SMS div:nth-child(1) > label');
+   client.assert.containsText('#field-wrapper--SMS div:nth-child(1) > label', 'Yes');
 
    // enter valid email
-   client.clearValue('#field-input--email');
    client.setValue('#field-input--email', email);
    client.assert.not.elementPresent('#field-error--email');
    client.waitForElementVisible('button[type="submit"]', 2000);
