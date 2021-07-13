@@ -35,7 +35,7 @@ module.exports = {
         const supporter = await erpNextTester.findOne('Supporter', { filters: [{field: "first_name", value: firstName}, {field: "last_name", value: lastName}] });
 
         const supporterId = supporter.name;
-        console.log('supporterId', supporterId)
+        console.log('supporterId', supporterId);
         client.assert.equal(supporter.first_name, firstName, 'firstName');
         client.assert.equal(supporter.last_name, lastName, 'lastName');
 
@@ -48,7 +48,7 @@ module.exports = {
             },
           ],
         });
-        console.log('giftaidMandateId', giftaidMandate.name)
+        console.log('giftaidMandateId', giftaidMandate.name);
         client.assert.equal(giftaidMandate.supporter, supporterId, 'supporterId');
         client.assert.equal(giftaidMandate.source, 'Giftaid Submit', 'Giftaid Submit');
       } catch(error) {
