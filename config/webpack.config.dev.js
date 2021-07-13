@@ -122,6 +122,7 @@ module.exports = {
             loader: require.resolve('babel-loader'),
             options: {
               cacheDirectory: true,
+              presets: ['react-app']
             },
           },
           {
@@ -170,7 +171,7 @@ module.exports = {
       inject: true,
       template: paths.appHtml,
       cspPlugin: { //adds CSP Meta tag plugin
-        enabled: true,
+        enabled: false,
         policy: {
           'default-src': "'none'",
           'frame-ancestors': "'self'",
