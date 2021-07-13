@@ -76,9 +76,10 @@ export const getFormValues = (validation, urlId = null, update = false) => {
     if (key === 'giftAidClaimChoice') {
       fieldValues.confirm = parseInt(value); // reassign to confirm field
     }
+
     // set values for marketing consent checkboxes and fields
     if (/^permission/.test(key) && value !== null) {
-      if (value === 'yes' && validation[key].fieldValidation !== false) {
+      if (validation[key].fieldValidation !== false) {
         const fields = validation[key].fieldValidation;
         Object.keys(fields).forEach(name => fieldValues[name] = fields[name].value);
       }
@@ -99,11 +100,6 @@ export const getFormValues = (validation, urlId = null, update = false) => {
   fieldValues.donationType = typeof validation.donationType !== 'undefined'
   && validation.donationType
     ? validation.donationType.value : DONATION_TYPES.ONLINE;
-
-  // Create phone field if permission is set
-  if (fieldValues.permissionPhone === 1 && fieldValues.mobile !== null) {
-    fieldValues.phone = fieldValues.mobile;
-  }
 
   // Create name based on Form type
   const name = update ? 'GiftAidUpdate' : 'GiftAid';

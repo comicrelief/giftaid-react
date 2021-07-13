@@ -15,32 +15,48 @@ const commands = {
   /**
    * Populate the giftaid form
    * @param client
+   * @param userData
    */
-  fillForm: function (client) {
+  fillForm(
+    client,
+    {
+      firstName = 'test',
+      lastName = 'user',
+      postcode = 'sw19 1ne',
+      address1 = '21 test road',
+      town = 'London',
+    } = {},
+  ) {
     return client
       .click('#field-label--giftaid')
       .setValue('#field-input--mobile', '07123456789')
-      .setValue('#field-input--firstname', 'test')
-      .setValue('#field-input--lastname', 'user' + randomString)
-      .setValue('#field-input--postcode', 'se1 7tp')
+      .setValue('#field-input--firstname', firstName)
+      .setValue('#field-input--lastname', lastName + randomString)
+      .setValue('#field-input--postcode', postcode)
       .click('a[aria-describedby=field-error--addressDetails]')
       .pause(200)
-      .setValue('#field-input--address1', '21 test road')
-      .setValue('#field-input--town', 'London')
-      .click('button[type=submit]')
-      .pause(5000);
+      .setValue('#field-input--address1', address1)
+      .setValue('#field-input--town', town)
   },
 
   /**
    * Populate the giftaid using postcode lookup
    * @param client
+   * @param userData
    */
-  fillFormPrefilledMobile: function (client) {
+  fillFormPrefilledMobile(
+    client,
+    {
+      firstName = 'test',
+      lastName = 'user',
+      postcode = 'sw19 1ne',
+    } = {},
+  ) {
     return client
       .click('#field-label--giftaid')
-      .setValue('#field-input--firstname', 'test')
-      .setValue('#field-input--lastname', 'user')
-      .setValue('#field-input--postcode', 'se1 7tp')
+      .setValue('#field-input--firstname', firstName)
+      .setValue('#field-input--lastname', lastName)
+      .setValue('#field-input--postcode', postcode)
       .click('#postcode_button')
       .pause(200)
       .click('#field-select--addressSelect')

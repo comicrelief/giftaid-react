@@ -20,6 +20,7 @@ const nightwatch = {
     asyncHookTimeout : 300 * 1000, // timeout for .perform method for instance.
     // ensure process is closing as in some cases, process hang forever.
     after: (done)=> {
+      process.exit(0);
       done();
     },
   },
@@ -49,7 +50,7 @@ const nightwatch = {
         os: 'Windows',
         os_version: '10',
         browser: 'Chrome',
-        browser_version: '87.0',
+        browser_version: '90.0',
         resolution: '1024x768',
         name: 'Giftaid - Sanity',
       },
