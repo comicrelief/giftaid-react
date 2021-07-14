@@ -44,15 +44,15 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
     cy.get('#field-input--transactionId').clear().type('1234');
     cy.get('#field-error--transactionId > span').should('contain',transactionIdErrorMessage);
     cy.get('#field-input--transactionId').clear().type('d-BEXd501');
-    cy.get('#field-error--transactionId > span').should('be.not.visible');
+    cy.get('#field-error--transactionId > span').should('not.exist');
     cy.get('#field-input--transactionId').clear().type('D-BEX1501');
-    cy.get('#field-error--transactionId > span').should('be.not.visible');
+    cy.get('#field-error--transactionId > span').should('not.exist');
     cy.get('#field-input--transactionId').clear().type('test');
     cy.get('#field-error--transactionId > span').should('contain',transactionIdErrorMessage);
     cy.get('#field-input--transactionId').clear().type('3D487A59-716B-440D-BD43-50ED301DD9BA');
-    cy.get('#field-error--transactionId > span').should('be.not.visible');
+    cy.get('#field-error--transactionId > span').should('not.exist');
     cy.get('#field-input--transactionId').clear().type('5c6a89f170022');
-    cy.get('#field-error--transactionId > span').should('be.not.visible')
+    cy.get('#field-error--transactionId > span').should('not.exist')
   });
 
   it('first name input field validation', () => {
@@ -64,11 +64,11 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
     cy.get('#field-input--firstname').clear().type('$&717');
     cy.get('#field-error--firstname>span').should('contain', 'This field only accepts alphabetic characters and \' - ');
     cy.get('#field-input--firstname').clear().type('T\'es-t');
-    cy.get('#field-error--firstname>span').should('be.not.visible');
+    cy.get('#field-error--firstname>span').should('not.exist');
     cy.get('#field-input--firstname').clear().type(' '+firstName);
     cy.get('#field-error--firstname>span').should('contain', 'This field only accepts alphabetic characters and \' - ');
     cy.get('#field-input--firstname').clear().type(firstName);
-    cy.get('#field-error--firstname>span').should('be.not.visible')
+    cy.get('#field-error--firstname>span').should('not.exist')
   });
 
   it('last name input field validation', () => {
@@ -78,18 +78,18 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
     cy.get('#field-input--lastname').type('test@');
     cy.get('#field-error--lastname>span').should('contain', 'This field only accepts alphanumeric characters and , . ( ) / & \' - ');
     cy.get('#field-input--lastname').clear().type('Test-test');
-    cy.get('#field-error--lastname>span').should('be.not.visible');
+    cy.get('#field-error--lastname>span').should('not.exist');
     cy.get('#field-input--lastname').clear().type(' '+lastName);
     cy.get('#field-error--lastname>span').should('contain', 'This field only accepts alphanumeric characters and , . ( ) / & \' - ');
     cy.get('#field-input--lastname').clear().type(lastName);
-    cy.get('#field-error--lastname>span').should('be.not.visible')
+    cy.get('#field-error--lastname>span').should('not.exist')
   });
 
   it('email input field validation', () => {
     cy.get('#field-input--emailaddress').clear().type('test-@%comicrelief.com');
     cy.get('#field-error--emailaddress > span').should('contain','Please fill in a valid email address');
     cy.get('#field-input--emailaddress').clear().type('giftaid-staging@email.sls.comicrelief.com');
-    cy.get('#field-error--emailaddress > span').should('be.not.visible')
+    cy.get('#field-error--emailaddress > span').should('not.exist')
   });
 
   it('postcode field validation', () => {
@@ -115,12 +115,12 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
     cy.get('#field-input--address1').clear().type('test%£');
     cy.get('#field-error--address1 > span').should('contain','This field only accepts alphanumeric characters and \' . - & _ /');
     cy.get('#field-input--address1').clear().type('112 ST. AGNELLS LANE');
-    cy.get('#field-error--address1 > span').should('be.not.visible');
+    cy.get('#field-error--address1 > span').should('not.exist');
     cy.get('#field-input--town').should('be.visible');
     cy.get('#field-input--town').clear().type('London&*');
     cy.get('#field-error--town > span').should('contain','This field only accepts alphanumeric characters and \' . - & _ /');
     cy.get('#field-input--town').clear().type('HEMEL HEMPSTEAD');
-    cy.get('#field-error--town > span').should('be.not.visible')
+    cy.get('#field-error--town > span').should('not.exist')
   });
 
   it('verify Your Gift Aid declaration',() => {
@@ -129,7 +129,7 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
     cy.get('button[type=submit]').click();
     cy.get('#field-error--giftAidClaimChoice > span').should('contain','This field is required');
     cy.get('input[type="radio"]').check('1').should('be.checked');
-    cy.get('#field-error--giftAidClaimChoice > span').should('be.not.visible')
+    cy.get('#field-error--giftAidClaimChoice > span').should('not.exist')
   });
 
   it('verify JIT', () => {
