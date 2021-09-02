@@ -81,7 +81,7 @@ function UpdateForm(props) {
 
         <PostcodeLookup
           ref={refs}
-          label="Postal address"
+          label="Home address"
           showErrorMessages={formValidityState.showErrorMessages}
           pattern={postCodePattern}
           isAddressValid={
