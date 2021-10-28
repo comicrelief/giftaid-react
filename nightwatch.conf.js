@@ -1,5 +1,6 @@
 // check https://github.com/nightwatchjs/nightwatch/issues/408
 require('events').EventEmitter.defaultMaxListeners = 100;
+require('dotenv/config');
 
 const nightwatch = {
   src_folders: ['tests/feature'],
