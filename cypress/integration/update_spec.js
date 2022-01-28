@@ -143,7 +143,7 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
   });
 
   it('verify success page', () => {
-    cy.get('button[type=submit]').click().url('/success').wait(1000);
+    cy.get('button[type=submit]').click().url('/success').wait(5000);
     cy.get('.success-wrapper').should('contain', 'Thank you,').and('contain', `${firstName}!`)
     cy.get('div.success-wrapper--inner > div > p').should('contain',successYesMessage)
   })

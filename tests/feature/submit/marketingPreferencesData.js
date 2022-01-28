@@ -90,7 +90,7 @@ module.exports = {
           const { data: { data } } = response;
 
             client.assert.equal(response.status, 200, '200 OK');
-            client.assert.equal(data.campaign, 'RND21', 'campaignCode');
+            client.assert.equal(data.campaign, 'RND22', 'campaignCode');
             client.assert.equal(data.firstname, testData.firstName, 'firstName');
             client.assert.equal(data.lastname, testData.lastName, 'lastName');
             client.assert.equal(data.email, email, 'email');
@@ -101,7 +101,7 @@ module.exports = {
             client.assert.equal(data.address3, testData.address3, 'address3');
             client.assert.equal(data.town, testData.town, 'town');
             client.assert.equal(data.country, testData.country, 'country');
-            client.assert.equal(data.transsource, 'RND21_GiftAid', 'transsource');
+            client.assert.equal(data.transsource, 'RND22_GiftAid', 'transsource');
             client.assert.equal(data.transsourceurl, process.env.BASE_URL, 'transsourceurl');
             client.assert.equal(data.transtype, 'prefs', 'transtype');
             client.assert.equal(data.permissionemail, '0', 'permissionemail:no');

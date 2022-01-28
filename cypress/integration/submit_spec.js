@@ -77,7 +77,7 @@ describe('e2e test', () => {
   it('postcode field validation', () => {
     cy.get('#field-input--postcode').clear();
     cy.get('#postcode_button').click();
-    cy.get('#field-error--postcode>span').should('contain','Please enter your postcode');
+    cy.get('#field-error--postcode>span').should('contain','No postcode provided');
     cy.get('#field-input--postcode').clear().type('s66%');
     cy.get('#field-error--postcode>span').should('contain','Please enter a valid postcode');
     cy.get('#field-input--postcode').clear().type('s66');
@@ -105,7 +105,7 @@ describe('e2e test', () => {
   });
 
   it('verify success page', () => {
-    cy.get('button[type=submit]').click().url('/success').wait(1000);
+    cy.get('button[type=submit]').click().url('/success').wait(5000);
     cy.get('.success-wrapper').should('contain', 'Thank you,').and('contain', `${firstName}!`)
   })
 });
