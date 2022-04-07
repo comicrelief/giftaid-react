@@ -1,5 +1,6 @@
 // check https://github.com/nightwatchjs/nightwatch/issues/408
 require('events').EventEmitter.defaultMaxListeners = 100;
+require('dotenv/config');
 
 const nightwatch = {
   src_folders: ['tests/feature'],
@@ -17,7 +18,7 @@ const nightwatch = {
   globals: {
     // controls the timeout value for async hooks. Expects the done() callback to be invoked within this time
     // or an error is thrown
-    asyncHookTimeout : 300 * 1000, // timeout for .perform method for instance.
+    asyncHookTimeout : 600 * 1000, // timeout for .perform method for instance.
     // ensure process is closing as in some cases, process hang forever.
     after: (done)=> {
       process.exit(0);
@@ -39,7 +40,7 @@ const nightwatch = {
       path: '',
     },
     request_timeout_options: {
-      timeout: 200 * 1000,
+      timeout: 600 * 1000,
     },
   },
 
@@ -50,7 +51,7 @@ const nightwatch = {
         os: 'Windows',
         os_version: '10',
         browser: 'Chrome',
-        browser_version: '90.0',
+        browser_version: '99.0',
         resolution: '1024x768',
         name: 'Giftaid - Sanity',
       },
