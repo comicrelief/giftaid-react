@@ -163,8 +163,8 @@ const commands = {
     return client
       .getLocationInView('label.card-number')
       .pause(1000)
-      .element('css selector', 'label.card-number iframe', (frame) => {
-        client.frame({ ELEMENT: Object.values(frame.value)[0] }, () => {
+      .frame(0, () => {
+        client.element('css selector', 'label.card-number iframe', (frame) => {
           client.waitForElementVisible('input[name="cardnumber"]', 3000);
           for (let i = 0; i < cardNumber.length; i += 1) {
             client.sendKeys('input[name="cardnumber"]', cardNumber.charAt(i));
@@ -174,8 +174,8 @@ const commands = {
       .frame(null)
       .getLocationInView('label.expiration-date')
       .pause(2000)
-      .element('css selector', 'label.expiration-date iframe', (frame) => {
-        client.frame({ ELEMENT: Object.values(frame.value)[0] }, () => {
+      .frame(1, () => {
+        client.element('css selector', 'label.expiration-date iframe', (frame) => {
           client.waitForElementVisible('input[name="exp-date"]', 3500);
           for (let i = 0; i < expiration.length; i += 1) {
             client.sendKeys('input[name="exp-date"]', expiration.charAt(i));
@@ -185,8 +185,8 @@ const commands = {
       .frame(null)
       .getLocationInView('label.cvc')
       .pause(1000)
-      .element('css selector', 'label.cvc iframe', (frame) => {
-        client.frame({ ELEMENT: Object.values(frame.value)[0] }, () => {
+      .frame(2, () => {
+        client.element('css selector', 'label.cvc iframe', (frame) => {
           client.waitForElementVisible('input[name="cvc"]', 3500);
           for (let i = 0; i < cvc.length; i += 1) {
             client.sendKeys('input[name="cvc"]', cvc.charAt(i));
