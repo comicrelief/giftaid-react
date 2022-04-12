@@ -18,8 +18,10 @@ jobs:
       - name: Restore packages cache
         uses: actions/cache@v3
         with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          path: |
+            **/node_modules
+            /home/runner/.cache/Cypress
+          key: ${{ runner.os }}-modules-v2-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install dependencies
         run: |
@@ -39,7 +41,6 @@ jobs:
             cypress/videos
             cypress/screenshots
 
-
   lint:
     name: Lint
     runs-on: ubuntu-latest
@@ -55,8 +56,10 @@ jobs:
       - name: Restore packages cache
         uses: actions/cache@v3
         with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          path: |
+            **/node_modules
+            /home/runner/.cache/Cypress
+          key: ${{ runner.os }}-modules-v2-${{ hashFiles('**/yarn.lock') }}
 
       - name: Install dependencies
         run: |
