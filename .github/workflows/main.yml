@@ -15,31 +15,33 @@ jobs:
         with:
           node-version: 14
 
-      - name: Restore packages cache
-        uses: actions/cache@v3
-        with:
-          path: |
-            **/node_modules
-            /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-modules-v2-${{ hashFiles('**/yarn.lock') }}
-
-      - name: Install dependencies
-        run: |
-          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
-          yarn install --frozen-lockfile --ignore-scripts
-          rm .npmrc
+      - name: Log in to npm
+        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Run tests
-        run: yarn test
-
-      - uses: actions/upload-artifact@v3
+      # see https://github.com/marketplace/actions/cypress-io
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v2
         with:
-          name: cypress-outputs
-          path: |
-            cypress/videos
-            cypress/screenshots
+          install-command: yarn install --frozen-lockfile --ignore-scripts
+          start: yarn start
+          command: yarn cy:run
+
+      # NOTE: screenshots will be generated only if E2E test failed
+      # thus we store screenshots only on failures
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
+      # Test run video was always captured, so this action uses "always()" condition
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: cypress-videos
+          path: cypress/videos
 
   lint:
     name: Lint
