@@ -26,6 +26,8 @@ jobs:
         with:
           start: yarn start
           command: yarn cy:run
+        env:
+          REACT_APP_ENDPOINT_URL: ${{ secrets.REACT_APP_ENDPOINT_URL }}
 
       # NOTE: screenshots will be generated only if E2E test failed
       # thus we store screenshots only on failures
