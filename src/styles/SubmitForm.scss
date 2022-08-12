@@ -142,7 +142,7 @@ label {
     &:-webkit-autofill:hover,
     &:-webkit-autofill:focus {
       + .autocomplete-icon {
-        background: transparent url(http://localhost:3000/images/drop-down-dark-purple.svg) calc(100% - 20px) 18px/20px 20px no-repeat;
+        background: transparent url(/images/drop-down-dark-purple.svg) calc(100% - 20px) 18px/20px 20px no-repeat;
         background-position: center;
         top: auto;
         bottom: 8px;
