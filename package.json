@@ -44,7 +44,7 @@
     "cy:run": "export NODE_ENV=development; cypress run",
     "cy:open": "export NODE_ENV=development; cypress open",
     "test": "run-p --race start cy:run",
-    "snyk-protect": "snyk protect",
+    "snyk-protect": "snyk-protect",
     "prepublish": "yarn snyk-protect"
   },
   "babel": {
