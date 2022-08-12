@@ -5,14 +5,15 @@
   "dependencies": {
     "@babel/polyfill": "^7.11.5",
     "@comicrelief/pattern-lab": "7.58.6",
+    "@comicrelief/storybook": "1.30.2",
+    "@snyk/protect": "^1.986.0",
     "autoprefixer": "10.0.0",
-    "@comicrelief/storybook": "1.28.0",
     "axios": "^0.21.1",
     "browser-detect": "^0.2.28",
     "chalk": "2.4.1",
-    "cypress": "^7.2.0",
     "classnames": "^2.2.5",
     "core-js": "^2.5.7",
+    "cypress": "^7.2.0",
     "dotenv": "5.0.1",
     "dotenv-expand": "4.2.0",
     "fs-extra": "5.0.0",
@@ -30,7 +31,6 @@
     "react-meta-tags": "^0.7.4",
     "react-raven": "^1.2.3",
     "react-router-dom": "^4.2.2",
-    "snyk": "^1.667.0",
     "susy": "^3.0.3",
     "uuid": "8.3.2",
     "whatwg-fetch": "2.0.3"
@@ -44,7 +44,7 @@
     "cy:run": "export NODE_ENV=development; cypress run",
     "cy:open": "export NODE_ENV=development; cypress open",
     "test": "run-p --race start cy:run",
-    "snyk-protect": "snyk protect",
+    "snyk-protect": "snyk-protect",
     "prepublish": "yarn snyk-protect"
   },
   "babel": {
@@ -101,8 +101,8 @@
     "hosted-git-info": "2.8.9",
     "immer": "9.0.6",
     "prismjs": "1.27.0",
-    "ejs":"3.1.6",
-    "highlight.js":"10.4.1",
+    "ejs": "3.1.6",
+    "highlight.js": "10.4.1",
     "url-parse": "1.5.8",
     "minimist": "1.2.6"
   },
