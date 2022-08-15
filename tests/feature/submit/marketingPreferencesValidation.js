@@ -6,7 +6,7 @@ const telephone = faker.phone.phoneNumber('0208#######');
 
 module.exports = {
 
- '@tags': ['sanity', 'submit', 'marketingPreferences'],
+ '@tags': ['sanity', 'submit', 'marketingPreferencesValidation'],
 
  'Validate marketing prefs': function (client) {
 
@@ -94,56 +94,56 @@ module.exports = {
 
    // mobile number less than 11 digits shows error message
    client.setValue('input#field-input--phone', '0712345678');
-   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number, with no spaces');
+   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid UK telephone number, with no spaces');
    client.clearValue('input#field-input--phone');
 
    // mobile number more than 11 digits shows error message
    client.setValue('input#field-input--phone', '071234567890');
-   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number, with no spaces');
+   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid UK telephone number, with no spaces');
    client.clearValue('input#field-input--phone');
 
    // mobile number with spaces should show error
    client.setValue('input#field-input--phone', '0712 345 6789');
-   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number, with no spaces');
+   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid UK telephone number, with no spaces');
    client.clearValue('input#field-input--phone');
 
    // telephone number less than 11 digits shows error message
    client.setValue('input#field-input--phone', '0208569424');
-   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number, with no spaces');
+   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid UK telephone number, with no spaces');
    client.clearValue('input#field-input--phone');
 
    // telephone number more than 11 digits shows error message
    client.setValue('input#field-input--phone', '020856942456');
-   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number, with no spaces');
+   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid UK telephone number, with no spaces');
    client.clearValue('input#field-input--phone');
 
    // telephone number with spaces should show error
    client.setValue('input#field-input--phone', '0208 569 4245');
-   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number, with no spaces');
+   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid UK telephone number, with no spaces');
    client.clearValue('input#field-input--phone');
 
    // telephone number with alphabetical chars in between the number should show error
    client.setValue('input#field-input--phone', '0208ab5694245');
    client.assert.elementPresent('div#field-error--phone > span');
-   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number, with no spaces');
+   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid UK telephone number, with no spaces');
    client.clearValue('input#field-input--phone');
 
    // mobile number with alphabetical chars should show error
    client.setValue('input#field-input--phone', '0780ab5694245');
    client.assert.elementPresent('div#field-error--phone > span');
-   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number, with no spaces');
+   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid UK telephone number, with no spaces');
    client.clearValue('input#field-input--phone');
 
    // telephone number starting with alphabetical chars should show error
    client.setValue('input#field-input--phone', 'abcv07805694245');
    client.assert.elementPresent('div#field-error--phone > span');
-   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number, with no spaces');
+   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid UK telephone number, with no spaces');
    client.clearValue('input#field-input--phone');
 
    // telephone number ending with alphabetical chars should show error
    client.setValue('input#field-input--phone', '07805694245dfef');
    client.assert.elementPresent('div#field-error--phone > span');
-   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid telephone number, with no spaces');
+   client.expect.element('div#field-error--phone > span').text.to.equal('Please fill in a valid UK telephone number, with no spaces');
    client.clearValue('input#field-input--phone');
 
    // telephone number starting with '+' should not show error
