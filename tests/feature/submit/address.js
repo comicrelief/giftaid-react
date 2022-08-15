@@ -97,6 +97,7 @@ module.exports = {
     client.click('#postcode_button');
     client.expect.element('div#field-error--postcode > span').text.to.equal('Sorry, we could not find any addresses in that postcode, please check the postcode, or use the manual entry');
     client.clearValue('#field-input--postcode');
+
     // TODO: commenting out validation steps temporarily
     // // postcode with special characters should show error message
     // client.setValue('#field-input--postcode', 'SE1@£7tp');
