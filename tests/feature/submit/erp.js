@@ -11,6 +11,7 @@ module.exports = {
 
   '@tags': ['regression', 'submit-erp'],
 
+  '@disabled': true,
 
   'ERP receives a complete giftaid submit': function (client)  {
     client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
