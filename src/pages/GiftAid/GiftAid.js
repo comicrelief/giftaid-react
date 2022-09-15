@@ -42,6 +42,8 @@ function GiftAid(props) {
   const [pathParams, setPathParams] = useState({}); // initialise submit path param state
   const [formValidityState, setFormValidityState] = useState(initialValidity); // intitialise form validity states
   const [fieldValidation, setFieldValidation] = useState(getFieldValidations(update)); // intitialise field validation state based on form type
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const inputRef = useRef(null);
 
   // initialise URL token state if available
@@ -177,13 +179,13 @@ function GiftAid(props) {
    * @param e
    */
   const submitForm = (e) => {
-
     e.preventDefault();
     const formValues = getFormValues(fieldValidation, urlTransactionId, updating); // get form values
     const { validity, validationState } = validateForm(fieldValidation, formValues, formValidityState); // validate form
     setFormValidityState(validationState); // update form validation state
 
     if (validity) { // submit form if no errors
+      setIsSubmitting(true); // Update state that's passed down to disable button during
       axios.post(pathParams.endpoint, formValues) // post form data and settings to endpoint
         .then(() => {
           setIsCompleted(true); // set completed state
@@ -217,6 +219,7 @@ function GiftAid(props) {
     setFieldValidity: (state, name) => setFieldValidity(state, name),
     refs: inputRef,
     submitForm: (e) => submitForm(e),
+    isSubmitting
   };
 
   return (
