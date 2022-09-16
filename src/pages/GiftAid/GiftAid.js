@@ -185,7 +185,7 @@ function GiftAid(props) {
     setFormValidityState(validationState); // update form validation state
 
     if (validity) { // submit form if no errors
-      setIsSubmitting(true); // Update state that's passed down to disable button during
+      setIsSubmitting(true); // Update state that's passed down to disable button during submission
       axios.post(pathParams.endpoint, formValues) // post form data and settings to endpoint
         .then(() => {
           setIsCompleted(true); // set completed state
