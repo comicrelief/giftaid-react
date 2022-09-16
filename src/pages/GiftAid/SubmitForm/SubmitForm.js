@@ -40,6 +40,7 @@ function SubmitForm(props) {
     fieldValidation,
     setFieldValidation,
     submitForm,
+    isSubmitting
   } = useContext(FormContext); // get states from context
 
   const { msisdn } = props;
@@ -117,7 +118,11 @@ function SubmitForm(props) {
         {...marketingProps}
       />
 
-      <FormButton onClick={(e) => submitForm(e)} text="Gift Aid your donation" />
+      <FormButton 
+        isSubmitting={isSubmitting}
+        onClick={(e) => submitForm(e)}
+        text="Gift Aid your donation" 
+      />
 
       <JustInTime submit text={justInTimeLinkText} />
 
