@@ -85,12 +85,12 @@ module.exports = {
     // postcode with extra numbers in first part should show error message
     client.setValue('#field-input--postcode', 'SE 134 7TP');
     client.click('#postcode_button');
-    client.expect.element('div#field-error--postcode > span').text.to.equal('Search string is not a valid postcode: SE 134 7TP');
+    client.expect.element('div#field-error--postcode > span').text.to.equal('Please enter a valid UK postcode to find your address');
     client.clearValue('#field-input--postcode');
     // postcode with 3 numbers in second part should show error message
     client.setValue('#field-input--postcode', 'SE1 777TP');
     client.click('#postcode_button');
-    client.expect.element('div#field-error--postcode > span').text.to.equal('Search string is not a valid postcode: SE1 777TP');
+    client.expect.element('div#field-error--postcode > span').text.to.equal('Please enter a valid UK postcode to find your address');
     client.clearValue('#field-input--postcode');
     // postcode with 2 numbers in second part should show error message
     client.setValue('#field-input--postcode', 'SE1 77TP');
