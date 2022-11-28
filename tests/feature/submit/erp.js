@@ -1,6 +1,6 @@
 const { ErpNextTester } = require('@comicrelief/test-utils/ErpNextTester');
 
-const erpNextTester = new ErpNextTester('', '', '', /* retries */ 20, /* sleep */ 10 * 1000);
+const erpNextTester = new ErpNextTester(process.env.TESTS_ERPNEXT_API_URL, process.env.TESTS_ERPNEXT_API_CLIENT, process.env.TESTS_ERPNEXT_API_SECRET, /* retries */ 20, /* sleep */ 10 * 1000);
 
 const faker = require('faker');
 const firstName = faker.name.firstName();
@@ -59,5 +59,4 @@ module.exports = {
     });
     client.end();
   },
-
 };
