@@ -37,9 +37,9 @@ describe('e2e test', () => {
     cy.get('#field-input--mobile').type('sdf').clear().click();
     cy.get('#field-error--mobile>span').should('contain','Please fill in your mobile number');
     cy.get('#field-input--mobile').type('sdf');
-    cy.get('#field-error--mobile>span').should('contain', 'Please enter a valid mobile phone number - it must be the same number that you used to make your donation.');
+    cy.get('#field-error--mobile>span').should('contain', 'Please enter a valid mobile phone number - it must be the same number associated with your donation.');
     cy.get('#field-input--mobile').clear().type(faker.phone.phoneNumber('02########'));
-    cy.get('#field-error--mobile>span').should('contain', 'Please enter a valid mobile phone number - it must be the same number that you used to make your donation.');
+    cy.get('#field-error--mobile>span').should('contain', 'Please enter a valid mobile phone number - it must be the same number associated with your donation.');
     cy.get('#field-input--mobile').clear().type(faker.phone.phoneNumber('07#########'));
     cy.get('#field-error--mobile>span').should('not.exist')
   });
