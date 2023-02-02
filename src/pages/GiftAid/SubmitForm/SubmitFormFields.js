@@ -35,7 +35,7 @@ export const submitFormFields = {
     pattern: '^07[0-9]{9}$',
     helpText: 'Enter the one associated with your donation',
     emptyFieldErrorText: 'Please fill in your mobile number',
-    invalidErrorText: 'Please enter a valid mobile phone number - it must be the same number associated with your donation'
+    invalidErrorText: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.'
   },
   firstName: {
     id: 'firstname',
