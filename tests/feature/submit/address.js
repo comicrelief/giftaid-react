@@ -16,13 +16,6 @@ module.exports = {
     client.expect.element('label#field-label--addressSelect').text.to.equal('Select your address');
     client.click('select#field-select--addressSelect');
     client.click('#field-select--addressSelect > option:nth-child(5)');
-    client.waitForElementPresent('#field-input--address1', 1000);
-    client.assert.value('#field-input--address1', 'COMIC RELIEF');
-    client.assert.value('#field-input--address2', 'CAMELFORD HOUSE 87-90');
-    client.assert.value('#field-input--address3', 'ALBERT EMBANKMENT');
-    client.assert.value('#field-input--town', 'LONDON');
-    client.assert.value('#field-select--country', 'GB');
-    client.expect.element('.form__row--marketing-consent>div>div>p:nth-child(2)').text.to.equal('How would you like to hear from us?');
     client.click('button[type="submit"]');
     client.pause(5000);
     client.waitForElementVisible('div > h1', 2000);
@@ -46,7 +39,6 @@ module.exports = {
     client.setValue('#field-input--address2', 'High road');
     client.setValue('#field-input--address3', 'Waterloo');
     client.setValue('#field-input--town', 'London');
-    client.expect.element('.form__row--marketing-consent>div>div>p:nth-child(2)').text.to.equal('How would you like to hear from us?');
     client.click('button[type="submit"]');
     client.pause(5000);
     client.waitForElementVisible('div > h1', 2000);

@@ -6,25 +6,18 @@
 *
 */
 export const marketingConsentData = {
-  Questions: [
+  "Questions": [
     {
-      id: 'permissionEmail',
-      text: "Email me",
-      name: "Email",
-      options: [
+      "id": "permissionEmail",
+      "text": "Email me",
+      "name": "Email",
+      "options": [
         {
-          label: 'Yes',
-          value: 'yes',
-          name: 'permissionEmail',
-          hideFields: false
-        },
-        {
-          label: 'No',
-          value: 'no',
-          name: 'permissionEmail',
-          hideFields: false,
-          extraInfo : "Please provide your email so we can remove it from our database, otherwise untick this option."
-
+          "label": "Email",
+          "value": "yes",
+          "name": "emailPermission",
+          "hideFields": false,
+          "extraInfo": "Please confirm the email address we will use to <b>email</b> you:"
         }
       ],
       field: [
@@ -39,72 +32,54 @@ export const marketingConsentData = {
       ]
     },
     {
-      id: 'permissionPost',
-      text: "Send me post",
-      name: "Post",
-      options: [
+      "id": "permissionPhone",
+      "text": "Phone me",
+      "name": "Phone",
+      "options": [
         {
-          label: 'Yes',
-          value: 'yes',
-          name: 'permissionPost',
-        },
+          "label": "Phone",
+          "value": "yes",
+          "name": "phonePermission",
+          "hideFields": false,
+          "extraInfo": "Please confirm the telephone number we will use to <b>phone</b> you on:"
+
+        }
+      ],
+      "field": [
         {
-          label: 'No',
-          value: 'no',
-          name: 'permissionPost',
-          extraInfo : "This will remove your provided address from our database if you have opted-in before."
+          "id": "phoneNumber",
+          "type": "tel",
+          "name": "phone",
+          "label": "Phone number",
+          "placeholder": "",
+          "required": true
         }
       ]
     },
     {
-      id: 'permissionPhone',
-      text: 'Phone me',
-      name: "Phone",
-      options: [
+      "id": "permissionPost",
+      "text": "Send me post",
+      "name": "Post",
+      "options": [
         {
-          label: 'Yes',
-          value: 'yes',
-          name: 'permissionPhone',
-          hideFields: false
-        },
-        {
-          label: 'No',
-          value: 'no',
-          name: 'permissionPhone',
-          hideFields: false,
-          extraInfo : "Please provide your telephone number so we can remove it from our database, otherwise untick this option."
-        }
-      ],
-      field: [
-        {
-          id: 'phone',
-          type: 'tel',
-          name: 'phone',
-          label: 'Telephone number',
-          placeholder: 'Telephone number',
-          required: true,
+          "label": "Post",
+          "value": "yes",
+          "name": "postPermission"
         }
       ]
     },
     {
-      id: 'permissionSMS',
-      text: 'Text me',
-      name: "SMS",
-      options: [
+      "id": "permissionSMS",
+      "text": "Text me",
+      "name": "SMS",
+      "options": [
         {
-          label: 'Yes',
-          value: 'yes',
-          name: 'permissionSMS',
-          hideFields: true
-        },
-        {
-          label: 'No',
-          value: 'no',
-          name: 'permissionSMS',
-          hideFields: true,
-          extraInfo : "This will remove your provided mobile number from our database if you have opted-in before."
+          "label": "Text",
+          "value": "yes",
+          "name": "smsPermission",
+          "hideFields": true
         }
-      ],
-    }
+      ]
+    },
   ]
 };
