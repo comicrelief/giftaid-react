@@ -14535,9 +14535,9 @@ snapdragon@^0.8.1:
     use "^3.1.0"
 
 snyk@^1.996.0:
-  version "1.1060.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.1060.0.tgz#42ecc48cee64167cc29321cb9fc4a75c3f54ad5a"
-  integrity sha512-WAYComfIYczRf/BnXNOTnmboGuyX6zkYznqJReKxb+h6AbG6IzC5O9qOWe6ws3v3BXDpfi4AjcaaBeo4WHOxMw==
+  version "1.1104.0"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.1104.0.tgz#aed57c5bdaa605f90b3deae858775e08a17ab000"
+  integrity sha512-gKIs9k0A3ZLQxVTfxKhHWSf3tSNflJfef5N/eQ+7GoAZPl5d5IVmLkPCkml1ofa3qw/07B/AMXEnZlJDbbLr7Q==
 
 sockjs-client@1.4.0:
   version "1.4.0"
