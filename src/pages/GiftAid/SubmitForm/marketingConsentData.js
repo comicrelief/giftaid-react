@@ -15,19 +15,19 @@ export const marketingConsentData = {
         {
           "label": "Email",
           "value": "yes",
-          "name": "emailPermission"
+          "name": "emailPermission",
+          "hideFields": false,
+          "extraInfo": "Please confirm the email address we will use to <b>email</b> you:"
         }
-      ]
-    },
-    {
-      "id": "permissionPost",
-      "text": "Send me post",
-      "name": "Post",
-      "options": [
+      ],
+      field: [
         {
-          "label": "Post",
-          "value": "yes",
-          "name": "postPermission"
+          id: 'emailAddress',
+          type: 'email',
+          name: 'email',
+          label: 'Email address',
+          placeholder: 'example@email.com',
+          required: true,
         }
       ]
     },
@@ -57,6 +57,18 @@ export const marketingConsentData = {
       ]
     },
     {
+      "id": "permissionPost",
+      "text": "Send me post",
+      "name": "Post",
+      "options": [
+        {
+          "label": "Post",
+          "value": "yes",
+          "name": "postPermission"
+        }
+      ]
+    },
+    {
       "id": "permissionSMS",
       "text": "Text me",
       "name": "SMS",
@@ -65,22 +77,9 @@ export const marketingConsentData = {
           "label": "Text",
           "value": "yes",
           "name": "smsPermission",
-          "hideFields": false,
-          "extraInfo": "Please confirm the mobile number we will use to <b>text</b> you on:"
-
-        }
-      ],
-      "field": [
-        {
-          "id": "mobileNumber",
-          "type": "tel",
-          "name": "mobile",
-          "label": "Mobile number",
-          "placeholder": "",
-          "required": true,
-          "pattern": "^07[0-9]{9}$"
+          "hideFields": true
         }
       ]
-    }
+    },
   ]
 };
