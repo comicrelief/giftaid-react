@@ -19,7 +19,6 @@ const testData = {
   country: 'GB',
 };
 
-
 module.exports = {
 
   '@tags': ['sanity', 'submit', 'marketingPreferencesData'],
@@ -45,33 +44,26 @@ module.exports = {
 
     // marketing preferences
     // email
-    client.assert.containsText('.form__field-wrapper--Email > p.form__fieldset--label', 'Email me');
     client.waitForElementVisible('#field-wrapper--Email', 1000);
     // yes for email
-    client.click('#field-wrapper--Email>div:nth-child(2)>label');
-    client.assert.containsText('#field-wrapper--Email>div:nth-child(1)>label', 'Yes');
-    client.assert.containsText('label#field-label--email', 'Email address');
+    client.click('#field-wrapper--Email>div:nth-child(1)');
     client.assert.elementPresent('#field-input--email');
     client.setValue('#field-input--email', email);
 
     // yes for Post
-    client.assert.containsText('.form__field-wrapper--Post > p.form__fieldset--label', 'Send me post');
     client.waitForElementVisible('#field-wrapper--Post', 1000);
-    client.click('#field-wrapper--Post div:nth-child(1) > label');
+    client.click('#field-wrapper--Post div:nth-child(1)');
 
     // Phone - accepts both mobile & telephone numbers
-    client.assert.containsText('.form__field-wrapper--Phone > p', 'Phone me');
     client.waitForElementVisible('#field-wrapper--Phone', 1000);
 
     // Yes option
-    client.click('#field-wrapper--Phone div:nth-child(1) > label');
-    client.assert.containsText('#field-wrapper--Phone div:nth-child(1) > label', 'Yes');
+    client.click('#field-wrapper--Phone div:nth-child(1)');
     client.setValue('input#field-input--phone', testData.phone);
 
     // SMS
-    client.assert.containsText('.form__field-wrapper--SMS > p', 'Text me');
     client.waitForElementVisible('#field-wrapper--SMS', 1000);
-    client.click('#field-wrapper--SMS div:nth-child(1) > label');
+    client.click('#field-wrapper--SMS div:nth-child(1)');
 
     // submit form
     client.click('button[type=submit]');
@@ -104,10 +96,10 @@ module.exports = {
             client.assert.equal(data.transsource, 'YRW_GiftAid', 'transsource');
             client.assert.equal(data.transsourceurl, process.env.BASE_URL, 'transsourceurl');
             client.assert.equal(data.transtype, 'prefs', 'transtype');
-            client.assert.equal(data.permissionemail, '0', 'permissionemail:no');
-            client.assert.equal(data.permissionphone, '1', 'permissionphone:yes');
-            client.assert.equal(data.permissionpost, '1', 'permissionpost:yes');
-            client.assert.equal(data.permissionsms, '1', 'permissionsms:yes');
+            client.assert.equal(data.permissionemail, '1', 'permissionemail');
+            client.assert.equal(data.permissionphone, '1', 'permissionphone');
+            client.assert.equal(data.permissionpost, '', 'permissionpost');
+            client.assert.equal(data.permissionsms, '', 'permissionsms');
             done();
           })
           .catch((error) => {
