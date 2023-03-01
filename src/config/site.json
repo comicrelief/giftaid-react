@@ -9,7 +9,7 @@
     "menu_tye": "comicrelief",
     "campaign": {
       "id": "General",
-      "name": "RND22"
+      "name": "YRW"
     },
     "GTM": {
       "id": "GTM-TC9H9D",
@@ -23,14 +23,14 @@
   "SR": {
     "title": "Giftaid",
     "title_postfix": " | Sport Relief",
-    "logo": "/images/sr20.svg",
+    "logo": "/images/SR2022-logo.png",
     "favicon": "/images/favicon/cr/favicon.ico",
     "alt": "Go to Sport Relief",
     "home_url": "https://www.sportrelief.com",
     "menu_tye": "sportrelief",
     "campaign": {
       "id": "General",
-      "name": "SR20"
+      "name": "YRW"
     },
     "GTM": {
       "id": "GTM-TC9H9D",
@@ -51,7 +51,7 @@
     "menu_tye": "comicrelief",
     "campaign": {
       "id": "General",
-      "name": "RND22"
+      "name": "YRW"
     },
     "GTM": {
       "id": "GTM-TC9H9D",

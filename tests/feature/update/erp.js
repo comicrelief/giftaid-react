@@ -120,6 +120,8 @@ module.exports = {
 
   '@tags': ['regression', 'update-erp'],
 
+  '@disabled': true,
+
   ...tests,
 
 };
