@@ -37,9 +37,9 @@ describe('e2e test', () => {
     cy.get('#field-input--mobile').type('sdf').clear().click();
     cy.get('#field-error--mobile>span').should('contain','Please fill in your mobile number');
     cy.get('#field-input--mobile').type('sdf');
-    cy.get('#field-error--mobile>span').should('contain', 'Please enter a valid mobile phone number - it must be the same number that you used to make your donation.');
+    cy.get('#field-error--mobile>span').should('contain', 'Please enter a valid mobile phone number - it must be the same number associated with your donation.');
     cy.get('#field-input--mobile').clear().type(faker.phone.phoneNumber('02########'));
-    cy.get('#field-error--mobile>span').should('contain', 'Please enter a valid mobile phone number - it must be the same number that you used to make your donation.');
+    cy.get('#field-error--mobile>span').should('contain', 'Please enter a valid mobile phone number - it must be the same number associated with your donation.');
     cy.get('#field-input--mobile').clear().type(faker.phone.phoneNumber('07#########'));
     cy.get('#field-error--mobile>span').should('not.exist')
   });
@@ -78,21 +78,19 @@ describe('e2e test', () => {
     cy.get('#field-input--postcode').clear();
     cy.get('#postcode_button').click();
     cy.get('#field-error--postcode>span').should('contain','No postcode provided');
-    cy.get('#field-input--postcode').clear().type('s66%');
-    cy.get('#field-error--postcode>span').should('contain','Please enter a valid postcode');
+    // Removed to reflect way looser postcode checks added to the lookup for CWG
+    // cy.get('#field-input--postcode').clear().type('s66%');
+    // cy.get('#field-error--postcode>span').should('contain','Please enter a valid postcode');
     cy.get('#field-input--postcode').clear().type('s66');
     cy.get('#postcode_button').click();
-    cy.get('#field-error--postcode>span').should('contain','Search string is not a valid postcode: s66');
+    cy.get('#field-error--postcode>span').should('contain','Please enter a valid UK postcode to find your address');
     cy.get('#field-input--postcode').clear().type('hp2 6lq');
     cy.get('#postcode_button').click();
     cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
   });
 
   it('Verify Marketing Email Marketing preference', () => {
-    cy.get('#field-wrapper--Email > div > #field-label--Yes--Email').check().uncheck();
-    cy.get('#field-wrapper--Email > div > #field-label--No--Email').check().uncheck();
-    cy.get('#field-wrapper--Email > div > #field-label--Yes--Email').check();
-    cy.get('#field-wrapper--Email > div > #field-label--No--Email').should('not.be.checked');
+    cy.get('#field-label--Email--Email').check().uncheck().check();
     cy.get('#field-input--email').should('be.visible');
     cy.get('button[type=submit]').click();
     cy.get('#field-error--email>span').should('contain', 'Please fill in your email address');

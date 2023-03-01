@@ -5,15 +5,15 @@ module.exports = {
   'Verify error messages on empty giftaid submission': function (client) {
     client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
     client.click('button[type=submit]');
-    client.assert.containsText('#field-error--giftaid>span', 'To Gift Aid your donation you need to tick the checkbox');
-    client.assert.containsText('#field-error--mobile>span', 'Please fill in your mobile number');
-    client.assert.containsText('#field-error--firstname>span', 'Please fill in your first name');
-    client.assert.containsText('#field-error--lastname>span', 'Please fill in your last name');
-    client.assert.containsText('#field-error--postcode>span', 'Please enter your postcode');
-    client.assert.containsText('#field-error--addressDetails>span', 'Please fill in your address');
+    client.assert.textContains('#field-error--giftaid>span', 'To Gift Aid your donation you need to tick the checkbox');
+    client.assert.textContains('#field-error--mobile>span', 'Please fill in your mobile number');
+    client.assert.textContains('#field-error--firstname>span', 'Please fill in your first name');
+    client.assert.textContains('#field-error--lastname>span', 'Please fill in your last name');
+    client.assert.textContains('#field-error--postcode>span', 'Please enter your postcode');
+    client.assert.textContains('#field-error--addressDetails>span', 'Please fill in your address');
     client.click('a[aria-describedby=field-error--addressDetails]');
-    client.assert.containsText('#field-error--address1>span', 'Please fill in your address line 1');
-    client.assert.containsText('#field-error--town>span', 'Please fill in your town/city');
+    client.assert.textContains('#field-error--address1>span', 'Please fill in your address line 1');
+    client.assert.textContains('#field-error--town>span', 'Please fill in your town/city');
     client.end();
   },
 
@@ -47,7 +47,7 @@ module.exports = {
     client.click('button[type=submit]');
     client.pause(2000);
     client.expect.element('div > h1').text.to.not.equal('Sorry!');
-    client.assert.containsText('#field-error--mobile>span', 'Please fill in your mobile number');
+    client.assert.textContains('#field-error--mobile>span', 'Please fill in your mobile number');
     client.end();
   },
 
@@ -64,7 +64,7 @@ module.exports = {
     client.click('button[type=submit]');
     client.pause(2000);
     client.expect.element('div > h1').text.to.not.equal('Sorry!');
-    client.assert.containsText('#field-error--firstname', 'Please fill in your first name');
+    client.assert.textContains('#field-error--firstname', 'Please fill in your first name');
     client.end();
   },
 
@@ -81,7 +81,7 @@ module.exports = {
     client.click('button[type=submit]');
     client.pause(2000);
     client.expect.element('div > h1').text.to.not.equal('Sorry!');
-    client.assert.containsText('#field-error--lastname', 'Please fill in your last name');
+    client.assert.textContains('#field-error--lastname', 'Please fill in your last name');
     client.end();
   },
 
@@ -95,7 +95,7 @@ module.exports = {
     client.click('button[type=submit]');
     client.pause(2000);
     client.expect.element('div > h1').text.to.not.equal('Sorry!');
-    client.assert.containsText('#field-error--postcode', 'Please enter your postcode');
+    client.assert.textContains('#field-error--postcode', 'Please enter your postcode');
     client.end();
   },
 
@@ -113,7 +113,7 @@ module.exports = {
     client.click('button[type=submit]');
     client.pause(2000);
     client.expect.element('div > h1').text.to.not.equal('Sorry!');
-    client.assert.containsText('#field-error--town', 'Please fill in your town/city');
+    client.assert.textContains('#field-error--town', 'Please fill in your town/city');
     client.end();
   },
 };
