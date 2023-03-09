@@ -27,9 +27,6 @@ import {
   getRoute,
 } from './utils/Utils';
 
-
-let scrollTimeout;
-
 function GiftAid(props) {
 
   // initialise and get props from context
@@ -187,7 +184,7 @@ function GiftAid(props) {
           });
         });
     } else {
-      scrollTimeout = setTimeout(() => {
+      setTimeout(() => {
         scrollToError(formValidityState);
       }, 500);
     }
