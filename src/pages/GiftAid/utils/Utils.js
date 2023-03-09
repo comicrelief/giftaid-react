@@ -22,7 +22,7 @@ export const scrollToError = (state = {}) => {
     errorWrapper.scrollIntoView({ behavior: 'smooth' });
     setTimeout(() => {
       document.querySelectorAll('.form__field--erroring > div input')[0].focus();
-    }, 1000);
+    }, 500);
   }
 };
 
