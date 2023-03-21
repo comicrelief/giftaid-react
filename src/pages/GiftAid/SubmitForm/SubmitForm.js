@@ -101,7 +101,7 @@ function SubmitForm(props) {
         ref={refs}
         label="Home address"
         showErrorMessages={formValidityState.showErrorMessages}
-        pattern={postCodePattern}
+        postcodePattern={postCodePattern}
         isAddressValid={
           (validation) => {
             Object.keys(validation).map(key => setFieldValidity(validation[key], key));
