@@ -78,12 +78,10 @@ describe('e2e test', () => {
     cy.get('#field-input--postcode').clear();
     cy.get('#postcode_button').click();
     cy.get('#field-error--postcode>span').should('contain','No postcode provided');
-    // Removed to reflect way looser postcode checks added to the lookup for CWG
-    // cy.get('#field-input--postcode').clear().type('s66%');
-    // cy.get('#field-error--postcode>span').should('contain','Please enter a valid postcode');
+    cy.get('#field-input--postcode').clear().type('s66%');
+    cy.get('#field-error--postcode>span').should('contain','Please enter a valid postcode');
     cy.get('#field-input--postcode').clear().type('s66');
-    cy.get('#postcode_button').click();
-    cy.get('#field-error--postcode>span').should('contain','Please enter a valid UK postcode to find your address');
+    cy.get('#field-error--postcode>span').should('contain','Please enter a valid postcode');
     cy.get('#field-input--postcode').clear().type('hp2 6lq');
     cy.get('#postcode_button').click();
     cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
