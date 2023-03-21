@@ -139,10 +139,11 @@ const DONATION_TYPES = {
 export const hiddenFields = ['field-input--address1', 'field-input--town', 'field-wrapper--country'];
 
 /*
-* REGEX for postcode field
+* REGEX for postcode field, HMRC-approved to ensure no invalid GiftAid submissions can slip through
 *
 */
-export const postCodePattern = '[A-Za-z]{1,2}[0-9Rr][0-9A-Za-z]?( |)[0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}';
+export const postCodePattern = '(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) [0-9][A-Z]{2})';
+
 
 /*
 * Just In Time Link Text
