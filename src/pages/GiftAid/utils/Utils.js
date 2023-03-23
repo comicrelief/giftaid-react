@@ -140,9 +140,7 @@ export const hiddenFields = ['field-input--address1', 'field-input--town', 'fiel
 
 /*
 * REGEX for postcode field, HMRC-approved to ensure no invalid GiftAid submissions can slip through
-*
 */
-// Added in optional space and made it case insenstive
 export const postCodePattern = new RegExp(`(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) [0-9][A-Z]{2})`);
 
 /*
