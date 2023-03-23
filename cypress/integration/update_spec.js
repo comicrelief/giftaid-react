@@ -96,9 +96,9 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
     cy.get('#postcode_button').click();
     cy.get('#field-error--postcode>span').should('contain','No postcode provided');
     cy.get('#field-input--postcode').clear().type('s66%');
-    cy.get('#field-error--postcode>span').should('contain','Please enter a valid postcode');
+    cy.get('#field-error--postcode>span').should('contain','Please enter a valid UK postcode, using a space and capital letters');
     cy.get('#field-input--postcode').clear().type('s66');
-    cy.get('#field-error--postcode>span').should('contain','Please enter a valid postcode');
+    cy.get('#field-error--postcode>span').should('contain','Please enter a valid UK postcode, using a space and capital letters');
     cy.get('#field-input--postcode').clear().type('se1 7tp');
     cy.get('button[type=submit]').click();
 

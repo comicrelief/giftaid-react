@@ -81,7 +81,7 @@ describe('e2e test', () => {
     cy.get('#field-input--postcode').clear().type('s66%');
     cy.get('#field-error--postcode>span').should('contain','Please enter a valid UK postcode, using a space and capital letters');
     cy.get('#field-input--postcode').clear().type('s66');
-    cy.get('#field-error--postcode>span').should('contain','Please enter a valid postcode');
+    cy.get('#field-error--postcode>span').should('contain','Please enter a valid UK postcode, using a space and capital letters');
     cy.get('#field-input--postcode').clear().type('hp2 6lq');
     cy.get('#postcode_button').click();
     cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
