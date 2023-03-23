@@ -143,8 +143,7 @@ export const hiddenFields = ['field-input--address1', 'field-input--town', 'fiel
 *
 */
 // Added in optional space and made it case insenstive
-// TO-DO: check that this is re: HRMC
-export const postCodePattern = new RegExp(`(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) {0,1}[0-9][A-Z]{2})`, 'i');
+export const postCodePattern = new RegExp(`(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) [0-9][A-Z]{2})`);
 
 /*
 * Just In Time Link Text

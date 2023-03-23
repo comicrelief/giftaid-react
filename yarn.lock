@@ -1274,10 +1274,10 @@
     susy "^2.2.12"
     underscore.string "3.3.5"
 
-"@comicrelief/storybook@1.33.1":
-  version "1.33.1"
-  resolved "https://registry.yarnpkg.com/@comicrelief/storybook/-/storybook-1.33.1.tgz#1445e48a1b199e1cd0310a94731a28072313053c"
-  integrity sha512-YR5g4/165KiStNClSQp7+M1hUT9To7e5J0DbJSUhgaDuIAyoP8ylksy3jIZD4WcfK0D7hIeENhzybf4Y2h912Q==
+"@comicrelief/storybook@1.33.2":
+  version "1.33.2"
+  resolved "https://registry.yarnpkg.com/@comicrelief/storybook/-/storybook-1.33.2.tgz#689db5f17033b686b781f431350573bf91f0e837"
+  integrity sha512-weagIT1fvQX9a1MWD9iYMd1rtRt4ncTWB2Nqt5kywCFOsqZ+iVOFKtzKkeU2qVX2HLhz6jEY2lKG3tnhUAX/Kg==
   dependencies:
     "@comicrelief/pattern-lab" "*"
     "@snyk/protect" "^1.1060.0"
