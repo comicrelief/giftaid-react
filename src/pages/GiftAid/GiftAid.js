@@ -19,11 +19,12 @@ import {
   scrollToError,
   getPathParams,
   hiddenFields,
-  postCodePattern,
+  GBPostCodePattern,
+  OverseasPostCodePattern,
   justInTimeLinkText,
   validateForm,
   getFieldValidations,
-  initialValidity,
+  initialFormValidity,
   getRoute,
 } from './utils/Utils';
 
@@ -36,9 +37,14 @@ function GiftAid(props) {
   const update = props.location.pathname.includes("update"); // initialise updating param state
   const [updating, setUpdating] = useState(update); // set to true if path contains the string update
   const [pathParams, setPathParams] = useState({}); // initialise submit path param state
-  const [formValidityState, setFormValidityState] = useState(initialValidity); // intitialise form validity states
+  const [formValidityState, setFormValidityState] = useState(initialFormValidity); // intitialise form validity states
   const [fieldValidation, setFieldValidation] = useState(getFieldValidations(update)); // intitialise field validation state based on form type
   const [isSubmitting, setIsSubmitting] = useState(false);
+  // As GB is the default country, set the matching postcode regex pattern as default too
+  const [currentPostcodePattern, setCurrentPostcodePattern] = useState(GBPostCodePattern);
+
+  // Simple counter to allow us to trigger the child 'revalidate postcode' function after regex updates
+  const [postcodeRevalidate, setPostcodeRevalidate] = useState(0);
 
   const inputRef = useRef(null);
 
@@ -64,7 +70,7 @@ function GiftAid(props) {
     return () => {
       // GiftAid component unmounts
       // reset states
-      setFormValidityState(initialValidity);
+      setFormValidityState(initialFormValidity);
       setFieldValidation({});
       setUpdating(false);
       setUrlTransactionId(null);
@@ -108,34 +114,34 @@ function GiftAid(props) {
 
   /**
    * Updates validation state for form fields
-   * @param childState
-   * @param name
+   * @param thisFieldsState
+   * @param thisFieldsName
    */
-  const setFieldValidity = (childState, name) => {
-    const prevStateField = fieldValidation[name];
-    const fieldUndefined = prevStateField === undefined;
-    const valueUndefined = typeof prevStateField !== 'undefined' && prevStateField.value === undefined;
-    const newValue = typeof prevStateField !== 'undefined' && prevStateField.value !== childState.value;
-    const newState = (fieldUndefined === false && newValue) || (valueUndefined === true || newValue);
-
+  const setFieldValidity = (thisFieldsState, thisFieldsName) => {
+    const thisFieldsPreviousState = fieldValidation[thisFieldsName];
+    const isFieldUndefined = thisFieldsPreviousState === undefined;
+    const isFieldValueUndefined = typeof thisFieldsPreviousState !== 'undefined' && thisFieldsPreviousState.value === undefined;
+    const isNewFieldValue = typeof thisFieldsPreviousState !== 'undefined' && thisFieldsPreviousState.value !== thisFieldsState.value;
+    const isUpdatedState = (isFieldUndefined === false && isNewFieldValue) || (isFieldValueUndefined === true || isNewFieldValue);
+    
     // set field validation for marketing consent fields if present
-    const marketingConsentFieldsChanged = fieldUndefined === false &&
-      (childState.fieldValidation !== prevStateField.fieldValidation);
+    const marketingConsentFieldsChanged = isFieldUndefined === false &&
+      (thisFieldsState.fieldValidation !== thisFieldsPreviousState.fieldValidation);
 
-    if ((prevStateField && newState) || marketingConsentFieldsChanged === true) {
-      if (name === 'emailaddress' && childState.value === '') { // make email field optional
-        setFieldValidation({
-          ...fieldValidation,
-          emailaddress: {
-            valid: true,
-            value: childState.value,
-            message: childState.message,
-            showErrorMessage: false,
-          },
-        });
-      } else {
+    if ((thisFieldsPreviousState && isUpdatedState) || marketingConsentFieldsChanged === true) {
+      
+      // Update postcode regex is country select value has changed
+      if (thisFieldsName === 'country' && thisFieldsState.value !== thisFieldsPreviousState.value ){
+
+        // Switch regex patterns if GB or not
+        setCurrentPostcodePattern(thisFieldsState.value === 'GB' ? GBPostCodePattern : OverseasPostCodePattern);
+
+        // Update counter we're using to retrigger postcode validation
+        setPostcodeRevalidate(postcodeRevalidate + 1 );
+      }
+
         // Reset url transaction Id state
-        if (name === 'transactionId' && childState.valid) {
+        if (thisFieldsName === 'transactionId' && thisFieldsState.valid) {
           setFormValidityState({
             ...formValidityState,
             urlTransactionId: {
@@ -144,13 +150,12 @@ function GiftAid(props) {
             }
           });
         }
-        fieldValidation[name] = childState;
+        fieldValidation[thisFieldsName] = thisFieldsState;
         setFieldValidation({...fieldValidation});
 
         return {
           ...fieldValidation,
         };
-      }
     }
   };
 
@@ -196,7 +201,7 @@ function GiftAid(props) {
   const contextProps = {
     urlTransactionId,
     hiddenFields,
-    postCodePattern,
+    currentPostcodePattern,
     justInTimeLinkText,
     formValidityState,
     fieldValidation,
@@ -219,6 +224,7 @@ function GiftAid(props) {
         <SubmitForm
           title="Submit Form"
           msisdn={msisdn}
+          postcodeRevalidate={postcodeRevalidate}
         />
       )}
     </FormProvider>

@@ -34,7 +34,7 @@ function SubmitForm(props) {
   const {
     refs,
     setFieldValidity,
-    postCodePattern,
+    currentPostcodePattern,
     justInTimeLinkText,
     formValidityState,
     fieldValidation,
@@ -43,11 +43,10 @@ function SubmitForm(props) {
     isSubmitting
   } = useContext(FormContext); // get states from context
 
-  const { msisdn } = props;
+  const { msisdn, postcodeRevalidate } = props;
 
   // Declare state variables
   const [inputFieldProps, setInputFieldProps] = useState([]); // initialise form inputFieldProps state
-
   const marketingProps = {};
 
   // Set additional props for MarketingConsent based on site
@@ -66,6 +65,33 @@ function SubmitForm(props) {
       setInputFieldProps([]); // reset on component unmount
     }
   });
+
+
+  useEffect(() => {
+    revalidatePostcode(postcodeRevalidate);
+  }, [postcodeRevalidate]);
+
+  /* Crummy workaround to trigger a revalidation
+  * as the bespoke validation here is TERRIBLE */
+  const revalidatePostcode = (count) => {
+    // Ignore initial mount validation
+    if (count > 1) {
+      // Store the current postcode to re-add
+      const currentPostcodeValue = document.getElementById("field-input--postcode").value;
+      const blurEvent = new Event('blur', { bubbles: true });
+
+      // Temporarily reset the postcode field and programmatically 
+      // trigger a blur event to make the validation take notice
+      document.getElementById("field-input--postcode").value = '';
+      document.getElementById("field-input--postcode").dispatchEvent(blurEvent);
+      
+      setTimeout(() => {
+        // IMMEDIATELTY re-add the value and trigger another blur event
+        document.getElementById("field-input--postcode").value = currentPostcodeValue;
+        document.getElementById("field-input--postcode").dispatchEvent(blurEvent);
+      }, 1);
+    }
+  };
 
   /**
    * Handle set input fields
@@ -101,11 +127,11 @@ function SubmitForm(props) {
         ref={refs}
         label="Home address"
         showErrorMessages={formValidityState.showErrorMessages}
-        postcodePattern={postCodePattern}
+        postcodePattern={currentPostcodePattern}
         invalidErrorText="Please enter a valid UK postcode, using a space and capital letters"
         isAddressValid={
           (validation) => {
-            Object.keys(validation).map(key => setFieldValidity(validation[key], key));
+            Object.keys(validation).map(key => setFieldValidity(validation[key], key, '(PCLU)'));
           }
         }
       />

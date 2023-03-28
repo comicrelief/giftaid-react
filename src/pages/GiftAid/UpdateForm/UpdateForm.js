@@ -25,7 +25,7 @@ function UpdateForm(props) {
   const {
     refs,
     setFieldValidity,
-    postCodePattern,
+    currentPostcodePattern,
     justInTimeLinkText,
     formValidityState,
     fieldValidation,
@@ -60,6 +60,9 @@ function UpdateForm(props) {
     }
   }, []);
 
+
+  console.log('currentPostcodePattern', currentPostcodePattern);
+
   return (
 
     <Form className="giftaid__form update-giftaid__form">
@@ -83,7 +86,7 @@ function UpdateForm(props) {
           ref={refs}
           label="Home address"
           showErrorMessages={formValidityState.showErrorMessages}
-          postcodePattern={postCodePattern}
+          postcodePattern={currentPostcodePattern}
           invalidErrorText="Please enter a valid UK postcode, using a space and capital letters"
           isAddressValid={
             (validation) => {
