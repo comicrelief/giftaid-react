@@ -87,9 +87,9 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
 
   it('email input field validation', () => {
     cy.get('#field-input--email').clear().type('test-@%comicrelief.com');
-    cy.get('#field-error--emailaddress > span').should('contain','Please fill in a valid email address');
+    cy.get('#field-error--email > span').should('contain','Please fill in a valid email address');
     cy.get('#field-input--email').clear().type('giftaid-staging@email.sls.comicrelief.com');
-    cy.get('#field-error--emailaddress > span').should('not.exist')
+    cy.get('#field-error--email > span').should('not.exist')
   });
 
   it('postcode field validation', () => {
