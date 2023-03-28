@@ -60,7 +60,7 @@ const tests = {};
         client.setValue('#field-input--transactionId', transactionId);
         client.setValue('#field-input--firstname', 'test')
           .setValue('#field-input--lastname', lastName)
-          .setValue('#field-input--emailaddress', email)
+          .setValue('#field-input--email', email)
           .setValue('#field-input--postcode', 'se17tp')
           .click('a[aria-describedby=field-error--addressDetails]')
           .pause(200)
