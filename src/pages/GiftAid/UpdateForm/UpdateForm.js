@@ -60,9 +60,6 @@ function UpdateForm(props) {
     }
   }, []);
 
-
-  console.log('currentPostcodePattern', currentPostcodePattern);
-
   return (
 
     <Form className="giftaid__form update-giftaid__form">

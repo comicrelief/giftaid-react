@@ -131,7 +131,7 @@ function SubmitForm(props) {
         invalidErrorText="Please enter a valid UK postcode, using a space and capital letters"
         isAddressValid={
           (validation) => {
-            Object.keys(validation).map(key => setFieldValidity(validation[key], key, '(PCLU)'));
+            Object.keys(validation).map(key => setFieldValidity(validation[key], key));
           }
         }
       />
