@@ -1,0 +1,22 @@
+{
+  "name": "playwright-tests",
+  "version": "1.0.0",
+  "main": "",
+  "license": "UNDEFINED",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "@comicrelief/data-models": "^1.29.6",
+    "@comicrelief/test-utils": "^1.5.15",
+    "@playwright/test": "1.25.1",
+    "axios": "^0.21.1",
+    "chance": "^1.1.7",
+    "dotenv": "^8.0.0",
+    "faker": "^5.5.3"
+  },
+  "scripts": {
+    "test:sanity": "playwright test --grep '@sanity'",
+    "test:regression": "playwright test --grep '@regression'",
+    "test:nightly-sanity": "playwright test --grep '@nightly-sanity'"
+  }
+}
