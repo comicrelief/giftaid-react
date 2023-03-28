@@ -7,7 +7,6 @@ import axios from 'axios';
 import UpdateForm from './UpdateForm';
 import SubmitForm from './SubmitForm';
 
-
 // context
 import AppContext from '../../context/AppContext';
 
@@ -27,9 +26,6 @@ import {
   initialValidity,
   getRoute,
 } from './utils/Utils';
-
-
-let scrollTimeout;
 
 function GiftAid(props) {
 
@@ -99,7 +95,7 @@ function GiftAid(props) {
    * Handle validity state on component update
    */
   useEffect(() => {
-    // if validation fails, scroll to error
+    // Update validation accordingly on update
     if ((formValidityState.showErrorMessages && !formValidityState.formValidity
       && formValidityState.validating) || formValidityState.urlTransactionId.valid === false ) {
       // update validation state
@@ -111,26 +107,11 @@ function GiftAid(props) {
   }, []);
 
   /**
-   * Handle scroll to error on component update
-   */
-  useEffect(() => {
-    scrollTimeout = setTimeout(() => {
-      scrollToError(formValidityState);
-    }, 500);
-    return () => {
-      // clear timeout on component unmount
-      clearTimeout(scrollTimeout);
-    }
-  });
-
-
-  /**
    * Updates validation state for form fields
    * @param childState
    * @param name
    */
   const setFieldValidity = (childState, name) => {
-
     const prevStateField = fieldValidation[name];
     const fieldUndefined = prevStateField === undefined;
     const valueUndefined = typeof prevStateField !== 'undefined' && prevStateField.value === undefined;
@@ -202,6 +183,10 @@ function GiftAid(props) {
             pathname: pathParams.sorryPath, // redirect to failure page
           });
         });
+    } else {
+      setTimeout(() => {
+        scrollToError(formValidityState);
+      }, 500);
     }
     return null;
   };
