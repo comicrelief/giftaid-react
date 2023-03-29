@@ -141,11 +141,8 @@ export const hiddenFields = ['field-input--address1', 'field-input--town', 'fiel
 /*
 * REGEX for postcode fields:
 */
-// HMRC-approved to ensure no invalid GiftAid submissions can slip through
+// HMRC-approved, GB-only pattern to ensure no invalid GiftAid submissions can slip through
 export const GBPostCodePattern = '(GIR 0AA)|((([A-Z][0-9][0-9]?)|(([A-Z][A-HJ-Y][0-9][0-9]?)|(([A-Z][0-9][A-Z])|([A-Z][A-HJ-Y][0-9]?[A-Z])))) [0-9][A-Z]{2})';
-
-// Looser restrictions for non-GB submission
-export const OverseasPostCodePattern = '^(?!\s*$).+';
 
 /*
 * Just In Time Link Text

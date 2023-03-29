@@ -157,8 +157,9 @@ function GiftAid(props) {
 
         // Ignore the on-mount validation call
         if (thisFieldsPreviousState.value !== undefined) {
-          // Switch regex patterns accordingly
-          setCurrentPostcodePattern(thisFieldsState.value === 'GB' ? GBPostCodePattern : OverseasPostCodePattern);
+          // Switch regex patterns accordingly; if a non-GB value, this undefined value
+          // will cause the PCLU to fallback to its default, much looser regex
+          setCurrentPostcodePattern(thisFieldsState.value === 'GB' ? GBPostCodePattern : undefined);
           // Call our workaround to trigger a revalidation of the PCLU postcode field
           revalidatePostcode();
         }
