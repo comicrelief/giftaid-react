@@ -79,6 +79,27 @@ function GiftAid(props) {
     }
   }, []);
 
+  /**
+  * Crummy workaround to trigger a revalidation
+  * as the bespoke validation here has issues
+  */
+    const revalidatePostcode = () => {
+      // Store the current postcode to re-add
+      const currentPostcodeValue = document.getElementById("field-input--postcode").value;
+      const blurEvent = new Event('blur', { bubbles: true });
+
+      // Temporarily reset the postcode field and programmatically
+      // trigger a blur event to make the validation take notice
+      document.getElementById("field-input--postcode").value = '';
+      document.getElementById("field-input--postcode").dispatchEvent(blurEvent);
+
+      setTimeout(() => {
+        // Immediately re-add the value and trigger another blur event
+        document.getElementById("field-input--postcode").value = currentPostcodeValue;
+        document.getElementById("field-input--postcode").dispatchEvent(blurEvent);
+      }, 1);
+    };
+
 
   /**
    * Fetches decrypted MSISDN using token
@@ -130,14 +151,16 @@ function GiftAid(props) {
 
     if ((thisFieldsPreviousState && isUpdatedState) || marketingConsentFieldsChanged === true) {
       
-      // Update postcode regex is country select value has changed
-      if (thisFieldsName === 'country' && thisFieldsState.value !== thisFieldsPreviousState.value ){
+      // Update postcode regex is 'Country' select value has changed
+      if (thisFieldsName === 'country' && thisFieldsState.value !== thisFieldsPreviousState.value){
 
-        // Switch regex patterns if GB or not
-        setCurrentPostcodePattern(thisFieldsState.value === 'GB' ? GBPostCodePattern : OverseasPostCodePattern);
-
-        // Update counter we're using to retrigger postcode validation
-        setPostcodeRevalidate(postcodeRevalidate + 1 );
+        // Ignore the on-mount validation call
+        if (thisFieldsPreviousState.value !== undefined) {
+          // Switch regex patterns accordingly
+          setCurrentPostcodePattern(thisFieldsState.value === 'GB' ? GBPostCodePattern : OverseasPostCodePattern);
+          // Call our workaround to trigger a revalidation of the PCLU postcode field
+          revalidatePostcode();
+        }
       }
 
         // Reset url transaction Id state

@@ -43,7 +43,7 @@ function SubmitForm(props) {
     isSubmitting
   } = useContext(FormContext); // get states from context
 
-  const { msisdn, postcodeRevalidate } = props;
+  const { msisdn } = props;
 
   // Declare state variables
   const [inputFieldProps, setInputFieldProps] = useState([]); // initialise form inputFieldProps state
@@ -66,33 +66,6 @@ function SubmitForm(props) {
     }
   });
 
-
-  useEffect(() => {
-    revalidatePostcode(postcodeRevalidate);
-  }, [postcodeRevalidate]);
-
-  /* Crummy workaround to trigger a revalidation
-  * as the bespoke validation here is TERRIBLE */
-  const revalidatePostcode = (count) => {
-    // Ignore initial mount validation
-    if (count > 1) {
-      // Store the current postcode to re-add
-      const currentPostcodeValue = document.getElementById("field-input--postcode").value;
-      const blurEvent = new Event('blur', { bubbles: true });
-
-      // Temporarily reset the postcode field and programmatically 
-      // trigger a blur event to make the validation take notice
-      document.getElementById("field-input--postcode").value = '';
-      document.getElementById("field-input--postcode").dispatchEvent(blurEvent);
-      
-      setTimeout(() => {
-        // IMMEDIATELTY re-add the value and trigger another blur event
-        document.getElementById("field-input--postcode").value = currentPostcodeValue;
-        document.getElementById("field-input--postcode").dispatchEvent(blurEvent);
-      }, 1);
-    }
-  };
-
   /**
    * Handle set input fields
    */
@@ -113,7 +86,6 @@ function SubmitForm(props) {
     // merge input fields with default form fields
     setInputFieldProps(mergeInputFieldProps(submitFormFields, props));
   };
-
 
   return (
 
