@@ -25,7 +25,7 @@ function UpdateForm(props) {
   const {
     refs,
     setFieldValidity,
-    postCodePattern,
+    currentPostcodePattern,
     justInTimeLinkText,
     formValidityState,
     fieldValidation,
@@ -83,7 +83,8 @@ function UpdateForm(props) {
           ref={refs}
           label="Home address"
           showErrorMessages={formValidityState.showErrorMessages}
-          pattern={postCodePattern}
+          postcodePattern={currentPostcodePattern}
+          invalidErrorText="Please enter a valid UK postcode, using a space and capital letters"
           isAddressValid={
             (validation) => {
               Object.keys(validation).map(key => setFieldValidity(validation[key], key));

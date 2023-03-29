@@ -84,8 +84,8 @@ export const updateFormFields = {
     invalidErrorText: 'This field only accepts alphanumeric characters and , . ( ) / & \' - ',
     pattern: '^[A-Za-z0-9]+[ \\- ,.()\\/&\\\'\\w]+$'
   },
-  emailAddress: {
-    id: 'emailaddress',
+  email: {
+    id: 'email',
     type: 'email',
     name: 'email',
     label: 'Email address',

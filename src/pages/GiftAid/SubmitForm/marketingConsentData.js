@@ -22,7 +22,7 @@ export const marketingConsentData = {
       ],
       field: [
         {
-          id: 'emailAddress',
+          id: 'email',
           type: 'email',
           name: 'email',
           label: 'Email address',
