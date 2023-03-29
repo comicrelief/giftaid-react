@@ -85,18 +85,19 @@ function GiftAid(props) {
   */
     const revalidatePostcode = () => {
       // Store the current postcode to re-add
-      const currentPostcodeValue = document.getElementById("field-input--postcode").value;
+      const postcodeField = document.getElementById("field-input--postcode");
+      const currentPostcodeValue = postcodeField.value;
       const blurEvent = new Event('blur', { bubbles: true });
 
       // Temporarily reset the postcode field and programmatically
       // trigger a blur event to make the validation take notice
-      document.getElementById("field-input--postcode").value = '';
-      document.getElementById("field-input--postcode").dispatchEvent(blurEvent);
+      postcodeField.value = '';
+      postcodeField.dispatchEvent(blurEvent);
 
       setTimeout(() => {
         // Immediately re-add the value and trigger another blur event
-        document.getElementById("field-input--postcode").value = currentPostcodeValue;
-        document.getElementById("field-input--postcode").dispatchEvent(blurEvent);
+        postcodeField.value = currentPostcodeValue;
+        postcodeField.dispatchEvent(blurEvent);
       }, 1);
     };
 
