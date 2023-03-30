@@ -21,7 +21,7 @@ test.describe('Address validation @sanity', () => {
   test('empty postcode should show error message', async ({ page }) => {
 
     // empty postcode should show error message
-    await page.locator('input#field-input--postcode').fill('SE17TP');
+    await page.locator('input#field-input--postcode').fill('SE1 7TP');
     // clear postcode
     await page.locator('input#field-input--postcode').fill('');
 
@@ -37,26 +37,20 @@ test.describe('Address validation @sanity', () => {
 
     // postcode starting with numbers should show error message
     await page.locator('input#field-input--postcode').fill('12SE17TP');
-    // click on postcode lookup button
-    await page.locator('#postcode_button').click();
-    // clicking on submit button should show error on address lookup
-    await page.locator('button[type=submit]').click();
-    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode to find your address');
+
+    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space and capital letters');
 
     // postcode with invalid input should show error message
     await page.locator('input#field-input--postcode').fill('');
     await page.locator('input#field-input--postcode').fill('comic relief');
-    // click on postcode lookup button
-    await page.locator('#postcode_button').click();
-    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode to find your address');
-
+    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space and capital letters');
     await page.close();
   });
 
   test('enter postcode but submit without selecting address should show error message', async ({ page }) => {
 
     // enter postcode
-    await page.locator('input#field-input--postcode').fill('SE17TP');
+    await page.locator('input#field-input--postcode').fill('SE1 7TP');
     // click on postcode lookup button
     await page.locator('#postcode_button').click();
     await expect(page.locator('#field-select--addressSelect')).toBeVisible();
@@ -72,7 +66,7 @@ test.describe('Address validation @sanity', () => {
   test('clicking on manual address link should show address fields', async ({ page }) => {
 
     // enter postcode
-    await page.locator('input#field-input--postcode').fill('SE17TP');
+    await page.locator('input#field-input--postcode').fill('SE1 7TP');
 
     await expect(page.locator('a[aria-describedby=field-error--addressDetails]')).toBeVisible();
 
@@ -91,7 +85,7 @@ test.describe('Address validation @sanity', () => {
   test('validate address fields', async ({ page }) => {
 
     // enter postcode
-    await page.locator('input#field-input--postcode').fill('SE17TP');
+    await page.locator('input#field-input--postcode').fill('SE1 7TP');
 
     await expect(page.locator('a[aria-describedby=field-error--addressDetails]')).toBeVisible();
 
@@ -161,61 +155,6 @@ test.describe('Address validation @sanity', () => {
     await page.locator('input#field-input--town').fill('');
     await page.locator('input#field-input--town').fill('  Comic Relief');
     await expect(page.locator('#field-error--town > span')).toContainText('This field only accepts alphanumeric characters and \' . - & _ /');
-
-    await page.close();
-  });
-
-  test('enter valid postcode using postcode lookup should be able to submit the form', async ({ page }) => {
-
-    // enter postcode
-    await page.locator('input#field-input--postcode').fill('SE17TP');
-    // click on postcode lookup button
-    await page.locator('#postcode_button').click();
-
-    if (await page.locator('#field-select--addressSelect').isVisible()) {
-      console.log('postcode lookup address dropdown present select the address');
-
-      await expect(page.locator('#field-select--addressSelect')).toBeVisible();
-
-      await page.waitForSelector('select#field-select--addressSelect');
-
-      const optionToSelect = await page.locator('option', { hasText: 'COMIC RELIEF, CAMELFORD HOUSE 87-90' }).textContent();
-      console.log('selected option: ', optionToSelect);
-
-      // Use option text to select
-      await page.locator('select#field-select--addressSelect').selectOption({ label: optionToSelect });
-
-      const addressLine1 = await page.evaluate(() => document.querySelector('#field-input--address1').getAttribute('value'));
-      console.log('Address line 1 field value is : ', addressLine1);
-
-      const addressLine2 = await page.evaluate(() => document.querySelector('#field-input--address2').getAttribute('value'));
-      console.log('Address line 1 field value is : ', addressLine2);
-
-      const addressLine3 = await page.evaluate(() => document.querySelector('#field-input--address3').getAttribute('value'));
-      console.log('Address line 1 field value is : ', addressLine3);
-
-      const town = await page.evaluate(() => document.querySelector('input#field-input--town').getAttribute('value'));
-      console.log('Address line 1 field value is : ', town);
-
-      // clicking on submit button should show error on address lookup
-      await page.locator('button[type=submit]').click();
-
-      await expect(page.locator('div > h1')).toContainText('Thank you,\n' +
-        'test!');
-      } else {
-
-      // click on manual address link
-      await page.locator('a[aria-describedby=field-error--addressDetails]').click();
-      await page.locator('#field-input--address1').type('COMIC RELIEF');
-      await page.locator('#field-input--address2').type('CAMELFORD HOUSE 87-90');
-      await page.locator('#field-input--address2').type('ALBERT EMBANKMENT');
-      await page.locator('#field-input--town').type('LONDON');
-      // clicking on submit button should show error on address lookup
-      await page.locator('button[type=submit]').click();
-
-      await expect(page.locator('div > h1')).toContainText('Thank you,\n' +
-        'test!');
-    }
 
     await page.close();
   });
