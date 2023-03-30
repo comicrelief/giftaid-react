@@ -34,7 +34,7 @@ function SubmitForm(props) {
   const {
     refs,
     setFieldValidity,
-    postCodePattern,
+    currentPostcodePattern,
     justInTimeLinkText,
     formValidityState,
     fieldValidation,
@@ -47,7 +47,6 @@ function SubmitForm(props) {
 
   // Declare state variables
   const [inputFieldProps, setInputFieldProps] = useState([]); // initialise form inputFieldProps state
-
   const marketingProps = {};
 
   // Set additional props for MarketingConsent based on site
@@ -88,7 +87,6 @@ function SubmitForm(props) {
     setInputFieldProps(mergeInputFieldProps(submitFormFields, props));
   };
 
-
   return (
 
     <Form className="giftaid__form" >
@@ -101,7 +99,8 @@ function SubmitForm(props) {
         ref={refs}
         label="Home address"
         showErrorMessages={formValidityState.showErrorMessages}
-        pattern={postCodePattern}
+        postcodePattern={currentPostcodePattern}
+        invalidErrorText="Please enter a valid UK postcode, using a space and capital letters"
         isAddressValid={
           (validation) => {
             Object.keys(validation).map(key => setFieldValidity(validation[key], key));

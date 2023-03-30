@@ -25,7 +25,7 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
     cy.get('#field-input--transactionId');
     cy.get('#field-input--firstname');
     cy.get('#field-input--lastname');
-    cy.get('#field-input--emailaddress');
+    cy.get('#field-input--email');
     cy.get('#field-input--postcode');
     cy.get('#postcode_button');
     cy.get('a[aria-describedby=field-error--addressDetails]');
@@ -86,27 +86,25 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
   });
 
   it('email input field validation', () => {
-    cy.get('#field-input--emailaddress').clear().type('test-@%comicrelief.com');
-    cy.get('#field-error--emailaddress > span').should('contain','Please fill in a valid email address');
-    cy.get('#field-input--emailaddress').clear().type('giftaid-staging@email.sls.comicrelief.com');
-    cy.get('#field-error--emailaddress > span').should('not.exist')
+    cy.get('#field-input--email').clear().type('test-@%comicrelief.com');
+    cy.get('#field-error--email > span').should('contain','Please fill in a valid email address');
+    cy.get('#field-input--email').clear().type('giftaid-staging@email.sls.comicrelief.com');
+    cy.get('#field-error--email > span').should('not.exist')
   });
 
   it('postcode field validation', () => {
     cy.get('#postcode_button').click();
     cy.get('#field-error--postcode>span').should('contain','No postcode provided');
-    // Removed to reflect way looser postcode checks added to the lookup for CWG
-    // cy.get('#field-input--postcode').clear().type('s66%');
-    // cy.get('#field-error--postcode>span').should('contain','Please enter a valid postcode');
+    cy.get('#field-input--postcode').clear().type('s66%');
+    cy.get('#field-error--postcode>span').should('contain','Please enter a valid UK postcode, using a space and capital letters');
     cy.get('#field-input--postcode').clear().type('s66');
-    cy.get('#postcode_button').click();
-    cy.get('#field-error--postcode>span').should('contain','Please enter a valid UK postcode to find your address');
+    cy.get('#field-error--postcode>span').should('contain','Please enter a valid UK postcode, using a space and capital letters');
     cy.get('#field-input--postcode').clear().type('se1 7tp');
     cy.get('button[type=submit]').click();
 
     cy.get('#field-error--addressDetails > span').should('contain','Please fill in your address');
 
-    cy.get('#field-input--postcode').clear().type('hp2 6lq');
+    cy.get('#field-input--postcode').clear().type('HP2 6LQ');
     cy.get('#postcode_button').click();
     cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE')
   });
@@ -140,7 +138,7 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
   });
 
   it('clear email field', () => {
-    cy.get('#field-input--emailaddress').clear()
+    cy.get('#field-input--email').clear()
   });
 
   it('verify success page', () => {
@@ -157,8 +155,8 @@ describe('e2e test typing transaction ID and choosing "No" to claim gift aid on 
     cy.get('#field-input--transactionId').clear().type('2D487A59-716B-440D-BD43-50ED301DD9BA');
     cy.get('#field-input--firstname').clear().type(firstName);
     cy.get('#field-input--lastname').clear().type(lastName);
-    cy.get('#field-input--emailaddress').clear().type('giftaid-staging@email.sls.comicrelief.com');
-    cy.get('#field-input--postcode').clear().type('hp2 6lq');
+    cy.get('#field-input--email').clear().type('giftaid-staging@email.sls.comicrelief.com');
+    cy.get('#field-input--postcode').clear().type('HP2 6LQ');
     cy.get('#postcode_button').click();
     cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE');
     cy.get('input[type="radio"]').check('0').should('be.checked');
@@ -179,8 +177,8 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
     cy.get('input[type="radio"]').check('sms').should('be.checked');
     cy.get('#field-input--firstname').clear().type(firstName);
     cy.get('#field-input--lastname').clear().type(lastName);
-    cy.get('#field-input--emailaddress').clear().type('giftaid-staging@email.sls.comicrelief.com');
-    cy.get('#field-input--postcode').clear().type('hp2 6lq');
+    cy.get('#field-input--email').clear().type('giftaid-staging@email.sls.comicrelief.com');
+    cy.get('#field-input--postcode').clear().type('HP2 6LQ');
     cy.get('#postcode_button').click();
     cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE');
     cy.get('input[type="radio"]').check('1').should('be.checked');
@@ -198,8 +196,8 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
     cy.get('input[type="radio"]').check('online').should('be.checked');
     cy.get('#field-input--firstname').clear().type(firstName);
     cy.get('#field-input--lastname').clear().type(lastName);
-    cy.get('#field-input--emailaddress').clear().type('giftaid-staging@email.sls.comicrelief.com');
-    cy.get('#field-input--postcode').clear().type('hp2 6lq');
+    cy.get('#field-input--email').clear().type('giftaid-staging@email.sls.comicrelief.com');
+    cy.get('#field-input--postcode').clear().type('HP2 6LQ');
     cy.get('#postcode_button').click();
     cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE');
     cy.get('input[type="radio"]').check('1').should('be.checked');
@@ -218,8 +216,8 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
     cy.get('#field-input--transactionId').clear().type('5c6a9920355f6');
     cy.get('#field-input--firstname').clear().type(firstName);
     cy.get('#field-input--lastname').clear().type(lastName);
-    cy.get('#field-input--emailaddress').clear().type('giftaid-staging@email.sls.comicrelief.com');
-    cy.get('#field-input--postcode').clear().type('hp2 6lq');
+    cy.get('#field-input--email').clear().type('giftaid-staging@email.sls.comicrelief.com');
+    cy.get('#field-input--postcode').clear().type('HP2 6LQ');
     cy.get('#postcode_button').click();
     cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE');
     cy.get('input[type="radio"]').check('1').should('be.checked');
@@ -264,7 +262,7 @@ describe('Ensure redirect functionality from Success page', () => {
       .get('#field-input--transactionId').should('have.value', "")
       .get('#field-input--firstname').should('have.value', "")
       .get('#field-input--lastname').should('have.value', "")
-      .get('#field-input--emailaddress').should('have.value', "")
+      .get('#field-input--email').should('have.value', "")
       .get('#field-input--postcode').should('have.value', "")
   });
 });
@@ -278,8 +276,8 @@ describe('Ensure url validation if string is less than 5 characters', () => {
     cy.get('input[type="radio"]').check('online').should('be.checked');
     cy.get('#field-input--firstname').clear().type(firstName);
     cy.get('#field-input--lastname').clear().type(lastName);
-    cy.get('#field-input--emailaddress').clear().type('giftaid-staging@email.sls.comicrelief.com');
-    cy.get('#field-input--postcode').clear().type('hp2 6lq');
+    cy.get('#field-input--email').clear().type('giftaid-staging@email.sls.comicrelief.com');
+    cy.get('#field-input--postcode').clear().type('HP2 6LQ');
     cy.get('#postcode_button').click();
     cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE');
     cy.get('input[type="radio"]').check(giftAidChecked).should('be.checked');
