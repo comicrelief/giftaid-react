@@ -95,11 +95,11 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
   it('postcode field validation', () => {
     cy.get('#postcode_button').click();
     cy.get('#field-error--postcode>span').should('contain','No postcode provided');
-    cy.get('#field-input--postcode').clear().type('s66%');
+    cy.get('#field-input--postcode').clear().type('hp2 6lq'); // Lowercase
     cy.get('#field-error--postcode>span').should('contain','Please enter a valid UK postcode, using a space and capital letters');
-    cy.get('#field-input--postcode').clear().type('s66');
+    cy.get('#field-input--postcode').clear().type('HP26LQ');// No space
     cy.get('#field-error--postcode>span').should('contain','Please enter a valid UK postcode, using a space and capital letters');
-    cy.get('#field-input--postcode').clear().type('se1 7tp');
+    cy.get('#field-input--postcode').clear();
     cy.get('button[type=submit]').click();
 
     cy.get('#field-error--addressDetails > span').should('contain','Please fill in your address');
@@ -127,7 +127,7 @@ describe('e2e test typing transaction ID and choosing "yes" to claim gift aid on
     cy.get('#giftAidClaimChoice > legend').should('contain','Can we claim Gift Aid on your donation?');
     cy.get('button[type=submit]').click();
     cy.get('#field-error--giftAidClaimChoice > span').should('contain','This field is required');
-    cy.get('input[type="radio"]').check('1').should('be.checked');
+    cy.get('input[type="radio"][value^="1"]').check().should('be.checked');
     cy.get('#field-error--giftAidClaimChoice > span').should('not.exist')
   });
 
@@ -159,7 +159,7 @@ describe('e2e test typing transaction ID and choosing "No" to claim gift aid on 
     cy.get('#field-input--postcode').clear().type('HP2 6LQ');
     cy.get('#postcode_button').click();
     cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE');
-    cy.get('input[type="radio"]').check('0').should('be.checked');
+    cy.get('input[type="radio"][value^="0"]').check().should('be.checked');
     cy.get('button[type=submit]').click().url('/success');
     cy.contains('Thanks for letting us know');
     cy.get('div.success-wrapper--inner > div > p').should('contain', successNoMessage)
@@ -174,14 +174,14 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
     cy.get('#form > div:nth-child(1) > h2').should('contain','Edit your Gift Aid declaration');
     cy.get('p.transaction-id').should('contain','Transaction ID: 3D787A59-716B-440D-BD23-50ED301DD9BA');
     cy.get('h3.form--update__title--donation').should('contain','How did you make the donation?');
-    cy.get('input[type="radio"]').check('sms').should('be.checked');
+    cy.get('input[type="radio"][value^="sms"]').check().should('be.checked');
     cy.get('#field-input--firstname').clear().type(firstName);
     cy.get('#field-input--lastname').clear().type(lastName);
     cy.get('#field-input--email').clear().type('giftaid-staging@email.sls.comicrelief.com');
     cy.get('#field-input--postcode').clear().type('HP2 6LQ');
     cy.get('#postcode_button').click();
     cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE');
-    cy.get('input[type="radio"]').check('1').should('be.checked');
+    cy.get('input[type="radio"][value^="1"]').check().should('be.checked');
     cy.get('button[type=submit]').click().url('/success');
     cy.get('.success-wrapper').should('contain', 'Thank you,').and('contain', `${firstName}!`);
     cy.get('div.success-wrapper--inner > div > p').should('contain',successYesMessage)
@@ -193,14 +193,14 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
     cy.get('#form > div:nth-child(1) > h2').should('contain','Edit your Gift Aid declaration');
     cy.get('p.transaction-id').should('contain','Transaction ID: bb9aa5c9-5d93-4a34-a102-aaf378d16a73');
     cy.get('h3.form--update__title--donation').should('contain','How did you make the donation?');
-    cy.get('input[type="radio"]').check('online').should('be.checked');
+    cy.get('input[type="radio"][value^="online"]').check().should('be.checked');
     cy.get('#field-input--firstname').clear().type(firstName);
     cy.get('#field-input--lastname').clear().type(lastName);
     cy.get('#field-input--email').clear().type('giftaid-staging@email.sls.comicrelief.com');
     cy.get('#field-input--postcode').clear().type('HP2 6LQ');
     cy.get('#postcode_button').click();
     cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE');
-    cy.get('input[type="radio"]').check('1').should('be.checked');
+    cy.get('input[type="radio"][value^="1"]').check().should('be.checked');
     cy.get('button[type=submit]').click().url('/success');
     cy.get('.success-wrapper').should('contain', 'Thank you,').and('contain', `${firstName}!`);
     cy.get('div.success-wrapper--inner > div > p').should('contain',successYesMessage)
@@ -220,7 +220,7 @@ describe('Giftaid test when user comes from sms,online or call centre', () => {
     cy.get('#field-input--postcode').clear().type('HP2 6LQ');
     cy.get('#postcode_button').click();
     cy.get('#field-select--addressSelect').should('be.visible').select('112 ST. AGNELLS LANE');
-    cy.get('input[type="radio"]').check('1').should('be.checked');
+    cy.get('input[type="radio"][value^="1"]').check().should('be.checked');
     cy.get('button[type=submit]').click().url('/success');
     cy.get('.success-wrapper').should('contain', 'Thank you,').and('contain', `${firstName}!`);
     cy.get('div.success-wrapper--inner > div > p').should('contain',successYesMessage)
@@ -273,7 +273,7 @@ describe('Ensure url validation if string is less than 5 characters', () => {
     cy.get('#form > div:nth-child(1) > h2').should('contain','Edit your Gift Aid declaration');
     cy.get('p.transaction-id').should('contain','Transaction ID: test');
     cy.get('h3.form--update__title--donation').should('contain','How did you make the donation?');
-    cy.get('input[type="radio"]').check('online').should('be.checked');
+    cy.get('input[type="radio"][value^="online"]').check().should('be.checked');
     cy.get('#field-input--firstname').clear().type(firstName);
     cy.get('#field-input--lastname').clear().type(lastName);
     cy.get('#field-input--email').clear().type('giftaid-staging@email.sls.comicrelief.com');

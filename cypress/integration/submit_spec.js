@@ -78,9 +78,9 @@ describe('e2e test', () => {
     cy.get('#field-input--postcode').clear();
     cy.get('#postcode_button').click();
     cy.get('#field-error--postcode>span').should('contain','No postcode provided');
-    cy.get('#field-input--postcode').clear().type('s66%');
+    cy.get('#field-input--postcode').clear().type('hp2 6lq'); // Lowercase
     cy.get('#field-error--postcode>span').should('contain','Please enter a valid UK postcode, using a space and capital letters');
-    cy.get('#field-input--postcode').clear().type('s66');
+    cy.get('#field-input--postcode').clear().type('HP26LQ'); // No space
     cy.get('#field-error--postcode>span').should('contain','Please enter a valid UK postcode, using a space and capital letters');
     cy.get('#field-input--postcode').clear().type('HP2 6LQ');
     cy.get('#postcode_button').click();
