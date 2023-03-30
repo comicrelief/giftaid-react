@@ -1,6 +1,6 @@
 module.exports = {
 
-  '@tags': ['sanity', 'error'],
+  '@tags': ['sanity', 'submitError'],
 
   'Verify error messages on empty giftaid submission': function (client) {
     client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);
@@ -23,7 +23,7 @@ module.exports = {
     client.setValue('#field-input--mobile', '07123456789');
     client.setValue('#field-input--firstname', 'test');
     client.setValue('#field-input--lastname', 'user');
-    client.setValue('#field-input--postcode', 'se1 7tp');
+    client.setValue('#field-input--postcode', 'SE1 7TP');
     client.click('#postcode_button');
     client.click('#field-select--addressSelect');
     client.click('#field-select--addressSelect>option:nth-child(6)');
@@ -40,7 +40,7 @@ module.exports = {
     client.click('#field-label--giftaid');
     client.setValue('#field-input--firstname', 'test');
     client.setValue('#field-input--lastname', 'user');
-    client.setValue('#field-input--postcode', 'se1 7tp');
+    client.setValue('#field-input--postcode', 'SE1 7TP');
     client.click('#postcode_button');
     client.click('#field-select--addressSelect');
     client.click('#field-select--addressSelect>option:nth-child(6)');
@@ -57,7 +57,7 @@ module.exports = {
     client.click('#field-label--giftaid');
     client.setValue('#field-input--mobile', '07123456789');
     client.setValue('#field-input--lastname', 'user');
-    client.setValue('#field-input--postcode', 'se1 7tp');
+    client.setValue('#field-input--postcode', 'SE1 7TP');
     client.click('#postcode_button');
     client.click('#field-select--addressSelect');
     client.click('#field-select--addressSelect>option:nth-child(6)');
@@ -74,7 +74,7 @@ module.exports = {
     client.click('#field-label--giftaid');
     client.setValue('#field-input--mobile', '07123456789');
     client.setValue('#field-input--firstname', 'test');
-    client.setValue('#field-input--postcode', 'se1 7tp');
+    client.setValue('#field-input--postcode', 'SE1 7TP');
     client.click('#postcode_button');
     client.click('#field-select--addressSelect');
     client.click('#field-select--addressSelect>option:nth-child(6)');
@@ -106,7 +106,7 @@ module.exports = {
     client.setValue('#field-input--mobile', '07123456789');
     client.setValue('#field-input--firstname', 'test');
     client.setValue('#field-input--lastname', 'user');
-    client.setValue('#field-input--postcode', 'se1 7tp');
+    client.setValue('#field-input--postcode', 'SE1 7TP');
     client.click('a[aria-describedby=field-error--addressDetails]');
     client.pause(200);
     client.setValue('#field-input--address1', '21 test road');
