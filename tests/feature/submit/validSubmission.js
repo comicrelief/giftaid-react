@@ -1,6 +1,6 @@
 module.exports = {
 
-  '@tags': ['sanity', 'submit', 'validSubmission'],
+  '@tags': ['sanity', 'submit', 'submit-validSubmission'],
 
   'User submits giftaid without marketing preferences selection': function (client) {
     client.url(process.env.BASE_URL).maximizeWindow().waitForElementVisible('body', 1000);

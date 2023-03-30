@@ -14,7 +14,7 @@ const testData = {
   address1: faker.address.streetName(),
   address2: faker.address.streetAddress(),
   address3: faker.address.city(),
-  postcode: 'SE17TP',
+  postcode: 'SE1 7TP',
   town: faker.address.county(),
   country: 'GB',
 };

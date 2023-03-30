@@ -1,6 +1,6 @@
 module.exports = {
 
-  '@tags': ['sanity', 'update', 'sorry'],
+  '@tags': ['sanity', 'update', 'updateSorry'],
 
   'Verify update sorry page': function (client) {
     client.url(process.env.BASE_URL + 'update/sorry').maximizeWindow().waitForElementVisible('body', 1000);
