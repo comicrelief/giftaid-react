@@ -19,8 +19,6 @@ import {
   scrollToError,
   getPathParams,
   hiddenFields,
-  GBPostCodePattern,
-  OverseasPostCodePattern,
   justInTimeLinkText,
   validateForm,
   getFieldValidations,
@@ -40,12 +38,6 @@ function GiftAid(props) {
   const [formValidityState, setFormValidityState] = useState(initialFormValidity); // intitialise form validity states
   const [fieldValidation, setFieldValidation] = useState(getFieldValidations(update)); // intitialise field validation state based on form type
   const [isSubmitting, setIsSubmitting] = useState(false);
-  // As GB is the default country, set the matching postcode regex pattern as default too
-  const [currentPostcodePattern, setCurrentPostcodePattern] = useState(GBPostCodePattern);
-
-  // Simple counter to allow us to trigger the child 'revalidate postcode' function after regex updates
-  const [postcodeRevalidate, setPostcodeRevalidate] = useState(0);
-
   const inputRef = useRef(null);
 
   // initialise URL token state if available
@@ -78,29 +70,6 @@ function GiftAid(props) {
       setMSISDN(null);
     }
   }, []);
-
-  /**
-  * Crummy workaround to trigger a revalidation
-  * as the bespoke validation here has issues
-  */
-    const revalidatePostcode = () => {
-      // Store the current postcode to re-add
-      const postcodeField = document.getElementById("field-input--postcode");
-      const currentPostcodeValue = postcodeField.value;
-      const blurEvent = new Event('blur', { bubbles: true });
-
-      // Temporarily reset the postcode field and programmatically
-      // trigger a blur event to make the validation take notice
-      postcodeField.value = '';
-      postcodeField.dispatchEvent(blurEvent);
-
-      setTimeout(() => {
-        // Immediately re-add the value and trigger another blur event
-        postcodeField.value = currentPostcodeValue;
-        postcodeField.dispatchEvent(blurEvent);
-      }, 1);
-    };
-
 
   /**
    * Fetches decrypted MSISDN using token
@@ -151,20 +120,6 @@ function GiftAid(props) {
       (thisFieldsState.fieldValidation !== thisFieldsPreviousState.fieldValidation);
 
     if ((thisFieldsPreviousState && isUpdatedState) || marketingConsentFieldsChanged === true) {
-      
-      // Update postcode regex is 'Country' select value has changed
-      if (thisFieldsName === 'country' && thisFieldsState.value !== thisFieldsPreviousState.value){
-
-        // Ignore the on-mount validation call
-        if (thisFieldsPreviousState.value !== undefined) {
-          // Switch regex patterns accordingly; if a non-GB value, this undefined value
-          // will cause the PCLU to fallback to its default, much looser regex
-          setCurrentPostcodePattern(thisFieldsState.value === 'GB' ? GBPostCodePattern : undefined);
-          // Call our workaround to trigger a revalidation of the PCLU postcode field
-          revalidatePostcode();
-        }
-      }
-
         // Reset url transaction Id state
         if (thisFieldsName === 'transactionId' && thisFieldsState.valid) {
           setFormValidityState({
@@ -226,7 +181,6 @@ function GiftAid(props) {
   const contextProps = {
     urlTransactionId,
     hiddenFields,
-    currentPostcodePattern,
     justInTimeLinkText,
     formValidityState,
     fieldValidation,
@@ -249,7 +203,6 @@ function GiftAid(props) {
         <SubmitForm
           title="Submit Form"
           msisdn={msisdn}
-          postcodeRevalidate={postcodeRevalidate}
         />
       )}
     </FormProvider>
