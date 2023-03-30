@@ -1,6 +1,6 @@
 module.exports = {
 
-  '@tags': ['sanity', 'update', 'error'],
+  '@tags': ['sanity', 'update', 'updateError'],
 
   'Verify error messages on Giftaid update form': function (client) {
     client.url(process.env.BASE_URL + 'update').maximizeWindow().waitForElementVisible('body', 1000);

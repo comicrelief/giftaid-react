@@ -22,7 +22,7 @@ const commands = {
     {
       firstName = 'test',
       lastName = 'user',
-      postcode = 'sw19 1ne',
+      postcode = 'SW19 1NE',
       address1 = '21 test road',
       town = 'London',
     } = {},
@@ -49,7 +49,7 @@ const commands = {
     {
       firstName = 'test',
       lastName = 'user',
-      postcode = 'sw19 1ne',
+      postcode = 'SW19 1NE',
     } = {},
   ) {
     return client
@@ -131,7 +131,7 @@ const commands = {
       firstName = 'test',
       lastName = 'user',
       email = 'donate-staging@email.sls.comicrelief.com',
-      postcode = 'sw19 1ne',
+      postcode = 'SW19 1NE',
       address1 = '21 test road',
       town = 'London',
     } = {},

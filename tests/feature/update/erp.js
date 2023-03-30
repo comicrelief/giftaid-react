@@ -61,7 +61,7 @@ const tests = {};
         client.setValue('#field-input--firstname', 'test')
           .setValue('#field-input--lastname', lastName)
           .setValue('#field-input--email', email)
-          .setValue('#field-input--postcode', 'se17tp')
+          .setValue('#field-input--postcode', 'SE1 7TP')
           .click('a[aria-describedby=field-error--addressDetails]')
           .pause(200)
           .setValue('#field-input--address1', '21 test road')

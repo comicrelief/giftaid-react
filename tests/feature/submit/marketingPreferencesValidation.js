@@ -18,7 +18,7 @@ module.exports = {
    client.setValue('#field-input--mobile', mobile);
    client.setValue('#field-input--firstname', 'test');
    client.setValue('#field-input--lastname', 'user');
-   client.setValue('#field-input--postcode', 'se1 7tp');
+   client.setValue('#field-input--postcode', 'SE1 7TP');
    client.click('a[aria-describedby=field-error--addressDetails]');
    client.waitForElementPresent('#field-input--address1', 1000);
    client.setValue('#field-input--address1', '21 test road');
