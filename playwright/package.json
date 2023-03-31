@@ -12,7 +12,8 @@
     "axios": "^0.21.1",
     "chance": "^1.1.7",
     "dotenv": "^8.0.0",
-    "faker": "^5.5.3"
+    "faker": "^5.5.3",
+    "uuid": "8.3.2"
   },
   "scripts": {
     "test:sanity": "playwright test --grep '@sanity'",

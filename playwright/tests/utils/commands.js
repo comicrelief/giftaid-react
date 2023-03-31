@@ -1,10 +1,13 @@
 const faker = require('faker');
+const { v4: uuidv4 } = require('uuid');
+const transactionId = uuidv4();
 
 class Commands {
   constructor(page) {
     this.page = page;
 
     // form inputs
+    this.transactionID = page.locator('input#field-input--transactionId');
     this.mobile = page.locator('#field-input--mobile');
     this.phone = page.locator('#field-input--phone');
     this.firstName = page.locator('input#field-input--firstname');
@@ -39,7 +42,7 @@ class Commands {
       mobile = faker.phone.phoneNumber('078########'),
       firstName = 'test',
       lastName = 'user',
-      postcode = 'SE17TP',
+      postcode = 'SE1 7TP',
       address1 = 'COMIC RELIEF',
       address2 = 'CAMELFORD HOUSE 87-90',
       address3 = 'ALBERT EMBANKMENT',
@@ -72,6 +75,36 @@ class Commands {
     await this.mpPhone.click();
     await this.inputMPPhone.type(phone, { delay: 200 });
     await this.mpSMS.click();
+  }
+
+  /**
+   * Populate giftaid update from fields
+   * @param userData
+   */
+  async populateUpdateFormFields(
+    {
+      transactionID = transactionId,
+      firstName = 'test',
+      lastName = 'user',
+      email = 'giftaid-update-staging-@email.sls.comicrelief.com',
+      postcode = 'SE1 7TP',
+      address1 = 'COMIC RELIEF',
+      address2 = 'CAMELFORD HOUSE 87-90',
+      address3 = 'ALBERT EMBANKMENT',
+      town = 'London',
+    } = {},
+  ) {
+    await this.transactionID.type(transactionID);
+    console.log('transactionId is:', transactionID);
+    await this.firstName.type(firstName);
+    await this.lastName.type(lastName);
+    await this.postcode.type(postcode);
+    await this.email.type(email);
+    await this.manualAddressLink.click();
+    await this.address1.type(address1);
+    await this.address2.type(address2);
+    await this.address3.type(address3);
+    await this.town.type(town);
   }
 }
 
