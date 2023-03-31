@@ -8,7 +8,7 @@ const faker = require('faker');
 const phone = faker.phone.phoneNumber('0208#######');
 const email = `giftaid-staging-${Date.now().toString()}@email.sls.comicrelief.com`;
 
-test.describe('Marketing preferences validation @sanity', () => {
+test.describe('Marketing preferences validation @sanity @nightly-sanity', () => {
 
   test.beforeEach(async ({ page }) => {
 

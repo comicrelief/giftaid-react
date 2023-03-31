@@ -4,7 +4,7 @@ const { test } = require('../../browserstack');
 const { v4: uuidv4 } = require('uuid');
 const transactionId = uuidv4();
 
-test.describe('International addresses validation on update form @sanity', () => {
+test.describe('International addresses validation on update form @sanity @nightly-sanity', () => {
   test('selecting a non-UK country and entering a non-UK postcode should submit the update form', async ({ page }) => {
 
     await page.goto(process.env.BASE_URL + 'update', { timeout: 30000 });

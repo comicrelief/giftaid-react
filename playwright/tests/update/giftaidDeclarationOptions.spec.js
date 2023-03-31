@@ -3,7 +3,7 @@ const { expect } = require('@playwright/test');
 const { test } = require('../../browserstack');
 const { Commands } = require('../utils/commands');
 
-test.describe('Giftaid declaration validation @sanity', () => {
+test.describe('Giftaid declaration validation @sanity @nightly-sanity', () => {
 
   test('select yes for giftaid claim should show as selected', async ({ page }) => {
 

@@ -6,7 +6,7 @@ const { MarketingPrefsVerify } = require('../utils/marketingPrefsVerify');
 
 const faker = require('faker');
 
-test.describe('Marketing preferences data @sanity', () => {
+test.describe('Marketing preferences data @sanity @nightly-sanity', () => {
   test('verify giftaid submit marketing preferences data in contact-store', async ({ page }) => {
 
     const firstName = faker.name.firstName();

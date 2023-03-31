@@ -5,7 +5,7 @@ const { Commands } = require('../utils/commands');
 const { v4: uuidv4 } = require('uuid');
 const transactionId = uuidv4();
 
-test.describe('Giftaid update form validation @sanity', () => {
+test.describe('Giftaid update form validation @sanity @nightly-sanity', () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto(process.env.BASE_URL + 'update', { timeout: 30000 });

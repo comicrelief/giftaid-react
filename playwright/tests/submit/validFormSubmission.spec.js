@@ -3,7 +3,7 @@ const { expect } = require('@playwright/test');
 const { test } = require('../../browserstack');
 const { Commands } = require('../utils/commands');
 
-test.describe('Valid giftaid submission @sanity', () => {
+test.describe('Valid giftaid submission @sanity @nightly-sanity', () => {
 
   test('submit form with valid inputs', async ({ page }) => {
 

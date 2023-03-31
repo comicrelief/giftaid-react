@@ -3,7 +3,7 @@ const { expect } = require('@playwright/test');
 const { test } = require('../../browserstack');
 const { Commands } = require('../utils/commands');
 
-test.describe('Address validation @sanity', () => {
+test.describe('Address validation @sanity @nightly-sanity', () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto(process.env.BASE_URL, { timeout: 30000 });

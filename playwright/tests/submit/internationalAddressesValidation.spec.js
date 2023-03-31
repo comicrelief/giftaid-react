@@ -3,7 +3,7 @@ const { expect } = require('@playwright/test');
 const { test } = require('../../browserstack');
 const { Commands } = require('../utils/commands');
 
-test.describe('International addresses validation @sanity', () => {
+test.describe('International addresses validation @sanity @nightly-sanity', () => {
   test('selecting a non-UK country and entering a non-UK postcode should submit the form', async ({ page }) => {
 
     const commands = new Commands(page);

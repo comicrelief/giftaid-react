@@ -2,7 +2,7 @@
 const { expect } = require('@playwright/test');
 const { test } = require('../../browserstack');
 
-test.describe('Success page redirect @sanity', () => {
+test.describe('Success page redirect @sanity @nightly-sanity', () => {
 
   test('accessing success page should redirect to giftaid update homepage', async ({ page }) => {
 

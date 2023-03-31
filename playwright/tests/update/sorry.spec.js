@@ -2,7 +2,7 @@
 const { expect } = require('@playwright/test');
 const { test } = require('../../browserstack');
 
-test.describe('Sorry page @sanity', () => {
+test.describe('Sorry page @sanity @nightly-sanity', () => {
 
   test('accessing giftaid update sorry page should show the sorry message', async ({ page }) => {
 

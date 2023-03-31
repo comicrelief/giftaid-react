@@ -2,7 +2,7 @@
 const { expect } = require('@playwright/test');
 const { test } = require('../../browserstack');
 
-test.describe('Postcode validation @sanity', () => {
+test.describe('Postcode validation @sanity @nightly-sanity', () => {
 
   test.beforeEach(async ({ page }) => {
     await page.goto(process.env.BASE_URL, { timeout: 30000 });
