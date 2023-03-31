@@ -108,7 +108,7 @@ test.describe('Postcode validation @sanity', () => {
       await page.locator('a[aria-describedby=field-error--addressDetails]').click();
       await page.locator('#field-input--address1').type('COMIC RELIEF');
       await page.locator('#field-input--address2').type('CAMELFORD HOUSE 87-90');
-      await page.locator('#field-input--address2').type('ALBERT EMBANKMENT');
+      await page.locator('#field-input--address3').type('ALBERT EMBANKMENT');
       await page.locator('#field-input--town').type('LONDON');
       // clicking on submit button should show error on address lookup
       await page.locator('button[type=submit]').click();
