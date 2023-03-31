@@ -16,7 +16,7 @@ test.describe('Marketing preferences data @sanity', () => {
     const address1 = faker.address.streetName();
     const address2 = faker.address.streetAddress();
     const address3 = faker.address.city();
-    const postcode = 'SE17TP';
+    const postcode = 'SE1 7TP';
     const town = faker.address.county();
 
     const email = `giftaid-staging-${Date.now().toString()}@email.sls.comicrelief.com`;

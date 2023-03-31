@@ -1,10 +1,6 @@
 // @ts-check
 const { devices } = require('@playwright/test');
 
-/**
- * @see https://playwright.dev/docs/test-configuration
- * @type {import('@playwright/test').PlaywrightTestConfig}
- */
 const config = {
   testDir: 'tests',
   testMatch: '**/*.spec.js',
@@ -18,7 +14,7 @@ const config = {
     timeout: 30 * 1000,
   },
   reporter: 'list',
-  // retries: 2,
+  retries: 2,
   workers: 3,
   use:{
     viewport: null,

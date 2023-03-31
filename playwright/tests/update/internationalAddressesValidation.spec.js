@@ -1,24 +1,22 @@
 // @ts-check
 const { expect } = require('@playwright/test');
 const { test } = require('../../browserstack');
-const { Commands } = require('../utils/commands');
+const { v4: uuidv4 } = require('uuid');
+const transactionId = uuidv4();
 
-test.describe('International addresses validation @sanity', () => {
-  test('selecting a non-UK country and entering a non-UK postcode should submit the form', async ({ page }) => {
+test.describe('International addresses validation on update form @sanity', () => {
+  test('selecting a non-UK country and entering a non-UK postcode should submit the update form', async ({ page }) => {
 
-    const commands = new Commands(page);
-
-    await page.goto(process.env.BASE_URL, { timeout: 30000 });
+    await page.goto(process.env.BASE_URL + 'update', { timeout: 30000 });
 
     await page.waitForLoadState('domcontentloaded');
 
-    await page.waitForSelector('#field-label--giftaid');
-    await page.locator('#field-label--giftaid').click();
-
     // fill in all input fields
-    await page.locator('#field-input--mobile').fill('07123456789');
-    await page.locator('input#field-input--firstname').fill('test');
-    await page.locator('input#field-input--lastname').fill('user');
+    await page.locator('input#field-input--transactionId').fill(transactionId);
+    await page.locator('#field-input--firstname').fill('test');
+    await page.locator('#field-input--lastname').fill('test lastname');
+    await page.locator('input#field-input--email').fill('giftaid-staging-@email.sls.comicrelief.com');
+
 
     // enter a non-UK postcode
     await page.locator('input#field-input--postcode').fill('30916-395');
@@ -61,8 +59,8 @@ test.describe('International addresses validation @sanity', () => {
     // when a international country is selected, postcode error should not show anymore
     await expect(page.locator('div#field-error--postcode > span')).not.toBeVisible();
 
-    // select MP checkboxes
-    await commands.selectMarketingPrefs();
+    // select giftaid declaration
+    await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
 
     // clicking on submit button should show error on address lookup
     await page.locator('button[type=submit]').click();
