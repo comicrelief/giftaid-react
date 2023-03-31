@@ -34,7 +34,6 @@ function SubmitForm(props) {
   const {
     refs,
     setFieldValidity,
-    currentPostcodePattern,
     justInTimeLinkText,
     formValidityState,
     fieldValidation,
@@ -99,8 +98,6 @@ function SubmitForm(props) {
         ref={refs}
         label="Home address"
         showErrorMessages={formValidityState.showErrorMessages}
-        postcodePattern={currentPostcodePattern}
-        invalidErrorText="Please enter a valid UK postcode, using a space and capital letters"
         isAddressValid={
           (validation) => {
             Object.keys(validation).map(key => setFieldValidity(validation[key], key));
