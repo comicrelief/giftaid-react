@@ -17,7 +17,5 @@
   },
   "scripts": {
     "test:sanity": "playwright test --grep '@sanity'",
-    "test:regression": "playwright test --grep '@regression'",
-    "test:nightly-sanity": "playwright test --grep '@nightly-sanity'"
   }
 }
