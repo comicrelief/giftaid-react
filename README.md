@@ -64,3 +64,27 @@ The domains for giftaid are as follows
 - [giftaid-staging.comicrelief.com](https://giftaid-staging.comicrelief.com)
 - [giftaid-staging.sportrelief.com](https://giftaid-staging.sportrelief.com)
 - [giftaid-staging.rednoseday.com](https://giftaid-staging.rednoseday.com)
+
+## Testing
+
+In order to run Playwright end-to-end tests locally you need to change directory to playwright folder `cd playwright` and export the following environment variables to your terminal:`BASE_URL, BROWSERSTACK_ACCESS_KEY, BROWSERSTACK_USERNAME`
+Browserstack credentials can be found in https://github.com/comicrelief/serverless-giftaid/blob/master/concourse/private.yml
+```bash
+export BASE_URL='https://donation-staging.spa.comicrelief.com/' or PR env 'https://donation-pr.spa.comicrelief.com/'
+export BROWSERSTACK_USERNAME='<INSERT_USERNAME>'
+export BROWSERSTACK_ACCESS_KEY='<INSERT_ACCESS_KEY>'
+```
+### Running tests 
+
+To run sanity or nightly-tests, check the commands in playwright/package.json  
+
+To run a single test, add `only` annotation
+
+eg: test.only('submit form with valid inputs', async ({ page }) => {
+    });
+        
+Check serverless-giftaid in order to get the right values and then you can run the test executing:
+
+```bash
+yarn test:sanity
+```
