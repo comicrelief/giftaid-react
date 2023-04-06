@@ -3,7 +3,6 @@ const { expect } = require('@playwright/test');
 const { test } = require('../../browserstack');
 
 test.describe('Sorry page @sanity @nightly-sanity', () => {
-
   test('accessing giftaid sorry page should show the sorry message', async ({ page }) => {
 
     await page.goto(process.env.BASE_URL + 'sorry', { timeout: 30000 });

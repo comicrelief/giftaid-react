@@ -4,7 +4,6 @@ const { test } = require('../../browserstack');
 const { Commands } = require('../utils/commands');
 
 test.describe('Valid giftaid submission @sanity @nightly-sanity', () => {
-
   test('submit form with valid inputs', async ({ page }) => {
 
     const commands = new Commands(page);
@@ -27,7 +26,6 @@ test.describe('Valid giftaid submission @sanity @nightly-sanity', () => {
 
     await expect(page.locator('div > h1')).toContainText('Thank you,\n' +
       'test!');
-
     await page.close();
   });
 });
