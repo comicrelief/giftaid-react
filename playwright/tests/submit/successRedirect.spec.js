@@ -3,7 +3,6 @@ const { expect } = require('@playwright/test');
 const { test } = require('../../browserstack');
 
 test.describe('Success page redirect @sanity @nightly-sanity', () => {
-
   test('accessing success page should redirect to giftaid homepage', async ({ page }) => {
 
     await page.goto(process.env.BASE_URL + 'success', { timeout: 30000 });
