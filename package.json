@@ -38,7 +38,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "lint": "eslint --color src tests",
+    "lint": "eslint --color src playwright/tests",
     "test:sanity": "playwright test --grep '@sanity'",
     "cy:run": "export NODE_ENV=development; cypress run",
     "cy:open": "export NODE_ENV=development; cypress open",
