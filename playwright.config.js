@@ -14,7 +14,7 @@ module.exports = defineConfig({
   testDir: './e2e',
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
-  retries: 1,
+  // retries: 1,
   workers: 2,
   timeout: 60 * 1000,
   expect: {

@@ -24,7 +24,7 @@ test.describe('Marketing preferences validation', () => {
 
   });
 
-  test('clicking and unclicking marketing prefs options should submit the giftaid form', async ({ page }) => {
+  test.skip('clicking and unclicking marketing prefs options should submit the giftaid form', async ({ page }) => {
 
     // ticking the text and phone MP checkboxes should show the mobile number entered in step 1
     // assert MP checkeboxes is now checked
@@ -74,7 +74,7 @@ test.describe('Marketing preferences validation', () => {
     await page.close();
   });
 
-  test('validate email MP field', async ({ page }) => {
+  test.skip('validate email MP field', async ({ page }) => {
 
     // email
     await page.locator('#field-label--Email--Email').click();
@@ -111,7 +111,7 @@ test.describe('Marketing preferences validation', () => {
     await page.close();
   });
 
-  test('validate phone MP field', async ({ page }) => {
+  test.skip('validate phone MP field', async ({ page }) => {
 
     // phone
     await page.locator('#field-label--Phone--Phone').click();

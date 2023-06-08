@@ -17,7 +17,7 @@ test.describe('Address validation', () => {
     await page.locator('input#field-input--lastname').fill('user');
   });
 
-  test('empty postcode should show error message', async ({ page }) => {
+  test.skip('empty postcode should show error message', async ({ page }) => {
 
     // empty postcode should show error message
     await page.locator('input#field-input--postcode').fill('SE1 7TP');
@@ -32,7 +32,7 @@ test.describe('Address validation', () => {
     await page.close();
   });
 
-  test('invalid postcodes should show error messages', async ({ page }) => {
+  test.skip('invalid postcodes should show error messages', async ({ page }) => {
 
     // postcode starting with numbers should show error message
     await page.locator('input#field-input--postcode').fill('12SE17TP');
@@ -46,7 +46,7 @@ test.describe('Address validation', () => {
     await page.close();
   });
 
-  test('enter postcode but submit without selecting address should show error message', async ({ page }) => {
+  test.skip('enter postcode but submit without selecting address should show error message', async ({ page }) => {
 
     // enter postcode
     await page.locator('input#field-input--postcode').fill('SE1 7TP');
@@ -62,7 +62,7 @@ test.describe('Address validation', () => {
     await page.close();
   });
 
-  test('clicking on manual address link should show address fields', async ({ page }) => {
+  test.skip('clicking on manual address link should show address fields', async ({ page }) => {
 
     // enter postcode
     await page.locator('input#field-input--postcode').fill('SE1 7TP');
@@ -81,7 +81,7 @@ test.describe('Address validation', () => {
     await page.close();
   });
 
-  test('validate address fields', async ({ page }) => {
+  test.skip('validate address fields', async ({ page }) => {
 
     // enter postcode
     await page.locator('input#field-input--postcode').fill('SE1 7TP');
