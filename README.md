@@ -67,6 +67,19 @@ The domains for giftaid are as follows
 
 ## Testing
 
+### PR Playwright Tests
+
+To run PR Playwright Tests locally, you need to first export `REACT_APP_ENDPOINT_URL=https://giftaid-sandbox.sls.comicrelief.com/` in your terminal for the form to get submitted and then run the script `yarn test:e2e:local` found in package.json; this script starts the http://localhost:3000 server in the background, config for this is found in `playwright.config.js` file and runs the tests in headless mode. 
+
+To view a test in a headed mode locally, add `--headed` flag option to `"test:e2e": "playwright test --project=chromium --headed"` script found in package.json. 
+
+To run a single test, add `only` annotation
+
+eg: test.only('Header ESU validation', async ({ page }) => {
+    });
+    
+### Staging Playwright Tests
+
 In order to run Playwright end-to-end tests locally you need to change directory to playwright folder `cd playwright` and export the following environment variables to your terminal:`BASE_URL, BROWSERSTACK_ACCESS_KEY, BROWSERSTACK_USERNAME`
 Browserstack credentials can be found in https://github.com/comicrelief/serverless-giftaid/blob/master/concourse/private.yml
 ```bash

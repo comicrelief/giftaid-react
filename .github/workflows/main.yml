@@ -3,8 +3,8 @@ name: Commit checks
 on: [push]
 
 jobs:
-  test:
-    name: Test
+  cypress:
+    name: Cypress Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -27,6 +27,7 @@ jobs:
           start: yarn start
           command: yarn cy:run
         env:
+          NODE_ENV: development
           REACT_APP_ENDPOINT_URL: ${{ secrets.REACT_APP_ENDPOINT_URL }}
 
       # NOTE: screenshots will be generated only if E2E test failed
@@ -45,6 +46,51 @@ jobs:
         with:
           name: cypress-videos
           path: cypress/videos
+
+  playwright:
+    name: Playwright test
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+
+      - name: Restore packages cache
+        uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        run: |
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+          yarn install --frozen-lockfile --ignore-scripts
+          rm .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Install playwright browsers
+        run: yarn playwright install --with-deps chromium
+
+      - name: Run end-to-end tests
+        run: yarn test:e2e:ci
+        continue-on-error: false
+        env:
+          REACT_APP_ENDPOINT_URL: ${{ secrets.REACT_APP_ENDPOINT_URL }}
+
+      # Test run video was always captured, so this action uses "always()" condition
+      - name: Upload videos
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 3
 
   lint:
     name: Lint
