@@ -27,7 +27,6 @@ jobs:
           start: yarn start
           command: yarn cy:run
         env:
-          NODE_ENV: development
           REACT_APP_ENDPOINT_URL: ${{ secrets.REACT_APP_ENDPOINT_URL }}
 
       # NOTE: screenshots will be generated only if E2E test failed
@@ -81,6 +80,7 @@ jobs:
         run: yarn test:e2e:ci
         continue-on-error: false
         env:
+          NODE_ENV: development
           REACT_APP_ENDPOINT_URL: ${{ secrets.REACT_APP_ENDPOINT_URL }}
 
       # Test run video was always captured, so this action uses "always()" condition
