@@ -39,12 +39,11 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "lint": "eslint --color src playwright/tests",
-    "test:sanity": "playwright test --grep '@sanity'",
     "cy:run": "export NODE_ENV=development; cypress run",
     "cy:open": "export NODE_ENV=development; cypress open",
     "test": "run-p --race start cy:run",
     "test:e2e": "playwright test --project=chromium",
-    "test:e2e:ci": "NODE_ENV=development; start-server-and-test start http://localhost:3000 test:e2e",
+    "test:e2e:ci": "export NODE_ENV=development; start-server-and-test start http://localhost:3000 test:e2e",
     "test:e2e:local": "export NODE_ENV=development; start-server-and-test start http://localhost:3000 test:e2e",
     "snyk-protect": "snyk-protect",
     "prepublish": "yarn snyk-protect"
