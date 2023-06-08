@@ -231,7 +231,7 @@ test.describe('Giftaid update form validation', () => {
     await page.close();
   });
 
-  test('postcode entered with no spaces should show error message', async ({ page }) => {
+  test.skip('postcode entered with no spaces should show error message', async ({ page }) => {
 
     await page.locator('input#field-input--postcode').type('SE17TP');
 

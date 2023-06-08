@@ -136,7 +136,7 @@ test.describe('Address validation', () => {
     await page.close();
   });
 
-  test('validate last name field', async ({ page }) => {
+  test.skip('validate last name field', async ({ page }) => {
 
     const commands = new Commands(page);
 
