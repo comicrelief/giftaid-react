@@ -69,6 +69,7 @@ jobs:
         run: |
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
           yarn install --frozen-lockfile --ignore-scripts
+          npm rebuild node-sass
           rm .npmrc
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -114,6 +115,7 @@ jobs:
         run: |
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
           yarn install --frozen-lockfile --ignore-scripts
+          npm rebuild node-sass
           rm .npmrc
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

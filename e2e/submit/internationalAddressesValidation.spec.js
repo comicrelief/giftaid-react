@@ -3,7 +3,7 @@ const { test, expect } = require('@playwright/test');
 const { Commands } = require('../utils/commands');
 
 test.describe('International addresses validation', () => {
-  test.skip('selecting a non-UK country and entering a non-UK postcode should submit the form', async ({ page }) => {
+  test('selecting a non-UK country and entering a non-UK postcode should submit the form', async ({ page }) => {
 
     const commands = new Commands(page);
 

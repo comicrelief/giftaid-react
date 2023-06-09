@@ -4,7 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 const transactionId = uuidv4();
 
 test.describe('International addresses validation on update form', () => {
-  test.skip('selecting a non-UK country and entering a non-UK postcode should submit the update form', async ({ page }) => {
+  test('selecting a non-UK country and entering a non-UK postcode should submit the update form', async ({ page }) => {
 
     await page.goto('/update', { timeout: 30000 });
 

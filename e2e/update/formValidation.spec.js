@@ -12,7 +12,7 @@ test.describe('Giftaid update form validation', () => {
     await page.waitForLoadState('domcontentloaded');
   });
 
-  test.skip('empty input fields should show error messages', async ({ page }) => {
+  test('empty input fields should show error messages', async ({ page }) => {
 
     // submit the form
     await page.locator('button[type=submit]').click();
@@ -49,7 +49,7 @@ test.describe('Giftaid update form validation', () => {
     await page.close();
   });
 
-  test.skip('validate transaction ID field', async ({ page }) => {
+  test('validate transaction ID field', async ({ page }) => {
 
     const commands = new Commands(page);
 
@@ -80,7 +80,7 @@ test.describe('Giftaid update form validation', () => {
     await page.close();
   });
 
-  test.skip('validate first name field on giftaid update form', async ({ page }) => {
+  test('validate first name field on giftaid update form', async ({ page }) => {
 
     const commands = new Commands(page);
 
@@ -120,7 +120,7 @@ test.describe('Giftaid update form validation', () => {
     await page.close();
   });
 
-  test.skip('validate last name field on giftaid update form', async ({ page }) => {
+  test('validate last name field on giftaid update form', async ({ page }) => {
 
     const commands = new Commands(page);
 
@@ -162,7 +162,7 @@ test.describe('Giftaid update form validation', () => {
 
   });
 
-  test.skip('validate email field on giftaid update form', async ({ page }) => {
+  test('validate email field on giftaid update form', async ({ page }) => {
 
     const commands = new Commands(page);
 
@@ -209,7 +209,7 @@ test.describe('Giftaid update form validation', () => {
     await page.close();
   });
 
-  test.skip('postcode entered with extra spaces should show error message', async ({ page }) => {
+  test('postcode entered with extra spaces should show error message', async ({ page }) => {
 
     await page.locator('input#field-input--postcode').type('S E 1 7 T P');
 
@@ -220,7 +220,7 @@ test.describe('Giftaid update form validation', () => {
     await page.close();
   });
 
-  test.skip('postcode entered in lowercase should show error message', async ({ page }) => {
+  test('postcode entered in lowercase should show error message', async ({ page }) => {
 
     await page.locator('input#field-input--postcode').type('se17tp');
 
@@ -231,7 +231,7 @@ test.describe('Giftaid update form validation', () => {
     await page.close();
   });
 
-  test.skip('postcode entered with no spaces should show error message', async ({ page }) => {
+  test('postcode entered with no spaces should show error message', async ({ page }) => {
 
     await page.locator('input#field-input--postcode').type('SE17TP');
 
@@ -242,7 +242,7 @@ test.describe('Giftaid update form validation', () => {
     await page.close();
   });
 
-  test.skip('postcode entered with special characters should show error message', async ({ page }) => {
+  test('postcode entered with special characters should show error message', async ({ page }) => {
 
     await page.locator('input#field-input--postcode').type('SE$%TP');
 
@@ -253,7 +253,7 @@ test.describe('Giftaid update form validation', () => {
     await page.close();
   });
 
-  test.skip('enter valid UK postcode on giftaid update form using postcode lookup should be able to submit the form', async ({ page }) => {
+  test('enter valid UK postcode on giftaid update form using postcode lookup should be able to submit the form', async ({ page }) => {
 
     // fill in all input fields
     await page.locator('input#field-input--transactionId').fill(transactionId);

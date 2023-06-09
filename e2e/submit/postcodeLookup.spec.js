@@ -17,7 +17,7 @@ test.describe('Postcode validation', () => {
     await page.locator('input#field-input--lastname').fill('user');
   });
 
-  test.skip('postcode entered with extra spaces should show error message', async ({ page }) => {
+  test('postcode entered with extra spaces should show error message', async ({ page }) => {
 
     await page.locator('input#field-input--postcode').type('S E 1 7 T P');
 
@@ -39,7 +39,7 @@ test.describe('Postcode validation', () => {
     await page.close();
   });
 
-  test.skip('postcode entered with no spaces should show error message', async ({ page }) => {
+  test('postcode entered with no spaces should show error message', async ({ page }) => {
 
     await page.locator('input#field-input--postcode').type('SE17TP');
 
@@ -50,7 +50,7 @@ test.describe('Postcode validation', () => {
     await page.close();
   });
 
-  test.skip('postcode entered with special characters should show error message', async ({ page }) => {
+  test('postcode entered with special characters should show error message', async ({ page }) => {
 
     await page.locator('input#field-input--postcode').type('SE$%TP');
 
@@ -61,7 +61,7 @@ test.describe('Postcode validation', () => {
     await page.close();
   });
 
-  test.skip('enter valid UK postcode using postcode lookup should be able to submit the form', async ({ page }) => {
+  test('enter valid UK postcode using postcode lookup should be able to submit the form', async ({ page }) => {
 
     // enter postcode
     await page.locator('input#field-input--postcode').fill('SE1 7TP');

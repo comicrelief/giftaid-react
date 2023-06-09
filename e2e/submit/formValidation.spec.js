@@ -14,7 +14,7 @@ test.describe('Address validation', () => {
 
   });
 
-  test.skip('clearing input fields should show error messages', async ({ page }) => {
+  test('clearing input fields should show error messages', async ({ page }) => {
     // empty phone number field
     await page.locator('#field-input--mobile').fill('07123456789');
     await page.locator('#field-input--mobile').fill('');
@@ -41,7 +41,7 @@ test.describe('Address validation', () => {
     await page.close();
   });
 
-  test.skip('validate mobile number field', async ({ page }) => {
+  test('validate mobile number field', async ({ page }) => {
 
     const commands = new Commands(page);
 
@@ -99,7 +99,7 @@ test.describe('Address validation', () => {
     await page.close();
   });
 
-  test.skip('validate first name field', async ({ page }) => {
+  test('validate first name field', async ({ page }) => {
 
     const commands = new Commands(page);
 
@@ -136,7 +136,7 @@ test.describe('Address validation', () => {
     await page.close();
   });
 
-  test.skip('validate last name field', async ({ page }) => {
+  test('validate last name field', async ({ page }) => {
 
     const commands = new Commands(page);
 

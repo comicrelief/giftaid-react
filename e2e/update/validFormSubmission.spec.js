@@ -4,7 +4,7 @@ const { Commands } = require('../utils/commands');
 
 test.describe('Valid giftaid update submission', () => {
 
-  test.skip('submit giftaid update form with valid inputs', async ({ page }) => {
+  test('submit giftaid update form with valid inputs', async ({ page }) => {
 
     const commands = new Commands(page);
 
