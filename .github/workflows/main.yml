@@ -3,8 +3,9 @@ name: Commit checks
 on: [push]
 
 jobs:
-  test:
-    name: Test
+  playwright:
+    name: Playwright test
+    timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -15,36 +16,39 @@ jobs:
         with:
           node-version: 14
 
-      - name: Log in to npm
-        run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+      - name: Restore packages cache
+        uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        run: |
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+          yarn install --frozen-lockfile --ignore-scripts
+          npm rebuild node-sass
+          rm .npmrc
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # see https://github.com/marketplace/actions/cypress-io
-      - name: Run Cypress tests
-        uses: cypress-io/github-action@v2
-        with:
-          start: yarn start
-          command: yarn cy:run
-        env:
-          REACT_APP_ENDPOINT_URL: ${{ secrets.REACT_APP_ENDPOINT_URL }}
+      - name: Install playwright browsers
+        run: yarn playwright install --with-deps chromium
 
-      # NOTE: screenshots will be generated only if E2E test failed
-      # thus we store screenshots only on failures
-      - name: Upload screenshots
-        uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
+      - name: Run end-to-end tests
+        run: yarn test:e2e:ci
+        continue-on-error: false
+        env:
+          NODE_ENV: development
+          REACT_APP_ENDPOINT_URL: ${{ secrets.REACT_APP_ENDPOINT_URL }}
 
       # Test run video was always captured, so this action uses "always()" condition
       - name: Upload videos
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: cypress-videos
-          path: cypress/videos
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 3
 
   lint:
     name: Lint
@@ -68,6 +72,7 @@ jobs:
         run: |
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
           yarn install --frozen-lockfile --ignore-scripts
+          npm rebuild node-sass
           rm .npmrc
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
