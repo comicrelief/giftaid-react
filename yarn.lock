@@ -1249,32 +1249,11 @@
     uuid "^8.3.2"
     yup "^0.29.3"
 
-"@comicrelief/pattern-lab@*":
-  version "7.67.0"
-  resolved "https://registry.yarnpkg.com/@comicrelief/pattern-lab/-/pattern-lab-7.67.0.tgz#8e93b8c825bbd1a4ce0fa8e5dd3e223e9049b96d"
-  integrity sha512-yh/j+C2SFPSJO1vRDcDEuaz/dC8DZ48VHC+Civ3GvIQvgcZdKvHmmS5aENUHmYadBGqNpJAfoJc7uiONkFdynA==
+"@comicrelief/storybook@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@comicrelief/storybook/-/storybook-2.0.0.tgz#746274796aab742bec67374614299c7b2f210baa"
+  integrity sha512-SYYk1dg3700+EuT4PDXtT5BELL3NEak6z+Lro5lILa6MGXWIOgbLCZlicYDG4VoemW67N5DjbOvSe0+beaibfg==
   dependencies:
-    event-stream "3.3.4"
-    grunt-contrib-copy "^1.0.0"
-    susy "^2.2.12"
-    underscore.string "3.3.5"
-
-"@comicrelief/pattern-lab@7.58.6":
-  version "7.58.6"
-  resolved "https://registry.yarnpkg.com/@comicrelief/pattern-lab/-/pattern-lab-7.58.6.tgz#1833bed4487569ae7113efc7d3c6cb0f9f7f362c"
-  integrity sha512-5TkhDIskN9UDereH7Z6C2QGWsJpuoC+0WnCKt03CgZj8Yxq3BpKvRHCKINY17dtVvStlagcGN5Ls21gjRK/DpA==
-  dependencies:
-    event-stream "3.3.4"
-    grunt-contrib-copy "^1.0.0"
-    susy "^2.2.12"
-    underscore.string "3.3.5"
-
-"@comicrelief/storybook@1.34.0":
-  version "1.34.0"
-  resolved "https://registry.yarnpkg.com/@comicrelief/storybook/-/storybook-1.34.0.tgz#ac355b601280a45c076f7980806cc9f39f480373"
-  integrity sha512-/eK018inDqKdXhgkab40qwfI7VtQhtF46wjpMWtwkfNz3rJ/dA/utf2FsDZNVFegVw5sj1gJILXCgyyi7Rv26g==
-  dependencies:
-    "@comicrelief/pattern-lab" "*"
     "@snyk/protect" "^1.1060.0"
     "@storybook/addon-info" "3"
     "@storybook/addon-knobs" "3"
@@ -1300,6 +1279,7 @@
     react-vis "^1.9.1"
     shortid "^2.2.13"
     snyk "^1.996.0"
+    susy "^2.2.12"
     uglify-js "git+https://github.com/mishoo/UglifyJS2.git#harmony"
     url-join "2"
     yup "^0.32.9"
@@ -6758,7 +6738,7 @@ etag@~1.8.1:
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
   integrity sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==
 
-event-stream@3.3.4, event-stream@=3.3.4:
+event-stream@=3.3.4:
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/event-stream/-/event-stream-3.3.4.tgz#4ab4c9a0f5a54db9338b4c34d86bfce8f4b35571"
   integrity sha512-QHpkERcGsR0T7Qm3HNJSyXKEEj8AHNxkY3PK8TS2KJvQ7NiSHe3DDpwVKKtoYprL/AreyzFBeIkBIWChAqn60g==
@@ -7159,11 +7139,6 @@ file-loader@^4.2.0:
   dependencies:
     loader-utils "^1.2.3"
     schema-utils "^2.5.0"
-
-file-sync-cmp@^0.1.0:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/file-sync-cmp/-/file-sync-cmp-0.1.1.tgz#a5e7a8ffbfa493b43b923bbd4ca89a53b63b612b"
-  integrity sha512-0k45oWBokCqh2MOexeYKpyqmGKG+8mQ2Wd8iawx+uWd/weWJQAZ6SoPybagdCI4xFisag8iAR77WPm4h3pTfxA==
 
 file-system-cache@^1.0.5:
   version "1.1.0"
@@ -8003,14 +7978,6 @@ graceful-fs@^4.1.10, graceful-fs@^4.1.11, graceful-fs@^4.1.15, graceful-fs@^4.1.
   version "4.2.10"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.10.tgz#147d3a006da4ca3ce14728c7aefc287c367d7a6c"
   integrity sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==
-
-grunt-contrib-copy@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/grunt-contrib-copy/-/grunt-contrib-copy-1.0.0.tgz#7060c6581e904b8ab0d00f076e0a8f6e3e7c3573"
-  integrity sha512-gFRFUB0ZbLcjKb67Magz1yOHGBkyU6uL29hiEW1tdQ9gQt72NuMKIy/kS6dsCbV0cZ0maNCb0s6y+uT1FKU7jA==
-  dependencies:
-    chalk "^1.1.1"
-    file-sync-cmp "^0.1.0"
 
 gud@^1.0.0:
   version "1.0.0"
@@ -14002,11 +13969,6 @@ split@0.3:
   dependencies:
     through "2"
 
-sprintf-js@^1.0.3:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.1.2.tgz#da1765262bf8c0f571749f2ad6c26300207ae673"
-  integrity sha512-VE0SOVEHCk7Qc8ulkWw3ntAzXuqf7S2lvwQaDLRnUeIEaKNQJzV6BwmLKhOqT61aGhfUMrXeaBk+oDGCzvhcug==
-
 sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
@@ -15037,14 +14999,6 @@ unbzip2-stream@^1.0.9:
   dependencies:
     buffer "^5.2.1"
     through "^2.3.8"
-
-underscore.string@3.3.5:
-  version "3.3.5"
-  resolved "https://registry.yarnpkg.com/underscore.string/-/underscore.string-3.3.5.tgz#fc2ad255b8bd309e239cbc5816fd23a9b7ea4023"
-  integrity sha512-g+dpmgn+XBneLmXXo+sGlW5xQEt4ErkS3mgeN2GFbremYeMBSJKr9Wf2KJplQVaiPY/f7FN6atosWYNm9ovrYg==
-  dependencies:
-    sprintf-js "^1.0.3"
-    util-deprecate "^1.0.2"
 
 unfetch@^4.1.0:
   version "4.2.0"
