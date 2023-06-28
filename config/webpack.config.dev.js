@@ -79,7 +79,6 @@ module.exports = {
         ],
         include: [
           paths.appSrc,
-          path.resolve(paths.appNodeModules, '@comicrelief/pattern-lab'),
           path.resolve(paths.appNodeModules, '@comicrelief/storybook')
         ],
       },
@@ -87,7 +86,6 @@ module.exports = {
         test: /\.scss$/,
         include: [
           paths.appSrc,
-          path.resolve(paths.appNodeModules, '@comicrelief/pattern-lab'),
           path.resolve(paths.appNodeModules, '@comicrelief/storybook')
         ],
         use: [{
@@ -116,7 +114,6 @@ module.exports = {
             test: /\.(js|jsx)$/,
             include: [
               paths.appSrc,
-              path.resolve(paths.appNodeModules, '@comicrelief/pattern-lab'),
               path.resolve(paths.appNodeModules, '@comicrelief/storybook')
             ],
             loader: require.resolve('babel-loader'),
