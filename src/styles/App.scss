@@ -50,3 +50,41 @@ footer[role=contentinfo] {
     }
   }
 }
+
+.tooltip-wrapper {
+  position: relative;
+
+  .tooltip-copy {
+    display: none;
+    position:absolute;
+    left: 50px;
+    bottom: 50%;
+    transform: translateY(50%);
+    background: black;
+    color: white;
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 10px;
+    width: 200px;
+  }
+
+  .tooltip-icon {
+    position: absolute;
+    bottom: 65px;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background: red;
+    text-align: center;
+    z-index: 1;
+    font-size:25px;
+
+    &:hover,
+    &:active,
+    &:focus {
+      .tooltip-copy {
+        display: block;
+      }
+    }
+  }
+}
