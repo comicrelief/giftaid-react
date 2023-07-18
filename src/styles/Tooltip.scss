@@ -1,0 +1,68 @@
+.tooltip-wrapper {
+  position: relative;
+  .tooltip-copy {
+    display: none;
+    position:absolute;
+    right: -10px;
+    top: -30px;
+    transform: translateY(50%);
+    background: black;
+    border-radius: 5px;
+    padding: 10px;
+    width: 175px;
+    // Bleh
+    color: white;
+    font-family: "Sailec-Regular", sans-serif;
+    font-size: 18px;
+    line-height: 29px;
+
+    &:after {
+      content: "";
+      border: 15px solid transparent;
+      position: absolute;
+      border-bottom-color: black;
+      border-top: 0;
+      top: -14px;
+      right: 10px;
+      margin-left: -15px;
+    }
+
+    @include breakpoint($screen-md) {
+      top: auto;
+      left: auto;
+      right: -195px;
+      bottom: 14px;
+
+      &:after {
+        border: 15px solid transparent;
+        border-right-color: black;
+        border-left: 0;
+        left: 0;
+        top: calc(50% + 4px);
+        right: auto;
+        margin-top: -20px;        
+      }
+    }
+  }
+
+  .tooltip-icon {
+    position: absolute;
+    bottom: 65px;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background: red;
+    text-align: center;
+    z-index: 1;
+    font-size:25px;
+
+    &:hover,
+    // &.test,
+    &:active,
+    &:focus {
+      .tooltip-copy {
+        display: block;
+      }
+    }
+  }
+}
