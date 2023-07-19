@@ -4,11 +4,12 @@
   .tooltip-icon {
     width: 30px;
     height: 30px;
-    background: url($image-path + "question-mark-60px.png") top center/100% no-repeat;
+    background: url($image-path + "question-mark-60px.png") center center/30px no-repeat;
     position: absolute;
-    top: 7px;
+    top: 0;
     right: 0;
     z-index: 1;
+    padding: 20px;
 
     &:hover,
     &:active,
