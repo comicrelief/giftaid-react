@@ -49,14 +49,13 @@ const InputFields = (props) => {
           fieldValue={prop.fieldValue}
         />;
 
-        // Create markup as necessary; requires the wrapping div to 
-        // associate tooltip with input field
+        // Create markup as necessary; requires the wrapping 
+        // div to associate tooltip with input field
         if (prop.tooltip) {
           const thisElement = 
             <div className={'tooltip-wrapper '}>
               { thisInput() }
-              <span class='tooltip-icon test'>
-              </span>
+              <span class='tooltip-icon test' />
               <span class='tooltip-copy'>
                 {prop.tooltip}
               </span>
