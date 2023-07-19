@@ -53,10 +53,12 @@ const InputFields = (props) => {
         // associate tooltip with input field
         if (prop.tooltip) {
           const thisElement = 
-            <div className='tooltip-wrapper'>
+            <div className={'tooltip-wrapper '}>
               { thisInput() }
-              <span class='tooltip-icon test'>?
-                <span class='tooltip-copy'>{prop.tooltip}</span>
+              <span class='tooltip-icon test'>
+              </span>
+              <span class='tooltip-copy'>
+                {prop.tooltip}
               </span>
             </div>;
 
