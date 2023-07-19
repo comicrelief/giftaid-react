@@ -67,14 +67,13 @@ function UpdateForm(props) {
 
       <UrlTransactionIdError />
 
+      <h3 className="form--update__title form--update__title--giftaid text-align-centre">
+          Who is changing their declaration?
+        </h3>
+
       <div className="form-fields--wrapper">
 
         <DonationTypeButtons donationTypeChoices={donationTypeChoices} />
-
-        <h3
-          className="form--update__title form--update__title--giftaid text-align-centre">
-          Who is changing their declaration?
-        </h3>
 
         <InputFields allFields={inputFieldProps} />
 
