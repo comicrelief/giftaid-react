@@ -15,13 +15,16 @@
     &:active,
     &:focus {
       + .tooltip-copy {
-        display: block;
+        transition: opacity 0.15s 0.4s;
+        visibility: visible;
+        opacity: 1;
       }
     }
   }
 
   .tooltip-copy {
-    display: none;
+    visibility: hidden;
+    opacity: 0;
     position: absolute;
     top: -37px;
     right: -5px;

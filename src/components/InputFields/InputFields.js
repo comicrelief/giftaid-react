@@ -55,8 +55,8 @@ const InputFields = (props) => {
           const thisElement = 
             <div className='tooltip-wrapper'>
               { thisInput() }
-              <span class='tooltip-icon' />
-              <span class='tooltip-copy'>
+              <span class='tooltip-icon' tabIndex='0'/>
+              <span class='tooltip-copy' role="tooltip">
                 {prop.tooltip}
               </span>
             </div>;

@@ -53,7 +53,6 @@ export const giftAidButtonChoices = [
 
 /*
 * Default Update Form Fields
-*
 */
 export const updateFormFields = {
 
