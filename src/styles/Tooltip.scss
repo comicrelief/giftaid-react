@@ -23,8 +23,8 @@
   .tooltip-copy {
     display: none;
     position: absolute;
-    top: -31px;
-    right: -10px;
+    top: -37px;
+    right: -5px;
     transform: translateY(50%);
     background: black;
     border-radius: 5px;
@@ -51,7 +51,7 @@
     }
 
     @include breakpoint($screen-md) {
-      top: 15px;
+      top: 20px;
       right: -195px;
       bottom: auto;
       left: auto;
