@@ -24,27 +24,48 @@ const InputFields = (props) => {
   const createInputFields = () => {
 
     const inputFields = [];
-    Object.entries(allFields).map(([field, prop]) => inputFields.push(<InputField
-      key={field}
-      id={prop.id}
-      type={prop.type}
-      name={prop.name}
-      label={prop.label}
-      required={prop.required}
-      pattern={prop.pattern}
-      placeholder={prop.placeholder}
-      min={prop.min}
-      max={prop.max}
-      defaultChecked={prop.defaultChecked}
-      helpText={prop.helpText}
-      emptyFieldErrorText={prop.emptyFieldErrorText}
-      invalidErrorText={prop.invalidErrorText}
-      setBackgroundColor={prop.type === 'checkbox'}
-      additionalText={prop.additionalText}
-      showErrorMessage={showErrorMessages}
-      isValid={(state, name) => setFieldValidity(state, name)}
-      fieldValue={prop.fieldValue}
-    />));
+    Object.entries(allFields).map(([field, prop]) => {
+
+      const thisInput = () =>
+        <InputField
+          key={field}
+          id={prop.id}
+          type={prop.type}
+          name={prop.name}
+          label={prop.label}
+          required={prop.required}
+          pattern={prop.pattern}
+          placeholder={prop.placeholder}
+          min={prop.min}
+          max={prop.max}
+          defaultChecked={prop.defaultChecked}
+          helpText={prop.helpText}
+          emptyFieldErrorText={prop.emptyFieldErrorText}
+          invalidErrorText={prop.invalidErrorText}
+          setBackgroundColor={prop.type === 'checkbox'}
+          additionalText={prop.additionalText}
+          showErrorMessage={showErrorMessages}
+          isValid={(state, name) => setFieldValidity(state, name)}
+          fieldValue={prop.fieldValue}
+        />;
+
+        // Create markup as necessary; requires the wrapping 
+        // div to associate tooltip with input field
+        if (prop.tooltip) {
+          const thisElement = 
+            <div className='tooltip-wrapper'>
+              { thisInput() }
+              <span class='tooltip-icon' tabIndex='0'/>
+              <span class='tooltip-copy' role="tooltip">
+                {prop.tooltip}
+              </span>
+            </div>;
+
+          return inputFields.push(thisElement);
+        } else {
+          return inputFields.push(thisInput());
+        }
+    });
     return inputFields;
   };
 
