@@ -59,7 +59,8 @@ test.describe('Marketing preferences data @sanity @nightly-sanity', () => {
       expect(data.permissionphone).toEqual('1');
       expect(data.permissionpost).toEqual('1');
       expect(data.phone).toEqual(phone);
-      expect(data.mobile).toEqual(mobile);
+      // replace leading zero with '+44' to match UK normalized numbers in Data-Models);
+      expect(data.mobile).toEqual(mobile.replace(/^[07]{1}/, '+44'));
     });
     await page.close();
   });
