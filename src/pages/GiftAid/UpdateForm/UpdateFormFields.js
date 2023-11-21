@@ -38,9 +38,7 @@ export const donationTypeChoices = [
 export const giftAidButtonChoices = [
   {
     label: giftAidButtonChoicesLabel,
-    additionalText: '&#42; By ticking I state I am a UK taxpayer making a personal donation and understand' +
-      'that if I pay less Income Tax and/or Capital Gains Tax than the amount of Gift Aid claimed on all my ' +
-      'donations, it is my responsibility to pay any difference. [Find out more](http://www.comicrelief.com)',
+    additionalText: '&#42; By ticking, I state I am a UK taxpayer making a personal donation and understand that if I pay less Income Tax and/or Capital Gains Tax than the amount of Gift Aid claimed on all my donations, it is my responsibility to pay any difference. Please note that the money that Comic Relief claims back from HMRC as part of the Gift Aid scheme will be treated as unrestricted funds and used to support our general work, even if the original donation was made towards a specific appeal. [Find out more](http://www.comicrelief.com)',
     value: 1,
   },
   {
