@@ -23,7 +23,7 @@ export const submitFormFields = {
     label,
     required: true,
     emptyFieldErrorText: 'To Gift Aid your donation you need to tick the checkbox',
-    additionalText: '* By ticking I state I am a UK taxpayer making a personal donation and understand that if I pay less Income Tax and/or Capital Gains Tax than the amount of Gift Aid claimed on all my donations, it is my responsibility to pay any difference. <a href=\'https://www.comicrelief.com/frequently-asked-questions\' class=\'link inline\' target=\'_blank\' rel=\'noreferrer\'>Find out more</a>'
+    additionalText: '* By ticking, I state I am a UK taxpayer making a personal donation and understand that if I pay less Income Tax and/or Capital Gains Tax than the amount of Gift Aid claimed on all my donations, it is my responsibility to pay any difference. Please note that the money that Comic Relief claims back from HMRC as part of the Gift Aid scheme will be treated as unrestricted funds and used to support our general work, even if the original donation was made towards a specific appeal. <a href=\'https://www.comicrelief.com/frequently-asked-questions\' class=\'link inline\' target=\'_blank\' rel=\'noreferrer\'>Find out more</a>'
   },
   phoneNumber: {
     id: 'mobile',

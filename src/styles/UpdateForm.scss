@@ -72,7 +72,7 @@ $colour-scorpion-grey: #595959;
 }
 
 .form__field-additional-text {
-  margin: 0;
+  margin: 0 0 15px;
   line-height: 1.6;
   color: $colour-scorpion-grey;
   font-family:$font-regular;
@@ -95,7 +95,7 @@ $colour-scorpion-grey: #595959;
     }
   }
   @include breakpoint($screen-md) {
-    margin: 0;
+    margin-bottom: 20px;
   }
 }
 
