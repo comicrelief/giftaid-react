@@ -6,7 +6,7 @@
     height: 30px;
     background: url($image-path + "question-mark-60px.png") center center/30px no-repeat;
     position: absolute;
-    top: 0;
+    bottom: 60px;
     right: 0;
     z-index: 1;
     padding: 20px;
@@ -26,7 +26,7 @@
     visibility: hidden;
     opacity: 0;
     position: absolute;
-    top: -37px;
+    bottom: -38px;
     right: -5px;
     transform: translateY(50%);
     background: black;
@@ -60,6 +60,8 @@
       left: auto;
       right: -195px;
       transform: translateY(-50%);
+      top: auto;
+      bottom: -95px;
 
       &:after {
         border: 15px solid transparent;

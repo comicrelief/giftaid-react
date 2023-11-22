@@ -71,8 +71,7 @@ function UpdateForm(props) {
 
         <DonationTypeButtons donationTypeChoices={donationTypeChoices} />
 
-
-      <h3 className="form--update__title form--update__title--giftaid text-align-centre">
+        <h3 className="form--update__title form--update__title--giftaid text-align-centre">
           Who is changing their declaration?
         </h3>
 
