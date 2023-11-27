@@ -44,7 +44,7 @@ test.describe('Marketing preferences data @sanity @nightly-sanity', () => {
 
     await MarketingPrefsVerify.get(email, (data) => {
 
-      expect(data.campaign).toEqual('RND23');
+      expect(data.campaign).toEqual('RND24');
       expect(data.firstname).toEqual(firstName);
       expect(data.lastname).toEqual(lastName);
       expect(data.email).toEqual(email);
