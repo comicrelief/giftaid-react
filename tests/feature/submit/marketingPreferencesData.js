@@ -82,7 +82,7 @@ module.exports = {
           const { data: { data } } = response;
 
             client.assert.equal(response.status, 200, '200 OK');
-            client.assert.equal(data.campaign, 'RND23', 'campaignCode');
+            client.assert.equal(data.campaign, 'YW23', 'campaignCode');
             client.assert.equal(data.firstname, testData.firstName, 'firstName');
             client.assert.equal(data.lastname, testData.lastName, 'lastName');
             client.assert.equal(data.email, email, 'email');
