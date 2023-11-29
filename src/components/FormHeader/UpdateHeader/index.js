@@ -10,20 +10,19 @@ const UpdateHeader = (props) => {
   let claimCopy = null;
   switch(site.getSite()) {
     case 'BIGNIGHTIN':
-      claimCopy = ' the Government gives back 25% of their value. This will be split 50/50 between Comic Relief and BBC Children in Need as per your donation.';
+      claimCopy = `We can claim Gift Aid from personal donations made by UK taxpayers: the Government gives back 25% of their value. This will be split 50/50 between Comic Relief and BBC Children in Need as per your donation.`;
     break;
     default:
-      claimCopy = ' the Government gives us back 25% of their value.';
+      claimCopy = `If you are a UK taxpayer and would like to Gift Aid your donation, Comic Relief can claim an additional 25% of the value of your donation from HMRC, it won't cost you a penny but means your donation can go even further. To edit your Gift Aid declaration, please do so below.`;
     break;
   };
 
   return (
     <React.Fragment>
       <h2 className="sub-title">
-        <div>Edit your Gift Aid declaration</div>
+        <div>Thank you so much for supporting Comic Relief.</div>
       </h2>
-      <p className="text-align-centre">
-        We can claim Gift Aid from personal donations made by UK taxpayers: 
+      <p className="text-align-centre sub-title--copy">
         {claimCopy}
       </p>
       {typeof urlTransactionId !== 'undefined' && urlTransactionId !== null ?

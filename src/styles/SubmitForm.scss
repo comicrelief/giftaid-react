@@ -48,12 +48,18 @@ $colour-scorpion-grey: #595959;
     font-family: $font-regular;
 
     @include breakpoint($screen-md) {
-      margin: 0 -78px 50px;
+      margin: 0 -78px 20px;
       padding: 0 16%;
     }
     @include breakpoint($screen-lg) {
       padding: 0 5%;
     }
+  }
+
+  .sub-title--copy {
+    margin-bottom: 20px;
+    font-size: 15px;
+    line-height: 23px;
   }
 
   .giftaid-title {

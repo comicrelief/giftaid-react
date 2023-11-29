@@ -26,15 +26,13 @@ const SubmitHeader = (props) => {
         <React.Fragment>
           <h2 className="sub-title">
             <div>
-              Gift aid your donation and the
-              {' '}
-              <strong>
-                Government will give us 25%
-              </strong>
-              {' '}
-              on top of it.
+            Thank you so much for your donation to Comic Relief.
             </div>
           </h2>
+
+          <p className="text-align-centre sub-title--copy">
+          If you are a UK taxpayer and would like to Gift Aid your donation, Comic Relief can claim an additional 25% of the value of your donation from HMRC, it won't cost you a penny but means your donation can go even further. To say 'yes' to Gift Aid, please complete the details below.
+        </p>
         </React.Fragment>
       );
   }
