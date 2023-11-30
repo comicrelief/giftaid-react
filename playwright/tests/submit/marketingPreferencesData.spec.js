@@ -52,7 +52,7 @@ test.describe('Marketing preferences data @sanity @nightly-sanity', () => {
       expect(data.town).toEqual(town);
       expect(data.country).toEqual('GB');
       expect(data.transsourceurl).toContain(process.env.BASE_URL);
-      expect(data.transsource).toEqual('RND23_GiftAid');
+      expect(data.transsource).toEqual('RND24_GiftAid');
       expect(data.transtype).toEqual('prefs');
       expect(data.permissionemail).toEqual('1');
       expect(data.permissionsms).toEqual('1');
