@@ -24,7 +24,7 @@ test.describe('International addresses validation @sanity @nightly-sanity', () =
     await page.locator('input#field-input--postcode').fill('30916-395');
 
     // non-UK postcode should show error message when default UK country is selected
-    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space and capital letters');
+    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space');
 
     await expect(page.locator('a[aria-describedby=field-error--addressDetails]')).toBeVisible();
 

@@ -39,6 +39,14 @@ $colour-scorpion-grey: #595959;
         }
       }
     }
+
+    // To suit the now trio of checkboxes
+    .marketing-consent--checkboxes {
+      justify-content: left;
+      .form__field--wrapper.form__field-wrapper--checkbox {
+        width: 100%;
+      }
+    }
   }
 
   .sub-title {

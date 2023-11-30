@@ -56,18 +56,19 @@ export const marketingConsentData = {
         }
       ]
     },
-    {
-      "id": "permissionPost",
-      "text": "Send me post",
-      "name": "Post",
-      "options": [
-        {
-          "label": "Post",
-          "value": "yes",
-          "name": "postPermission"
-        }
-      ]
-    },
+    // As per ENG-2926, but leaving this in for ease-of re-application
+    // {
+    //   "id": "permissionPost",
+    //   "text": "Send me post",
+    //   "name": "Post",
+    //   "options": [
+    //     {
+    //       "label": "Post",
+    //       "value": "yes",
+    //       "name": "postPermission"
+    //     }
+    //   ]
+    // },
     {
       "id": "permissionSMS",
       "text": "Text me",

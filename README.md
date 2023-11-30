@@ -69,7 +69,7 @@ The domains for giftaid are as follows
 
 ### PR Playwright Tests
 
-To run PR Playwright Tests locally, you need to first export `REACT_APP_ENDPOINT_URL=https://giftaid-sandbox.sls.comicrelief.com/` in your terminal for the form to get submitted and then run the script `yarn test:e2e:local` found in package.json; this script starts the http://localhost:3000 server in the background, config for this is found in `playwright.config.js` file and runs the tests in headless mode. 
+To run PR Playwright Tests locally (after running `yarn playwright install` if you haven't previously), you need to first export `REACT_APP_ENDPOINT_URL=https://giftaid-sandbox.sls.comicrelief.com/` in your terminal for the form to get submitted and then run the script `yarn test:e2e:local` found in package.json; this script starts the http://localhost:3000 server in the background, config for this is found in `playwright.config.js` file and runs the tests in headless mode. 
 
 To view a test in a headed mode locally, add `--headed` flag option to `"test:e2e": "playwright test --project=chromium --headed"` script found in package.json. 
 

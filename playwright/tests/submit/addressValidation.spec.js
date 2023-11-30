@@ -38,12 +38,12 @@ test.describe('Address validation @sanity @nightly-sanity', () => {
     // postcode starting with numbers should show error message
     await page.locator('input#field-input--postcode').fill('12SE17TP');
 
-    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space and capital letters');
+    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space');
 
     // postcode with invalid input should show error message
     await page.locator('input#field-input--postcode').fill('');
     await page.locator('input#field-input--postcode').fill('comic relief');
-    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space and capital letters');
+    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space');
     await page.close();
   });
 
