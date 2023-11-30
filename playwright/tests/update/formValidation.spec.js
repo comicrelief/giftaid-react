@@ -216,7 +216,7 @@ test.describe('Giftaid update form validation @sanity @nightly-sanity', () => {
 
     await expect(page.locator('div#field-error--postcode > span')).toBeVisible();
 
-    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space and capital letters');
+    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space');
 
     await page.close();
   });
@@ -227,7 +227,7 @@ test.describe('Giftaid update form validation @sanity @nightly-sanity', () => {
 
     await expect(page.locator('div#field-error--postcode > span')).toBeVisible();
 
-    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space and capital letters');
+    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space');
 
     await page.close();
   });
@@ -238,7 +238,7 @@ test.describe('Giftaid update form validation @sanity @nightly-sanity', () => {
 
     await expect(page.locator('div#field-error--postcode > span')).toBeVisible();
 
-    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space and capital letters');
+    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space');
 
     await page.close();
   });
@@ -249,7 +249,7 @@ test.describe('Giftaid update form validation @sanity @nightly-sanity', () => {
 
     await expect(page.locator('div#field-error--postcode > span')).toBeVisible();
 
-    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space and capital letters');
+    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space');
 
     await page.close();
   });
