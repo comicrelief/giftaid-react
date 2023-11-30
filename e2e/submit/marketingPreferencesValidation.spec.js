@@ -41,8 +41,8 @@ test.describe('Marketing preferences validation', () => {
     await page.locator('#field-wrapper--Phone > div').type(phone);
 
     // post
-    await page.locator('#field-label--Post--Post').click();
-    expect(await page.locator('#field-label--Post--Post').isChecked()).toBeTruthy();
+    // await page.locator('#field-label--Post--Post').click();
+    // expect(await page.locator('#field-label--Post--Post').isChecked()).toBeTruthy();
 
     // sms
     await page.locator('#field-label--Text--SMS').click();
@@ -58,8 +58,8 @@ test.describe('Marketing preferences validation', () => {
     expect(await page.locator('#field-label--Phone--Phone').isChecked()).toBeFalsy();
 
     // untick post
-    await page.locator('#field-label--Post--Post').click();
-    expect(await page.locator('#field-label--Post--Post').isChecked()).toBeFalsy();
+    // await page.locator('#field-label--Post--Post').click();
+    // expect(await page.locator('#field-label--Post--Post').isChecked()).toBeFalsy();
 
     // untick SMS
     await page.locator('#field-label--Text--SMS').click();

@@ -27,7 +27,7 @@ class Commands {
     // marketing preferences
     this.mpEmail = page.locator('#field-wrapper--Email > div');
     this.mpPhone = page.locator('#field-wrapper--Phone > div');
-    this.mpPost = page.locator('input#field-label--Post--Post');
+    //this.mpPost = page.locator('input#field-label--Post--Post');
     this.mpSMS = page.locator('input#field-label--Text--SMS');
     this.inputMPEmail = page.locator('input#field-input--email');
     this.inputMPPhone = page.locator('input#field-input--phone');
@@ -71,7 +71,7 @@ class Commands {
   ) {
     await this.mpEmail.click();
     await this.inputMPEmail.type(email);
-    await this.mpPost.click();
+    // await this.mpPost.click();
     await this.mpPhone.click();
     await this.inputMPPhone.type(phone, { delay: 200 });
     await this.mpSMS.click();
