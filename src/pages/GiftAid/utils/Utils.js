@@ -333,12 +333,12 @@ export const defaultSubmitFormFieldValidations = {
     valid: true,
     fieldValidation: {},
   },
-  permissionPost: {
-    isFieldsHidden: false,
-    value: null,
-    valid: true,
-    fieldValidation: false,
-  },
+  // permissionPost: {
+  //   isFieldsHidden: false,
+  //   value: null,
+  //   valid: true,
+  //   fieldValidation: false,
+  // },
   permissionPhone: {
     isFieldsHidden: false,
     value: null,
