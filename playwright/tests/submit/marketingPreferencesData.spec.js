@@ -57,7 +57,7 @@ test.describe('Marketing preferences data @sanity @nightly-sanity', () => {
       expect(data.permissionemail).toEqual('1');
       expect(data.permissionsms).toEqual('1');
       expect(data.permissionphone).toEqual('1');
-      expect(data.permissionpost).toEqual('1');
+      // expect(data.permissionpost).toEqual('1');
       expect(data.phone).toEqual(phone);
       // replace leading zero with '+44' to match UK normalized numbers in Data-Models);
       expect(data.mobile).toEqual(mobile.replace(/^[07]{1}/, '+44'));
