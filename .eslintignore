@@ -4,5 +4,6 @@ public/**
 config/**
 scripts/**
 src/registerServiceWorker.js
-cypress/**
+playwright-staging/**
+e2e/**
 .env

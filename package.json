@@ -36,7 +36,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "lint": "eslint --color src playwright/tests",
+    "lint": "eslint --color src",
     "test:e2e": "playwright test --project=chromium",
     "test:e2e:ci": "export NODE_ENV=development; start-server-and-test start http://localhost:3000 test:e2e",
     "test:e2e:local": "export NODE_ENV=development; start-server-and-test start http://localhost:3000 test:e2e",
