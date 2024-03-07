@@ -5,5 +5,5 @@ config/**
 scripts/**
 src/registerServiceWorker.js
 playwright-staging/**
-playwright-local/**
+e2e/**
 .env
