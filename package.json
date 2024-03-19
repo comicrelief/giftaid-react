@@ -30,7 +30,7 @@
     "react-raven": "^1.2.3",
     "react-router-dom": "^4.2.2",
     "susy": "^3.0.3",
-    "uuid": "8.3.2",
+    "uuid": "^9.0.1",
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
