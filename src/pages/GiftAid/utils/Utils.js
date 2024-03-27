@@ -148,7 +148,7 @@ export const justInTimeLinkText = 'Why do we collect this info?';
 * REGEX for transactionId
 *
 */
-const transactionIdPattern = '^[a-zA-Z0-9-_]{5,}$';
+const transactionIdPattern = '^\\s*[a-zA-Z0-9-_]{5,}\\s*$';
 
 /**
  * Function to validate form
