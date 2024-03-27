@@ -50,7 +50,7 @@ test.describe('Giftaid update form validation @sanity @nightly-sanity', () => {
     await page.close();
   });
 
-  test.only('validate transaction ID field', async ({ page }) => {
+  test('validate transaction ID field', async ({ page }) => {
 
     const commands = new Commands(page);
 
@@ -63,9 +63,14 @@ test.describe('Giftaid update form validation @sanity @nightly-sanity', () => {
     await page.waitForSelector('div#field-error--transactionId > span');
     await expect(page.locator('div#field-error--transactionId > span')).toContainText('This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter');
 
-    // transaction ID number with special characters should shows error message
+    // transaction ID number with space at the end should not show error message
     await page.locator('input#field-input--transactionId').fill('');
     await page.locator('input#field-input--transactionId').type('a0e9840d-b724-4868-9a68-06a86e0f0150  ', {delay: 100});
+    await expect(page.locator('div#field-error--transactionId > span')).toBeHidden();
+
+    // transaction ID number with space at the beginning should not show error message
+    await page.locator('input#field-input--transactionId').fill('');
+    await page.locator('input#field-input--transactionId').type(' a0e9840d-b724-4868-9a68-06a86e0f0150', {delay: 100});
     await expect(page.locator('div#field-error--transactionId > span')).toBeHidden();
 
     // clear the transaction ID field and enter valid inputs and submit form
