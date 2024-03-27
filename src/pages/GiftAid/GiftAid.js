@@ -152,6 +152,11 @@ function GiftAid(props) {
 
     if (validity) { // submit form if no errors
       setIsSubmitting(true); // Update state that's passed down to disable button during submission
+      // Rather than mess with the input field value itself (crummy UX), just sanitise the value on submission,
+      // removing any leading or trailing whitespace that the new regex brings allows for (see ENG-3193) 
+      if (formValues.donationID) formValues.donationID = formValues.donationID.trim();
+      if (formValues.transactionId) formValues.transactionId = formValues.transactionId.trim();
+
       axios.post(pathParams.endpoint, formValues) // post form data and settings to endpoint
         .then(() => {
           setIsCompleted(true); // set completed state
