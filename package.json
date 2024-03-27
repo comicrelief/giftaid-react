@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/polyfill": "^7.11.5",
-    "@comicrelief/storybook": "2.2.3",
+    "@comicrelief/storybook": "2.3.0",
     "@snyk/protect": "^1.986.0",
     "autoprefixer": "10.0.0",
     "axios": "^0.21.1",
