@@ -61,7 +61,6 @@ export const updateFormFields = {
     label: 'Transaction ID',
     required: true,
     invalidErrorText: 'This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter',
-    // eslint-disable-next-line no-useless-escape
     pattern: '^\\s{0,1}[a-zA-Z0-9-_]{5,}\\s{0,1}$',
     tooltip: 'This is found at the bottom of your donation confirmation email'
   },
