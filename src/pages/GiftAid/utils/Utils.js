@@ -426,12 +426,3 @@ export const defaultUpdateFormFieldValidations = {
 export const getRoute = (route) => {
   return `${process.env.REACT_APP_ENDPOINT_URL}${route}`;
 };
-
-export const postcodeValidationOverride = {
-  GB: {
-    // The same regex as originally, but need to supply a complete 'override' object...
-    pattern: '^((GIR 0AA)|((([A-Za-z][0-9][0-9]?)|(([A-Za-z][A-Ha-hJ-Yj-y][0-9][0-9]?)|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z])))) [0-9][A-Za-z]{2}))$',
-    // ...in order to add in our new error message:
-    errorMsg: 'Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.',
-  },
-};

@@ -1382,10 +1382,10 @@
     uuid "^8.3.2"
     yup "^0.29.3"
 
-"@comicrelief/storybook@2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@comicrelief/storybook/-/storybook-2.3.0.tgz#8685d0b3a27feefe8cdb1030705637945951f029"
-  integrity sha512-LXtxZGvijxYNeWQdp8VpTDbFqAO3CGYuuTdBa/SjzYXil4EsYvBS8iOBuArBQPgtzPhEdFDG6QA5aCkpa38CXQ==
+"@comicrelief/storybook@2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@comicrelief/storybook/-/storybook-2.3.1.tgz#b977f8e0a080e201c20bf5485486f3527c43005b"
+  integrity sha512-v/Pv3uH/Bfj3TNzUDD4/n+XdGTvCcTVu4iQPS3xdIOFwWHF31s8VzRF8Vj+TU3AhjYWRkK6TKcR3YBjCVKdVdw==
   dependencies:
     "@snyk/protect" "^1.1060.0"
     "@storybook/addon-info" "3"

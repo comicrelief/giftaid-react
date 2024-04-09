@@ -10,7 +10,6 @@ import GiftAidClaimChoiceButtons from '../../../components/Buttons/GiftAidClaimC
 import InputFields from '../../../components/InputFields/InputFields';
 import JustInTime from '../../../components/JustInTime/index';
 import UrlTransactionIdError from './UrlTransactionIdError';
-import { postcodeValidationOverride } from '../utils/Utils';
 
 // fields data
 import { updateFormFields, donationTypeChoices, giftAidButtonChoices } from './UpdateFormFields';
@@ -79,7 +78,6 @@ function UpdateForm(props) {
           ref={refs}
           label="Home address"
           showErrorMessages={formValidityState.showErrorMessages}
-          postcodeValidation={postcodeValidationOverride}
           isAddressValid={
             (validation) => {
               Object.keys(validation).map(key => setFieldValidity(validation[key], key));
