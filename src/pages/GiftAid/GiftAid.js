@@ -46,17 +46,12 @@ function GiftAid(props) {
   // initialise MSISDN state
   const [msisdn, setMSISDN] = useState(null);
 
-  // initialise URL transaction id state if available
-  // TO-DO: REMOVE THIS
-  const [urlTransactionId, setUrlTransactionId] = useState(props.match.params.transaction_id);
-
   /**
    * GiftAid component mounts
    */
   useEffect(() => {
     setPathParams(getPathParams(updating)); // update path states
     setToken(props.match.params.token); // update token state
-    setUrlTransactionId(props.match.params.transaction_id); // update url transaction id state
     if (token) {
       decryptToken(token); // decrypt token to MSISDN
     }
@@ -66,7 +61,6 @@ function GiftAid(props) {
       setFormValidityState(initialFormValidity);
       setFieldValidation({});
       setUpdating(false);
-      setUrlTransactionId(null);
       setToken(null);
       setMSISDN(null);
     }
@@ -121,16 +115,7 @@ function GiftAid(props) {
       (thisFieldsState.fieldValidation !== thisFieldsPreviousState.fieldValidation);
 
     if ((thisFieldsPreviousState && isUpdatedState) || marketingConsentFieldsChanged === true) {
-        // Reset url transaction Id state
-        // if (thisFieldsName === 'transactionId' && thisFieldsState.valid) {
-        //   setFormValidityState({
-        //     ...formValidityState,
-        //     urlTransactionId: {
-        //       ...formValidityState.urlTransactionId,
-        //       valid: true,
-        //     }
-        //   });
-        // }
+
         fieldValidation[thisFieldsName] = thisFieldsState;
         setFieldValidation({...fieldValidation});
 
@@ -147,7 +132,7 @@ function GiftAid(props) {
    */
   const submitForm = (e) => {
     e.preventDefault();
-    const formValues = getFormValues(fieldValidation, urlTransactionId, updating); // get form values
+    const formValues = getFormValues(fieldValidation, updating); // get form values
     console.log('formValues', formValues);
     const { validity, validationState } = validateForm(fieldValidation, formValues, formValidityState); // validate form
     setFormValidityState(validationState); // update form validation state
@@ -157,7 +142,6 @@ function GiftAid(props) {
       // Rather than mess with the input field value itself (crummy UX), just sanitise the value on submission,
       // removing any leading or trailing whitespace that the new regex brings allows for (see ENG-3193) 
       if (formValues.donationID) formValues.donationID = formValues.donationID.trim();
-      // if (formValues.transactionId) formValues.transactionId = formValues.transactionId.trim();
 
       axios.post(pathParams.endpoint, formValues) // post form data and settings to endpoint
         .then(() => {
@@ -186,7 +170,6 @@ function GiftAid(props) {
 
   // Pass context props to child components
   const contextProps = {
-    urlTransactionId,
     hiddenFields,
     justInTimeLinkText,
     formValidityState,
@@ -204,7 +187,6 @@ function GiftAid(props) {
       { updating ? (
         <UpdateForm
           title="Update Form"
-          urlTransactionId={urlTransactionId}
         />
       ) : (
         <SubmitForm

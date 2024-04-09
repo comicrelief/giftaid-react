@@ -5,14 +5,12 @@ import PostcodeLookup from "@comicrelief/storybook/src/components/PostcodeLookup
 import Form from '../../../components/Form/index';
 import FormHeader from '../../../components/FormHeader/FormHeader';
 import FormButton from '../../../components/Buttons/FormButton/index';
-import DonationTypeButtons from '../../../components/Buttons/DonationTypeButtons/DonationTypeButtons';
 import GiftAidClaimChoiceButtons from '../../../components/Buttons/GiftAidClaimChoiceButtons/GiftAidClaimChoiceButtons';
 import InputFields from '../../../components/InputFields/InputFields';
 import JustInTime from '../../../components/JustInTime/index';
-import UrlTransactionIdError from './UrlTransactionIdError';
 
 // fields data
-import { updateFormFields, donationTypeChoices, giftAidButtonChoices } from './UpdateFormFields';
+import { updateFormFields, giftAidButtonChoices } from './UpdateFormFields';
 
 // import context
 import FormContext from '../../../context/FormContext';
@@ -30,8 +28,6 @@ function UpdateForm(props) {
     submitForm,
   } = useContext(FormContext); // get props from context
   
-  const { urlTransactionId } = props;
-
   // Declare state variables
   const [inputFieldProps, setInputFieldProps] = useState(updateFormFields); // initialise form inputFieldProps state
 
@@ -39,16 +35,11 @@ function UpdateForm(props) {
    * Component mounts and updates
    */
   useEffect(() => {
-    // Delete if url trans Id if present
-    // on component mount or update
-    if (urlTransactionId !== undefined) {
-      // Delete transactionId form field
-      delete inputFieldProps.transactionId;
-      delete fieldValidation.transactionId;
-    } else {
-      // Else, delete the donation type radiobuttons
-      delete fieldValidation.donationType;
-    }
+
+    // Else, delete the donation type radiobuttons
+    // TO-DO: just remove this totally
+    delete fieldValidation.donationType;
+    
     setFieldValidation(fieldValidation);
     // Reset states on component unmount
     return () => {
@@ -62,11 +53,7 @@ function UpdateForm(props) {
 
       <FormHeader page="update" />
 
-      <UrlTransactionIdError />
-
       <div className="form-fields--wrapper">
-
-        <DonationTypeButtons donationTypeChoices={donationTypeChoices} />
 
         <h3 className="form--update__title form--update__title--giftaid text-align-centre">
           Who is changing their declaration?
