@@ -415,6 +415,11 @@ export const defaultUpdateFormFieldValidations = {
     value: undefined,
     message: '',
   },
+  mobile: {
+    valid: false,
+    value: undefined,
+    message: '',
+  },
 };
 
 
