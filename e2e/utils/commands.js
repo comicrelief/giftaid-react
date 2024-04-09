@@ -1,13 +1,10 @@
 const faker = require('faker');
-const { v4: uuidv4 } = require('uuid');
-const transactionId = uuidv4();
 
 class Commands {
   constructor(page) {
     this.page = page;
 
     // form inputs
-    this.transactionID = page.locator('input#field-input--transactionId');
     this.mobile = page.locator('#field-input--mobile');
     this.phone = page.locator('#field-input--phone');
     this.firstName = page.locator('input#field-input--firstname');
@@ -83,7 +80,6 @@ class Commands {
    */
   async populateUpdateFormFields(
     {
-      transactionID = transactionId,
       firstName = 'test',
       lastName = 'user',
       email = 'giftaid-update-staging-@email.sls.comicrelief.com',
@@ -94,8 +90,6 @@ class Commands {
       town = 'London',
     } = {},
   ) {
-    await this.transactionID.type(transactionID);
-    console.log('transactionId is:', transactionID);
     await this.firstName.type(firstName);
     await this.lastName.type(lastName);
     await this.postcode.type(postcode);

@@ -47,6 +47,7 @@ function GiftAid(props) {
   const [msisdn, setMSISDN] = useState(null);
 
   // initialise URL transaction id state if available
+  // TO-DO: REMOVE THIS
   const [urlTransactionId, setUrlTransactionId] = useState(props.match.params.transaction_id);
 
   /**
@@ -94,7 +95,7 @@ function GiftAid(props) {
   useEffect(() => {
     // Update validation accordingly on update
     if ((formValidityState.showErrorMessages && !formValidityState.formValidity
-      && formValidityState.validating) || formValidityState.urlTransactionId.valid === false ) {
+      && formValidityState.validating)) {
       // update validation state
       setFormValidityState({
         ...formValidityState,
@@ -121,15 +122,15 @@ function GiftAid(props) {
 
     if ((thisFieldsPreviousState && isUpdatedState) || marketingConsentFieldsChanged === true) {
         // Reset url transaction Id state
-        if (thisFieldsName === 'transactionId' && thisFieldsState.valid) {
-          setFormValidityState({
-            ...formValidityState,
-            urlTransactionId: {
-              ...formValidityState.urlTransactionId,
-              valid: true,
-            }
-          });
-        }
+        // if (thisFieldsName === 'transactionId' && thisFieldsState.valid) {
+        //   setFormValidityState({
+        //     ...formValidityState,
+        //     urlTransactionId: {
+        //       ...formValidityState.urlTransactionId,
+        //       valid: true,
+        //     }
+        //   });
+        // }
         fieldValidation[thisFieldsName] = thisFieldsState;
         setFieldValidation({...fieldValidation});
 
@@ -147,6 +148,7 @@ function GiftAid(props) {
   const submitForm = (e) => {
     e.preventDefault();
     const formValues = getFormValues(fieldValidation, urlTransactionId, updating); // get form values
+    console.log('formValues', formValues);
     const { validity, validationState } = validateForm(fieldValidation, formValues, formValidityState); // validate form
     setFormValidityState(validationState); // update form validation state
 
@@ -155,7 +157,7 @@ function GiftAid(props) {
       // Rather than mess with the input field value itself (crummy UX), just sanitise the value on submission,
       // removing any leading or trailing whitespace that the new regex brings allows for (see ENG-3193) 
       if (formValues.donationID) formValues.donationID = formValues.donationID.trim();
-      if (formValues.transactionId) formValues.transactionId = formValues.transactionId.trim();
+      // if (formValues.transactionId) formValues.transactionId = formValues.transactionId.trim();
 
       axios.post(pathParams.endpoint, formValues) // post form data and settings to endpoint
         .then(() => {

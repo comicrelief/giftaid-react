@@ -415,11 +415,6 @@ export const defaultUpdateFormFieldValidations = {
     value: undefined,
     message: '',
   },
-  transactionId: {
-    valid: false,
-    value: undefined,
-    message: '',
-  },
 };
 
 

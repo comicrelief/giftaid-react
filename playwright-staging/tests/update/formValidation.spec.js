@@ -2,8 +2,6 @@
 const { expect } = require('@playwright/test');
 const { test } = require('../../browserstack');
 const { Commands } = require('../utils/commands');
-const { v4: uuidv4 } = require('uuid');
-const transactionId = uuidv4();
 
 test.describe('Giftaid update form validation @sanity @nightly-sanity', () => {
 
@@ -17,11 +15,6 @@ test.describe('Giftaid update form validation @sanity @nightly-sanity', () => {
 
     // submit the form
     await page.locator('button[type=submit]').click();
-
-    await expect(page.locator('div#field-error--urlTransID > span')).toContainText('This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter');
-
-    // transaction field error message
-    await expect(page.locator('div#field-error--transactionId > span')).toContainText('Please fill in your transaction id');
 
     // firstname field error message
     await expect(page.locator('div#field-error--firstname > span')).toContainText('Please fill in your first name');
@@ -46,47 +39,6 @@ test.describe('Giftaid update form validation @sanity @nightly-sanity', () => {
 
     // giftaid declaration error message
     await expect(page.locator('div#field-error--giftAidClaimChoice > span')).toContainText('This field is required');
-
-    await page.close();
-  });
-
-  test('validate transaction ID field', async ({ page }) => {
-
-    const commands = new Commands(page);
-
-    await page.locator('input#field-input--transactionId').fill(transactionId);
-    await page.locator('input#field-input--transactionId').fill('');
-    await expect(page.locator('div#field-error--transactionId > span')).toContainText('Please fill in your transaction id');
-
-    // transaction ID number with special characters should shows error message
-    await page.locator('input#field-input--transactionId').type('ea794dc3-35f8-4a87-bc94-14125fd480@$', {delay: 100});
-    await page.waitForSelector('div#field-error--transactionId > span');
-    await expect(page.locator('div#field-error--transactionId > span')).toContainText('This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter');
-
-    // transaction ID number with space at the end should not show error message
-    await page.locator('input#field-input--transactionId').fill('');
-    await page.locator('input#field-input--transactionId').type('a0e9840d-b724-4868-9a68-06a86e0f0150  ', {delay: 100});
-    await expect(page.locator('div#field-error--transactionId > span')).toBeHidden();
-
-    // transaction ID number with space at the beginning should not show error message
-    await page.locator('input#field-input--transactionId').fill('');
-    await page.locator('input#field-input--transactionId').type(' a0e9840d-b724-4868-9a68-06a86e0f0150', {delay: 100});
-    await expect(page.locator('div#field-error--transactionId > span')).toBeHidden();
-
-    // clear the transaction ID field and enter valid inputs and submit form
-    await page.locator('input#field-input--transactionId').fill('');
-
-    // entering valid input fields should be able to submit the form
-    await commands.populateUpdateFormFields();
-
-    // select giftaid declaration
-    await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
-
-    // submit the form
-    await page.locator('button[type=submit]').click();
-
-    await expect(page.locator('div > h1')).toContainText('Thank you,\n' +
-      'test!');
 
     await page.close();
   });
@@ -267,7 +219,6 @@ test.describe('Giftaid update form validation @sanity @nightly-sanity', () => {
   test('enter valid UK postcode on giftaid update form using postcode lookup should be able to submit the form', async ({ page }) => {
 
     // fill in all input fields
-    await page.locator('input#field-input--transactionId').fill(transactionId);
     await page.locator('#field-input--firstname').fill('test');
     await page.locator('#field-input--lastname').fill('test lastname');
     await page.locator('input#field-input--email').fill('giftaid-staging-@email.sls.comicrelief.com');

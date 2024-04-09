@@ -14,7 +14,7 @@ test.describe('Success page redirect @sanity @nightly-sanity', () => {
 
     await expect(page.locator('h1[class=giftaid-title]')).toContainText('Giftaid it');
 
-    await expect(page.locator('input#field-input--transactionId')).toBeVisible();
+    await expect(page.locator('input#field-input--firstname')).toBeVisible();
 
     await page.close();
   });

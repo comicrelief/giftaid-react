@@ -12,7 +12,7 @@ test.describe('Giftaid declaration validation @sanity @nightly-sanity', () => {
 
     await page.waitForLoadState('domcontentloaded');
 
-    await expect(page.locator('input#field-input--transactionId')).toBeVisible();
+    await expect(page.locator('input#field-input--firstname')).toBeVisible();
 
     // entering valid input fields should be able to submit the form
     await commands.populateUpdateFormFields();
@@ -42,7 +42,7 @@ test.describe('Giftaid declaration validation @sanity @nightly-sanity', () => {
 
     await page.waitForLoadState('domcontentloaded');
 
-    await expect(page.locator('input#field-input--transactionId')).toBeVisible();
+    await expect(page.locator('input#field-input--firstname')).toBeVisible();
 
     // entering valid input fields should be able to submit the form
     await commands.populateUpdateFormFields();

@@ -53,17 +53,6 @@ export const giftAidButtonChoices = [
 * Default Update Form Fields
 */
 export const updateFormFields = {
-
-  transactionId: {
-    id: 'transactionId',
-    type: 'text',
-    name: 'transactionId',
-    label: 'Transaction ID',
-    required: true,
-    invalidErrorText: 'This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter',
-    pattern: '^\\s*[a-zA-Z0-9-_]{5,}\\s*$',
-    tooltip: 'This is found at the bottom of your donation confirmation email'
-  },
   firstName: {
     id: 'firstname',
     type: 'text',
@@ -87,6 +76,17 @@ export const updateFormFields = {
     type: 'email',
     name: 'email',
     label: 'Email address',
-    required: false,
-  }
+    required: true
+  },
+  phoneNumber: {
+    id: 'mobile',
+    type: 'tel',
+    name: 'mobile',
+    placeholder: 'In the format 07123456789',
+    label: 'Mobile number',
+    pattern: '^07[0-9]{9}$',
+    helpText: 'If you donated by SMS, you MUST fill in this field',
+    emptyFieldErrorText: 'Please fill in your mobile number',
+    invalidErrorText: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.'
+  },
 };
