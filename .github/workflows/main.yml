@@ -5,7 +5,7 @@ on: [push]
 jobs:
   playwright:
     name: Playwright test
-    timeout-minutes: 60
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -40,7 +40,7 @@ jobs:
         env:
           NODE_ENV: development
           REACT_APP_ENDPOINT_URL: ${{ secrets.REACT_APP_ENDPOINT_URL }}
-          FORCE_COLOR: 3
+          FORCE_COLOR: 1
 
       # Test run video was always captured, so this action uses "always()" condition
       - name: Upload videos
