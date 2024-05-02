@@ -36,9 +36,10 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "lint": "eslint --color src",
-    "test:e2e": "playwright test --project=chromium",
-    "test:e2e:ci": "export NODE_ENV=development; start-server-and-test start http://localhost:3000 test:e2e",
-    "test:e2e:local": "export NODE_ENV=development; start-server-and-test start http://localhost:3000 test:e2e",
+    "test:playwright-local": "playwright test --config=./playwright-local/playwright-local.config.js --project=chromium",
+    "test:playwright-local--h": "playwright test --config=./playwright-local/playwright-local.config.js --project=chromium --headed",
+    "test:playwright-local:ci": "export NODE_ENV=development; start-server-and-test start http://localhost:3000 test:playwright-local",
+    "test:playwright-local:local": "export NODE_ENV=development; start-server-and-test start http://localhost:3000 test:playwright-local",
     "snyk-protect": "snyk-protect",
     "prepublish": "yarn snyk-protect"
   },
