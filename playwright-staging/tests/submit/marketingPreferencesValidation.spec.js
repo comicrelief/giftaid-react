@@ -7,7 +7,7 @@ const Chance = require('chance');
 const chance = new Chance();
 
 const email = `giftaid-staging-${Date.now().toString()}@email.sls.comicrelief.com`;
-const phone = chance.phone({ country: 'uk', mobile: true }).replace(/\s/g, '');
+const phone = chance.phone({ country: 'uk', mobile: false }).replace(/\s/g, '');
 
 test.describe('Marketing preferences validation @sanity @nightly-sanity', () => {
   
