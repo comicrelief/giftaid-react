@@ -2,6 +2,12 @@
 const { test, expect } = require('@playwright/test');
 const { Commands } = require('../utils/commands');
 
+const Chance = require('chance');
+const chance = new Chance();
+
+const email = `giftaid-staging-${Date.now().toString()}@email.sls.comicrelief.com`;
+const phone = chance.phone({ country: 'uk', mobile: true }).replace(/\s/g, '');
+
 test.describe('Marketing preferences validation', () => {
 
   test.beforeEach(async ({ page }) => {
