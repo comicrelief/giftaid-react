@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 const Chance = require('chance');
 const chance = new Chance();
 
-test.describe.only('Giftaid update form validation', () => {
+test.describe('Giftaid update form validation', () => {
   let transactionId;
 
   test.beforeEach(async ({ page }) => {
