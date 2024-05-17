@@ -47,8 +47,8 @@ test.describe('International addresses validation on update form', () => {
     await page.locator('button[type=submit]').click();
   
     // Thank you message on success page
-    await expect(page.locator('div > h1')).toContainText('Thank you, test!');
-  
+    await expect(page.locator('div > h1')).toContainText('Thank you,\n' +
+      'test!');
     await page.close();
   });
 });

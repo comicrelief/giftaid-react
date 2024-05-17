@@ -40,7 +40,9 @@ test.describe('International addresses validation', () => {
     // Submit the form and ensure no errors are shown for international address
     await commands.selectMarketingPrefs(page); // Assuming this handles checkbox interactions
     await page.click('button[type=submit]');
-    await expect(page.locator('div > h1')).toContainText('Thank you, test!');
+    await expect(page.locator('div > h1')).toContainText('Thank you,\n' +
+      'test!');
+    await page.close();
   
     await page.close();
   });

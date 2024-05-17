@@ -21,7 +21,8 @@ test('Valid Giftaid Update submission', async ({ page }) => {
 
   // Submit the form and validate the thank you message
   await page.locator('button[type=submit]').click();
-  await expect(page.locator('div > h1')).toContainText('Thank you, test!');
-
+  await expect(page.locator('div > h1')).toContainText('Thank you,\n' +
+    'test!');
+  
   await page.close();
 });

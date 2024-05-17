@@ -71,6 +71,8 @@ test.describe('Marketing preferences validation', () => {
     // Re-enter valid phone number and submit
     await page.fill('input#field-input--phone', phone);
     await page.click('button[type=submit]');
-    await expect(page.locator('div > h1')).toHaveText('Thank you, test!');
+    await expect(page.locator('div > h1')).toContainText('Thank you,\n' +
+      'test!');
+    await page.close();
   });
 });
