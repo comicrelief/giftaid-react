@@ -2,13 +2,16 @@
 const { test, expect } = require('@playwright/test');
 const { Commands } = require('../utils/commands');
 const { v4: uuidv4 } = require('uuid');
-const transactionId = uuidv4();
+const Chance = require('chance');
+const chance = new Chance();
 
 test.describe('Giftaid update form validation', () => {
+  let transactionId;
 
   test.beforeEach(async ({ page }) => {
+    transactionId = uuidv4();  // Ensure unique transaction ID for each test
+  
     await page.goto('/update', { timeout: 30000 });
-
     await page.waitForLoadState('domcontentloaded');
   });
   
