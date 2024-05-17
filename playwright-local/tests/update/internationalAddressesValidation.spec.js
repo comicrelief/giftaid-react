@@ -10,60 +10,45 @@ test.describe('International addresses validation on update form', () => {
 
     await page.waitForLoadState('domcontentloaded');
 
-    // fill in all input fields
+    /// fill in all input fields
     await page.locator('input#field-input--transactionId').fill(transactionId);
     await page.locator('#field-input--firstname').fill('test');
     await page.locator('#field-input--lastname').fill('test lastname');
     await page.locator('input#field-input--email').fill('giftaid-staging-@email.sls.comicrelief.com');
-
-
-    // enter a non-UK postcode
+  
+    // enter a non-UK postcode and attempt to validate it
     await page.locator('input#field-input--postcode').fill('30916-395');
-
-    // non-UK postcode should show error message when default UK country is selected
     await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space');
-
-    await expect(page.locator('a[aria-describedby=field-error--addressDetails]')).toBeVisible();
-
-    // clicking on manual address link
+  
+    // manually enter international address details
     await page.locator('a[aria-describedby=field-error--addressDetails]').click();
-
-    await page.locator('#field-input--address1').type('219 Beacon St');
-    await page.locator('#field-input--address2').type('Winder');
-    await page.locator('#field-input--address2').type('Park Ridge');
-    await page.locator('#field-input--town').type('GA');
-
-    // select random country from the country dropdown list
-    // get the list of country codes
-    const countryOptions = await page.$$eval('select#field-select--country>option', (els) => {
-      return els.map(option => option.value)
-    });
-
-    // length of the country code list
-    const randomIndex  = Math.floor(Math.random() * countryOptions.length);
-
-    // get random country
-    const countryCode = countryOptions[randomIndex];
-    console.log('country code selected: ', countryCode);
-
-    // select the random country from the dropdown
-    await page.locator('select[name="country"]').selectOption({ value: countryCode });
-
+    await page.locator('#field-input--address1').fill('219 Beacon St');
+    await page.locator('#field-input--address2').fill('Winder');
+    await page.locator('#field-input--address3').fill('Park Ridge');
+    await page.locator('#field-input--town').fill('GA');
+  
+    // Select a random country from the dropdown (excluding UK to simulate international address)
+    const countryOptions = await page.$$eval('select#field-select--country>option', options =>
+      options.map(option => option.value).filter(value => value !== 'GB')
+    );
+    const randomCountryCode = countryOptions[Math.floor(Math.random() * countryOptions.length)];
+    await page.locator('select[name="country"]').selectOption({ value: randomCountryCode });
+  
+    // Wait for the form to adjust to the selected country
     await page.waitForTimeout(2000);
-
-    // get the full country name that has been selected
-    const countryName = await page.$eval('select[name="country"]', sel => sel.options[sel.options.selectedIndex].textContent);
-    console.log('get the selected country name: ', countryName);
-
-    // when a international country is selected, postcode error should not show anymore
+  
+    // When an international country is selected, the postcode error for UK format should not show anymore
     await expect(page.locator('div#field-error--postcode > span')).not.toBeVisible();
-
-    // select giftaid declaration
+  
+    // Select yes for giftaid declaration to complete the form
     await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
-
-    // clicking on submit button should show error on address lookup
+  
+    // Submitting the form with valid international details
     await page.locator('button[type=submit]').click();
-
+  
+    // Thank you message on success page
+    await expect(page.locator('div > h1')).toContainText('Thank you, test!');
+  
     await page.close();
   });
 });

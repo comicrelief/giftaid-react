@@ -2,29 +2,25 @@
 const { test, expect } = require('@playwright/test');
 const { Commands } = require('../utils/commands');
 
-test.describe('Valid giftaid submission', () => {
-  test('submit form with valid inputs', async ({ page }) => {
+test('Valid giftaid submission', async ({ page }) => {
 
-    const commands = new Commands(page);
+  const commands = new Commands(page);
 
-    await page.goto('/', { timeout: 30000 });
+  await page.goto('/', { timeout: 30000 });
+  await page.waitForLoadState('domcontentloaded');
 
-    await page.waitForLoadState('domcontentloaded');
+  // Ensure the transaction ID input is visible
+  await expect(page.locator('input#field-input--transactionId')).toBeVisible();
 
-    await page.waitForSelector('#field-label--giftaid');
-    await page.locator('#field-label--giftaid').click();
+  // Populate all input fields with valid data
+  await commands.populateUpdateFormFields(page);
 
-    // entering valid input fields should be able to submit the form
-    await commands.populateFormFields();
+  // Select 'Yes' for GiftAid declaration
+  await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
 
-    // select MP checkboxes
-    await commands.selectMarketingPrefs();
+  // Submit the form and validate the thank you message
+  await page.locator('button[type=submit]').click();
+  await expect(page.locator('div > h1')).toContainText('Thank you, test!');
 
-    // submit the form
-    await page.locator('button[type=submit]').click();
-
-    await expect(page.locator('div > h1')).toContainText('Thank you,\n' +
-      'test!');
-    await page.close();
-  });
+  await page.close();
 });

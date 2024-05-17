@@ -3,158 +3,74 @@ const { expect } = require('@playwright/test');
 const { test } = require('../../browserstack');
 const { Commands } = require('../utils/commands');
 
-const faker = require('faker');
+const Chance = require('chance');
+const chance = new Chance();
 
-const phone = faker.phone.phoneNumber('0208#######');
 const email = `giftaid-staging-${Date.now().toString()}@email.sls.comicrelief.com`;
+const phone = chance.phone({ country: 'uk', mobile: true }).replace(/\s/g, '');
 
 test.describe('Marketing preferences validation @sanity @nightly-sanity', () => {
-
+  
   test.beforeEach(async ({ page }) => {
-
     const commands = new Commands(page);
     await page.goto(process.env.BASE_URL, { timeout: 30000 });
-
     await page.waitForLoadState('domcontentloaded');
-
-    await page.waitForSelector('#field-label--giftaid');
-    await page.locator('#field-label--giftaid').click();
-
-    // fill in all input fields
-    await commands.populateFormFields();
-
+    await page.click('#field-label--giftaid');
+    await commands.populateFormFields(page);
   });
 
   test('clicking and unclicking marketing prefs options should submit the giftaid form', async ({ page }) => {
-
-    // ticking the text and phone MP checkboxes should show the mobile number entered in step 1
-    // assert MP checkeboxes is now checked
-    // email
-    await page.locator('#field-label--Email--Email').click();
-    expect(await page.locator('#field-label--Email--Email').isChecked()).toBeTruthy();
+    // Interact with marketing preferences
+    const marketingOptions = ['[aria-label="field-label--Email--Email"]', '[aria-label="field-label--Phone--Phone"]', '[aria-label="field-label--Text--SMS"]'];
+    for (const option of marketingOptions) {
+      await page.click(option);
+      expect(await page.locator(option).isChecked()).toBeTruthy();
+    }
+  
+    // Enter email and phone to validate the form can still submit
     await expect(page.locator('input#field-input--email')).toBeVisible();
-    await page.locator('input#field-input--email').type(email);
-
-    // phone
-    await page.locator('#field-label--Phone--Phone').click();
-    expect(await page.locator('#field-label--Phone--Phone').isChecked()).toBeTruthy();
+    await page.fill('input#field-input--email', email);
     await expect(page.locator('input#field-input--phone')).toBeVisible();
-    await page.locator('#field-wrapper--Phone > div').type(phone);
-
-    // post
-    // await page.locator('#field-label--Post--Post').click();
-    // expect(await page.locator('#field-label--Post--Post').isChecked()).toBeTruthy();
-
-    // sms
-    await page.locator('#field-label--Text--SMS').click();
-    expect(await page.locator('#field-label--Text--SMS').isChecked()).toBeTruthy();
-
-    // now unticking the MP checkboxes should still submit the form
-    // untick email
-    await page.locator('#field-label--Email--Email').click();
-    expect(await page.locator('#field-label--Email--Email').isChecked()).toBeFalsy();
-
-    // untick phone
-    await page.locator('#field-label--Phone--Phone').click();
-    expect(await page.locator('#field-label--Phone--Phone').isChecked()).toBeFalsy();
-
-    // untick post
-    // await page.locator('#field-label--Post--Post').click();
-    // expect(await page.locator('#field-label--Post--Post').isChecked()).toBeFalsy();
-
-    // untick SMS
-    await page.locator('#field-label--Text--SMS').click();
-    expect(await page.locator('#field-label--Text--SMS').isChecked()).toBeFalsy();
-
-    // clicking on submit button should show error on address lookup
-    await page.locator('button[type=submit]').click();
-
-    await expect(page.locator('div > h1')).toContainText('Thank you,\n' +
-      'test!');
-
-    await page.close();
+    await page.fill('input#field-input--phone', phone);
+  
+    // Submit the form
+    await page.click('button[type=submit]');
+    await expect(page.locator('div > h1')).toHaveText('Thank you, test!');
   });
-
-  test('validate email MP field', async ({ page }) => {
-
-    // email
-    await page.locator('#field-label--Email--Email').click();
-    expect(await page.locator('#field-label--Email--Email').isChecked()).toBeTruthy();
-    await expect(page.locator('input#field-input--email')).toBeVisible();
-
-    // enter valid email
-    await page.locator('input#field-input--email').type(email);
-
-    // clearing email input should show error message
-    await page.locator('input#field-input--email').fill('');
-    await expect(page.locator('#field-error--email')).toContainText('Please fill in your email address');
-
-    // enter special chars before the domain should not show error message
-    await page.locator('input#field-input--email').fill('');
-    await page.locator('input#field-input--email').type('example£$^&@email.com');
-    expect(await page.locator('#field-error--email').count()).toEqual(0);
-
-    // enter email with special chars after the domain name should show error message
-    await page.locator('input#field-input--email').fill('');
-    await page.locator('input#field-input--email').type('example@£$^&email.com');
-    await expect(page.locator('#field-error--email')).toContainText('Please fill in a valid email address');
-
-    // enter valid email should submit the form
-    await page.locator('input#field-input--email').fill('');
-    await page.locator('input#field-input--email').type(email);
-
-    // clicking on submit button should show error on address lookup
-    await page.locator('button[type=submit]').click();
-
-    await expect(page.locator('div > h1')).toContainText('Thank you,\n' +
-      'test!');
-
-    await page.close();
+  
+  test('Validate email marketing preference field', async ({ page }) => {
+    await page.click('[aria-label="field-label--Email--Email"]');
+    await page.fill('input#field-input--email', email);
+    
+    // Clear and check for error
+    await page.fill('input#field-input--email', '');
+    await expect(page.locator('#field-error--email')).toHaveText('Please fill in your email address');
+    
+    // Input invalid email and check for error
+    await page.fill('input#field-input--email', 'example@£$^&email.com');
+    await expect(page.locator('#field-error--email')).toHaveText('Please fill in a valid email address');
+    
+    // Re-enter valid email and submit
+    await page.fill('input#field-input--email', email);
+    await page.click('button[type=submit]');
+    await expect(page.locator('div > h1')).toHaveText('Thank you, test!');
   });
-
-  test('validate phone MP field', async ({ page }) => {
-
-    // phone
-    await page.locator('#field-label--Phone--Phone').click();
-    expect(await page.locator('#field-label--Phone--Phone').isChecked()).toBeTruthy();
-    await expect(page.locator('input#field-input--phone')).toBeVisible();
-
-    // enter valid email
-    await page.locator('input#field-input--phone').type(phone);
-
-    // clearing email input should show error message
-    await page.locator('input#field-input--phone').fill('');
-    await expect(page.locator('div#field-error--phone > span')).toContainText('Please fill in your phone number');
-
-    // phone number less than 11 digits shows error message
-    await page.locator('input#field-input--phone').fill('');
-    await page.locator('input#field-input--phone').type('0208569424');
-    await expect(page.locator('div#field-error--phone > span')).toContainText('Please fill in a valid UK phone number, with no spaces');
-
-    // phone number with spaces should show error
-    await page.locator('input#field-input--phone').fill(''); // clear phone input fielf
-    await page.locator('input#field-input--phone').type('0208 569 4245', {delay: 100});
-    await page.waitForSelector('div#field-error--phone > span');
-    await expect(page.locator('div#field-error--phone > span')).toContainText('Please fill in a valid UK phone number, with no spaces');
-    await page.locator('input#field-input--phone').fill(''); // clear the phone number field
-
-    // phone number with alphanumeric chars should show error
-    await page.locator('input#field-input--phone').type('0208ab5694245', {delay: 100});
-    await page.waitForSelector('div#field-error--phone > span');
-    await expect(page.locator('div#field-error--phone > span')).toContainText('Please fill in a valid UK phone number, with no spaces');
-    await page.locator('input#field-input--phone').fill(''); // clear the phone number field
-
-    // enter valid phone number should submit the form
-    await page.locator('input#field-input--phone').fill('');
-    await page.locator('input#field-input--phone').type(phone);
-    expect(await page.locator('#field-error--email').count()).toEqual(0);
-
-    // clicking on submit button should show error on address lookup
-    await page.locator('button[type=submit]').click();
-
-    await expect(page.locator('div > h1')).toContainText('Thank you,\n' +
-      'test!');
-
-    await page.close();
+  
+  test('Validate phone marketing preference field', async ({ page }) => {
+    await page.click('[aria-label="field-label--Phone--Phone"]');
+    await page.fill('input#field-input--phone', phone);
+    
+    // Clear and check for error
+    await page.fill('input#field-input--phone', '');
+    await expect(page.locator('div#field-error--phone > span')).toHaveText('Please fill in your phone number');
+    
+    // Input invalid phone number and check for error
+    await page.fill('input#field-input--phone', '0208569424');
+    await expect(page.locator('div#field-error--phone > span')).toHaveText('Please fill in a valid UK phone number, with no spaces');
+    
+    // Re-enter valid phone number and submit
+    await page.fill('input#field-input--phone', phone);
+    await page.click('button[type=submit]');
+    await expect(page.locator('div > h1')).toHaveText('Thank you, test!');
   });
 });

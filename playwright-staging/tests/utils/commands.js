@@ -1,110 +1,82 @@
-const faker = require('faker');
 const { v4: uuidv4 } = require('uuid');
-const transactionId = uuidv4();
+const Chance = require('chance');
+const chance = new Chance();
 
 class Commands {
   constructor(page) {
     this.page = page;
-
-    // form inputs
-    this.transactionID = page.locator('input#field-input--transactionId');
-    this.mobile = page.locator('#field-input--mobile');
-    this.phone = page.locator('#field-input--phone');
-    this.firstName = page.locator('input#field-input--firstname');
-    this.lastName = page.locator('input#field-input--lastname');
-    this.email = page.locator('input#field-input--email');
-    this.postcode = page.locator('input#field-input--postcode');
-    this.submit = page.locator('button[type=submit]');
-
-    // enter address manually link
-    this.manualAddressLink = page.locator('a[aria-describedby=field-error--addressDetails]');
-    this.address1 = page.locator('input#field-input--address1');
-    this.address2 = page.locator('input#field-input--address2');
-    this.address3 = page.locator('input#field-input--address3');
-    this.town = page.locator('input#field-input--town');
-    this.country = page.locator('#field-select--country');
-
-    // marketing preferences
-    this.mpEmail = page.locator('#field-wrapper--Email > div');
-    this.mpPhone = page.locator('#field-wrapper--Phone > div');
-    // this.mpPost = page.locator('input#field-label--Post--Post');
-    this.mpSMS = page.locator('input#field-label--Text--SMS');
-    this.inputMPEmail = page.locator('input#field-input--email');
-    this.inputMPPhone = page.locator('input#field-input--phone');
+    this.transactionId = uuidv4();
   }
 
   /**
    * Populate giftaid from fields
-   * @param userData
+   * @param page - Playwright page object.
+   * @param userData - Optional user data for form filling.
    */
-  async populateFormFields(
-    {
-      mobile = faker.phone.phoneNumber('078########'),
-      firstName = 'test',
-      lastName = 'user',
-      postcode = 'SE1 7TP',
-      address1 = 'COMIC RELIEF',
-      address2 = 'CAMELFORD HOUSE 87-90',
-      address3 = 'ALBERT EMBANKMENT',
-      town = 'London',
-    } = {},
-  ) {
-    await this.mobile.type(mobile);
-    await this.firstName.type(firstName);
-    await this.lastName.type(lastName);
-    await this.postcode.type(postcode);
-    await this.manualAddressLink.click();
-    await this.address1.type(address1);
-    await this.address2.type(address2);
-    await this.address3.type(address3);
-    await this.town.type(town);
+  async populateFormFields(page, {
+    mobile = chance.phone({ country: 'uk', mobile: true }).replace(/\s/g, ''), // Remove spaces from the phone number
+    firstName = 'test',
+    lastName = chance.last(),
+    postcode = chance.postcode(),
+    address1 = chance.address(),
+    address2 = chance.street(),
+    address3 = 'test address 3',
+    town = chance.city(),
+  } = {}) {
+    await page.locator('#field-input--mobile').type(mobile);
+    await page.locator('input#field-input--firstname').type(firstName);
+    await page.locator('input#field-input--lastname').type(lastName);
+    await page.locator('input#field-input--postcode').type(postcode);
+    await page.locator('a[aria-describedby=field-error--addressDetails]').click();
+    await page.locator('input#field-input--address1').type(address1);
+    await page.locator('input#field-input--address2').type(address2);
+    await page.locator('input#field-input--address3').type(address3);
+    await page.locator('input#field-input--town').type(town);
   }
 
   /**
    * Select marketing preferences opt ins
+   * @param page - Playwright page object.
+   * @param options - Optional marketing preferences.
    */
-  async selectMarketingPrefs(
-    {
-      email = 'giftaid-staging-@email.sls.comicrelief.com',
-      phone = faker.phone.phoneNumber('0208#######'),
-    } = {},
-  ) {
-    await this.mpEmail.click();
-    await this.inputMPEmail.type(email);
-    // await this.mpPost.click();
-    await this.mpPhone.click();
-    await this.inputMPPhone.type(phone, { delay: 200 });
-    await this.mpSMS.click();
+  async selectMarketingPrefs(page, {
+    email = `giftaid-staging-${chance.email()}`,
+    phone = chance.phone({ country: 'uk', mobile: false }).replace(/\s/g, '') // UK phone number
+  } = {}) {
+    await page.locator('#field-wrapper--Email > div').click();
+    await page.locator('input#field-input--email').type(email);
+    await page.locator('#field-wrapper--Phone > div').click();
+    await page.locator('input#field-input--phone').type(phone, { delay: 200 });
+    await page.locator('input#field-label--Text--SMS').click();
   }
 
   /**
    * Populate giftaid update from fields
-   * @param userData
+   * @param page - Playwright page object.
+   * @param userData - Optional user data for form filling.
    */
-  async populateUpdateFormFields(
-    {
-      transactionID = transactionId,
-      firstName = 'test',
-      lastName = 'user',
-      email = 'giftaid-update-staging-@email.sls.comicrelief.com',
-      postcode = 'SE1 7TP',
-      address1 = 'COMIC RELIEF',
-      address2 = 'CAMELFORD HOUSE 87-90',
-      address3 = 'ALBERT EMBANKMENT',
-      town = 'London',
-    } = {},
-  ) {
-    await this.transactionID.type(transactionID);
+  async populateUpdateFormFields(page, {
+    transactionID = this.transactionId,
+    firstName = 'test',
+    lastName = chance.last(),
+    email = `giftaid-update-staging-${chance.email()}`,
+    postcode = chance.postcode(),
+    address1 = chance.address(),
+    address2 = chance.street(),
+    address3 = 'test address 3',
+    town = chance.city(),
+  } = {}) {
+    await page.locator('input#field-input--transactionId').fill(transactionID);
     console.log('transactionId is:', transactionID);
-    await this.firstName.type(firstName);
-    await this.lastName.type(lastName);
-    await this.postcode.type(postcode);
-    await this.email.type(email);
-    await this.manualAddressLink.click();
-    await this.address1.type(address1);
-    await this.address2.type(address2);
-    await this.address3.type(address3);
-    await this.town.type(town);
+    await page.locator('input#field-input--firstname').fill(firstName);
+    await page.locator('input#field-input--lastname').fill(lastName);
+    await page.locator('input#field-input--postcode').fill(postcode);
+    await page.locator('input#field-input--email').fill(email);
+    await page.locator('a[aria-describedby=field-error--addressDetails]').click();
+    await page.locator('input#field-input--address1').fill(address1);
+    await page.locator('input#field-input--address2').fill(address2);
+    await page.locator('input#field-input--address3').fill(address3);
+    await page.locator('input#field-input--town').fill(town);
   }
 }
 
