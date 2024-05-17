@@ -52,7 +52,7 @@ test.describe('Giftaid update form validation', () => {
     // Enter a valid transaction ID and submit the form to validate successful submission
     await page.fill('input#field-input--transactionId', ''); // clear the transaction field
     await commands.populateUpdateFormFields(page); // populate giftaid update form
-    await page.click('#giftAidClaimChoice>div:nth-child(2)>label'); // Select yes for declaration
+    await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click(); // Select yes option for declaration
     await page.click('button[type=submit]'); // Submit the form
     await expect(page.locator('div > h1')).toHaveText('Thank you,  test!');
     await page.close();
@@ -79,7 +79,7 @@ test.describe('Giftaid update form validation', () => {
     // Test for a valid first name
     await page.fill('#field-input--firstname', ''); // clear firstname field
     await commands.populateUpdateFormFields(page, { firstName: 'John' });
-    await page.click('#giftAidClaimChoice>div:nth-child(2)>label'); // Select yes for declaration
+    await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click(); // Select yes option for declaration
     await page.click('button[type=submit]');  // Submit the form
     
     await expect(page.locator('div > h1')).toHaveText('Thank you, John!');
@@ -114,7 +114,7 @@ test.describe('Giftaid update form validation', () => {
     const validEmail = 'test@comicrelief.com';
     await page.fill('input#field-input--email', ''); // clear email field
     await commands.populateUpdateFormFields(page, { email: validEmail });
-    await page.click('#giftAidClaimChoice>div:nth-child(3)>label'); // Select 'no' for declaration
+    await page.locator('#giftAidClaimChoice>div:nth-child(3)>label').click(); // Select 'no' for declaration
     await page.click('button[type=submit]'); // Submit the form
     
     await expect(page.locator('div > h1')).toHaveText('Thanks for letting us know');
