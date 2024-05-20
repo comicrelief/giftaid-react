@@ -7,7 +7,7 @@ class Commands {
     this.page = page;
     this.transactionId = uuidv4();
   }
-
+  
   /**
    * Populate giftaid from fields
    * @param page - Playwright page object.
@@ -33,7 +33,7 @@ class Commands {
     await page.locator('input#field-input--address3').type(address3);
     await page.locator('input#field-input--town').type(town);
   }
-
+  
   /**
    * Select marketing preferences opt ins
    * @param page - Playwright page object.
@@ -49,7 +49,7 @@ class Commands {
     await page.locator('input#field-input--phone').type(phone, { delay: 200 });
     await page.locator('input#field-label--Text--SMS').click();
   }
-
+  
   /**
    * Populate giftaid update from fields
    * @param page - Playwright page object.

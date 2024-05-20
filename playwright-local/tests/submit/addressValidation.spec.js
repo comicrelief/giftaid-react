@@ -1,12 +1,11 @@
 // @ts-check
-const { expect } = require('@playwright/test');
-const { test } = require('../../browserstack');
+const { test, expect } = require('@playwright/test');
 
-test.describe('Address validation @sanity @nightly-sanity', () => {
-  
+test.describe('Address validation', () => {
+
   test.beforeEach(async ({ page }) => {
-    // Navigate to the giftaid page
-    await page.goto(process.env.BASE_URL, { timeout: 30000 });
+    await page.goto('/', { timeout: 30000 });
+  
     await page.waitForLoadState('domcontentloaded');
     await page.locator('#field-label--giftaid').click();
     await page.locator('#field-input--mobile').fill('07123456789');

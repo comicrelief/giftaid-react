@@ -5,7 +5,7 @@ on: [push]
 jobs:
   playwright:
     name: Playwright test
-    timeout-minutes: 60
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -35,11 +35,12 @@ jobs:
         run: yarn playwright install --with-deps chromium
 
       - name: Run end-to-end tests
-        run: yarn test:e2e:ci
+        run: yarn test:playwright-local:ci
         continue-on-error: false
         env:
           NODE_ENV: development
           REACT_APP_ENDPOINT_URL: ${{ secrets.REACT_APP_ENDPOINT_URL }}
+          FORCE_COLOR: 1
 
       # Test run video was always captured, so this action uses "always()" condition
       - name: Upload videos

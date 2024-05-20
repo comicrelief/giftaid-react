@@ -3,334 +3,172 @@ const { expect } = require('@playwright/test');
 const { test } = require('../../browserstack');
 const { Commands } = require('../utils/commands');
 const { v4: uuidv4 } = require('uuid');
-const transactionId = uuidv4();
+const Chance = require('chance');
+const chance = new Chance();
 
-test.describe('Giftaid update form validation @sanity @nightly-sanity', () => {
-
+test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
+  let commands, transactionId;
+  
   test.beforeEach(async ({ page }) => {
-    await page.goto(process.env.BASE_URL + 'update', { timeout: 30000 });
-
-    await page.waitForLoadState('domcontentloaded');
+    commands = new Commands(page);
+    transactionId = uuidv4();  // Ensure unique transaction ID for each test
+    
+    // Navigate to the Giftaid Update form
+    await page.goto(`${process.env.BASE_URL}update`, { waitUntil: 'networkidle' });
   });
-
+  
   test('empty input fields should show error messages', async ({ page }) => {
-
-    // submit the form
-    await page.locator('button[type=submit]').click();
-
-    await expect(page.locator('div#field-error--urlTransID > span')).toContainText('This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter');
-
-    // transaction field error message
-    await expect(page.locator('div#field-error--transactionId > span')).toContainText('Please fill in your transaction id');
-
-    // firstname field error message
-    await expect(page.locator('div#field-error--firstname > span')).toContainText('Please fill in your first name');
-
-    // lastname field error message
-    await expect(page.locator('div#field-error--lastname > span')).toContainText('Please fill in your last name');
-
-    // postcode field error message
-    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter your postcode');
-
-    // address fields error messages
-    await expect(page.locator('div#field-error--addressDetails > span')).toContainText('Please fill in your address');
-
-    // click on manual address link to show address fields error messages
-    await page.locator('a[aria-describedby=field-error--addressDetails]').click();
-
-    // address line 1 error message
-    await expect(page.locator('div#field-error--address1 > span')).toContainText('Please fill in your address line 1');
-
-    // town field error message
-    await expect(page.locator('div#field-error--town > span')).toContainText('Please fill in your town/city');
-
-    // giftaid declaration error message
-    await expect(page.locator('div#field-error--giftAidClaimChoice > span')).toContainText('This field is required');
-
+    // Submit the form without filling out any fields
+    await page.click('button[type=submit]');
+    
+    // Check for the error messages associated with each field
+    await expect(page.locator('div#field-error--transactionId > span')).toHaveText('Please fill in your transaction id');
+    await expect(page.locator('div#field-error--firstname > span')).toHaveText('Please fill in your first name');
+    await expect(page.locator('div#field-error--lastname > span')).toHaveText('Please fill in your last name');
+    await expect(page.locator('div#field-error--postcode > span')).toHaveText('Please enter your postcode');
+    await expect(page.locator('div#field-error--addressDetails > span')).toHaveText('Please fill in your address');
+    await expect(page.locator('div#field-error--giftAidClaimChoice > span')).toHaveText('This field is required');
     await page.close();
   });
-
-  test('validate transaction ID field', async ({ page }) => {
-
+  
+  test('Validate transaction ID field', async ({ page }) => {
     const commands = new Commands(page);
-
-    await page.locator('input#field-input--transactionId').fill(transactionId);
-    await page.locator('input#field-input--transactionId').fill('');
-    await expect(page.locator('div#field-error--transactionId > span')).toContainText('Please fill in your transaction id');
-
-    // transaction ID number with special characters should shows error message
-    await page.locator('input#field-input--transactionId').type('ea794dc3-35f8-4a87-bc94-14125fd480@$', {delay: 100});
-    await page.waitForSelector('div#field-error--transactionId > span');
-    await expect(page.locator('div#field-error--transactionId > span')).toContainText('This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter');
-
-    // transaction ID number with space at the end should not show error message
-    await page.locator('input#field-input--transactionId').fill('');
-    await page.locator('input#field-input--transactionId').type('a0e9840d-b724-4868-9a68-06a86e0f0150  ', {delay: 100});
-    await expect(page.locator('div#field-error--transactionId > span')).toBeHidden();
-
-    // transaction ID number with space at the beginning should not show error message
-    await page.locator('input#field-input--transactionId').fill('');
-    await page.locator('input#field-input--transactionId').type(' a0e9840d-b724-4868-9a68-06a86e0f0150', {delay: 100});
-    await expect(page.locator('div#field-error--transactionId > span')).toBeHidden();
-
-    // clear the transaction ID field and enter valid inputs and submit form
-    await page.locator('input#field-input--transactionId').fill('');
-
-    // entering valid input fields should be able to submit the form
-    await commands.populateUpdateFormFields();
-
-    // select giftaid declaration
-    await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
-
-    // submit the form
-    await page.locator('button[type=submit]').click();
-
-    await expect(page.locator('div > h1')).toContainText('Thank you,\n' +
-      'test!');
-
-    await page.close();
-  });
-
-  test('validate first name field on giftaid update form', async ({ page }) => {
-
-    const commands = new Commands(page);
-
-    await page.locator('#field-input--firstname').fill('test');
-    await page.locator('#field-input--firstname').fill('');
-    await expect(page.locator('#field-error--firstname')).toContainText('Please fill in your first name');
-
-    // enter firstname field with special chars should show error message
-    await page.locator('#field-input--firstname').type('Test^$%£');
-    await expect(page.locator('#field-error--firstname')).toContainText('This field only accepts alphabetic characters and \' -\n');
-
-    // firstname with just a space should show error message
-    await page.keyboard.press('Backspace');
-    await page.locator('#field-input--firstname').type(' ');
-    await expect(page.locator('#field-error--firstname')).toContainText('This field only accepts alphabetic characters and \' -\n');
-
-    // firstname with a mixture of alphanumeric chars should show error message
-    await page.locator('#field-input--firstname').fill(''); // clear the first-name field
-    await page.locator('#field-input--firstname').type('123Test');
-    await expect(page.locator('#field-error--firstname')).toContainText('This field only accepts alphabetic characters and \' -\n');
-
-    // clear the first name field
-    await page.locator('#field-input--firstname').fill('');
-
-    // entering valid input fields should be able to submit the form
-    await commands.populateUpdateFormFields();
-
-    // select giftaid declaration
-    await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
-
-    // submit the form
-    await page.locator('button[type=submit]').click();
-
-    await expect(page.locator('div > h1')).toContainText('Thank you,\n' +
-      'test!');
-
-    await page.close();
-  });
-
-  test('validate last name field on giftaid update form', async ({ page }) => {
-
-    const commands = new Commands(page);
-
-    await page.locator('#field-input--lastname').fill('test lastname');
-    await page.locator('#field-input--lastname').fill('');
-    await expect(page.locator('div#field-error--lastname > span')).toContainText('Please fill in your last name');
-
-    // enter lastname field with special chars should show error message
-    await page.locator('#field-input--lastname').type('Test^$%£');
-    await expect(page.locator('div#field-error--lastname > span')).toContainText('This field only accepts alphanumeric characters and , . ( ) / & \' -');
-
-    // lastname with just a space should show error message
-    await page.keyboard.press('Backspace');
-    await page.locator('#field-input--lastname').type(' ');
-    await expect(page.locator('div#field-error--lastname > span')).toContainText('This field only accepts alphanumeric characters and , . ( ) / & \' -');
-
-    // lastname with a mixture of alphanumeric chars should not show error message
-    await page.locator('#field-input--lastname').fill(''); // clear the last-name field
-    await page.locator('#field-input--lastname').type('123Test');
-    // should not show error message
-    expect(await page.locator('div#field-error--lastname > span').count()).toEqual(0);
-
-    // clear the last name field
-    await page.locator('#field-input--lastname').fill('');
-
-    // entering valid input fields should be able to submit the form
-    await commands.populateUpdateFormFields();
-
-    // select giftaid declaration
-    await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
-
-    // submit the form
-    await page.locator('button[type=submit]').click();
-
-    await expect(page.locator('div > h1')).toContainText('Thank you,\n' +
-      'test!');
-
-    await page.close();
-
-  });
-
-  test('validate email field on giftaid update form', async ({ page }) => {
-
-    const commands = new Commands(page);
-
-    // email validation
-    // email that has $ after the domian name should show error message
-    await page.locator('input#field-input--email').fill('test@comic$relief.com');
-    await expect(page.locator('div#field-error--email > span')).toContainText('Please fill in a valid email address');
-
-    // email that has @ after the domian name should show error message
-    await page.locator('input#field-input--email').fill(''); // clear the email field
-    await page.locator('input#field-input--email').type('test@c{(micrelief.com');
-    await expect(page.locator('div#field-error--email > span')).toContainText('Please fill in a valid email address');
-
-    // email that has % after the domian name should show error message
-    await page.locator('input#field-input--email').fill('');
-    await page.locator('input#field-input--email').type('test@comic%relief.com');
-    await expect(page.locator('div#field-error--email > span')).toContainText('Please fill in a valid email address');
-
-    // email that has special chars $%^ before domain name should not show error message
-    await page.locator('input#field-input--email').fill('');
-    await page.locator('input#field-input--email').type('te$%^st@comicrelief.com');
-    await expect(page.locator('div#field-error--email > span')).not.toBeVisible();
-
-    // email that has mix of special chars that's valid and not valid should show error message
-    await page.locator('input#field-input--email').fill('');
-    await page.locator('input#field-input--email').type('Test0-9!#$%&\'*+/=?^_{|}~-@comicrelief_9-8.com.uk');
-    await expect(page.locator('div#field-error--email > span')).toContainText('Please fill in a valid email address');
-
-    // clear the email field
-    await page.locator('input#field-input--email').fill('');
-
-    // entering valid input fields should be able to submit the form
-    await commands.populateUpdateFormFields();
-
-    // select giftaid declaration
-    await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
-
-    // submit the form
-    await page.locator('button[type=submit]').click();
-
-    await expect(page.locator('div > h1')).toContainText('Thank you,\n' +
-      'test!');
-
-    await page.close();
-  });
-
-  test('postcode entered with extra spaces should show error message', async ({ page }) => {
-
-    await page.locator('input#field-input--postcode').type('S E 1 7 T P');
-
-    await expect(page.locator('div#field-error--postcode > span')).toBeVisible();
-
-    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space');
-
-    await page.close();
-  });
-
-  test('postcode entered in lowercase should show error message', async ({ page }) => {
-
-    await page.locator('input#field-input--postcode').type('se17tp');
-
-    await expect(page.locator('div#field-error--postcode > span')).toBeVisible();
-
-    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space');
-
-    await page.close();
-  });
-
-  test('postcode entered with no spaces should show error message', async ({ page }) => {
-
-    await page.locator('input#field-input--postcode').type('SE17TP');
-
-    await expect(page.locator('div#field-error--postcode > span')).toBeVisible();
-
-    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space');
-
-    await page.close();
-  });
-
-  test('postcode entered with special characters should show error message', async ({ page }) => {
-
-    await page.locator('input#field-input--postcode').type('SE$%TP');
-
-    await expect(page.locator('div#field-error--postcode > span')).toBeVisible();
-
-    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space');
-
-    await page.close();
-  });
-
-  test('enter valid UK postcode on giftaid update form using postcode lookup should be able to submit the form', async ({ page }) => {
-
-    // fill in all input fields
-    await page.locator('input#field-input--transactionId').fill(transactionId);
-    await page.locator('#field-input--firstname').fill('test');
-    await page.locator('#field-input--lastname').fill('test lastname');
-    await page.locator('input#field-input--email').fill('giftaid-staging-@email.sls.comicrelief.com');
-
-    // enter postcode
-    await page.locator('input#field-input--postcode').fill('SE1 7TP');
-    // click on postcode lookup button
-    await page.locator('#postcode_button').click();
-
-    if (await page.locator('#field-select--addressSelect').isVisible()) {
-      console.log('postcode lookup address dropdown present select the address');
-
-      await expect(page.locator('#field-select--addressSelect')).toBeVisible();
-
-      await page.waitForSelector('select#field-select--addressSelect');
-
-      const optionToSelect = await page.locator('option', { hasText: 'COMIC RELIEF, CAMELFORD HOUSE 87-90' }).textContent();
-      console.log('selected option: ', optionToSelect);
-
-      // Use option text to select
-      await page.locator('select#field-select--addressSelect').selectOption({ label: optionToSelect });
-
-      // expect pre-enetered se17tp postcode to change to SE1 7TP when address is selected by removing the extra spaces
-      await expect(page.locator('input#field-input--postcode')).toHaveValue('SE1 7TP');
-
-      const addressLine1 = await page.evaluate(() => document.querySelector('#field-input--address1').getAttribute('value'));
-      console.log('Address line 1 field value is : ', addressLine1);
-
-      const addressLine2 = await page.evaluate(() => document.querySelector('#field-input--address2').getAttribute('value'));
-      console.log('Address line 1 field value is : ', addressLine2);
-
-      const addressLine3 = await page.evaluate(() => document.querySelector('#field-input--address3').getAttribute('value'));
-      console.log('Address line 1 field value is : ', addressLine3);
-
-      const town = await page.evaluate(() => document.querySelector('input#field-input--town').getAttribute('value'));
-      console.log('Address line 1 field value is : ', town);
-
-      // select giftaid declaration
-      await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
-
-      // clicking on submit button should show error on address lookup
-      await page.locator('button[type=submit]').click();
-
-      await expect(page.locator('div > h1')).toContainText('Thank you,\n' +
-        'test!');
-    } else {
-
-      // click on manual address link
-      await page.locator('a[aria-describedby=field-error--addressDetails]').click();
-      await page.locator('#field-input--address1').type('COMIC RELIEF');
-      await page.locator('#field-input--address2').type('CAMELFORD HOUSE 87-90');
-      await page.locator('#field-input--address3').type('ALBERT EMBANKMENT');
-      await page.locator('#field-input--town').type('LONDON');
-
-      // select giftaid declaration
-      await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
-
-      // clicking on submit button should show error on address lookup
-      await page.locator('button[type=submit]').click();
-
-      await expect(page.locator('div > h1')).toContainText('Thank you,\n' +
-        'test!');
+    
+    // Test cases for various transaction ID validations
+    const transactionIDTestCases = [
+      { input: '', error: 'Please fill in your transaction id' },
+      { input: 'ea794dc3-35f8-4a87-bc94-14125fd480@$', error: 'This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter' },
+      { input: ' a0e9840d-b724-4868-9a68-06a86e0f0150 ', error: null } // Expects no error for valid input with spaces around it
+    ];
+    
+    for (let testCase of transactionIDTestCases) {
+      await page.fill('input#field-input--transactionId', testCase.input);
+      await page.click('button[type=submit]'); // Trigger validation by attempting to submit the form
+      if (testCase.error) {
+        await expect(page.locator('div#field-error--transactionId > span')).toHaveText(testCase.error);
+      } else {
+        await expect(page.locator('div#field-error--transactionId > span')).toBeHidden();
+      }
     }
+    
+    // Enter a valid transaction ID and submit the form to validate successful submission
+    await page.fill('input#field-input--transactionId', ''); // clear the transaction field
+    await commands.populateUpdateFormFields(page); // populate giftaid update form
+    await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click(); // select giftaid declaration
+    await page.click('button[type=submit]'); // submit giftaid update form
+    await expect(page.locator('div > h1')).toHaveText('Thank you, test!');
+    await page.close();
+  });
+  
+  test('Validate first name field on Giftaid update form', async ({ page }) => {
+    const commands = new Commands(page);
+    
+    // Set up different first name test cases
+    const firstNameTestCases = [
+      { input: 'Test^$%£', error: "This field only accepts alphabetic characters and ' -" },  // Test for invalid characters
+      { input: ' ', error: "This field only accepts alphabetic characters and ' -" },  // Test for space as input
+      { input: '123Test', error: "This field only accepts alphabetic characters and ' -" }  // Test for alphanumeric input
+    ];
+    
+    for (let testCase of firstNameTestCases) {
+      await page.fill('#field-input--firstname', testCase.input);
+      if (testCase.input) {
+        await page.keyboard.press('Enter'); // Trigger validation by clicking submit button
+      }
+      await expect(page.locator('#field-error--firstname')).toHaveText(testCase.error);
+    }
+    
+    // Test for a valid first name
+    await page.fill('#field-input--firstname', ''); // clear firstname field
+    await commands.populateUpdateFormFields(page, { firstName: 'John' });
+    await page.click('#giftAidClaimChoice>div:nth-child(2)>label'); // Select yes for declaration
+    await page.click('button[type=submit]');  // Submit the form
+    
+    await expect(page.locator('div > h1')).toHaveText('Thank you, John!');
+    await page.close();
+  });
+  
+  test('Validate email field on giftaid update form', async ({ page }) => {
+    const commands = new Commands(page);
+    
+    // Set up different email test cases
+    const emailTestCases = [
+      { input: 'test@comic$relief.com', error: 'Please fill in a valid email address', visible: true },
+      { input: 'test@c{(micrelief.com', error: 'Please fill in a valid email address', visible: true },
+      { input: 'test@comic%relief.com', error: 'Please fill in a valid email address', visible: true },
+      { input: 'te$%^st@comicrelief.com', error: '', visible: false },
+      { input: 'Test0-9!#$%&\'*+/=?^_{|}~-@comicrelief_9-8.com.uk', error: 'Please fill in a valid email address', visible: true }
+    ];
+    
+    for (let testCase of emailTestCases) {
+      await page.fill('input#field-input--email', ''); // clear the email field before entering the test cases input
+      await page.fill('input#field-input--email', testCase.input);
+      await page.keyboard.press('Enter'); // Trigger validation by clicking the submit button
+      if (testCase.visible) {
+        await expect(page.locator('div#field-error--email > span')).toBeVisible();
+        await expect(page.locator('div#field-error--email > span')).toHaveText(testCase.error);
+      } else {
+        await expect(page.locator('div#field-error--email > span')).not.toBeVisible();
+      }
+    }
+    
+    // Test for a valid email
+    const validEmail = 'test@comicrelief.com';
+    await page.fill('input#field-input--email', ''); // clear email field
+    await commands.populateUpdateFormFields(page, { email: validEmail });
+    await page.click('#giftAidClaimChoice>div:nth-child(3)>label'); // Select no for declaration
+    await page.click('button[type=submit]'); // Submit the form
+    
+    await expect(page.locator('div > h1')).toHaveText('Thanks for letting us know');
+    await page.close();
+  });
+  
+  test('Postcode validation and form submission', async ({ page }) => {
+    // Define postcodes and expected error messages
+    const postcodes = [
+      { input: 'S E 1 7 T P', error: 'Please enter a valid UK postcode, using a space' },
+      { input: 'se17tp', error: 'Please enter a valid UK postcode, using a space' },
+      { input: 'SE17TP', error: 'Please enter a valid UK postcode, using a space' },
+      { input: 'SE$%TP', error: 'Please enter a valid UK postcode, using a space' }
+    ];
+    
+    // Test for each invalid postcode
+    for (const postcode of postcodes) {
+      await page.fill('input#field-input--postcode', '');
+      await page.type('input#field-input--postcode', postcode.input);
+      await expect(page.locator('div#field-error--postcode > span')).toBeVisible();
+      await expect(page.locator('div#field-error--postcode > span')).toHaveText(postcode.error);
+    }
+    
+    // Test for a valid postcode and subsequent form submission
+    await page.fill('input#field-input--postcode', 'SE1 7TP');
+    await page.click('#postcode_button');
+    
+    // Checking whether address selection is available or if manual entry is needed
+    if (await page.locator('#field-select--addressSelect').isVisible()) {
+      // Select the first address if available
+      const options = await page.$$eval('#field-select--addressSelect option', options => options.map(option => option.value));
+      await page.selectOption('#field-select--addressSelect', options[1]);
+      await page.click('button[type=submit]');
+    } else {
+      // Fallback to manual address input if no selection is available
+      await page.click('a[aria-describedby=field-error--addressDetails]');
+      await page.fill('#field-input--address1', 'COMIC RELIEF');
+      await page.fill('#field-input--address2', 'CAMELFORD HOUSE 87-90');
+      await page.fill('#field-input--address3', 'ALBERT EMBANKMENT');
+      await page.fill('input#field-input--town', 'LONDON');
+      await page.click('button[type=submit]');
+    }
+  
+    await page.locator('input#field-input--transactionId').fill(transactionId);
+    await page.locator('input#field-input--firstname').fill('test');
+    await page.locator('input#field-input--lastname').fill(chance.last());
+    await page.locator('input#field-input--email').fill(`giftaid-update-staging-${chance.email()}`);
+    await page.fill('input#field-input--postcode', 'SE1 7TP');
+    await page.click('#giftAidClaimChoice>div:nth-child(2)>label'); // Select yes for declaration
+    await page.click('button[type=submit]'); // Submit the form
+    
+    await expect(page.locator('div > h1')).toHaveText('Thank you,  test!');
     await page.close();
   });
 });

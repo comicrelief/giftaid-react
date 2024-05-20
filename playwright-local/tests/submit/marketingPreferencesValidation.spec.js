@@ -1,24 +1,24 @@
 // @ts-check
-const { expect } = require('@playwright/test');
-const { test } = require('../../browserstack');
+const { test, expect } = require('@playwright/test');
 const { Commands } = require('../utils/commands');
 
 const Chance = require('chance');
 const chance = new Chance();
 
 const email = `giftaid-staging-${Date.now().toString()}@email.sls.comicrelief.com`;
-const phone = chance.phone({ country: 'uk', mobile: false }).replace(/\s/g, '');
+const phone = chance.phone({ country: 'uk', mobile: true }).replace(/\s/g, '');
 
-test.describe('Marketing preferences validation @sanity @nightly-sanity', () => {
-  
+test.describe('Marketing preferences validation', () => {
+
   test.beforeEach(async ({ page }) => {
+
     const commands = new Commands(page);
-    await page.goto(process.env.BASE_URL, { timeout: 30000 });
+    await page.goto('/', { timeout: 30000 });
     await page.waitForLoadState('domcontentloaded');
     await page.click('#field-label--giftaid');
     await commands.populateFormFields(page);
   });
-
+  
   test('clicking and unclicking marketing prefs options should submit the giftaid form', async ({ page }) => {
     // Interact with marketing preferences
     const marketingOptions = ['[aria-label="field-label--Email--Email"]', '[aria-label="field-label--Phone--Phone"]', '[aria-label="field-label--Text--SMS"]'];
@@ -26,13 +26,13 @@ test.describe('Marketing preferences validation @sanity @nightly-sanity', () => 
       await page.click(option);
       expect(await page.locator(option).isChecked()).toBeTruthy();
     }
-  
+    
     // Enter email and phone to validate the form can still submit
     await expect(page.locator('input#field-input--email')).toBeVisible();
     await page.fill('input#field-input--email', email);
     await expect(page.locator('input#field-input--phone')).toBeVisible();
     await page.fill('input#field-input--phone', phone);
-  
+    
     // Submit the form
     await page.click('button[type=submit]');
     await expect(page.locator('div > h1')).toHaveText('Thank you, test!');
@@ -71,6 +71,8 @@ test.describe('Marketing preferences validation @sanity @nightly-sanity', () => 
     // Re-enter valid phone number and submit
     await page.fill('input#field-input--phone', phone);
     await page.click('button[type=submit]');
-    await expect(page.locator('div > h1')).toHaveText('Thank you, test!');
+    await expect(page.locator('div > h1')).toContainText('Thank you,\n' +
+      'test!');
+    await page.close();
   });
 });
