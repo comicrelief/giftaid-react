@@ -1,9 +1,9 @@
-# Giftaid React [![CircleCI](https://circleci.com/gh/comicrelief/giftaid-react.svg?style=svg&circle-token=77285c466e4c1f4cbb4a2fcfe10af99e98b0ec0c)](https://circleci.com/gh/comicrelief/giftaid-react)
+# Giftaid React
 React Frontend for giftaid submissions.
 
 ## Installation
 
-### node v.16
+### node
 This front end application is somewhat legacy. With this in mind you will need to be careful about what version of node you are running, as an older one will probably be needed to run this application. An easy solution is to use Node Version Manager to revert your node install to an older version. 
 
 To install NVM on Mac:
@@ -11,9 +11,9 @@ To install NVM on Mac:
 ```bash
 brew install nvm
 ```
-Then you can revert your local system back to node v.16:
+Then you can use the local .nmvrc config file to install and use the specified version:
 ```bash
-sudo n 16
+nvm use
 ```
 
 ### Log in to npm
