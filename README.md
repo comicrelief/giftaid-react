@@ -3,7 +3,7 @@ React Frontend for giftaid submissions.
 
 ## Installation
 
-### node v.14
+### node v.16
 This front end application is somewhat legacy. With this in mind you will need to be careful about what version of node you are running, as an older one will probably be needed to run this application. An easy solution is to use Node Version Manager to revert your node install to an older version. 
 
 To install NVM on Mac:
@@ -11,9 +11,9 @@ To install NVM on Mac:
 ```bash
 brew install nvm
 ```
-Then you can revert your local system back to node v.14:
+Then you can revert your local system back to node v.16:
 ```bash
-sudo n 14
+sudo n 16
 ```
 
 ### Log in to npm
