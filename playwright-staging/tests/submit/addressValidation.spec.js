@@ -23,9 +23,9 @@ test.describe('Address validation @sanity @nightly-sanity', () => {
   
   test('invalid postcodes should show error messages', async ({ page }) => {
     await page.locator('input#field-input--postcode').fill('12SE17TP');
-    await expect(page.locator('div#field-error--postcode > span')).toHaveText('Please enter a valid UK postcode, using a space');
+    await expect(page.locator('div#field-error--postcode > span')).toHaveText('Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.');
     await page.locator('input#field-input--postcode').fill('comic relief');
-    await expect(page.locator('div#field-error--postcode > span')).toHaveText('Please enter a valid UK postcode, using a space');
+    await expect(page.locator('div#field-error--postcode > span')).toHaveText('Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.');
     await page.close();
   });
   

@@ -18,7 +18,7 @@ test.describe('International addresses validation on update form @sanity @nightl
     
     // enter a non-UK postcode and attempt to validate it
     await page.locator('input#field-input--postcode').fill('30916-395');
-    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space');
+    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.');
     
     // manually enter international address details
     await page.locator('a[aria-describedby=field-error--addressDetails]').click();

@@ -126,10 +126,10 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
   test('Postcode validation and form submission', async ({ page }) => {
     // Define postcodes and expected error messages
     const postcodes = [
-      { input: 'S E 1 7 T P', error: 'Please enter a valid UK postcode, using a space' },
-      { input: 'se17tp', error: 'Please enter a valid UK postcode, using a space' },
-      { input: 'SE17TP', error: 'Please enter a valid UK postcode, using a space' },
-      { input: 'SE$%TP', error: 'Please enter a valid UK postcode, using a space' }
+      { input: 'S E 1 7 T P', error: 'Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.' },
+      { input: 'se17tp', error: 'Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.' },
+      { input: 'SE17TP', error: 'Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.' },
+      { input: 'SE$%TP', error: 'Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.' }
     ];
     
     // Test for each invalid postcode
