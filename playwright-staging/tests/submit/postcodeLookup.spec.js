@@ -15,10 +15,10 @@ test.describe('Postcode validation @sanity @nightly-sanity', () => {
   
   test('Postcode formatting errors', async ({ page }) => {
     const postcodes = [
-      { code: 'S E 1 7 T P', message: 'Please enter a valid UK postcode, using a space' },
-      { code: 'se17tp', message: 'Please enter a valid UK postcode, using a space' },
-      { code: 'SE17TP', message: 'Please enter a valid UK postcode, using a space' },
-      { code: 'SE$%TP', message: 'Please enter a valid UK postcode, using a space' }
+      { code: 'S E 1 7 T P', message: 'Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.' },
+      { code: 'se17tp', message: 'Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.' },
+      { code: 'SE17TP', message: 'Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.' },
+      { code: 'SE$%TP', message: 'Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.' }
     ];
     
     for (const { code, message } of postcodes) {
