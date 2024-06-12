@@ -199,7 +199,7 @@ test.describe('Giftaid update form validation', () => {
     
     await page.locator('input#field-input--postcode').type('S E 1 7 T P');
     await expect(page.locator('div#field-error--postcode > span')).toBeVisible();
-    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space');
+    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.');
     
     await page.close();
   });
@@ -208,7 +208,7 @@ test.describe('Giftaid update form validation', () => {
     
     await page.locator('input#field-input--postcode').type('se17tp');
     await expect(page.locator('div#field-error--postcode > span')).toBeVisible();
-    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space');
+    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.');
     
     await page.close();
   });
@@ -217,7 +217,7 @@ test.describe('Giftaid update form validation', () => {
     
     await page.locator('input#field-input--postcode').type('SE17TP');
     await expect(page.locator('div#field-error--postcode > span')).toBeVisible();
-    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space');
+    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.');
     
     await page.close();
   });
@@ -226,7 +226,7 @@ test.describe('Giftaid update form validation', () => {
     
     await page.locator('input#field-input--postcode').type('SE$%TP');
     await expect(page.locator('div#field-error--postcode > span')).toBeVisible();
-    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space');
+    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.');
     
     await page.close();
   });
