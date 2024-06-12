@@ -34,6 +34,8 @@ import FooterCopy from './FooterCopy';
 
 import './app.scss';
 
+const GTM_ENABLED = false;
+
 const site = new SiteService();
 
 function App(props) {
@@ -51,7 +53,9 @@ function App(props) {
 	 * App mounts
 	 */
 	useEffect(() => {
-		getGTM(); // Initialise GTM on component mount
+		if (GTM_ENABLED) {
+			getGTM(); // Initialise GTM on component mount
+		}
 	}, []);
 
 	/**
