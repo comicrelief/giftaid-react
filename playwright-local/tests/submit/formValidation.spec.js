@@ -1,13 +1,11 @@
 // @ts-check
-const { expect } = require('@playwright/test');
-const { test } = require('../../browserstack');
+const { test, expect } = require('@playwright/test');
 const { Commands } = require('../utils/commands');
 
-test.describe('Form validation @sanity @nightly-sanity', () => {
-  
+test.describe('Address validation', () => {
+
   test.beforeEach(async ({ page }) => {
-    // Navigate to the giftaid page
-    await page.goto(process.env.BASE_URL, { timeout: 30000 });
+    await page.goto('/', { timeout: 30000 });
     await page.waitForLoadState('domcontentloaded');
     await page.locator('#field-label--giftaid').click();
   });
@@ -77,6 +75,8 @@ test.describe('Form validation @sanity @nightly-sanity', () => {
     await page.locator('#field-input--lastname').fill('');
     await commands.populateFormFields(page);
     await page.locator('button[type=submit]').click();
-    await expect(page.locator('div > h1')).toHaveText('Thank you, test!');
+    await expect(page.locator('div > h1')).toContainText('Thank you,\n' +
+      'test!');
+    await page.close();
   });
 });

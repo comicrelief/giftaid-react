@@ -1,9 +1,9 @@
-# Giftaid React [![CircleCI](https://circleci.com/gh/comicrelief/giftaid-react.svg?style=svg&circle-token=77285c466e4c1f4cbb4a2fcfe10af99e98b0ec0c)](https://circleci.com/gh/comicrelief/giftaid-react)
+# Giftaid React
 React Frontend for giftaid submissions.
 
 ## Installation
 
-### node v.14
+### node
 This front end application is somewhat legacy. With this in mind you will need to be careful about what version of node you are running, as an older one will probably be needed to run this application. An easy solution is to use Node Version Manager to revert your node install to an older version. 
 
 To install NVM on Mac:
@@ -11,9 +11,9 @@ To install NVM on Mac:
 ```bash
 brew install nvm
 ```
-Then you can revert your local system back to node v.14:
+Then you can use the local .nmvrc config file to install and use the specified version:
 ```bash
-sudo n 14
+nvm use
 ```
 
 ### Log in to npm
@@ -67,15 +67,15 @@ The domains for giftaid are as follows
 
 ## Testing
 
-### PR Playwright Tests
+### Playwright-Local Tests
 
-To run PR Playwright Tests locally (after running `yarn playwright install` if you haven't previously), you need to first export `REACT_APP_ENDPOINT_URL=https://giftaid-sandbox.sls.comicrelief.com/` in your terminal for the form to get submitted and then run the script `yarn test:e2e:local` found in package.json; this script starts the http://localhost:3000 server in the background, config for this is found in `playwright.config.js` file and runs the tests in headless mode. 
+To run PR Playwright Tests locally (after running `yarn playwright install` if you haven't previously), you need to first export `REACT_APP_ENDPOINT_URL=https://giftaid-sandbox.sls.comicrelief.com/` in your terminal for the form to get submitted and then run the script `test:playwright-local:local` found in package.json; this script starts the http://localhost:3000 server in the background, config for this is found in `playwright-local/playwright-local.config.js` file and runs the tests in headless mode. 
 
-To view a test in a headed mode locally, add `--headed` flag option to `"test:e2e": "playwright test --project=chromium --headed"` script found in package.json. 
+To view a test in a headed mode locally, add `--headed` flag option to `"test:playwright-local:local": "playwright test --config=./playwright-local/playwright-local.config.js --project=chromium --headed"` script found in package.json. 
 
 To run a single test, add `only` annotation
 
-eg: test.only('Header ESU validation', async ({ page }) => {
+eg: test.only('Valid giftaid submission', async ({ page }) => {
     });
     
 ### Staging Playwright Tests
@@ -83,13 +83,13 @@ eg: test.only('Header ESU validation', async ({ page }) => {
 In order to run Playwright end-to-end tests locally you need to change directory to playwright folder `cd playwright` and export the following environment variables to your terminal:`BASE_URL, BROWSERSTACK_ACCESS_KEY, BROWSERSTACK_USERNAME`
 Browserstack credentials can be found in https://github.com/comicrelief/serverless-giftaid/blob/master/concourse/private.yml
 ```bash
-export BASE_URL='https://donation-staging.spa.comicrelief.com/' or PR env 'https://donation-pr.spa.comicrelief.com/'
+export BASE_URL='https://giftaid-staging.comicrelief.com/'
 export BROWSERSTACK_USERNAME='<INSERT_USERNAME>'
 export BROWSERSTACK_ACCESS_KEY='<INSERT_ACCESS_KEY>'
 ```
 ### Running tests 
 
-To run sanity or nightly-tests, check the commands in playwright/package.json  
+To run spa-feature-test or nightly-test-sanity, check the commands in playwright/package.json eg: `yarn test:sanity` 
 
 To run a single test, add `only` annotation
 

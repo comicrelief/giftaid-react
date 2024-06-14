@@ -1,13 +1,13 @@
 // @ts-check
-const { expect } = require('@playwright/test');
-const { test } = require('../../browserstack');
+const { test, expect } = require('@playwright/test');
 const { Commands } = require('../utils/commands');
 
-test('Valid giftaid submission @sanity @nightly-sanity', async ({ page }) => {
+test('Valid giftaid submission', async ({ page }) => {
+
   const commands = new Commands(page);
-  
-  // Navigate to the giftaid page
-  await page.goto(`${process.env.BASE_URL}`, { waitUntil: 'networkidle' });
+
+  await page.goto('/', { timeout: 30000 });
+  await page.waitForLoadState('domcontentloaded');
   
   // Click the Giftaid checkbox
   await page.click('#field-label--giftaid');
@@ -25,7 +25,8 @@ test('Valid giftaid submission @sanity @nightly-sanity', async ({ page }) => {
   ]);
   
   // Check for the thank you message to confirm successful submission
-  await expect(page.locator('div > h1')).toHaveText('Thank you, test!');
+  await expect(page.locator('div > h1')).toContainText('Thank you,\n' +
+    'test!');
   
   await page.close();
 });
