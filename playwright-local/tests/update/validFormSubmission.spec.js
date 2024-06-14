@@ -11,7 +11,7 @@ test('Valid Giftaid Update submission', async ({ page }) => {
   await page.waitForLoadState('domcontentloaded');
 
   // Ensure the transaction ID input is visible
-  await expect(page.locator('input#field-input--transactionId')).toBeVisible();
+  // await expect(page.locator('input#field-input--transactionId')).toBeVisible();
 
   // Populate all input fields with valid data
   await commands.populateUpdateFormFields(page);

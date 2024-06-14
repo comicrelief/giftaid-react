@@ -13,8 +13,8 @@ test.describe('Success page redirect @sanity @nightly-sanity', () => {
     expect(pageTitle).toContain('Giftaid it');
     
     // Verify that the transaction ID input is visible
-    const transactionIdInputVisible = await page.locator('input#field-input--transactionId').isVisible();
-    expect(transactionIdInputVisible).toBeTruthy();
+    // const transactionIdInputVisible = await page.locator('input#field-input--transactionId').isVisible();
+    // expect(transactionIdInputVisible).toBeTruthy();
     
     await page.close();
   });

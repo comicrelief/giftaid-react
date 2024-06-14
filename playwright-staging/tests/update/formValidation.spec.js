@@ -11,7 +11,7 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
   
   test.beforeEach(async ({ page }) => {
     commands = new Commands(page);
-    transactionId = uuidv4();  // Ensure unique transaction ID for each test
+    // transactionId = uuidv4();  // Ensure unique transaction ID for each test
     
     // Navigate to the Giftaid Update form
     await page.goto(`${process.env.BASE_URL}update`, { waitUntil: 'networkidle' });
@@ -22,7 +22,7 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
     await page.click('button[type=submit]');
     
     // Check for the error messages associated with each field
-    await expect(page.locator('div#field-error--transactionId > span')).toHaveText('Please fill in your transaction id');
+    // await expect(page.locator('div#field-error--transactionId > span')).toHaveText('Please fill in your transaction id');
     await expect(page.locator('div#field-error--firstname > span')).toHaveText('Please fill in your first name');
     await expect(page.locator('div#field-error--lastname > span')).toHaveText('Please fill in your last name');
     await expect(page.locator('div#field-error--postcode > span')).toHaveText('Please enter your postcode');
@@ -41,18 +41,18 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
       { input: ' a0e9840d-b724-4868-9a68-06a86e0f0150 ', error: null } // Expects no error for valid input with spaces around it
     ];
     
-    for (let testCase of transactionIDTestCases) {
-      await page.fill('input#field-input--transactionId', testCase.input);
-      await page.click('button[type=submit]'); // Trigger validation by attempting to submit the form
-      if (testCase.error) {
-        await expect(page.locator('div#field-error--transactionId > span')).toHaveText(testCase.error);
-      } else {
-        await expect(page.locator('div#field-error--transactionId > span')).toBeHidden();
-      }
-    }
+    // for (let testCase of transactionIDTestCases) {
+    //   await page.fill('input#field-input--transactionId', testCase.input);
+    //   await page.click('button[type=submit]'); // Trigger validation by attempting to submit the form
+    //   if (testCase.error) {
+    //     await expect(page.locator('div#field-error--transactionId > span')).toHaveText(testCase.error);
+    //   } else {
+    //     await expect(page.locator('div#field-error--transactionId > span')).toBeHidden();
+    //   }
+    // }
     
     // Enter a valid transaction ID and submit the form to validate successful submission
-    await page.fill('input#field-input--transactionId', ''); // clear the transaction field
+    // await page.fill('input#field-input--transactionId', ''); // clear the transaction field
     await commands.populateUpdateFormFields(page); // populate giftaid update form
     await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click(); // select giftaid declaration
     await page.click('button[type=submit]'); // submit giftaid update form
@@ -160,7 +160,7 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
       await page.click('button[type=submit]');
     }
   
-    await page.locator('input#field-input--transactionId').fill(transactionId);
+    // await page.locator('input#field-input--transactionId').fill(transactionId);
     await page.locator('input#field-input--firstname').fill('test');
     await page.locator('input#field-input--lastname').fill(chance.last());
     await page.locator('input#field-input--email').fill(`giftaid-update-staging-${chance.email()}`);

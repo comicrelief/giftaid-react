@@ -56,7 +56,7 @@ class Commands {
    * @param userData - Optional user data for form filling.
    */
   async populateUpdateFormFields(page, {
-    transactionID = this.transactionId,
+    // transactionID = this.transactionId,
     firstName = 'test',
     lastName = chance.last(),
     email = `giftaid-update-staging-${chance.email()}`,
@@ -66,8 +66,8 @@ class Commands {
     address3 = 'test address 3',
     town = chance.city(),
   } = {}) {
-    await page.locator('input#field-input--transactionId').fill(transactionID);
-    console.log('transactionId is:', transactionID);
+    //await page.locator('input#field-input--transactionId').fill(transactionID);
+    //console.log('transactionId is:', transactionID);
     await page.locator('input#field-input--firstname').fill(firstName);
     await page.locator('input#field-input--lastname').fill(lastName);
     await page.locator('input#field-input--postcode').fill(postcode);
