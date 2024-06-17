@@ -54,16 +54,16 @@ export const giftAidButtonChoices = [
 */
 export const updateFormFields = {
 
-  transactionId: {
-    id: 'transactionId',
-    type: 'text',
-    name: 'transactionId',
-    label: 'Transaction ID',
-    required: true,
-    invalidErrorText: 'This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter',
-    pattern: '^\\s*[a-zA-Z0-9-_]{5,}\\s*$',
-    tooltip: 'This is found at the bottom of your donation confirmation email'
-  },
+  // transactionId: {
+  //   id: 'transactionId',
+  //   type: 'text',
+  //   name: 'transactionId',
+  //   label: 'Transaction ID',
+  //   required: true,
+  //   invalidErrorText: 'This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter',
+  //   pattern: '^\\s*[a-zA-Z0-9-_]{5,}\\s*$',
+  //   tooltip: 'This is found at the bottom of your donation confirmation email'
+  // },
   firstName: {
     id: 'firstname',
     type: 'text',
