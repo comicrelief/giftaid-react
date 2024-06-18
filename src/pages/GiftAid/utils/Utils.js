@@ -85,7 +85,6 @@ export const getFormValues = (validation, update = false) => {
   });
 
   // Create donation type field for Update Form
-  // TO-DO: SCOPE THIS PROPERLY
   fieldValues.donationType = typeof validation.donationType !== 'undefined'
   && validation.donationType
     ? validation.donationType.value : DONATION_TYPES.ONLINE;

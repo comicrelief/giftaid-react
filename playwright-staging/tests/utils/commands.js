@@ -1,4 +1,3 @@
-// const { v4: uuidv4 } = require('uuid');
 const Chance = require('chance');
 const chance = new Chance();
 
@@ -55,7 +54,6 @@ class Commands {
    * @param userData - Optional user data for form filling.
    */
   async populateUpdateFormFields(page, {
-    // transactionID = this.transactionId,
     firstName = 'test',
     lastName = chance.last(),
     email = `giftaid-update-staging-${chance.email()}`,
