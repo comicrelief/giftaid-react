@@ -40,7 +40,9 @@ function UpdateForm(props) {
   useEffect(() => {
     setFieldValidation(fieldValidation);
     // Reset states on component unmount
-    delete fieldValidation.donationType;
+    
+    // ADDING THIS EVERYWHERE TO /UPDATE NOW SO DON'T DELETE IT
+    // delete fieldValidation.donationType;
     return () => {
       setInputFieldProps([]);
     }
@@ -54,9 +56,7 @@ function UpdateForm(props) {
 
       <div className="form-fields--wrapper">
 
-        {/* TO-DO: ARE WE KEEPING THIS IN? */}
-
-        {/* <DonationTypeButtons donationTypeChoices={donationTypeChoices} /> */}
+        <DonationTypeButtons donationTypeChoices={donationTypeChoices} />
 
         <h3 className="form--update__title form--update__title--giftaid text-align-centre">
           Who is changing their declaration?

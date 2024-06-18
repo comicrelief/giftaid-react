@@ -14,7 +14,7 @@ test.describe('Giftaid update form validation', () => {
     
     // submit the form
     await page.locator('button[type=submit]').click();
-    
+
     await expect(page.locator('div#field-error--firstname > span')).toContainText('Please fill in your first name');
     await expect(page.locator('div#field-error--lastname > span')).toContainText('Please fill in your last name');
     await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter your postcode');
@@ -27,6 +27,9 @@ test.describe('Giftaid update form validation', () => {
     
     // giftaid declaration error message
     await expect(page.locator('div#field-error--giftAidClaimChoice > span')).toContainText('This field is required');
+
+    // DonationType error message
+    await expect(page.locator('#field-error--donationType')).toContainText('This field is required');
     
     await page.close();
   });
@@ -59,7 +62,10 @@ test.describe('Giftaid update form validation', () => {
     
     // entering valid input fields should be able to submit the form
     await commands.populateUpdateFormFields(page);
-    
+
+    // Select 'Online' donation type
+    await page.locator('#donationType>div:nth-child(3)>label').click();
+
     // select giftaid declaration
     await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
     
@@ -100,6 +106,9 @@ test.describe('Giftaid update form validation', () => {
     
     // entering valid input fields should be able to submit the form
     await commands.populateUpdateFormFields(page);
+
+    // Select 'Online' donation type
+    await page.locator('#donationType>div:nth-child(3)>label').click();
     
     // select giftaid declaration
     await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
@@ -148,10 +157,13 @@ test.describe('Giftaid update form validation', () => {
     
     // entering valid input fields should be able to submit the form
     await commands.populateUpdateFormFields(page);
-    
+
+    // Select 'Online' donation type
+    await page.locator('#donationType>div:nth-child(3)>label').click();
+
     // select giftaid declaration
     await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
-    
+  
     // submit the form
     await page.locator('button[type=submit]').click();
     
@@ -236,6 +248,9 @@ test.describe('Giftaid update form validation', () => {
       
       const town = await page.evaluate(() => document.querySelector('input#field-input--town').getAttribute('value'));
       console.log('Address line 1 field value is : ', town);
+
+      // Select 'Online' donation type
+      await page.locator('#donationType>div:nth-child(3)>label').click();
       
       // select giftaid declaration
       await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
@@ -253,6 +268,9 @@ test.describe('Giftaid update form validation', () => {
       await page.locator('#field-input--address2').type('CAMELFORD HOUSE 87-90');
       await page.locator('#field-input--address3').type('ALBERT EMBANKMENT');
       await page.locator('#field-input--town').type('LONDON');
+
+      // Select 'Online' donation type
+      await page.locator('#donationType>div:nth-child(3)>label').click();
       
       // select giftaid declaration
       await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();

@@ -133,7 +133,6 @@ function GiftAid(props) {
     const formValues = getFormValues(fieldValidation, updating); // get form values
     const { validity, validationState } = validateForm(fieldValidation, formValues, formValidityState); // validate form
     setFormValidityState(validationState); // update form validation state
-    console.log('SUBNIT', validity, validationState );
 
     if (validity) { // submit form if no errors
       setIsSubmitting(true); // Update state that's passed down to disable button during submission

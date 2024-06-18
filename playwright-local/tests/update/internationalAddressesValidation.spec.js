@@ -40,6 +40,9 @@ test.describe('International addresses validation on update form', () => {
   
     // Select yes for giftaid declaration to complete the form
     await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
+
+    // Select 'Online' donation type
+    await page.locator('#donationType>div:nth-child(3)>label').click();
   
     // Submitting the form with valid international details
     await page.locator('button[type=submit]').click();
