@@ -52,7 +52,6 @@ function GiftAid(props) {
   useEffect(() => {
     setPathParams(getPathParams(updating)); // update path states
     setToken(props.match.params.token); // update token state
-    // setUrlTransactionId(props.match.params.transaction_id); // update url transaction id state
     if (token) {
       decryptToken(token); // decrypt token to MSISDN
     }
@@ -131,11 +130,10 @@ function GiftAid(props) {
    */
   const submitForm = (e) => {
     e.preventDefault();
-    const formValues = getFormValues(fieldValidation, 
-      // urlTransactionId, 
-      updating); // get form values
+    const formValues = getFormValues(fieldValidation, updating); // get form values
     const { validity, validationState } = validateForm(fieldValidation, formValues, formValidityState); // validate form
     setFormValidityState(validationState); // update form validation state
+    console.log('SUBNIT', validity, validationState );
 
     if (validity) { // submit form if no errors
       setIsSubmitting(true); // Update state that's passed down to disable button during submission

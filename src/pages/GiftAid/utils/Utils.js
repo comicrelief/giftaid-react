@@ -58,7 +58,7 @@ export const getPathParams = (update = false) => {
  * @param urlId String - url Transaction Id
  * @param update Boolean - Form type
  */
-export const getFormValues = (validation, urlId = null, update = false) => {
+export const getFormValues = (validation, update = false) => {
   // create field values
   const fieldValues = {};
 
@@ -144,11 +144,6 @@ export const justInTimeLinkText = 'Why do we collect this info?';
  */
 export const validateForm = (validation, formValues = {}, formValidity = {}) => {
 
-  // const donationId = formValues.donationID !== undefined ? formValues.donationID : null;
-
-  // validate donation id if present
-  // const transIdValidity = donationId !== null ? validateTransactionId(donationId) : null;
-
   // validate form fields
   const fieldValidity = getValidation(validation);
 
@@ -158,7 +153,7 @@ export const validateForm = (validation, formValues = {}, formValidity = {}) => 
     showErrorMessages: false,
     validating: false,
   };
-  // Validation fails for fields or transactionId
+  // Validation fails for fields
   if (fieldValidity !== true ) {
 
     // set failed fields state

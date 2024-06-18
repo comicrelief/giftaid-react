@@ -9,8 +9,6 @@ import DonationTypeButtons from '../../../components/Buttons/DonationTypeButtons
 import GiftAidClaimChoiceButtons from '../../../components/Buttons/GiftAidClaimChoiceButtons/GiftAidClaimChoiceButtons';
 import InputFields from '../../../components/InputFields/InputFields';
 import JustInTime from '../../../components/JustInTime/index';
-// import UrlTransactionIdError from './UrlTransactionIdError';
-
 
 // fields data
 import { updateFormFields, donationTypeChoices, giftAidButtonChoices } from './UpdateFormFields';
@@ -57,7 +55,7 @@ function UpdateForm(props) {
 
         {/* TO-DO: ARE WE KEEPING THIS IN? */}
 
-        <DonationTypeButtons donationTypeChoices={donationTypeChoices} />
+        {/* <DonationTypeButtons donationTypeChoices={donationTypeChoices} /> */}
 
         <h3 className="form--update__title form--update__title--giftaid text-align-centre">
           Who is changing their declaration?
