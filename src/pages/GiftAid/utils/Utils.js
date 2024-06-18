@@ -84,10 +84,6 @@ export const getFormValues = (validation, update = false) => {
     return fieldValues[key] = value;
   });
 
-    // TO-DO: THERE'S NO TRANSACTION ID AT ALL NOW, WHAT SHOULD THIS BE? DO WE NEED IT?
-    // fieldValues.donationID = urlId;
-    fieldValues.donationID = null;
-
   // Create donation type field for Update Form
   // TO-DO: SCOPE THIS PROPERLY
   fieldValues.donationType = typeof validation.donationType !== 'undefined'
