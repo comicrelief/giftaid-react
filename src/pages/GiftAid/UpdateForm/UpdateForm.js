@@ -33,8 +33,6 @@ function UpdateForm(props) {
   } = useContext(FormContext); // get props from context
 
 
-  // const { urlTransactionId } = props;
-
   // Declare state variables
   const [inputFieldProps, setInputFieldProps] = useState(updateFormFields); // initialise form inputFieldProps state
 
@@ -42,16 +40,6 @@ function UpdateForm(props) {
    * Component mounts and updates
    */
   useEffect(() => {
-    // Delete if url trans Id if present
-    // on component mount or update
-    // if (urlTransactionId !== undefined) {
-    //   // Delete transactionId form field
-    //   delete inputFieldProps.transactionId;
-    //   delete fieldValidation.transactionId;
-    // } else {
-      // Else, delete the donation type radiobuttons
-      delete fieldValidation.donationType;
-    // }
     setFieldValidation(fieldValidation);
     // Reset states on component unmount
     return () => {
@@ -65,9 +53,9 @@ function UpdateForm(props) {
 
       <FormHeader page="update" />
 
-      {/* <UrlTransactionIdError /> */}
-
       <div className="form-fields--wrapper">
+
+        {/* TO-DO: ARE WE KEEPING THIS IN? */}
 
         <DonationTypeButtons donationTypeChoices={donationTypeChoices} />
 

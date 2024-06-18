@@ -1,11 +1,8 @@
 import React, { useContext } from 'react';
 
-import FormContext from "../../../context/FormContext";
 import SiteService from '../../../service/Site.service';
 
 const UpdateHeader = (props) => {
-
-  // const { urlTransactionId } = useContext(FormContext); // get states from context
   
   const site = new SiteService();
   let claimCopy = null;
@@ -26,13 +23,6 @@ const UpdateHeader = (props) => {
       <p className="text-align-centre sub-title--copy">
         {claimCopy}
       </p>
-      {/* {typeof urlTransactionId !== 'undefined' && urlTransactionId !== null ?
-        <p className="text-align-centre transaction-id">
-          Transaction ID: {urlTransactionId}
-        </p>
-        :
-        ''
-      } */}
     </React.Fragment>
 
   );

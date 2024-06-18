@@ -10,9 +10,6 @@ test('Valid giftaid update submission @sanity @nightly-sanity', async ({ page })
   await page.goto(`${process.env.BASE_URL}update`, { timeout: 30000 });
   await page.waitForLoadState('domcontentloaded');
   
-  // Ensure the transaction ID input is visible
-  // await expect(page.locator('input#field-input--transactionId')).toBeVisible();
-  
   // Populate all input fields with valid data
   await commands.populateUpdateFormFields(page);
   

@@ -11,11 +11,6 @@ const ENDPOINT_URL = process.env.REACT_APP_ENDPOINT_URL;
  * @param state Object
  */
 export const scrollToError = (state = {}) => {
-  // Scroll to transactionId field / url parameter error message
-  // if present
-  // if (state.urlTransactionId.valid === false) {
-  //   document.querySelector('#field-error--urlTransID').scrollIntoView({ behavior: 'smooth' });
-  // }
   // Scroll to the first erroring field and focus on its input field
   const errorWrapper = document.querySelectorAll('.form__field--erroring')[0];
   if (errorWrapper) {
@@ -89,13 +84,9 @@ export const getFormValues = (validation, urlId = null, update = false) => {
     return fieldValues[key] = value;
   });
 
-  // Create a Donation id field for Update Form
-  // NOW THERE'S NO TRANSACTION ID
-  // if ((typeof validation.transactionId !== 'undefined' && validation.transactionId) || urlId !== null) {
-
-    fieldValues.donationID = urlId;
-    
-  // }
+    // TO-DO: THERE'S NO TRANSACTION ID AT ALL NOW, WHAT SHOULD THIS BE? DO WE NEED IT?
+    // fieldValues.donationID = urlId;
+    fieldValues.donationID = null;
 
   // Create donation type field for Update Form
   fieldValues.donationType = typeof validation.donationType !== 'undefined'
@@ -144,12 +135,6 @@ export const hiddenFields = ['field-input--address1', 'field-input--town', 'fiel
 */
 export const justInTimeLinkText = 'Why do we collect this info?';
 
-/*
-* REGEX for transactionId
-*
-*/
-// const transactionIdPattern = '^\\s*[a-zA-Z0-9-_]{5,}\\s*$';
-
 /**
  * Function to validate form
  * @param validation Object
@@ -172,10 +157,6 @@ export const validateForm = (validation, formValues = {}, formValidity = {}) => 
     formValidity: true,
     showErrorMessages: false,
     validating: false,
-    // urlTransactionId: {
-    //   ...formValidity.urlTransactionId,
-    //   valid: true,
-    // }
   };
   // Validation fails for fields or transactionId
   if (fieldValidity !== true ) {
@@ -187,15 +168,6 @@ export const validateForm = (validation, formValues = {}, formValidity = {}) => 
       showErrorMessages: true,
       validating: true,
     };
-
-    // if (transIdValidity !== null && !transIdValidity && donationId !== undefined && donationId !== null) {
-
-    //   // set transaction id failed state
-    //   validationState.urlTransactionId = {
-    //     ...formValidity.urlTransactionId,
-    //     valid: false,
-    //   }
-    // }
   }
   const email = formValues.email && formValues.email !== "" ? formValues.email : 'N';
   TagManager.dataLayer({
@@ -211,14 +183,6 @@ export const validateForm = (validation, formValues = {}, formValidity = {}) => 
     validationState,
   };
 };
-
-/**
- * Validates transactionId using REGEX pattern
- * @param donationID
- * @returns Boolean
- */
-// const validateTransactionId = (donationID) => new RegExp(transactionIdPattern).test(donationID);
-
 
 /**
  * Checks if any field is invalid.
@@ -255,10 +219,6 @@ export const initialFormValidity = {
   showErrorMessages: false,
   formDataError: null,
   formDataSuccess: null,
-  // urlTransactionId: {
-  //   valid: true,
-  //   errorMessage: 'This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter'
-  // }
 };
 
 /**
@@ -416,11 +376,6 @@ export const defaultUpdateFormFieldValidations = {
     value: undefined,
     message: '',
   },
-  // transactionId: {
-  //   valid: false,
-  //   value: undefined,
-  //   message: '',
-  // },
 };
 
 

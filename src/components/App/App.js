@@ -128,11 +128,7 @@ function App(props) {
 							path='/update/sorry'
 							render={(props) => <Sorry {...props} />}
 						/>
-						{/* <DefaultRoute
-							exact
-							path='/update/:transaction_id'
-							component={GiftAidPage}
-						/> */}
+						
 						<DefaultRoute exact path='/update' component={GiftAidPage} />
 						<DefaultRoute exact path='/:token' component={GiftAidPage} />
 						<DefaultRoute exact path='/' component={GiftAidPage} />
