@@ -50,6 +50,8 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
     await page.fill('#field-input--firstname', ''); // clear firstname field
     await commands.populateUpdateFormFields(page, { firstName: 'John' });
     await page.click('#giftAidClaimChoice>div:nth-child(2)>label'); // Select yes for declaration
+    // Select 'Online' donation type
+    await page.locator('#donationType>div:nth-child(3)>label').click();
     await page.click('button[type=submit]');  // Submit the form
     
     await expect(page.locator('div > h1')).toHaveText('Thank you, John!');
@@ -133,6 +135,8 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
     await page.locator('input#field-input--email').fill(`giftaid-update-staging-${chance.email()}`);
     await page.fill('input#field-input--postcode', 'SE1 7TP');
     await page.click('#giftAidClaimChoice>div:nth-child(2)>label'); // Select yes for declaration
+    // Select 'Online' donation type
+    await page.locator('#donationType>div:nth-child(3)>label').click();
     await page.click('button[type=submit]'); // Submit the form
     
     await expect(page.locator('div > h1')).toHaveText('Thank you,  test!');
