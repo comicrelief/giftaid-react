@@ -40,6 +40,7 @@ function UpdateForm(props) {
   useEffect(() => {
     setFieldValidation(fieldValidation);
     // Reset states on component unmount
+    delete fieldValidation.donationType;
     return () => {
       setInputFieldProps([]);
     }
