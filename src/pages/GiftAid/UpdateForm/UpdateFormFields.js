@@ -77,6 +77,13 @@ export const updateFormFields = {
     type: 'email',
     name: 'email',
     label: 'Email address',
+    required: true,
+  },
+  mobile: {
+    id: 'mobile',
+    type: 'tel',
+    name: 'mobile',
+    label: 'Mobile number',
     required: false,
   }
 };
