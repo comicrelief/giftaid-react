@@ -172,6 +172,41 @@ test.describe('Giftaid update form validation', () => {
     
     await page.close();
   });
+
+  // HERE
+  test.only('Validate mobile number field', async ({ page }) => {
+    const commands = new Commands(page);
+
+    // Test cases for various mobile number validations
+    const mobileTestCases = [
+      { input: '0712345678', error: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.' },
+      { input: '0712345678900', error: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.' },
+      { input: '0712 345 6789', error: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.' },
+      { input: '0780ab5694245', error: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.' },
+    ];
+    
+    for (let testCase of mobileTestCases) {
+      await page.locator('#field-input--mobile').fill(''); // Clear the field before each test
+      await page.locator('#field-input--mobile').type(testCase.input, { delay: 100 });
+      await expect(page.locator('div#field-error--mobile > span')).toHaveText(testCase.error);
+    }
+    
+    // Validate correct mobile number
+    await page.locator('#field-input--mobile').fill(''); // Ensure the field is cleared and filled with valid data
+    await commands.populateFormFields(page, { mobile: '07123456789' });
+
+    // Select yes for giftaid declaration to complete the form
+    await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
+
+    // Select 'Online' donation type
+    await page.locator('#donationType>div:nth-child(3)>label').click();
+
+    // await page.waitForTimeout(5000);
+
+
+    await page.locator('button[type=submit]').click();
+    await expect(page.locator('div > h1')).toHaveText('Thank you, test!');
+  });
   
   test('postcode entered with extra spaces should show error message', async ({ page }) => {
     
