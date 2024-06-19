@@ -175,8 +175,7 @@ test.describe('Giftaid update form validation', () => {
     await page.close();
   });
 
-  // HERE
-  test.only('Validate mobile number field', async ({ page }) => {
+  test('Validate mobile number field', async ({ page }) => {
     const commands = new Commands(page);
 
     // Test cases for various mobile number validations
