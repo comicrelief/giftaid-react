@@ -87,7 +87,7 @@ export const getFormValues = (validation, update = false) => {
 
   // Create donation type field for Update Form
   fieldValues.donationType = typeof validation.donationType !== 'undefined'
-  && validation.donationType
+    && validation.donationType
     ? validation.donationType.value : DONATION_TYPES.ONLINE;
 
   // Create name based on Form type
@@ -150,8 +150,9 @@ export const validateForm = (validation, formValues = {}, formValidity = {}) => 
     showErrorMessages: false,
     validating: false,
   };
+
   // Validation fails for fields
-  if (fieldValidity !== true ) {
+  if (fieldValidity !== true) {
 
     // set failed fields state
     validationState = {
@@ -162,6 +163,7 @@ export const validateForm = (validation, formValues = {}, formValidity = {}) => 
     };
   }
   const email = formValues.email && formValues.email !== "" ? formValues.email : 'N';
+
   TagManager.dataLayer({
     dataLayer: {
       user: {
@@ -186,19 +188,13 @@ const getValidation = (validation) => {
   let validity = true;
   let thisField;
 
-  Object.keys(validation).map((key) => {
-
+  for (const [key] of Object.entries(validation)) {
     thisField = validation[key];
 
-    /**
-     * As we're not passing any 'required' flags to this function, a quick fix to wave our
-     * optional email field through, but only if it's valid or empty
-     */
-    if (thisField.valid !== true && ( key !== 'email' || thisField.showErrorMessage === true )) {
+    if (thisField.valid !== true || thisField.showErrorMessage === true) {
       validity = false;
     }
-    return true;
-  });
+  };
 
   return validity;
 };

@@ -32,11 +32,11 @@ function GiftAid(props) {
   const { setIsCompleted, setSuccessState } = useContext(AppContext);
 
   // Declare states
-  const isUpdateForm = props.location.pathname.includes("update"); // initialise updating param state
-  const [updating, setUpdating] = useState(isUpdateForm); // set to true if path contains the string update
+  const isUpdate = props.location.pathname.includes("update"); // initialise updating param state
+  const [isUpdateForm, setIsUpdateForm] = useState(isUpdate); // set to true if path contains the string update
   const [pathParams, setPathParams] = useState({}); // initialise submit path param state
   const [formValidityState, setFormValidityState] = useState(initialFormValidity); // intitialise form validity states
-  const [fieldValidation, setFieldValidation] = useState(getFieldValidations(isUpdateForm)); // intitialise field validation state based on form type
+  const [fieldValidation, setFieldValidation] = useState(getFieldValidations(isUpdate)); // intitialise field validation state based on form type
   const [isSubmitting, setIsSubmitting] = useState(false);
   const inputRef = useRef(null);
 
@@ -50,7 +50,7 @@ function GiftAid(props) {
    * GiftAid component mounts
    */
   useEffect(() => {
-    setPathParams(getPathParams(updating)); // update path states
+    setPathParams(getPathParams(isUpdateForm)); // update path states
     setToken(props.match.params.token); // update token state
     if (token) {
       decryptToken(token); // decrypt token to MSISDN
@@ -60,7 +60,7 @@ function GiftAid(props) {
       // reset states
       setFormValidityState(initialFormValidity);
       setFieldValidation({});
-      setUpdating(false);
+      setIsUpdateForm(false);
       setToken(null);
       setMSISDN(null);
     }
@@ -124,9 +124,13 @@ function GiftAid(props) {
         // Long story short, if the field isn't interacted with (like our optional Mobile field here potentially),  it means the whole
         // form validation check fails because of that empty string; this basically shortcircuits the validation for this specific
         // usecase.
-        if (isUpdateForm && thisFieldsName === 'mobile' && thisFieldsState.value === '' ) {
+        if (isUpdate && thisFieldsName === 'mobile' && thisFieldsState.value === '' ) {
           fieldValidation[thisFieldsName].valid = true;
         }
+
+        // if (thisFieldsName === 'email') {
+        //   console.log('EMAIL:', fieldValidation[thisFieldsName]);
+        // }
 
         setFieldValidation({...fieldValidation});
 
@@ -143,7 +147,7 @@ function GiftAid(props) {
    */
   const submitForm = (e) => {
     e.preventDefault();
-    const formValues = getFormValues(fieldValidation, updating); // get form values
+    const formValues = getFormValues(fieldValidation); // get form values
     const { validity, validationState } = validateForm(fieldValidation, formValues, formValidityState); // validate form
     setFormValidityState(validationState); // update form validation state
 
@@ -193,7 +197,7 @@ function GiftAid(props) {
   return (
     <FormProvider value={contextProps}>
 
-      { updating ? (
+      { isUpdateForm ? (
         <UpdateForm
           title="Update Form"
         />
