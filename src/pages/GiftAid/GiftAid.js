@@ -118,19 +118,17 @@ function GiftAid(props) {
 
         // Currently, on mount, each field's current 'valid' value is an empty string, rather than the boolean value it SHOULD be.
         //
-        // We do actually set the appropriate config in SubmitFormFields and UpdateFormFields, but it's not being utilised properly,
-        // for reasons I haven't uncovered yet.
+        // Long story short, if the field isn't interacted with (like our optional Mobile field here potentially), it means the whole
+        // form validation check fails due to that empty string.
         //
-        // Long story short, if the field isn't interacted with (like our optional Mobile field here potentially),  it means the whole
-        // form validation check fails because of that empty string; this basically shortcircuits the validation for this specific
-        // usecase.
+        // Additionally, there's an issue around non-required fields. We do actually set the appropriate config in SubmitFormFields
+        // and UpdateFormFields, but it's not being used at all for reasons I haven't uncovered yet, very helpfully doing nothing with the 'required' flag.
+        // 
+
+        // This short-term fix below effectively shortcircuits the validation for our non-required 'mobile' /update field when it's empty:
         if (isUpdate && thisFieldsName === 'mobile' && thisFieldsState.value === '' ) {
           fieldValidation[thisFieldsName].valid = true;
         }
-
-        // if (thisFieldsName === 'email') {
-        //   console.log('EMAIL:', fieldValidation[thisFieldsName]);
-        // }
 
         setFieldValidation({...fieldValidation});
 
