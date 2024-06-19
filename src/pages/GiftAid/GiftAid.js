@@ -121,11 +121,10 @@ function GiftAid(props) {
         // Long story short, if the field isn't interacted with (like our optional Mobile field here potentially), it means the whole
         // form validation check fails due to that empty string.
         //
-        // Additionally, there's an issue around non-required fields. We do actually set the appropriate config in SubmitFormFields
-        // and UpdateFormFields, but it's not being used at all for reasons I haven't uncovered yet, very helpfully doing nothing with the 'required' flag.
+        // Additionally, there's an issue around non-required fields. We do actually set the appropriate config in SubmitFormFields and
+        // UpdateFormFields, but it's not being used at all for reasons I haven't uncovered yet, very helpfully doing nothing with the 'required' flag.
         // 
-
-        // This short-term fix below effectively shortcircuits the validation for our non-required 'mobile' /update field when it's empty:
+        // This short-term fix below effectively shortcircuits the validation for our non-required 'mobile' UpdateForm field when it's empty:
         if (isUpdate && thisFieldsName === 'mobile' && thisFieldsState.value === '' ) {
           fieldValidation[thisFieldsName].valid = true;
         }
