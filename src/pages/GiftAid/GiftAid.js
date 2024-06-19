@@ -32,11 +32,11 @@ function GiftAid(props) {
   const { setIsCompleted, setSuccessState } = useContext(AppContext);
 
   // Declare states
-  const update = props.location.pathname.includes("update"); // initialise updating param state
-  const [updating, setUpdating] = useState(update); // set to true if path contains the string update
+  const isUpdateForm = props.location.pathname.includes("update"); // initialise updating param state
+  const [updating, setUpdating] = useState(isUpdateForm); // set to true if path contains the string update
   const [pathParams, setPathParams] = useState({}); // initialise submit path param state
   const [formValidityState, setFormValidityState] = useState(initialFormValidity); // intitialise form validity states
-  const [fieldValidation, setFieldValidation] = useState(getFieldValidations(update)); // intitialise field validation state based on form type
+  const [fieldValidation, setFieldValidation] = useState(getFieldValidations(isUpdateForm)); // intitialise field validation state based on form type
   const [isSubmitting, setIsSubmitting] = useState(false);
   const inputRef = useRef(null);
 
@@ -115,6 +115,19 @@ function GiftAid(props) {
 
     if ((thisFieldsPreviousState && isUpdatedState) || marketingConsentFieldsChanged === true) {
         fieldValidation[thisFieldsName] = thisFieldsState;
+
+        // Currently, on mount, each field's current 'valid' value is an empty string, rather than the boolean value it SHOULD be.
+        //
+        // We do actually set the appropriate config in SubmitFormFields and UpdateFormFields, but it's not being utilised properly,
+        // for reasons I haven't uncovered yet.
+        //
+        // Long story short, if the field isn't interacted with (like our optional Mobile field here potentially),  it means the whole
+        // form validation check fails because of that empty string; this basically shortcircuits the validation for this specific
+        // usecase.
+        if (isUpdateForm && thisFieldsName === 'mobile' && thisFieldsState.value === '' ) {
+          fieldValidation[thisFieldsName].valid = true;
+        }
+
         setFieldValidation({...fieldValidation});
 
         return {

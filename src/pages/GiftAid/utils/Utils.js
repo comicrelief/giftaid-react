@@ -33,6 +33,7 @@ export const mergeInputFieldProps = (defaultInputFieldsProps, props) => {
   Object.entries(overrides).forEach(([key]) => {
     Object.assign(inputFields[key], overrides[key]);
   });
+
   return inputFields;
 };
 
@@ -235,7 +236,7 @@ export const defaultSubmitFormFieldValidations = {
     message: '',
   },
   mobile: {
-    valid: false,
+    valid: true,
     value: undefined,
     message: '',
   },
@@ -323,7 +324,7 @@ export const defaultUpdateFormFieldValidations = {
     message: '',
   },
   email: {
-    valid: true,
+    valid: false,
     value: undefined,
     message: '',
   },
@@ -368,7 +369,7 @@ export const defaultUpdateFormFieldValidations = {
     message: '',
   },
   mobile: {
-    valid: false,
+    valid: true,
     value: undefined,
     message: '',
   },
@@ -378,9 +379,3 @@ export const defaultUpdateFormFieldValidations = {
 export const getRoute = (route) => {
   return `${process.env.REACT_APP_ENDPOINT_URL}${route}`;
 };
-
-
-
-
-
-
