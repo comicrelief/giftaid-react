@@ -90,6 +90,6 @@ export const updateFormFields = {
     helpText: 'Enter the one associated with your donation',
     emptyFieldErrorText: 'Please fill in your mobile number',
     invalidErrorText: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.',
-    additionalText: 'Please note: if you donated via SMS, we DO require your number here to match this submission.',
+    additionalText: 'Please note: if you donated via SMS, we DO require your number here, in order to match it to this submission.',
   }
 };
