@@ -86,9 +86,10 @@ export const updateFormFields = {
     placeholder: 'In the format 07123456789',
     label: 'Mobile number',
     required: false,
-    pattern: '^07[0-9]{9}$',
+    pattern: '^07[0-9]{9}$', // TO-DO: check that this is appropriate or not
     helpText: 'Enter the one associated with your donation',
     emptyFieldErrorText: 'Please fill in your mobile number',
-    invalidErrorText: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.'
+    invalidErrorText: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.',
+    additionalText: 'Please note: if you donated via SMS, we DO require your number here to match this submission.',
   }
 };

@@ -1,5 +1,6 @@
 $colour-dove-grey: #666666;
 $colour-scorpion-grey: #595959;
+$color-cr-red: #e52630;
 
 .update-giftaid__form {
   @include container;
@@ -67,6 +68,12 @@ $colour-scorpion-grey: #595959;
 
     .toggle-link {
       font-family:$font-bold;
+    }
+  }
+
+  #field-wrapper--mobile {
+    .form__field-additional-text {
+      color: $color-cr-red;
     }
   }
 }
@@ -221,5 +228,4 @@ textarea  {
       height:19px;
     }
   }
-
 }
