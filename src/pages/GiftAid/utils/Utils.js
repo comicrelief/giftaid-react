@@ -232,7 +232,7 @@ export const defaultSubmitFormFieldValidations = {
     message: '',
   },
   mobile: {
-    valid: true,
+    valid: false,
     value: undefined,
     message: '',
   },
