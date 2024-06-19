@@ -2,6 +2,8 @@
 const { test, expect } = require('@playwright/test');
 const { Commands } = require('../utils/commands');
 
+const email = `giftaid-staging-${Date.now().toString()}@email.sls.comicrelief.com`;
+
 test.describe('Giftaid update form validation', () => {
   
   test.beforeEach(async ({ page }) => {
@@ -192,17 +194,15 @@ test.describe('Giftaid update form validation', () => {
     }
     
     // Validate correct mobile number
-    await page.locator('#field-input--mobile').fill(''); // Ensure the field is cleared and filled with valid data
-    await commands.populateFormFields(page, { mobile: '07123456789' });
+    await page.locator('#field-input--mobile').fill(''); // Ensure the field is cleared before filling with valid data
+
+    await commands.populateUpdateFormFields(page);
 
     // Select yes for giftaid declaration to complete the form
     await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
 
     // Select 'Online' donation type
     await page.locator('#donationType>div:nth-child(3)>label').click();
-
-    // await page.waitForTimeout(5000);
-
 
     await page.locator('button[type=submit]').click();
     await expect(page.locator('div > h1')).toHaveText('Thank you, test!');

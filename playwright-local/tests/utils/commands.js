@@ -62,6 +62,7 @@ class Commands {
     address2 = chance.street(),
     address3 = 'test address 3',
     town = chance.city(),
+    mobile = chance.phone({ country: 'uk', mobile: true }).replace(/\s/g, ''), // Remove spaces from the phone number
   } = {}) {
     await page.locator('input#field-input--firstname').fill(firstName);
     await page.locator('input#field-input--lastname').fill(lastName);
@@ -72,6 +73,7 @@ class Commands {
     await page.locator('input#field-input--address2').fill(address2);
     await page.locator('input#field-input--address3').fill(address3);
     await page.locator('input#field-input--town').fill(town);
+    await page.locator('#field-input--mobile').type(mobile);
   }
 }
 
