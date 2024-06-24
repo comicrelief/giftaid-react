@@ -98,7 +98,7 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
     await page.close();
   });
   
-  test.only('Validate mobile number field on giftaid update form', async ({ page }) => {
+  test('Validate mobile number field on giftaid update form', async ({ page }) => {
     const commands = new Commands(page);
     // List of allowed prefixes for UK mobile numbers
     const prefixes = ['074', '075', '077', '078', '079'];
