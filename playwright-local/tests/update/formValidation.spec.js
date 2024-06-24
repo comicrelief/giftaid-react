@@ -1,6 +1,8 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 const { Commands } = require('../utils/commands');
+const Chance = require('chance');
+const chance = new Chance();
 
 const email = `giftaid-staging-${Date.now().toString()}@email.sls.comicrelief.com`;
 
@@ -177,7 +179,14 @@ test.describe('Giftaid update form validation', () => {
 
   test('Validate mobile number field', async ({ page }) => {
     const commands = new Commands(page);
-
+    // List of allowed prefixes for UK mobile numbers
+    const prefixes = ['074', '075', '077', '078', '079'];
+    // Randomly select one prefix from the list
+    const prefix = chance.pickone(prefixes);
+    // Generate the remaining 8 digits randomly
+    const mobile = `${prefix}${chance.string({ pool: '0123456789', length: 8 })}`;
+    console.log('mobile number generated', mobile);
+    
     // Test cases for various mobile number validations
     const mobileTestCases = [
       { input: '0712345678', error: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.' },
@@ -195,7 +204,7 @@ test.describe('Giftaid update form validation', () => {
     // Validate correct mobile number
     await page.locator('#field-input--mobile').fill(''); // Ensure the field is cleared before filling with valid data
 
-    await commands.populateUpdateFormFields(page);
+    await commands.populateUpdateFormFields(page, { mobile: mobile });
 
     // Select yes for giftaid declaration to complete the form
     await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();

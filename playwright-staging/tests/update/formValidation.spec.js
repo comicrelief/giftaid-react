@@ -98,8 +98,15 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
     await page.close();
   });
   
-  test.only('Validate mobile number field on giftaid update form', async ({ page }) => {
+  test('Validate mobile number field on giftaid update form', async ({ page }) => {
     const commands = new Commands(page);
+    // List of allowed prefixes for UK mobile numbers
+    const prefixes = ['074', '075', '077', '078', '079'];
+    // Randomly select one prefix from the list
+    const prefix = chance.pickone(prefixes);
+    // Generate the remaining 8 digits randomly
+    const mobile = `${prefix}${chance.string({ pool: '0123456789', length: 8 })}`;
+    console.log('mobile number generated', mobile);
     
     // Test cases for various mobile number validations
     const mobileTestCases = [
@@ -118,7 +125,7 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
     // Validate correct mobile number
     await page.locator('#field-input--mobile').fill(''); // Ensure the field is cleared and filled with valid data
     await page.locator('.form__radio input[type="radio"][value="call centre"]').click();
-    await commands.populateUpdateFormFields(page, { mobile: '07123456789' });
+    await commands.populateUpdateFormFields(page, { mobile: mobile });
     await page.click('#giftAidClaimChoice>div:nth-child(2)>label'); // Select yes for declaration
     await page.click('button[type=submit]'); // Submit the form
   

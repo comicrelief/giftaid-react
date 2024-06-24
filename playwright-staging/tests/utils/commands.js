@@ -57,7 +57,7 @@ class Commands {
     firstName = 'test',
     lastName = chance.last(),
     email = `giftaid-update-staging-${chance.email()}`,
-    mobile = '07123456789',
+    mobile = '07516144519',
     postcode = chance.postcode(),
     address1 = chance.address(),
     address2 = chance.street(),
