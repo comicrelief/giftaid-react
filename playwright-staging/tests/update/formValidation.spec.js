@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require('uuid');
 const Chance = require('chance');
 const chance = new Chance();
 
-test.describe.only('Giftaid Update form validation @sanity @nightly-sanity', () => {
+test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
   let commands;
   
   test.beforeEach(async ({ page }) => {
@@ -14,7 +14,6 @@ test.describe.only('Giftaid Update form validation @sanity @nightly-sanity', () 
     // Navigate to the Giftaid Update form
     await page.goto(`${process.env.BASE_URL}update`, { timeout: 30000 });
     await page.waitForLoadState('domcontentloaded');
-    await page.locator('.form__radio input[type="radio"][value="online"]').click();
   });
   
   test('empty input fields should show error messages', async ({ page }) => {
@@ -22,6 +21,7 @@ test.describe.only('Giftaid Update form validation @sanity @nightly-sanity', () 
     await page.click('button[type=submit]');
     
     // Check for the error messages associated with each field
+    await expect(page.locator('div#field-error--donationType > span')).toHaveText('This field is required');
     await expect(page.locator('div#field-error--firstname > span')).toHaveText('Please fill in your first name');
     await expect(page.locator('div#field-error--lastname > span')).toHaveText('Please fill in your last name');
     await expect(page.locator('div#field-error--email > span')).toHaveText('Please fill in your email address');
@@ -51,6 +51,7 @@ test.describe.only('Giftaid Update form validation @sanity @nightly-sanity', () 
     
     // Test for a valid first name
     await page.fill('#field-input--firstname', ''); // clear firstname field
+    await page.locator('.form__radio input[type="radio"][value="online"]').click();
     await commands.populateUpdateFormFields(page, { firstName: 'John' });
     await page.click('#giftAidClaimChoice>div:nth-child(2)>label'); // Select yes for declaration
     // Select 'Online' donation type
@@ -88,6 +89,7 @@ test.describe.only('Giftaid Update form validation @sanity @nightly-sanity', () 
     // Test for a valid email
     const validEmail = 'test@comicrelief.com';
     await page.fill('input#field-input--email', ''); // clear email field
+    await page.locator('.form__radio input[type="radio"][value="sms"]').click();
     await commands.populateUpdateFormFields(page, { email: validEmail });
     await page.click('#giftAidClaimChoice>div:nth-child(3)>label'); // Select no for declaration
     await page.click('button[type=submit]'); // Submit the form
@@ -115,6 +117,7 @@ test.describe.only('Giftaid Update form validation @sanity @nightly-sanity', () 
     
     // Validate correct mobile number
     await page.locator('#field-input--mobile').fill(''); // Ensure the field is cleared and filled with valid data
+    await page.locator('.form__radio input[type="radio"][value="call centre"]').click();
     await commands.populateUpdateFormFields(page, { mobile: '07123456789' });
     await page.click('#giftAidClaimChoice>div:nth-child(2)>label'); // Select yes for declaration
     await page.click('button[type=submit]'); // Submit the form
