@@ -57,6 +57,7 @@ class Commands {
     firstName = 'test',
     lastName = chance.last(),
     email = `giftaid-update-staging-${chance.email()}`,
+    mobile = '07123456789',
     postcode = chance.postcode(),
     address1 = chance.address(),
     address2 = chance.street(),
@@ -67,6 +68,7 @@ class Commands {
     await page.locator('input#field-input--lastname').fill(lastName);
     await page.locator('input#field-input--postcode').fill(postcode);
     await page.locator('input#field-input--email').fill(email);
+    await page.locator('#field-input--mobile').fill(mobile);
     await page.locator('a[aria-describedby=field-error--addressDetails]').click();
     await page.locator('input#field-input--address1').fill(address1);
     await page.locator('input#field-input--address2').fill(address2);

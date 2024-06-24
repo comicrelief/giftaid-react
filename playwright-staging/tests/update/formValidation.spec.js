@@ -6,13 +6,15 @@ const { v4: uuidv4 } = require('uuid');
 const Chance = require('chance');
 const chance = new Chance();
 
-test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
+test.describe.only('Giftaid Update form validation @sanity @nightly-sanity', () => {
   let commands;
   
   test.beforeEach(async ({ page }) => {
     commands = new Commands(page);    
     // Navigate to the Giftaid Update form
-    await page.goto(`${process.env.BASE_URL}update`, { waitUntil: 'networkidle' });
+    await page.goto(`${process.env.BASE_URL}update`, { timeout: 30000 });
+    await page.waitForLoadState('domcontentloaded');
+    await page.locator('.form__radio input[type="radio"][value="online"]').click();
   });
   
   test('empty input fields should show error messages', async ({ page }) => {
@@ -22,6 +24,7 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
     // Check for the error messages associated with each field
     await expect(page.locator('div#field-error--firstname > span')).toHaveText('Please fill in your first name');
     await expect(page.locator('div#field-error--lastname > span')).toHaveText('Please fill in your last name');
+    await expect(page.locator('div#field-error--email > span')).toHaveText('Please fill in your email address');
     await expect(page.locator('div#field-error--postcode > span')).toHaveText('Please enter your postcode');
     await expect(page.locator('div#field-error--addressDetails > span')).toHaveText('Please fill in your address');
     await expect(page.locator('div#field-error--giftAidClaimChoice > span')).toHaveText('This field is required');
@@ -91,6 +94,32 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
     
     await expect(page.locator('div > h1')).toHaveText('Thanks for letting us know');
     await page.close();
+  });
+  
+  test.only('Validate mobile number field on giftaid update form', async ({ page }) => {
+    const commands = new Commands(page);
+    
+    // Test cases for various mobile number validations
+    const mobileTestCases = [
+      { input: '0712345678', error: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.' },
+      { input: '0712345678900', error: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.' },
+      { input: '0712 345 6789', error: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.' },
+      { input: '0780ab5694245', error: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.' },
+    ];
+    
+    for (let testCase of mobileTestCases) {
+      await page.locator('#field-input--mobile').fill(''); // Clear the field before each test
+      await page.locator('#field-input--mobile').type(testCase.input, { delay: 100 });
+      await expect(page.locator('div#field-error--mobile > span')).toHaveText(testCase.error);
+    }
+    
+    // Validate correct mobile number
+    await page.locator('#field-input--mobile').fill(''); // Ensure the field is cleared and filled with valid data
+    await commands.populateUpdateFormFields(page, { mobile: '07123456789' });
+    await page.click('#giftAidClaimChoice>div:nth-child(2)>label'); // Select yes for declaration
+    await page.click('button[type=submit]'); // Submit the form
+  
+    await expect(page.locator('div > h1')).toHaveText('Thank you,  test!');
   });
   
   test('Postcode validation and form submission', async ({ page }) => {

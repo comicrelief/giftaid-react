@@ -8,6 +8,7 @@ test.describe('International addresses validation on update form @sanity @nightl
     
     await page.goto(process.env.BASE_URL + 'update', { timeout: 30000 });
     await page.waitForLoadState('domcontentloaded');
+    await page.locator('.form__radio input[type="radio"][value="call centre"]').click();
     
     // fill in all input fields
     // await page.locator('input#field-input--transactionId').fill(transactionId);
