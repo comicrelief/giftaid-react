@@ -2,16 +2,16 @@
 const { expect } = require('@playwright/test');
 const { test } = require('../../browserstack');
 const { v4: uuidv4 } = require('uuid');
-const transactionId = uuidv4();
 
 test.describe('International addresses validation on update form @sanity @nightly-sanity', () => {
   test('selecting a non-UK country and entering a non-UK postcode should submit the update form', async ({ page }) => {
     
     await page.goto(process.env.BASE_URL + 'update', { timeout: 30000 });
     await page.waitForLoadState('domcontentloaded');
+    await page.locator('.form__radio input[type="radio"][value="call centre"]').click();
     
     // fill in all input fields
-    await page.locator('input#field-input--transactionId').fill(transactionId);
+    // await page.locator('input#field-input--transactionId').fill(transactionId);
     await page.locator('#field-input--firstname').fill('test');
     await page.locator('#field-input--lastname').fill('test lastname');
     await page.locator('input#field-input--email').fill('giftaid-staging-@email.sls.comicrelief.com');

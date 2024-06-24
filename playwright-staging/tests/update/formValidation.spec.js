@@ -7,14 +7,13 @@ const Chance = require('chance');
 const chance = new Chance();
 
 test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
-  let commands, transactionId;
+  let commands;
   
   test.beforeEach(async ({ page }) => {
-    commands = new Commands(page);
-    transactionId = uuidv4();  // Ensure unique transaction ID for each test
-    
+    commands = new Commands(page);    
     // Navigate to the Giftaid Update form
-    await page.goto(`${process.env.BASE_URL}update`, { waitUntil: 'networkidle' });
+    await page.goto(`${process.env.BASE_URL}update`, { timeout: 30000 });
+    await page.waitForLoadState('domcontentloaded');
   });
   
   test('empty input fields should show error messages', async ({ page }) => {
@@ -22,41 +21,13 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
     await page.click('button[type=submit]');
     
     // Check for the error messages associated with each field
-    await expect(page.locator('div#field-error--transactionId > span')).toHaveText('Please fill in your transaction id');
+    await expect(page.locator('div#field-error--donationType > span')).toHaveText('This field is required');
     await expect(page.locator('div#field-error--firstname > span')).toHaveText('Please fill in your first name');
     await expect(page.locator('div#field-error--lastname > span')).toHaveText('Please fill in your last name');
+    await expect(page.locator('div#field-error--email > span')).toHaveText('Please fill in your email address');
     await expect(page.locator('div#field-error--postcode > span')).toHaveText('Please enter your postcode');
     await expect(page.locator('div#field-error--addressDetails > span')).toHaveText('Please fill in your address');
     await expect(page.locator('div#field-error--giftAidClaimChoice > span')).toHaveText('This field is required');
-    await page.close();
-  });
-  
-  test('Validate transaction ID field', async ({ page }) => {
-    const commands = new Commands(page);
-    
-    // Test cases for various transaction ID validations
-    const transactionIDTestCases = [
-      { input: '', error: 'Please fill in your transaction id' },
-      { input: 'ea794dc3-35f8-4a87-bc94-14125fd480@$', error: 'This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter' },
-      { input: ' a0e9840d-b724-4868-9a68-06a86e0f0150 ', error: null } // Expects no error for valid input with spaces around it
-    ];
-    
-    for (let testCase of transactionIDTestCases) {
-      await page.fill('input#field-input--transactionId', testCase.input);
-      await page.click('button[type=submit]'); // Trigger validation by attempting to submit the form
-      if (testCase.error) {
-        await expect(page.locator('div#field-error--transactionId > span')).toHaveText(testCase.error);
-      } else {
-        await expect(page.locator('div#field-error--transactionId > span')).toBeHidden();
-      }
-    }
-    
-    // Enter a valid transaction ID and submit the form to validate successful submission
-    await page.fill('input#field-input--transactionId', ''); // clear the transaction field
-    await commands.populateUpdateFormFields(page); // populate giftaid update form
-    await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click(); // select giftaid declaration
-    await page.click('button[type=submit]'); // submit giftaid update form
-    await expect(page.locator('div > h1')).toHaveText('Thank you, test!');
     await page.close();
   });
   
@@ -80,8 +51,11 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
     
     // Test for a valid first name
     await page.fill('#field-input--firstname', ''); // clear firstname field
+    await page.locator('.form__radio input[type="radio"][value="online"]').click();
     await commands.populateUpdateFormFields(page, { firstName: 'John' });
     await page.click('#giftAidClaimChoice>div:nth-child(2)>label'); // Select yes for declaration
+    // Select 'Online' donation type
+    await page.locator('#donationType>div:nth-child(3)>label').click();
     await page.click('button[type=submit]');  // Submit the form
     
     await expect(page.locator('div > h1')).toHaveText('Thank you, John!');
@@ -115,12 +89,40 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
     // Test for a valid email
     const validEmail = 'test@comicrelief.com';
     await page.fill('input#field-input--email', ''); // clear email field
+    await page.locator('.form__radio input[type="radio"][value="sms"]').click();
     await commands.populateUpdateFormFields(page, { email: validEmail });
     await page.click('#giftAidClaimChoice>div:nth-child(3)>label'); // Select no for declaration
     await page.click('button[type=submit]'); // Submit the form
     
     await expect(page.locator('div > h1')).toHaveText('Thanks for letting us know');
     await page.close();
+  });
+  
+  test.only('Validate mobile number field on giftaid update form', async ({ page }) => {
+    const commands = new Commands(page);
+    
+    // Test cases for various mobile number validations
+    const mobileTestCases = [
+      { input: '0712345678', error: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.' },
+      { input: '0712345678900', error: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.' },
+      { input: '0712 345 6789', error: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.' },
+      { input: '0780ab5694245', error: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.' },
+    ];
+    
+    for (let testCase of mobileTestCases) {
+      await page.locator('#field-input--mobile').fill(''); // Clear the field before each test
+      await page.locator('#field-input--mobile').type(testCase.input, { delay: 100 });
+      await expect(page.locator('div#field-error--mobile > span')).toHaveText(testCase.error);
+    }
+    
+    // Validate correct mobile number
+    await page.locator('#field-input--mobile').fill(''); // Ensure the field is cleared and filled with valid data
+    await page.locator('.form__radio input[type="radio"][value="call centre"]').click();
+    await commands.populateUpdateFormFields(page, { mobile: '07123456789' });
+    await page.click('#giftAidClaimChoice>div:nth-child(2)>label'); // Select yes for declaration
+    await page.click('button[type=submit]'); // Submit the form
+  
+    await expect(page.locator('div > h1')).toHaveText('Thank you,  test!');
   });
   
   test('Postcode validation and form submission', async ({ page }) => {
@@ -160,12 +162,13 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
       await page.click('button[type=submit]');
     }
   
-    await page.locator('input#field-input--transactionId').fill(transactionId);
     await page.locator('input#field-input--firstname').fill('test');
     await page.locator('input#field-input--lastname').fill(chance.last());
     await page.locator('input#field-input--email').fill(`giftaid-update-staging-${chance.email()}`);
     await page.fill('input#field-input--postcode', 'SE1 7TP');
     await page.click('#giftAidClaimChoice>div:nth-child(2)>label'); // Select yes for declaration
+    // Select 'Online' donation type
+    await page.locator('#donationType>div:nth-child(3)>label').click();
     await page.click('button[type=submit]'); // Submit the form
     
     await expect(page.locator('div > h1')).toHaveText('Thank you,  test!');

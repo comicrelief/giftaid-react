@@ -12,10 +12,6 @@ test.describe('Success page redirect @sanity @nightly-sanity', () => {
     const pageTitle = await page.locator('h1[class="giftaid-title"]').textContent();
     expect(pageTitle).toContain('Giftaid it');
     
-    // Verify that the transaction ID input is visible
-    const transactionIdInputVisible = await page.locator('input#field-input--transactionId').isVisible();
-    expect(transactionIdInputVisible).toBeTruthy();
-    
     await page.close();
   });
 });

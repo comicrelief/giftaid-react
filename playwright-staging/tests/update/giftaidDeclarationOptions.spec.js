@@ -8,9 +8,6 @@ test('Validate Giftaid declaration claim selections @sanity @nightly-sanity', as
   await page.goto(process.env.BASE_URL + 'update', { timeout: 30000 });
   await page.waitForLoadState('domcontentloaded');
   
-  // Ensure transaction ID field is visible as expected
-  await expect(page.locator('input#field-input--transactionId')).toBeVisible();
-  
   // Populate fields and submit the form to get to the Giftaid declaration part
   await commands.populateUpdateFormFields(page);
   await page.locator('button[type=submit]').click();
@@ -24,6 +21,11 @@ test('Validate Giftaid declaration claim selections @sanity @nightly-sanity', as
   await page.locator('#giftAidClaimChoice>div:nth-child(3)>label').click();
   expect(await page.locator('#giftAidClaimChoice>div:nth-child(3)>input').isChecked()).toBeTruthy();
   expect(await page.locator('#giftAidClaimChoice>div:nth-child(2)>input').isChecked()).toBeFalsy();
+
+  // Select 'Online' donation type
+  await page.locator('#donationType>div:nth-child(3)>label').click();
+  expect(await page.locator('#donationType>div:nth-child(3)>input').isChecked()).toBeTruthy();
+  expect(await page.locator('#donationType>div:nth-child(2)>input').isChecked()).toBeFalsy();
   
   await page.locator('button[type=submit]').click();
   await expect(page.locator('div > h1')).toHaveText('Thanks for letting us know');

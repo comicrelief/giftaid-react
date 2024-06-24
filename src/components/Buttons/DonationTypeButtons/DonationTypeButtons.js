@@ -7,13 +7,11 @@ const DonationTypeButtons = (props) => {
 
   // initialise context
   const {
-    urlTransactionId,
     formValidityState,
     refs,
     setFieldValidity,
   } = useContext(FormContext); // get props from context
 
-  if (urlTransactionId) {
     return (
       <div>
         <h3 className="form--update__title form--update__title--donation text-align-centre">
@@ -32,8 +30,6 @@ const DonationTypeButtons = (props) => {
         />
       </div>
     );
-  }
-  return null;
 };
 
 export default DonationTypeButtons;

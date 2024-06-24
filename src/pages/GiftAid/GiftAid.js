@@ -32,11 +32,11 @@ function GiftAid(props) {
   const { setIsCompleted, setSuccessState } = useContext(AppContext);
 
   // Declare states
-  const update = props.location.pathname.includes("update"); // initialise updating param state
-  const [updating, setUpdating] = useState(update); // set to true if path contains the string update
+  const isUpdate = props.location.pathname.includes("update"); // initialise updating param state
+  const [isUpdateForm, setIsUpdateForm] = useState(isUpdate); // set to true if path contains the string update
   const [pathParams, setPathParams] = useState({}); // initialise submit path param state
   const [formValidityState, setFormValidityState] = useState(initialFormValidity); // intitialise form validity states
-  const [fieldValidation, setFieldValidation] = useState(getFieldValidations(update)); // intitialise field validation state based on form type
+  const [fieldValidation, setFieldValidation] = useState(getFieldValidations(isUpdate)); // intitialise field validation state based on form type
   const [isSubmitting, setIsSubmitting] = useState(false);
   const inputRef = useRef(null);
 
@@ -46,16 +46,12 @@ function GiftAid(props) {
   // initialise MSISDN state
   const [msisdn, setMSISDN] = useState(null);
 
-  // initialise URL transaction id state if available
-  const [urlTransactionId, setUrlTransactionId] = useState(props.match.params.transaction_id);
-
   /**
    * GiftAid component mounts
    */
   useEffect(() => {
-    setPathParams(getPathParams(updating)); // update path states
+    setPathParams(getPathParams(isUpdateForm)); // update path states
     setToken(props.match.params.token); // update token state
-    setUrlTransactionId(props.match.params.transaction_id); // update url transaction id state
     if (token) {
       decryptToken(token); // decrypt token to MSISDN
     }
@@ -64,8 +60,7 @@ function GiftAid(props) {
       // reset states
       setFormValidityState(initialFormValidity);
       setFieldValidation({});
-      setUpdating(false);
-      setUrlTransactionId(null);
+      setIsUpdateForm(false);
       setToken(null);
       setMSISDN(null);
     }
@@ -93,8 +88,7 @@ function GiftAid(props) {
    */
   useEffect(() => {
     // Update validation accordingly on update
-    if ((formValidityState.showErrorMessages && !formValidityState.formValidity
-      && formValidityState.validating) || formValidityState.urlTransactionId.valid === false ) {
+    if ((formValidityState.showErrorMessages && !formValidityState.formValidity && formValidityState.validating)) {
       // update validation state
       setFormValidityState({
         ...formValidityState,
@@ -120,17 +114,21 @@ function GiftAid(props) {
       (thisFieldsState.fieldValidation !== thisFieldsPreviousState.fieldValidation);
 
     if ((thisFieldsPreviousState && isUpdatedState) || marketingConsentFieldsChanged === true) {
-        // Reset url transaction Id state
-        if (thisFieldsName === 'transactionId' && thisFieldsState.valid) {
-          setFormValidityState({
-            ...formValidityState,
-            urlTransactionId: {
-              ...formValidityState.urlTransactionId,
-              valid: true,
-            }
-          });
-        }
         fieldValidation[thisFieldsName] = thisFieldsState;
+
+        // Currently, on mount, each field's current 'valid' value is an empty string, rather than the boolean value it SHOULD be.
+        //
+        // Long story short, if the field isn't interacted with (like our optional Mobile field here potentially), it means the whole
+        // form validation check fails due to that empty string.
+        //
+        // Additionally, there's an issue around non-required fields. We do actually set the appropriate config in SubmitFormFields and
+        // UpdateFormFields, but it's not being used at all for reasons I haven't uncovered yet, very helpfully doing nothing with the 'required' flag.
+        // 
+        // This short-term fix below effectively shortcircuits the validation for our non-required 'mobile' UpdateForm field when it's empty:
+        if (isUpdate && thisFieldsName === 'mobile' && thisFieldsState.value === '' ) {
+          fieldValidation[thisFieldsName].valid = true;
+        }
+
         setFieldValidation({...fieldValidation});
 
         return {
@@ -146,7 +144,7 @@ function GiftAid(props) {
    */
   const submitForm = (e) => {
     e.preventDefault();
-    const formValues = getFormValues(fieldValidation, urlTransactionId, updating); // get form values
+    const formValues = getFormValues(fieldValidation); // get form values
     const { validity, validationState } = validateForm(fieldValidation, formValues, formValidityState); // validate form
     setFormValidityState(validationState); // update form validation state
 
@@ -154,9 +152,7 @@ function GiftAid(props) {
       setIsSubmitting(true); // Update state that's passed down to disable button during submission
       // Rather than mess with the input field value itself (crummy UX), just sanitise the value on submission,
       // removing any leading or trailing whitespace that the new regex brings allows for (see ENG-3193) 
-      if (formValues.donationID) formValues.donationID = formValues.donationID.trim();
-      if (formValues.transactionId) formValues.transactionId = formValues.transactionId.trim();
-
+      
       axios.post(pathParams.endpoint, formValues) // post form data and settings to endpoint
         .then(() => {
           setIsCompleted(true); // set completed state
@@ -184,7 +180,6 @@ function GiftAid(props) {
 
   // Pass context props to child components
   const contextProps = {
-    urlTransactionId,
     hiddenFields,
     justInTimeLinkText,
     formValidityState,
@@ -199,10 +194,9 @@ function GiftAid(props) {
   return (
     <FormProvider value={contextProps}>
 
-      { updating ? (
+      { isUpdateForm ? (
         <UpdateForm
           title="Update Form"
-          urlTransactionId={urlTransactionId}
         />
       ) : (
         <SubmitForm

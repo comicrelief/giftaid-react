@@ -1,5 +1,6 @@
 $colour-dove-grey: #666666;
 $colour-scorpion-grey: #595959;
+$color-cr-red: #e52630;
 
 .update-giftaid__form {
   @include container;
@@ -69,6 +70,13 @@ $colour-scorpion-grey: #595959;
       font-family:$font-bold;
     }
   }
+
+  #field-wrapper--mobile {
+    .form__field-additional-text {
+      color: $color-cr-red;
+      font-size: 14px;
+    }
+  }
 }
 
 .form__field-additional-text {
@@ -125,10 +133,6 @@ button[type="submit"].btn.btn--red {
 .form--update__title {
   @include span(12);
   margin: 40px 0;
-}
-
-.transaction-id {
-  color: $colour-scorpion-grey;
 }
 
 .form--update__title {
@@ -225,5 +229,4 @@ textarea  {
       height:19px;
     }
   }
-
 }

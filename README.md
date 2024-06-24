@@ -71,7 +71,7 @@ The domains for giftaid are as follows
 
 To run PR Playwright Tests locally (after running `yarn playwright install` if you haven't previously), you need to first export `REACT_APP_ENDPOINT_URL=https://giftaid-sandbox.sls.comicrelief.com/` in your terminal for the form to get submitted and then run the script `test:playwright-local:local` found in package.json; this script starts the http://localhost:3000 server in the background, config for this is found in `playwright-local/playwright-local.config.js` file and runs the tests in headless mode. 
 
-To view a test in a headed mode locally, add `--headed` flag option to `"test:playwright-local:local": "playwright test --config=./playwright-local/playwright-local.config.js --project=chromium --headed"` script found in package.json. 
+To view a test in a _headed_ mode locally, use the according command; `test:playwright-local--h`.
 
 To run a single test, add `only` annotation
 

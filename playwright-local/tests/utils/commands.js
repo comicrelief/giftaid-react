@@ -1,11 +1,9 @@
-const { v4: uuidv4 } = require('uuid');
 const Chance = require('chance');
 const chance = new Chance();
 
 class Commands {
   constructor(page) {
     this.page = page;
-    this.transactionId = uuidv4();
   }
   
   /**
@@ -56,7 +54,6 @@ class Commands {
    * @param userData - Optional user data for form filling.
    */
   async populateUpdateFormFields(page, {
-    transactionID = this.transactionId,
     firstName = 'test',
     lastName = chance.last(),
     email = `giftaid-update-staging-${chance.email()}`,
@@ -65,9 +62,8 @@ class Commands {
     address2 = chance.street(),
     address3 = 'test address 3',
     town = chance.city(),
+    mobile = chance.phone({ country: 'uk', mobile: true }).replace(/\s/g, ''), // Remove spaces from the phone number
   } = {}) {
-    await page.locator('input#field-input--transactionId').fill(transactionID);
-    console.log('transactionId is:', transactionID);
     await page.locator('input#field-input--firstname').fill(firstName);
     await page.locator('input#field-input--lastname').fill(lastName);
     await page.locator('input#field-input--postcode').fill(postcode);
@@ -77,6 +73,7 @@ class Commands {
     await page.locator('input#field-input--address2').fill(address2);
     await page.locator('input#field-input--address3').fill(address3);
     await page.locator('input#field-input--town').fill(town);
+    await page.locator('#field-input--mobile').type(mobile);
   }
 }
 

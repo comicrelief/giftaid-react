@@ -1,7 +1,6 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 const { v4: uuidv4 } = require('uuid');
-const transactionId = uuidv4();
 
 test.describe('International addresses validation on update form', () => {
   test('selecting a non-UK country and entering a non-UK postcode should submit the update form', async ({ page }) => {
@@ -11,7 +10,6 @@ test.describe('International addresses validation on update form', () => {
     await page.waitForLoadState('domcontentloaded');
 
     /// fill in all input fields
-    await page.locator('input#field-input--transactionId').fill(transactionId);
     await page.locator('#field-input--firstname').fill('test');
     await page.locator('#field-input--lastname').fill('test lastname');
     await page.locator('input#field-input--email').fill('giftaid-staging-@email.sls.comicrelief.com');
@@ -42,6 +40,9 @@ test.describe('International addresses validation on update form', () => {
   
     // Select yes for giftaid declaration to complete the form
     await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
+
+    // Select 'Online' donation type
+    await page.locator('#donationType>div:nth-child(3)>label').click();
   
     // Submitting the form with valid international details
     await page.locator('button[type=submit]').click();

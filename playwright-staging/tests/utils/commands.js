@@ -1,11 +1,9 @@
-const { v4: uuidv4 } = require('uuid');
 const Chance = require('chance');
 const chance = new Chance();
 
 class Commands {
   constructor(page) {
     this.page = page;
-    this.transactionId = uuidv4();
   }
 
   /**
@@ -56,22 +54,21 @@ class Commands {
    * @param userData - Optional user data for form filling.
    */
   async populateUpdateFormFields(page, {
-    transactionID = this.transactionId,
     firstName = 'test',
     lastName = chance.last(),
     email = `giftaid-update-staging-${chance.email()}`,
+    mobile = '07123456789',
     postcode = chance.postcode(),
     address1 = chance.address(),
     address2 = chance.street(),
     address3 = 'test address 3',
     town = chance.city(),
   } = {}) {
-    await page.locator('input#field-input--transactionId').fill(transactionID);
-    console.log('transactionId is:', transactionID);
     await page.locator('input#field-input--firstname').fill(firstName);
     await page.locator('input#field-input--lastname').fill(lastName);
     await page.locator('input#field-input--postcode').fill(postcode);
     await page.locator('input#field-input--email').fill(email);
+    await page.locator('#field-input--mobile').fill(mobile);
     await page.locator('a[aria-describedby=field-error--addressDetails]').click();
     await page.locator('input#field-input--address1').fill(address1);
     await page.locator('input#field-input--address2').fill(address2);

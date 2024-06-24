@@ -9,8 +9,6 @@ import DonationTypeButtons from '../../../components/Buttons/DonationTypeButtons
 import GiftAidClaimChoiceButtons from '../../../components/Buttons/GiftAidClaimChoiceButtons/GiftAidClaimChoiceButtons';
 import InputFields from '../../../components/InputFields/InputFields';
 import JustInTime from '../../../components/JustInTime/index';
-import UrlTransactionIdError from './UrlTransactionIdError';
-
 
 // fields data
 import { updateFormFields, donationTypeChoices, giftAidButtonChoices } from './UpdateFormFields';
@@ -33,8 +31,6 @@ function UpdateForm(props) {
   } = useContext(FormContext); // get props from context
 
 
-  const { urlTransactionId } = props;
-
   // Declare state variables
   const [inputFieldProps, setInputFieldProps] = useState(updateFormFields); // initialise form inputFieldProps state
 
@@ -42,18 +38,11 @@ function UpdateForm(props) {
    * Component mounts and updates
    */
   useEffect(() => {
-    // Delete if url trans Id if present
-    // on component mount or update
-    if (urlTransactionId !== undefined) {
-      // Delete transactionId form field
-      delete inputFieldProps.transactionId;
-      delete fieldValidation.transactionId;
-    } else {
-      // Else, delete the donation type radiobuttons
-      delete fieldValidation.donationType;
-    }
     setFieldValidation(fieldValidation);
     // Reset states on component unmount
+    
+    // ADDING THIS EVERYWHERE TO /UPDATE NOW SO DON'T DELETE IT
+    // delete fieldValidation.donationType;
     return () => {
       setInputFieldProps([]);
     }
@@ -64,8 +53,6 @@ function UpdateForm(props) {
     <Form className="giftaid__form update-giftaid__form">
 
       <FormHeader page="update" />
-
-      <UrlTransactionIdError />
 
       <div className="form-fields--wrapper">
 

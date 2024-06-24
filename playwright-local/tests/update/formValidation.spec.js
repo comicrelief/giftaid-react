@@ -1,8 +1,8 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 const { Commands } = require('../utils/commands');
-const { v4: uuidv4 } = require('uuid');
-const transactionId = uuidv4();
+
+const email = `giftaid-staging-${Date.now().toString()}@email.sls.comicrelief.com`;
 
 test.describe('Giftaid update form validation', () => {
   
@@ -16,9 +16,7 @@ test.describe('Giftaid update form validation', () => {
     
     // submit the form
     await page.locator('button[type=submit]').click();
-    
-    await expect(page.locator('div#field-error--urlTransID > span')).toContainText('This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter');
-    await expect(page.locator('div#field-error--transactionId > span')).toContainText('Please fill in your transaction id');
+
     await expect(page.locator('div#field-error--firstname > span')).toContainText('Please fill in your first name');
     await expect(page.locator('div#field-error--lastname > span')).toContainText('Please fill in your last name');
     await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter your postcode');
@@ -31,40 +29,13 @@ test.describe('Giftaid update form validation', () => {
     
     // giftaid declaration error message
     await expect(page.locator('div#field-error--giftAidClaimChoice > span')).toContainText('This field is required');
+
+    // DonationType error message
+    await expect(page.locator('#field-error--donationType')).toContainText('This field is required');
     
     await page.close();
   });
   
-  test('validate transaction ID field', async ({ page }) => {
-    
-    const commands = new Commands(page);
-    
-    await page.locator('input#field-input--transactionId').fill(transactionId);
-    await page.locator('input#field-input--transactionId').fill('');
-    await expect(page.locator('div#field-error--transactionId > span')).toContainText('Please fill in your transaction id');
-    
-    // transaction ID number with special characters should shows error message
-    await page.locator('input#field-input--transactionId').type('ea794dc3-35f8-4a87-bc94-14125fd480@$', {delay: 100});
-    await page.waitForSelector('div#field-error--transactionId > span');
-    await expect(page.locator('div#field-error--transactionId > span')).toContainText('This transaction ID doesn\'t seem to be valid, please check your donation confirmation email or letter');
-    
-    // clear the transaction ID field and enter valid inputs and submit form
-    await page.locator('input#field-input--transactionId').fill('');
-    
-    // entering valid input fields should be able to submit the form
-    await commands.populateUpdateFormFields(page);
-    
-    // select giftaid declaration
-    await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
-    
-    // submit the form
-    await page.locator('button[type=submit]').click();
-    
-    await expect(page.locator('div > h1')).toContainText('Thank you,\n' +
-      'test!');
-    
-    await page.close();
-  });
   
   test('validate first name field on giftaid update form', async ({ page }) => {
     
@@ -93,7 +64,10 @@ test.describe('Giftaid update form validation', () => {
     
     // entering valid input fields should be able to submit the form
     await commands.populateUpdateFormFields(page);
-    
+
+    // Select 'Online' donation type
+    await page.locator('#donationType>div:nth-child(3)>label').click();
+
     // select giftaid declaration
     await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
     
@@ -134,6 +108,9 @@ test.describe('Giftaid update form validation', () => {
     
     // entering valid input fields should be able to submit the form
     await commands.populateUpdateFormFields(page);
+
+    // Select 'Online' donation type
+    await page.locator('#donationType>div:nth-child(3)>label').click();
     
     // select giftaid declaration
     await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
@@ -182,10 +159,13 @@ test.describe('Giftaid update form validation', () => {
     
     // entering valid input fields should be able to submit the form
     await commands.populateUpdateFormFields(page);
-    
+
+    // Select 'Online' donation type
+    await page.locator('#donationType>div:nth-child(3)>label').click();
+
     // select giftaid declaration
     await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
-    
+  
     // submit the form
     await page.locator('button[type=submit]').click();
     
@@ -193,6 +173,38 @@ test.describe('Giftaid update form validation', () => {
       'test!');
     
     await page.close();
+  });
+
+  test('Validate mobile number field', async ({ page }) => {
+    const commands = new Commands(page);
+
+    // Test cases for various mobile number validations
+    const mobileTestCases = [
+      { input: '0712345678', error: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.' },
+      { input: '0712345678900', error: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.' },
+      { input: '0712 345 6789', error: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.' },
+      { input: '0780ab5694245', error: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.' },
+    ];
+    
+    for (let testCase of mobileTestCases) {
+      await page.locator('#field-input--mobile').fill(''); // Clear the field before each test
+      await page.locator('#field-input--mobile').type(testCase.input, { delay: 100 });
+      await expect(page.locator('div#field-error--mobile > span')).toHaveText(testCase.error);
+    }
+    
+    // Validate correct mobile number
+    await page.locator('#field-input--mobile').fill(''); // Ensure the field is cleared before filling with valid data
+
+    await commands.populateUpdateFormFields(page);
+
+    // Select yes for giftaid declaration to complete the form
+    await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
+
+    // Select 'Online' donation type
+    await page.locator('#donationType>div:nth-child(3)>label').click();
+
+    await page.locator('button[type=submit]').click();
+    await expect(page.locator('div > h1')).toHaveText('Thank you, test!');
   });
   
   test('postcode entered with extra spaces should show error message', async ({ page }) => {
@@ -234,7 +246,6 @@ test.describe('Giftaid update form validation', () => {
   test('enter valid UK postcode on giftaid update form using postcode lookup should be able to submit the form', async ({ page }) => {
     
     // fill in all input fields
-    await page.locator('input#field-input--transactionId').fill(transactionId);
     await page.locator('#field-input--firstname').fill('test');
     await page.locator('#field-input--lastname').fill('test lastname');
     await page.locator('input#field-input--email').fill('giftaid-staging-@email.sls.comicrelief.com');
@@ -271,6 +282,9 @@ test.describe('Giftaid update form validation', () => {
       
       const town = await page.evaluate(() => document.querySelector('input#field-input--town').getAttribute('value'));
       console.log('Address line 1 field value is : ', town);
+
+      // Select 'Online' donation type
+      await page.locator('#donationType>div:nth-child(3)>label').click();
       
       // select giftaid declaration
       await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
@@ -288,6 +302,9 @@ test.describe('Giftaid update form validation', () => {
       await page.locator('#field-input--address2').type('CAMELFORD HOUSE 87-90');
       await page.locator('#field-input--address3').type('ALBERT EMBANKMENT');
       await page.locator('#field-input--town').type('LONDON');
+
+      // Select 'Online' donation type
+      await page.locator('#donationType>div:nth-child(3)>label').click();
       
       // select giftaid declaration
       await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
