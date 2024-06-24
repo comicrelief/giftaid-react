@@ -197,14 +197,14 @@ test.describe('Giftaid update form validation', () => {
     
     for (let testCase of mobileTestCases) {
       await page.locator('#field-input--mobile').fill(''); // Clear the field before each test
-      await page.locator('#field-input--mobile').type(mobile);
+      await page.locator('#field-input--mobile').type(testCase.input, { delay: 100 });
       await expect(page.locator('div#field-error--mobile > span')).toHaveText(testCase.error);
     }
     
     // Validate correct mobile number
     await page.locator('#field-input--mobile').fill(''); // Ensure the field is cleared before filling with valid data
 
-    await commands.populateUpdateFormFields(page);
+    await commands.populateUpdateFormFields(page, { mobile: mobile });
 
     // Select yes for giftaid declaration to complete the form
     await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
