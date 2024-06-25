@@ -7,7 +7,8 @@ test('Valid giftaid submission @sanity @nightly-sanity', async ({ page }) => {
   const commands = new Commands(page);
   
   // Navigate to the giftaid page
-  await page.goto(`${process.env.BASE_URL}`, { waitUntil: 'networkidle' });
+  await page.goto(process.env.BASE_URL, { timeout: 30000 });
+  await page.waitForLoadState('domcontentloaded');
   
   // Click the Giftaid checkbox
   await page.click('#field-label--giftaid');

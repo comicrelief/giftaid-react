@@ -4,7 +4,8 @@ const { test } = require('../../browserstack');
 
 test('Accessing success page should redirect to giftaid homepage @sanity @nightly-sanity', async ({ page }) => {
   // Navigate directly to the success page and expect a redirect
-  await page.goto(`${process.env.BASE_URL}success`, { waitUntil: 'networkidle' });
+  await page.goto(`${process.env.BASE_URL}success`, { timeout: 30000 });
+  await page.waitForLoadState('domcontentloaded');
   
   // Check if the expected header title is present, which indicates a successful redirect
   const headerTitle = page.locator('h1.giftaid-title');

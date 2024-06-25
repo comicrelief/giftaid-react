@@ -50,7 +50,6 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
     
     // Test for a valid first name
     await page.fill('#field-input--firstname', ''); // clear firstname field
-    await page.locator('.form__radio input[type="radio"][value="online"]').click();
     await commands.populateUpdateFormFields(page, { firstName: 'John' });
     await page.click('#giftAidClaimChoice>div:nth-child(2)>label'); // Select yes for declaration
     await page.click('button[type=submit]');  // Submit the form
@@ -86,7 +85,6 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
     // Test for a valid email
     const validEmail = 'test@comicrelief.com';
     await page.fill('input#field-input--email', ''); // clear email field
-    await page.locator('.form__radio input[type="radio"][value="sms"]').click();
     await commands.populateUpdateFormFields(page, { email: validEmail });
     await page.click('#giftAidClaimChoice>div:nth-child(3)>label'); // Select no for declaration
     await page.click('button[type=submit]'); // Submit the form
@@ -121,7 +119,6 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
     
     // Validate correct mobile number
     await page.locator('#field-input--mobile').fill(''); // Ensure the field is cleared and filled with valid data
-    await page.locator('.form__radio input[type="radio"][value="call centre"]').click();
     await commands.populateUpdateFormFields(page, { mobile: mobile });
     await page.click('#giftAidClaimChoice>div:nth-child(2)>label'); // Select yes for declaration
     await page.click('button[type=submit]'); // Submit the form
