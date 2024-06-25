@@ -22,11 +22,6 @@ test('Validate Giftaid declaration claim selections @sanity @nightly-sanity', as
   expect(await page.locator('#giftAidClaimChoice>div:nth-child(3)>input').isChecked()).toBeTruthy();
   expect(await page.locator('#giftAidClaimChoice>div:nth-child(2)>input').isChecked()).toBeFalsy();
 
-  // Select 'Online' donation type
-  await page.locator('#donationType>div:nth-child(3)>label').click();
-  expect(await page.locator('#donationType>div:nth-child(3)>input').isChecked()).toBeTruthy();
-  expect(await page.locator('#donationType>div:nth-child(2)>input').isChecked()).toBeFalsy();
-  
   await page.locator('button[type=submit]').click();
   await expect(page.locator('div > h1')).toHaveText('Thanks for letting us know');
   

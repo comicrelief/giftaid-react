@@ -16,9 +16,6 @@ test('Valid giftaid update submission @sanity @nightly-sanity', async ({ page })
   // Select 'Yes' for GiftAid declaration
   await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
 
-  // Select 'Online' donation type
-  await page.locator('#donationType>div:nth-child(3)>label').click();
-  
   // Submit the form and validate the thank you message
   await page.locator('button[type=submit]').click();
   await expect(page.locator('div > h1')).toContainText('Thank you, test!');

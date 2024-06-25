@@ -5,13 +5,12 @@ import PostcodeLookup from "@comicrelief/storybook/src/components/PostcodeLookup
 import Form from '../../../components/Form/index';
 import FormHeader from '../../../components/FormHeader/FormHeader';
 import FormButton from '../../../components/Buttons/FormButton/index';
-import DonationTypeButtons from '../../../components/Buttons/DonationTypeButtons/DonationTypeButtons';
 import GiftAidClaimChoiceButtons from '../../../components/Buttons/GiftAidClaimChoiceButtons/GiftAidClaimChoiceButtons';
 import InputFields from '../../../components/InputFields/InputFields';
 import JustInTime from '../../../components/JustInTime/index';
 
 // fields data
-import { updateFormFields, donationTypeChoices, giftAidButtonChoices } from './UpdateFormFields';
+import { updateFormFields, giftAidButtonChoices } from './UpdateFormFields';
 
 // import context
 import FormContext from '../../../context/FormContext';
@@ -40,9 +39,6 @@ function UpdateForm(props) {
   useEffect(() => {
     setFieldValidation(fieldValidation);
     // Reset states on component unmount
-    
-    // ADDING THIS EVERYWHERE TO /UPDATE NOW SO DON'T DELETE IT
-    // delete fieldValidation.donationType;
     return () => {
       setInputFieldProps([]);
     }
@@ -55,8 +51,6 @@ function UpdateForm(props) {
       <FormHeader page="update" />
 
       <div className="form-fields--wrapper">
-
-        <DonationTypeButtons donationTypeChoices={donationTypeChoices} />
 
         <h3 className="form--update__title form--update__title--giftaid text-align-centre">
           Who is changing their declaration?

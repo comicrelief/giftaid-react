@@ -85,11 +85,6 @@ export const getFormValues = (validation, update = false) => {
     return fieldValues[key] = value;
   });
 
-  // Create donation type field for Update Form
-  fieldValues.donationType = typeof validation.donationType !== 'undefined'
-    && validation.donationType
-    ? validation.donationType.value : DONATION_TYPES.ONLINE;
-
   // Create name based on Form type
   const name = update ? 'GiftAidUpdate' : 'GiftAid';
 
@@ -107,17 +102,6 @@ export const getFormValues = (validation, update = false) => {
     transType: name,
     timestamp: site.getTimestamp(),
   }, fieldValues);
-};
-
-
-/*
-* Donation Types
-*
-*/
-const DONATION_TYPES = {
-  SMS: 'sms',
-  ONLINE: 'online',
-  CALL_CENTRE: 'call centre',
 };
 
 /*
@@ -355,11 +339,6 @@ export const defaultUpdateFormFieldValidations = {
     message: '',
   },
   giftAidClaimChoice: {
-    valid: false,
-    value: undefined,
-    message: '',
-  },
-  donationType: {
     valid: false,
     value: undefined,
     message: '',

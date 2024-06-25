@@ -176,11 +176,6 @@ button[type="submit"].btn.btn--red {
   }
 }
 
-#donationType {
-  // Keep the label for accessibility, just hidden as per design
-  .form__fieldset--label { @include visuallyhidden; }
-}
-
 .form--update__title--donation {
   margin-bottom: 0;
 }
