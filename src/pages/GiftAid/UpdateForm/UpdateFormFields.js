@@ -11,26 +11,6 @@ switch(site.getSite()) {
 };
 
 /*
-* Donation Types
-*
-*/
-export const DONATION_TYPES = {
-  SMS: 'sms',
-  ONLINE: 'online',
-  CALL_CENTRE: 'call centre',
-};
-
-/*
-* Donation Type Radio Button Choices
-*
-*/
-export const donationTypeChoices = [
-  { label: 'SMS', value: DONATION_TYPES.SMS },
-  { label: 'Online', value: DONATION_TYPES.ONLINE },
-  { label: 'Call centre', value: DONATION_TYPES.CALL_CENTRE },
-];
-
-/*
 * Default GiftAid Button
 * Choices
 *
