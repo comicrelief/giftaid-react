@@ -5,6 +5,14 @@ class Commands {
   constructor(page) {
     this.page = page;
   }
+  
+  /**
+   * Generate a random string of 5 lowercase letters.
+   * @return {Promise<string>} A promise that resolves to a random string.
+   */
+  async randomString() {
+    return chance.string({ length: 5, pool: 'abcdefghijklmnopqrstuvwxyz' });
+  }
 
   /**
    * Populate giftaid from fields

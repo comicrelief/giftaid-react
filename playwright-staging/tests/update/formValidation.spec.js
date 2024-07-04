@@ -83,7 +83,7 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
     }
     
     // Test for a valid email
-    const validEmail = 'test@comicrelief.com';
+    const validEmail = `giftaid-update-staging-${chance.email()}`;
     await page.fill('input#field-input--email', ''); // clear email field
     await commands.populateUpdateFormFields(page, { email: validEmail });
     await page.click('#giftAidClaimChoice>div:nth-child(3)>label'); // Select no for declaration

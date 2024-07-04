@@ -6,7 +6,7 @@ const { Commands } = require('../utils/commands');
 const Chance = require('chance');
 const chance = new Chance();
 
-const email = `giftaid-staging-${Date.now().toString()}@email.sls.comicrelief.com`;
+const email = `giftaid-update-staging-${chance.email()}`;
 const phone = chance.phone({ country: 'uk', mobile: false }).replace(/\s/g, '');
 
 test.describe('Marketing preferences validation @sanity @nightly-sanity', () => {
