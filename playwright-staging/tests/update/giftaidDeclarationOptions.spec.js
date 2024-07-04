@@ -23,7 +23,7 @@ test('Validate Giftaid declaration claim selections @sanity @nightly-sanity', as
   expect(await page.locator('#giftAidClaimChoice>div:nth-child(2)>input').isChecked()).toBeFalsy();
 
   await page.locator('button[type=submit]').click();
-  await expect(page.locator('div > h1')).toHaveText('Thanks for letting us know');
+  await expect(page.locator('div.success-wrapper--inner h1')).toHaveText('Thanks for letting us know');
   
   await page.close();
 });

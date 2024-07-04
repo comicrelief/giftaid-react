@@ -45,7 +45,7 @@ test.describe('Postcode validation @sanity @nightly-sanity', () => {
     }
     
     await page.click('button[type=submit]');
-    await expect(page.locator('div > h1')).toContainText('Thank you,\n' + 'test!');
+    await expect(page.locator('div.success-wrapper--inner h1')).toContainText('Thank you,\n' + 'test!');
     
     await page.close();
   });

@@ -48,7 +48,7 @@ test('Verify giftaid submit ERP data @regression', async ({ page }) => {
   ]);
   
   // Check for the thank you message to confirm successful submission
-  await expect(page.locator('div > h1')).toHaveText(`Thank you, ${contactInfo.firstName}!`);
+  await expect(page.locator('div.success-wrapper--inner h1')).toHaveText(`Thank you, ${contactInfo.firstName}!`);
   
   // ERP Steps
   const giftaidSubmit = await erpTester.findOne('Gift Aid Declaration', {

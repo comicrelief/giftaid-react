@@ -26,7 +26,7 @@ test('Valid giftaid submission @sanity @nightly-sanity', async ({ page }) => {
   ]);
   
   // Check for the thank you message to confirm successful submission
-  await expect(page.locator('div > h1')).toHaveText('Thank you, test!');
+  await expect(page.locator('div.success-wrapper--inner h1')).toHaveText('Thank you, test!');
   
   await page.close();
 });

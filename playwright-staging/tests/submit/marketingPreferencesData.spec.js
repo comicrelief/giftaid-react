@@ -38,7 +38,7 @@ test('Verify giftaid marketing preferences data in contact-store @sanity @nightl
   await page.locator('button[type=submit]').click();
   
   // Verify success message
-  await expect(page.locator('div > h1')).toHaveText(`Thank you, ${firstName}!`);
+  await expect(page.locator('div.success-wrapper--inner h1')).toHaveText(`Thank you, ${firstName}!`);
   
   // Retrieve and verify marketing preferences data
   const mpData = await MarketingPrefsVerify.get(email);

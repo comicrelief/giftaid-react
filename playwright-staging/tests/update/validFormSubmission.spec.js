@@ -18,7 +18,7 @@ test('Valid giftaid update submission @sanity @nightly-sanity', async ({ page })
 
   // Submit the form and validate the thank you message
   await page.locator('button[type=submit]').click();
-  await expect(page.locator('div > h1')).toContainText('Thank you, test!');
+  await expect(page.locator('div.success-wrapper--inner h1')).toContainText('Thank you, test!');
   
   await page.close();
 });

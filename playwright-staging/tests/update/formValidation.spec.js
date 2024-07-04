@@ -54,7 +54,7 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
     await page.click('#giftAidClaimChoice>div:nth-child(2)>label'); // Select yes for declaration
     await page.click('button[type=submit]');  // Submit the form
     
-    await expect(page.locator('div > h1')).toHaveText('Thank you, John!');
+    await expect(page.locator('div.success-wrapper--inner h1')).toHaveText('Thank you, John!');
     await page.close();
   });
   
@@ -89,7 +89,7 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
     await page.click('#giftAidClaimChoice>div:nth-child(3)>label'); // Select no for declaration
     await page.click('button[type=submit]'); // Submit the form
     
-    await expect(page.locator('div > h1')).toHaveText('Thanks for letting us know');
+    await expect(page.locator('div.success-wrapper--inner h1')).toHaveText('Thanks for letting us know');
     await page.close();
   });
   
@@ -119,11 +119,11 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
     
     // Validate correct mobile number
     await page.locator('#field-input--mobile').fill(''); // Ensure the field is cleared and filled with valid data
-    await commands.populateUpdateFormFields(page, { mobile: mobile });
+    await commands.populateUpdateFormFields(page, { lastName: 'test', mobile: mobile });
     await page.click('#giftAidClaimChoice>div:nth-child(2)>label'); // Select yes for declaration
     await page.click('button[type=submit]'); // Submit the form
   
-    await expect(page.locator('div > h1')).toHaveText('Thank you,  test!');
+    await expect(page.locator('div.success-wrapper--inner h1')).toHaveText('Thank you,  test!');
   });
   
   test('Postcode validation and form submission', async ({ page }) => {
@@ -170,7 +170,7 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
     await page.click('#giftAidClaimChoice>div:nth-child(2)>label'); // Select yes for declaration
     await page.click('button[type=submit]'); // Submit the form
     
-    await expect(page.locator('div > h1')).toHaveText('Thank you,  test!');
+    await expect(page.locator('div.success-wrapper--inner h1')).toHaveText('Thank you,  test!');
     await page.close();
   });
 });
