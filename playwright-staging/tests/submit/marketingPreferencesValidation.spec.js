@@ -6,7 +6,7 @@ const { Commands } = require('../utils/commands');
 const Chance = require('chance');
 const chance = new Chance();
 
-const email = `giftaid-staging-${Date.now().toString()}@email.sls.comicrelief.com`;
+const email = `giftaid-update-staging-${chance.email()}`;
 const phone = chance.phone({ country: 'uk', mobile: false }).replace(/\s/g, '');
 
 test.describe('Marketing preferences validation @sanity @nightly-sanity', () => {
@@ -35,7 +35,7 @@ test.describe('Marketing preferences validation @sanity @nightly-sanity', () => 
   
     // Submit the form
     await page.click('button[type=submit]');
-    await expect(page.locator('div > h1')).toHaveText('Thank you, test!');
+    await expect(page.locator('div.success-wrapper--inner h1')).toHaveText('Thank you, test!');
   });
   
   test('Validate email marketing preference field', async ({ page }) => {
@@ -53,7 +53,7 @@ test.describe('Marketing preferences validation @sanity @nightly-sanity', () => 
     // Re-enter valid email and submit
     await page.fill('input#field-input--email', email);
     await page.click('button[type=submit]');
-    await expect(page.locator('div > h1')).toHaveText('Thank you, test!');
+    await expect(page.locator('div.success-wrapper--inner h1')).toHaveText('Thank you, test!');
   });
   
   test('Validate phone marketing preference field', async ({ page }) => {
@@ -71,6 +71,6 @@ test.describe('Marketing preferences validation @sanity @nightly-sanity', () => 
     // Re-enter valid phone number and submit
     await page.fill('input#field-input--phone', phone);
     await page.click('button[type=submit]');
-    await expect(page.locator('div > h1')).toHaveText('Thank you, test!');
+    await expect(page.locator('div.success-wrapper--inner h1')).toHaveText('Thank you, test!');
   });
 });

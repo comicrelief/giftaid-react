@@ -77,6 +77,6 @@ test.describe('Form validation @sanity @nightly-sanity', () => {
     await page.locator('#field-input--lastname').fill('');
     await commands.populateFormFields(page);
     await page.locator('button[type=submit]').click();
-    await expect(page.locator('div > h1')).toHaveText('Thank you, test!');
+    await expect(page.locator('div.success-wrapper--inner h1')).toHaveText('Thank you, test!');
   });
 });

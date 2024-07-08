@@ -16,6 +16,7 @@
     "uuid": "8.3.2"
   },
   "scripts": {
-    "test:sanity": "FORCE_COLOR=1 playwright test --grep '@sanity'"
+    "test:sanity": "FORCE_COLOR=1 playwright test --grep '@sanity'",
+    "test:regression": "FORCE_COLOR=1 playwright test --grep '@regression'"
   }
 }
