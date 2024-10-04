@@ -43,7 +43,7 @@ test('Verify giftaid marketing preferences data in contact-store @sanity @nightl
   // Retrieve and verify marketing preferences data
   const mpData = await MarketingPrefsVerify.get(email);
   
-  expect(mpData.campaign).toEqual('RND24');
+  expect(mpData.campaign).toEqual('RND25');
   expect(mpData.firstname).toEqual(firstName);
   expect(mpData.lastname).toEqual(lastName);
   expect(mpData.email).toEqual(email);
@@ -51,7 +51,7 @@ test('Verify giftaid marketing preferences data in contact-store @sanity @nightl
   expect(mpData.town).toEqual(town);
   expect(mpData.country).toEqual('GB');
   expect(mpData.transsourceurl).toContain(process.env.BASE_URL);
-  expect(mpData.transsource).toEqual('RND24_GiftAid');
+  expect(mpData.transsource).toEqual('RND25_GiftAid');
   expect(mpData.transtype).toEqual('prefs');
   expect(mpData.permissionemail).toEqual('1');
   expect(mpData.permissionsms).toEqual('1');
