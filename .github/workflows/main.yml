@@ -31,11 +31,6 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Install system dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libasound2
-
       - name: Install playwright browsers
         run: yarn playwright install --with-deps chromium
 
