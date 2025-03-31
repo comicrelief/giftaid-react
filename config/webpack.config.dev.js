@@ -18,6 +18,7 @@ const publicUrl = '';
 const env = getClientEnvironment(publicUrl);
 
 module.exports = {
+  target: 'web',
   mode: 'development',
   devtool: 'cheap-module-source-map',
   entry: [
