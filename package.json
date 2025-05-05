@@ -16,7 +16,7 @@
     "dotenv": "^16.4.5",
     "fs-extra": "^11.2.0",
     "imagemin-gifsicle": "^6.0.1",
-    "imagemin-mozjpeg": "^8.0.0",
+    "imagemin-mozjpeg": "^9.0.0",
     "object-assign": "4.1.1",
     "promise": "8.3.0",
     "prop-types": "^15.6.1",
