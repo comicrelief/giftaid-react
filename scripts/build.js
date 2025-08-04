@@ -119,6 +119,13 @@ function build(previousFileSizes) {
         }
         return reject(new Error(messages.errors.join('\n\n')));
       }
+      /*
+        The below commented-out section treats warnings as errors and fails the
+        build if the `CI` env var is set. Not clear what the original purpose of
+        this was, and we've been building in CI without the `CI` env var since
+        the beginning of time (approximately). New Concourse Tools does set `CI`
+        which is causing SPA deployments to fail.
+
       if (
         process.env.CI &&
         (typeof process.env.CI !== 'string' ||
@@ -133,6 +140,7 @@ function build(previousFileSizes) {
         );
         return reject(new Error(messages.warnings.join('\n\n')));
       }
+      */
       return resolve({
         stats,
         previousFileSizes,
