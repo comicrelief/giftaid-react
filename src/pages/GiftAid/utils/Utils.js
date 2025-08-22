@@ -51,6 +51,12 @@ export const getPathParams = (update = false) => {
   };
 };
 
+export const postcodeRegex = {
+  GB: {
+    pattern: '^[a-z]{1,2}\\d[a-z\\d]?\\s*\\d[a-z]{2}$',
+    errorMsg: 'Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.',
+  },
+};
 
 /**
  * Function to Create form fields
