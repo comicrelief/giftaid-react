@@ -5,7 +5,7 @@ const clientPlaywrightVersion = require('@playwright/test/package.json').version
 
 // BrowserStack Specific Capabilities.
 const caps = {
-  project: 'Donation',
+  project: 'giftaid-react',
   name: 'e2e tests',
   browser: 'chrome',
   browser_version: 'latest',
@@ -14,8 +14,8 @@ const caps = {
   os_version: '11',
   'browserstack.username': process.env.BROWSERSTACK_USERNAME,
   'browserstack.accessKey': process.env.BROWSERSTACK_ACCESS_KEY,
-  'client.playwrightVersion': '1.50.0',
-  'browserstack.playwrightVersion': '1.50.0',
+  'client.playwrightVersion': clientPlaywrightVersion,
+  'browserstack.playwrightVersion': clientPlaywrightVersion,
   
   // logs
   'browserstack.networkLogs': true,
