@@ -22,6 +22,9 @@ const config = {
     actionTimeout: 0,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'retain-on-failure',
+    navigationTimeout: 45000,
+    scriptTimeout: 60000, // this is needed for long running scripts
+    serviceWorkers: 'block', // optional but reduces flakiness
   },
   grep: [new RegExp('@regression'), new RegExp('@sanity'), new RegExp('@nightly-sanity')],
 
@@ -30,7 +33,7 @@ const config = {
     // -- BrowserStack Projects --
     // name should be of the format browser@browser_version:os os_version@browserstack
     {
-      name: 'chrome@latest:Windows 10@browserstack',
+      name: 'chrome@latest:Windows 11@browserstack',
       use: {
         browserName: 'chromium',
         ...devices['Desktop Chrome'],

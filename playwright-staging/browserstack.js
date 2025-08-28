@@ -1,39 +1,47 @@
 require('dotenv').config();
 
 const base = require('@playwright/test');
-const cp = require('child_process');
-const clientPlaywrightVersion = cp
-  .execSync('npx playwright --version')
-  .toString()
-  .trim()
-  .split(' ')[1];
+const clientPlaywrightVersion = require('@playwright/test/package.json').version; // "1.50.0"
 
 // BrowserStack Specific Capabilities.
 const caps = {
-  project: 'Giftaid',
-  // build: 'Your specified build name goes here',
+  project: 'giftaid-react',
   name: 'e2e tests',
   browser: 'chrome',
-  resolution: '1024x768',
-  os: 'osx',
-  os_version: 'catalina',
+  browser_version: 'latest',
+  resolution: '1920x1080',
+  os: 'Windows',
+  os_version: '11',
   'browserstack.username': process.env.BROWSERSTACK_USERNAME,
   'browserstack.accessKey': process.env.BROWSERSTACK_ACCESS_KEY,
   'client.playwrightVersion': clientPlaywrightVersion,
+  'browserstack.playwrightVersion': clientPlaywrightVersion,
+  
+  // logs
+  'browserstack.networkLogs': true,
+  'browserstack.console': 'info',
+  'browserstack.debug': true,
+  'browserstack.idleTimeout': 300,
 };
 
 // Patching the capabilities dynamically according to the project name.
 const patchCaps = (name, title) => {
-  let combination = name.split(/@browserstack/)[0];
-  let [browerCaps, osCaps] = combination.split(/:/);
-  let [browser, browser_version] = browerCaps.split(/@/);
-  let osCapsSplit = osCaps.split(/ /);
-  let os = osCapsSplit.shift();
-  let os_version = osCapsSplit.join(' ');
-  caps.browser = browser ? browser : 'chrome';
-  caps.browser_version = browser_version ? browser_version : 'latest';
-  caps.os = os ? os : 'osx';
-  caps.os_version = os_version ? os_version : 'catalina';
+  const combination = name.split(/@browserstack/)[0];
+  const [browserCaps, rawOsCaps] = combination.split(':');
+  let [browser, browser_version] = (browserCaps || '').split('@');
+  
+  browser = (browser || 'chrome').toLowerCase();
+  if (browser === 'chromium') browser = 'chrome';
+  
+  const osCaps = (rawOsCaps || '').trim();
+  const osTokens = osCaps ? osCaps.split(/\s+/) : [];
+  const os = osTokens.shift() || 'Windows';
+  const os_version = osTokens.join(' ') || '11';
+  
+  caps.browser = browser;
+  caps.browser_version = browser_version || 'latest';
+  caps.os = os;
+  caps.os_version = os_version;
   caps.name = title;
 };
 
