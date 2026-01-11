@@ -11,6 +11,7 @@ import JustInTime from '../../../components/JustInTime/index';
 
 // fields data
 import { updateFormFields, giftAidButtonChoices } from './UpdateFormFields';
+import { postcodeRegex } from '../utils/Utils';
 
 // import context
 import FormContext from '../../../context/FormContext';
@@ -67,6 +68,7 @@ function UpdateForm(props) {
               Object.keys(validation).map(key => setFieldValidity(validation[key], key));
             }
           }
+          postcodeValidation={postcodeRegex}
         />
 
       </div>
