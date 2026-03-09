@@ -18,32 +18,32 @@ test('Verify giftaid marketing preferences data in contact-store @sanity @nightl
   const postcode = 'SE1 7TP';
   const town = chance.county();
   const email = `giftaid-staging-${Date.now().toString()}@email.sls.comicrelief.com`;
-  
+
   const commands = new Commands(page);
-  
+
   // Navigate to the giftaid page
   await page.goto(process.env.BASE_URL, { timeout: 30000 });
   await page.waitForLoadState('load');
   await page.locator('#field-label--giftaid').click();
-  
+
   // Populate all input fields using Commands class
   await commands.populateFormFields(page, {
     mobile, firstName, lastName, address1, address2, address3, town, postcode, email
   });
-  
+
   // Select marketing preferences using Commands class
   await commands.selectMarketingPrefs(page, { email, phone });
-  
+
   // Submit the form
   await page.locator('button[type=submit]').click();
-  
+
   // Verify success message
   await expect(page.locator('div.success-wrapper--inner h1')).toHaveText(`Thank you, ${firstName}!`);
-  
+
   // Retrieve and verify marketing preferences data
   const mpData = await MarketingPrefsVerify.get(email);
-  
-  expect(mpData.campaign).toEqual('RND25');
+
+  expect(mpData.campaign).toEqual('RND26');
   expect(mpData.firstname).toEqual(firstName);
   expect(mpData.lastname).toEqual(lastName);
   expect(mpData.email).toEqual(email);
@@ -51,13 +51,13 @@ test('Verify giftaid marketing preferences data in contact-store @sanity @nightl
   expect(mpData.town).toEqual(town);
   expect(mpData.country).toEqual('GB');
   expect(mpData.transsourceurl).toContain(process.env.BASE_URL);
-  expect(mpData.transsource).toEqual('RND25_GiftAid');
+  expect(mpData.transsource).toEqual('RND26_GiftAid');
   expect(mpData.transtype).toEqual('prefs');
   expect(mpData.permissionemail).toEqual('1');
   expect(mpData.permissionsms).toEqual('1');
   expect(mpData.permissionphone).toEqual('1');
   expect(mpData.phone).toEqual(phone);
   expect(mpData.mobile).toEqual(mobile.replace(/^[07]{1}/, '+44'));
-  
+
   await page.close();
 });
