@@ -168,7 +168,7 @@ test.describe('Giftaid update form validation', () => {
   test('Validate mobile number field', async ({ page }) => {
     const commands = new Commands(page);
     // List of allowed prefixes for UK mobile numbers
-    const prefixes = ['074', '075', '077', '078', '079'];
+    const prefixes = ['071', '073', '074', '075', '077', '078', '079'];
     // Randomly select one prefix from the list
     const prefix = chance.pickone(prefixes);
     // Generate the remaining 8 digits randomly
@@ -177,16 +177,22 @@ test.describe('Giftaid update form validation', () => {
     
     // Test cases for various mobile number validations
     const mobileTestCases = [
-      { input: '0712345678', error: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.' },
-      { input: '0712345678900', error: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.' },
-      { input: '0712 345 6789', error: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.' },
+      { input: '0722345678', error: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.' },
+      { input: '0722345678900', error: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.' },
+      { input: '0722 345 6789', error: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.' },
       { input: '0780ab5694245', error: 'Please enter a valid mobile phone number - it must be the same number associated with your donation.' },
+      { input: '07123456789', valid: true },
+      { input: '07340707252', valid: true },
     ];
     
     for (let testCase of mobileTestCases) {
       await page.locator('#field-input--mobile').fill(''); // Clear the field before each test
       await page.locator('#field-input--mobile').type(testCase.input, { delay: 100 });
-      await expect(page.locator('div#field-error--mobile > span')).toHaveText(testCase.error);
+      if (testCase.valid) {
+        await expect(page.locator('div#field-error--mobile > span')).not.toBeVisible();
+      } else {
+        await expect(page.locator('div#field-error--mobile > span')).toHaveText(testCase.error);
+      }
     }
     
     // Validate correct mobile number
