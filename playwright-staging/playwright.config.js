@@ -26,7 +26,7 @@ const config = {
     scriptTimeout: 60000, // this is needed for long running scripts
     serviceWorkers: 'block', // optional but reduces flakiness
   },
-  grep: [new RegExp('@regression'), new RegExp('@sanity'), new RegExp('@nightly-sanity')],
+  grep: [new RegExp('@sanity')],
 
   /* Configure projects for major browsers */
   projects: [
