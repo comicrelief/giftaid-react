@@ -216,21 +216,11 @@ test.describe('Giftaid update form validation', () => {
     await page.close();
   });
 
-  test('postcode entered in lowercase should show error message', async ({ page }) => {
-
-    await page.locator('input#field-input--postcode').type('se17tp');
-    await expect(page.locator('div#field-error--postcode > span')).toBeVisible();
-    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.');
-
-    await page.close();
-  });
-
-  test('postcode entered with no spaces should show error message', async ({ page }) => {
-
-    await page.locator('input#field-input--postcode').type('SE17TP');
-    await expect(page.locator('div#field-error--postcode > span')).toBeVisible();
-    await expect(page.locator('div#field-error--postcode > span')).toContainText('Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.');
-
+  test('compact lowercase and no-space UK postcodes do not show format error (aligned with data-models / postcode)', async ({ page }) => {
+    await page.locator('input#field-input--postcode').fill('se17tp');
+    await expect(page.locator('div#field-error--postcode > span')).not.toBeVisible();
+    await page.locator('input#field-input--postcode').fill('SE17TP');
+    await expect(page.locator('div#field-error--postcode > span')).not.toBeVisible();
     await page.close();
   });
 
