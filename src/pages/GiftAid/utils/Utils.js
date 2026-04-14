@@ -51,6 +51,13 @@ export const getPathParams = (update = false) => {
   };
 };
 
+// Regex matches what we use in data-models, which the backend uses to validate postcodes.
+export const postcodeRegex = {
+  GB: {
+    pattern: '^[A-Za-z]{1,2}\\d[A-Za-z\\d]?\\s*\\d[A-Za-z]{2}$',
+    errorMsg: 'Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.',
+  },
+};
 
 /**
  * Function to Create form fields
