@@ -53,7 +53,7 @@ module.exports = defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: {
     command: 'yarn start',
-    port: '3000',
+    port: 3000,
     timeout: 120000,
     reuseExistingServer: true,
   },
