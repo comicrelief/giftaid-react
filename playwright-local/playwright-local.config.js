@@ -44,7 +44,6 @@ module.exports = defineConfig({
     },
     {
       name: 'mobile-safari',
-      testIgnore: ['tests/prize/**'],
       use: { ...devices['iPhone 12'] },
       timeout: 360_000,
       expect: { timeout: 20_000 }
