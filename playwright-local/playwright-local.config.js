@@ -34,8 +34,21 @@ module.exports = defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],
+        viewport: {
+          width: 1300,
+          height: 1000
+        }
+      }
     },
+    {
+      name: 'mobile-safari',
+      testIgnore: ['tests/prize/**'],
+      use: { ...devices['iPhone 12'] },
+      timeout: 360_000,
+      expect: { timeout: 20_000 }
+    }
   ],
 
   /* Run your local dev server before starting the tests */
