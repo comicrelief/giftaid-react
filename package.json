@@ -59,7 +59,7 @@
     "@babel/runtime": "^7.11.2",
     "@comicrelief/data-models": "^1.15.4",
     "@comicrelief/test-utils": "^1.5.13",
-    "@playwright/test": "1.33.0",
+    "@playwright/test": "1.38.1",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "babel-preset-react-app": "^9.1.2",
