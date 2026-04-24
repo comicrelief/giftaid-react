@@ -9,15 +9,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v3
 
       - name: Set up Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 16
 
       - name: Restore packages cache
-        uses: actions/cache@v5
+        uses: actions/cache@v3
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
@@ -57,15 +57,15 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v3
 
       - name: Set up Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 16
 
       - name: Restore packages cache
-        uses: actions/cache@v5
+        uses: actions/cache@v3
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
@@ -107,15 +107,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v3
 
       - name: Set up Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 16
 
       - name: Restore packages cache
-        uses: actions/cache@v5
+        uses: actions/cache@v3
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
