@@ -80,7 +80,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Install WebKit system dependencies
-          run: yarn playwright install-deps webkit
+        run: yarn playwright install-deps webkit
 
       - name: Install playwright browsers (WebKit)
         run: yarn playwright install webkit
