@@ -14,7 +14,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 20
 
       - name: Restore packages cache
         uses: actions/cache@v3
@@ -62,7 +62,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 20
 
       - name: Restore packages cache
         uses: actions/cache@v3
@@ -79,10 +79,11 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Install WebKit system dependencies
+          run: yarn playwright install-deps webkit
+
       - name: Install playwright browsers (WebKit)
         run: yarn playwright install webkit
-      - name: Install WebKit system dependencies
-        run: yarn playwright install-deps webkit
 
       - name: Run Mobile WebKit Tests
         run: yarn test:playwright-local:ci:mobile
