@@ -132,4 +132,51 @@ test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
     
     await expect(page.locator(selectors.success.heading)).toHaveText('Thank you,  test!');
   });
+  
+  test('Postcode validation and form submission', async ({ page }) => {
+    // Define postcodes and expected error messages
+    const postcodes = [
+      { input: 'S E 1 7 T P', error: 'Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.' },
+      { input: 'SE$%TP', error: 'Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.' },
+      { input: 'cro 7tp', error: 'Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.' }
+    ];
+    
+    // Test for each invalid postcode
+    for (const postcode of postcodes) {
+      await page.fill(selectors.formFields.postcode, '');
+      await page.type(selectors.formFields.postcode, postcode.input);
+      await expect(page.locator(selectors.errorMessages.postcode)).toBeVisible();
+      await expect(page.locator(selectors.errorMessages.postcode)).toHaveText(postcode.error);
+    }
+    
+    // Test for a valid postcode and subsequent form submission
+    await page.fill(selectors.formFields.postcode, 'SE1 7TP');
+    await page.click(selectors.formFields.postcodeLookup);
+    
+    // Checking whether address selection is available or if manual entry is needed
+    if (await page.locator(selectors.address.addressSelect).isVisible()) {
+      // Select the first address if available
+      const options = await page.$$eval(selectors.address.addressSelectOptions, options => options.map(option => option.value));
+      await page.selectOption(selectors.address.addressSelect, options[1]);
+      await page.click(selectors.formFields.submitButton);
+    } else {
+      // Fallback to manual address input if no selection is available
+      await page.click(selectors.address.manualAddressLink);
+      await page.fill(selectors.address.address1, 'COMIC RELIEF');
+      await page.fill(selectors.address.address2, 'CAMELFORD HOUSE 87-90');
+      await page.fill(selectors.address.address3, 'ALBERT EMBANKMENT');
+      await page.fill(selectors.address.town, 'LONDON');
+      await page.click(selectors.formFields.submitButton);
+    }
+    
+    await page.locator(selectors.formFields.firstName).fill('test');
+    await page.locator(selectors.formFields.lastName).fill(chance.last());
+    await page.locator(selectors.marketingPreferences.fields.email).fill(`giftaid-update-staging-${chance.email()}`);
+    await page.fill(selectors.formFields.postcode, 'SE1 7TP');
+    await page.click(selectors.giftAidClaimChoice.yes); // Select yes for declaration
+    await page.click(selectors.formFields.submitButton); // Submit the form
+    
+    await expect(page.locator(selectors.success.heading)).toHaveText('Thank you,  test!');
+    await page.close();
+  });
 });
