@@ -3,6 +3,7 @@ const { expect } = require('@playwright/test');
 const { test } = require('../../browserstack');
 const { Commands } = require('../utils/commands');
 const { MarketingPrefsVerify } = require('../utils/marketingPrefsVerify');
+const { selectors } = require('../utils/locators');
 
 const Chance = require('chance');
 const chance = new Chance();
@@ -24,7 +25,7 @@ test('Verify giftaid marketing preferences data in contact-store @sanity @nightl
   // Navigate to the giftaid page
   await page.goto(process.env.BASE_URL, { timeout: 30000 });
   await page.waitForLoadState('load');
-  await page.locator('#field-label--giftaid').click();
+  await page.locator(selectors.giftaid.option).click();
   
   // Populate all input fields using Commands class
   await commands.populateFormFields(page, {
@@ -35,10 +36,10 @@ test('Verify giftaid marketing preferences data in contact-store @sanity @nightl
   await commands.selectMarketingPrefs(page, { email, phone });
   
   // Submit the form
-  await page.locator('button[type=submit]').click();
+  await page.locator(selectors.formFields.submitButton).click();
   
   // Verify success message
-  await expect(page.locator('div.success-wrapper--inner h1')).toHaveText(`Thank you, ${firstName}!`);
+  await expect(page.locator(selectors.success.heading)).toHaveText(`Thank you, ${firstName}!`);
   
   // Retrieve and verify marketing preferences data
   const mpData = await MarketingPrefsVerify.get(email);

@@ -2,6 +2,7 @@
 const { expect } = require('@playwright/test');
 const { test } = require('../../browserstack');
 const { Commands } = require('../utils/commands');
+const { selectors } = require('../utils/locators');
 
 test('Valid giftaid submission @sanity @nightly-sanity', async ({ page }) => {
   const commands = new Commands(page);
@@ -11,7 +12,7 @@ test('Valid giftaid submission @sanity @nightly-sanity', async ({ page }) => {
   await page.waitForLoadState('domcontentloaded');
   
   // Click the Giftaid checkbox
-  await page.click('#field-label--giftaid');
+  await page.click(selectors.giftaid.option);
   
   // Populate all the form fields with valid inputs
   await commands.populateFormFields(page);
@@ -21,12 +22,12 @@ test('Valid giftaid submission @sanity @nightly-sanity', async ({ page }) => {
   
   // Submit the form and wait for the navigation to ensure the submission goes through
   await Promise.all([
-    page.waitForNavigation(), // This ensures that the navigation happens before the check
-    page.click('button[type=submit]')
+    page.waitForNavigation(),
+    page.click(selectors.formFields.submitButton),
   ]);
   
   // Check for the thank you message to confirm successful submission
-  await expect(page.locator('div.success-wrapper--inner h1')).toHaveText('Thank you, test!');
+  await expect(page.locator(selectors.success.heading)).toHaveText('Thank you, test!');
   
   await page.close();
 });

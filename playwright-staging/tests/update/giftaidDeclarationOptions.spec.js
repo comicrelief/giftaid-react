@@ -2,6 +2,7 @@
 const { expect } = require('@playwright/test');
 const { test } = require('../../browserstack');
 const { Commands } = require('../utils/commands');
+const { selectors } = require('../utils/locators');
 
 test('Validate Giftaid declaration claim selections @sanity @nightly-sanity', async ({ page }) => {
   const commands = new Commands(page);
@@ -10,20 +11,20 @@ test('Validate Giftaid declaration claim selections @sanity @nightly-sanity', as
   
   // Populate fields and submit the form to get to the Giftaid declaration part
   await commands.populateUpdateFormFields(page);
-  await page.locator('button[type=submit]').click();
+  await page.locator(selectors.formFields.submitButton).click();
   
   // Select 'Yes' for Giftaid declaration and verify it is selected
-  await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
-  expect(await page.locator('#giftAidClaimChoice>div:nth-child(2)>input').isChecked()).toBeTruthy();
-  expect(await page.locator('#giftAidClaimChoice>div:nth-child(3)>input').isChecked()).toBeFalsy();
+  await page.locator(selectors.giftAidClaimChoice.yes).click();
+  expect(await page.locator(selectors.giftAidClaimChoice.yesInput).isChecked()).toBeTruthy();
+  expect(await page.locator(selectors.giftAidClaimChoice.noInput).isChecked()).toBeFalsy();
   
   // Select 'No' for Giftaid declaration and verify it is selected
-  await page.locator('#giftAidClaimChoice>div:nth-child(3)>label').click();
-  expect(await page.locator('#giftAidClaimChoice>div:nth-child(3)>input').isChecked()).toBeTruthy();
-  expect(await page.locator('#giftAidClaimChoice>div:nth-child(2)>input').isChecked()).toBeFalsy();
-
-  await page.locator('button[type=submit]').click();
-  await expect(page.locator('div.success-wrapper--inner h1')).toHaveText('Thanks for letting us know');
+  await page.locator(selectors.giftAidClaimChoice.no).click();
+  expect(await page.locator(selectors.giftAidClaimChoice.noInput).isChecked()).toBeTruthy();
+  expect(await page.locator(selectors.giftAidClaimChoice.yesInput).isChecked()).toBeFalsy();
+  
+  await page.locator(selectors.formFields.submitButton).click();
+  await expect(page.locator(selectors.success.heading)).toHaveText('Thanks for letting us know');
   
   await page.close();
 });

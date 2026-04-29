@@ -1,16 +1,17 @@
 // @ts-check
 const { expect } = require('@playwright/test');
 const { test } = require('../../browserstack');
+const { selectors } = require('../utils/locators');
 
 test.describe('Postcode validation @sanity @nightly-sanity', () => {
   
   test.beforeEach(async ({ page }) => {
     await page.goto(process.env.BASE_URL, { timeout: 30000 });
     await page.waitForLoadState('domcontentloaded');
-    await page.click('#field-label--giftaid');
-    await page.fill('#field-input--mobile', '07123456789');
-    await page.fill('input#field-input--firstname', 'test');
-    await page.fill('input#field-input--lastname', 'user');
+    await page.click(selectors.giftaid.option);
+    await page.fill(selectors.formFields.mobile, '07123456789');
+    await page.fill(selectors.formFields.firstName, 'test');
+    await page.fill(selectors.formFields.lastName, 'user');
   });
   
   test('Postcode formatting errors', async ({ page }) => {
@@ -20,30 +21,31 @@ test.describe('Postcode validation @sanity @nightly-sanity', () => {
     ];
     
     for (const { code, message } of postcodes) {
-      await page.fill('input#field-input--postcode', code);
-      await expect(page.locator('div#field-error--postcode > span')).toBeVisible();
-      await expect(page.locator('div#field-error--postcode > span')).toContainText(message);
+      await page.fill(selectors.formFields.postcode, code);
+      await expect(page.locator(selectors.errorMessages.postcode)).toBeVisible();
+      await expect(page.locator(selectors.errorMessages.postcode)).toContainText(message);
     }
+    
     await page.close();
   });
   
   test('enter valid UK postcode using postcode lookup should be able to submit the form', async ({ page }) => {
-    await page.fill('input#field-input--postcode', 'SE1 7TP');
-    await page.click('#postcode_button');
+    await page.fill(selectors.formFields.postcode, 'SE1 7TP');
+    await page.click(selectors.formFields.postcodeLookup);
     
-    if (await page.isVisible('#field-select--addressSelect')) {
-      await page.selectOption('select#field-select--addressSelect', { label: 'COMIC RELIEF, CAMELFORD HOUSE 87-90' });
-      await expect(page.locator('input#field-input--postcode')).toHaveValue('SE1 7TP');
+    if (await page.isVisible(selectors.address.addressSelect)) {
+      await page.selectOption(selectors.address.addressSelect, { label: 'COMIC RELIEF, CAMELFORD HOUSE 87-90' });
+      await expect(page.locator(selectors.formFields.postcode)).toHaveValue('SE1 7TP');
     } else {
-      await page.click('a[aria-describedby=field-error--addressDetails]');
-      await page.fill('#field-input--address1', 'COMIC RELIEF');
-      await page.fill('#field-input--address2', 'CAMELFORD HOUSE 87-90');
-      await page.fill('#field-input--address3', 'ALBERT EMBANKMENT');
-      await page.fill('#field-input--town', 'LONDON');
+      await page.click(selectors.address.manualAddressLink);
+      await page.fill(selectors.address.address1, 'COMIC RELIEF');
+      await page.fill(selectors.address.address2, 'CAMELFORD HOUSE 87-90');
+      await page.fill(selectors.address.address3, 'ALBERT EMBANKMENT');
+      await page.fill(selectors.address.town, 'LONDON');
     }
     
-    await page.click('button[type=submit]');
-    await expect(page.locator('div.success-wrapper--inner h1')).toContainText('Thank you,\n' + 'test!');
+    await page.click(selectors.formFields.submitButton);
+    await expect(page.locator(selectors.success.heading)).toContainText('Thank you,\n' + 'test!');
     
     await page.close();
   });

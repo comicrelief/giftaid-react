@@ -2,6 +2,7 @@
 const { expect } = require('@playwright/test');
 const { test } = require('../../browserstack');
 const { Commands } = require('../utils/commands');
+const { selectors } = require('../utils/locators');
 
 const Chance = require('chance');
 const chance = new Chance();
@@ -15,62 +16,67 @@ test.describe('Marketing preferences validation @sanity @nightly-sanity', () => 
     const commands = new Commands(page);
     await page.goto(process.env.BASE_URL, { timeout: 30000 });
     await page.waitForLoadState('domcontentloaded');
-    await page.click('#field-label--giftaid');
+    await page.click(selectors.giftaid.option);
     await commands.populateFormFields(page);
   });
-
+  
   test('clicking and unclicking marketing prefs options should submit the giftaid form', async ({ page }) => {
     // Interact with marketing preferences
-    const marketingOptions = ['[aria-label="field-label--Email--Email"]', '[aria-label="field-label--Phone--Phone"]', '[aria-label="field-label--Text--SMS"]'];
+    const marketingOptions = [
+      selectors.marketingPreferences.options.email,
+      selectors.marketingPreferences.options.phone,
+      selectors.marketingPreferences.options.text,
+    ];
+    
     for (const option of marketingOptions) {
       await page.click(option);
       expect(await page.locator(option).isChecked()).toBeTruthy();
     }
-  
+    
     // Enter email and phone to validate the form can still submit
-    await expect(page.locator('input#field-input--email')).toBeVisible();
-    await page.fill('input#field-input--email', email);
-    await expect(page.locator('input#field-input--phone')).toBeVisible();
-    await page.fill('input#field-input--phone', phone);
-  
+    await expect(page.locator(selectors.marketingPreferences.fields.email)).toBeVisible();
+    await page.fill(selectors.marketingPreferences.fields.email, email);
+    await expect(page.locator(selectors.marketingPreferences.fields.phone)).toBeVisible();
+    await page.fill(selectors.marketingPreferences.fields.phone, phone);
+    
     // Submit the form
-    await page.click('button[type=submit]');
-    await expect(page.locator('div.success-wrapper--inner h1')).toHaveText('Thank you, test!');
+    await page.click(selectors.formFields.submitButton);
+    await expect(page.locator(selectors.success.heading)).toHaveText('Thank you, test!');
   });
   
   test('Validate email marketing preference field', async ({ page }) => {
-    await page.click('[aria-label="field-label--Email--Email"]');
-    await page.fill('input#field-input--email', email);
+    await page.click(selectors.marketingPreferences.options.email);
+    await page.fill(selectors.marketingPreferences.fields.email, email);
     
     // Clear and check for error
-    await page.fill('input#field-input--email', '');
-    await expect(page.locator('#field-error--email')).toHaveText('Please fill in your email address');
+    await page.fill(selectors.marketingPreferences.fields.email, '');
+    await expect(page.locator(selectors.errorMessages.email)).toHaveText('Please fill in your email address');
     
     // Input invalid email and check for error
-    await page.fill('input#field-input--email', 'example@£$^&email.com');
-    await expect(page.locator('#field-error--email')).toHaveText('Please fill in a valid email address');
+    await page.fill(selectors.marketingPreferences.fields.email, 'example@£$^&email.com');
+    await expect(page.locator(selectors.errorMessages.email)).toHaveText('Please fill in a valid email address');
     
     // Re-enter valid email and submit
-    await page.fill('input#field-input--email', email);
-    await page.click('button[type=submit]');
-    await expect(page.locator('div.success-wrapper--inner h1')).toHaveText('Thank you, test!');
+    await page.fill(selectors.marketingPreferences.fields.email, email);
+    await page.click(selectors.formFields.submitButton);
+    await expect(page.locator(selectors.success.heading)).toHaveText('Thank you, test!');
   });
   
   test('Validate phone marketing preference field', async ({ page }) => {
-    await page.click('[aria-label="field-label--Phone--Phone"]');
-    await page.fill('input#field-input--phone', phone);
+    await page.click(selectors.marketingPreferences.options.phone);
+    await page.fill(selectors.marketingPreferences.fields.phone, phone);
     
     // Clear and check for error
-    await page.fill('input#field-input--phone', '');
-    await expect(page.locator('div#field-error--phone > span')).toHaveText('Please fill in your phone number');
+    await page.fill(selectors.marketingPreferences.fields.phone, '');
+    await expect(page.locator(selectors.errorMessages.phone)).toHaveText('Please fill in your phone number');
     
     // Input invalid phone number and check for error
-    await page.fill('input#field-input--phone', '0208569424');
-    await expect(page.locator('div#field-error--phone > span')).toHaveText('Please fill in a valid UK phone number, with no spaces');
+    await page.fill(selectors.marketingPreferences.fields.phone, '0208569424');
+    await expect(page.locator(selectors.errorMessages.phone)).toHaveText('Please fill in a valid UK phone number, with no spaces');
     
     // Re-enter valid phone number and submit
-    await page.fill('input#field-input--phone', phone);
-    await page.click('button[type=submit]');
-    await expect(page.locator('div.success-wrapper--inner h1')).toHaveText('Thank you, test!');
+    await page.fill(selectors.marketingPreferences.fields.phone, phone);
+    await page.click(selectors.formFields.submitButton);
+    await expect(page.locator(selectors.success.heading)).toHaveText('Thank you, test!');
   });
 });

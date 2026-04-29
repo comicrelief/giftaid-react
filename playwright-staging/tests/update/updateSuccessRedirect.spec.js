@@ -1,6 +1,7 @@
 // @ts-check
 const { expect } = require('@playwright/test');
 const { test } = require('../../browserstack');
+const { selectors } = require('../utils/locators');
 
 test.describe('Success page redirect @sanity @nightly-sanity', () => {
   test('Accessing success page should redirect to giftaid update homepage', async ({ page }) => {
@@ -9,7 +10,7 @@ test.describe('Success page redirect @sanity @nightly-sanity', () => {
     await page.waitForLoadState('domcontentloaded');
     
     // Confirm the page has the expected Giftaid title after redirection
-    const pageTitle = await page.locator('h1[class="giftaid-title"]').textContent();
+    const pageTitle = await page.locator(selectors.homepage.heading).textContent();
     expect(pageTitle).toContain('Giftaid it');
     
     await page.close();
