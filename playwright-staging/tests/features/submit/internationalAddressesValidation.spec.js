@@ -1,8 +1,8 @@
 // @ts-check
 const { expect } = require('@playwright/test');
-const { test } = require('../../browserstack');
-const { Commands } = require('../utils/commands');
-const { selectors } = require('../utils/locators');
+const { test } = require('../../../browserstack');
+const { Commands } = require('../../utils/commands');
+const { selectors } = require('../../utils/locators');
 
 test.describe('International addresses validation @sanity @nightly-sanity', () => {
   test('selecting a non-UK country and entering a non-UK postcode should submit the form', async ({ page }) => {

@@ -1,7 +1,7 @@
 // @ts-check
 const { expect } = require('@playwright/test');
-const { test } = require('../../browserstack');
-const { selectors } = require('../utils/locators');
+const { test } = require('../../../browserstack');
+const { selectors } = require('../../utils/locators');
 
 test('Accessing giftaid update sorry page should show the sorry message @sanity @nightly-sanity', async ({ page }) => {
   // Navigate to the 'Sorry' page of giftaid update form

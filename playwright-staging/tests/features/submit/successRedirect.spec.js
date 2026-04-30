@@ -1,7 +1,7 @@
 // @ts-check
 const { expect } = require('@playwright/test');
-const { test } = require('../../browserstack');
-const { selectors } = require('../utils/locators');
+const { test } = require('../../../browserstack');
+const { selectors } = require('../../utils/locators');
 
 test('Accessing success page should redirect to giftaid homepage @sanity @nightly-sanity', async ({ page }) => {
   // Navigate directly to the success page and expect a redirect

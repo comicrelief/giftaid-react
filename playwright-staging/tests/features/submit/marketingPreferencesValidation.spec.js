@@ -1,8 +1,8 @@
 // @ts-check
 const { expect } = require('@playwright/test');
-const { test } = require('../../browserstack');
-const { Commands } = require('../utils/commands');
-const { selectors } = require('../utils/locators');
+const { test } = require('../../../browserstack');
+const { Commands } = require('../../utils/commands');
+const { selectors } = require('../../utils/locators');
 
 const Chance = require('chance');
 const chance = new Chance();

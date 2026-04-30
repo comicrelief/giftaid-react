@@ -1,7 +1,7 @@
 // @ts-check
 const { expect } = require('@playwright/test');
-const { test } = require('../../browserstack');
-const { selectors } = require('../utils/locators');
+const { test } = require('../../../browserstack');
+const { selectors } = require('../../utils/locators');
 
 test.describe('Postcode validation @sanity @nightly-sanity', () => {
   

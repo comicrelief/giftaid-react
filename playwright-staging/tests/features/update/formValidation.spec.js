@@ -1,11 +1,11 @@
 // @ts-check
 const { expect } = require('@playwright/test');
-const { test } = require('../../browserstack');
-const { Commands } = require('../utils/commands');
+const { test } = require('../../../browserstack');
+const { Commands } = require('../../utils/commands');
 const { v4: uuidv4 } = require('uuid');
 const Chance = require('chance');
 const chance = new Chance();
-const { selectors } = require('../utils/locators');
+const { selectors } = require('../../utils/locators');
 
 test.describe('Giftaid Update form validation @sanity @nightly-sanity', () => {
   let commands;
