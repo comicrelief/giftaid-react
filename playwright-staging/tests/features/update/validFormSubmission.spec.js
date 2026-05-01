@@ -1,9 +1,10 @@
 // @ts-check
 const { expect } = require('@playwright/test');
-const { test } = require('../../browserstack');
-const { Commands } = require('../utils/commands');
+const { test } = require('../../../browserstack');
+const { Commands } = require('../../utils/commands');
+const { selectors } = require('../../utils/locators');
 
-test('Valid giftaid update submission @sanity @nightly-sanity', async ({ page }) => {
+test.only('Valid giftaid update submission @sanity @nightly-sanity', async ({ page }) => {
   const commands = new Commands(page);
   
   // Navigate to the Giftaid update page
@@ -14,11 +15,11 @@ test('Valid giftaid update submission @sanity @nightly-sanity', async ({ page })
   await commands.populateUpdateFormFields(page);
   
   // Select 'Yes' for GiftAid declaration
-  await page.locator('#giftAidClaimChoice>div:nth-child(2)>label').click();
-
+  await page.locator(selectors.giftAidClaimChoice.yes).click();
+  
   // Submit the form and validate the thank you message
-  await page.locator('button[type=submit]').click();
-  await expect(page.locator('div.success-wrapper--inner h1')).toContainText('Thank you, test!');
+  await page.locator(selectors.formFields.submitButton).click();
+  await expect(page.locator(selectors.success.heading)).toContainText('Thank you, test!');
   
   await page.close();
 });

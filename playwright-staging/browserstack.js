@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const base = require('@playwright/test');
-const clientPlaywrightVersion = require('@playwright/test/package.json').version; // "1.50.0"
+const clientPlaywrightVersion = require('@playwright/test/package.json').version; // "1.56.1"
 
 // BrowserStack Specific Capabilities.
 const caps = {

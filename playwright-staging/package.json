@@ -8,6 +8,7 @@
   "devDependencies": {
     "@comicrelief/data-models": "^1.29.6",
     "@comicrelief/test-utils": "^1.5.15",
+    "@cucumber/cucumber": "^12.8.2",
     "@playwright/test": "1.56.1",
     "axios": "^0.21.1",
     "chance": "^1.1.7",
@@ -16,6 +17,8 @@
     "uuid": "8.3.2"
   },
   "scripts": {
-    "test:sanity": "FORCE_COLOR=1 playwright test --grep '@sanity'"
+    "test:sanity": "FORCE_COLOR=1 playwright test --grep '@sanity'",
+    "test:cucumber": "FORCE_COLOR=1 cucumber-js --config config/cucumber.js",
+    "test:cucumber:sanity": "FORCE_COLOR=1 cucumber-js --config config/cucumber.js --tags '@sanity'"
   }
 }
