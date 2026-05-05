@@ -8,6 +8,6 @@ module.exports = {
     format: ['progress', 'summary'],
     // Use 'pretty' locally for readable step-by-step output.
     // On CI keep the output minimal to avoid noisy logs.
-    publishQuiet: true,
+    publishQuiet: true, // Hide the default Cucumber report publishing link (we check CI instead)
   },
 };
