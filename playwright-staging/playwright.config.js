@@ -18,10 +18,16 @@ const config = {
   workers: 3,
   use:{
     viewport: null,
+    
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'retain-on-failure',
+    
+    // Disable local Playwright traces/videos/screenshots to avoid generating
+    // test-results folders locally. We rely on BrowserStack videos and CI logs
+    // for debugging test failures instead.
+    trace: process.env.CI ? 'retain-on-failure' : 'off',
+    screenshot: process.env.CI ? 'only-on-failure' : 'off',
+    video: process.env.CI ? 'retain-on-failure' : 'off',
     navigationTimeout: 45000,
     scriptTimeout: 60000, // this is needed for long running scripts
     serviceWorkers: 'block', // optional but reduces flakiness

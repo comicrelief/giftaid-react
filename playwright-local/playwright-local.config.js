@@ -20,14 +20,13 @@ module.exports = defineConfig({
   expect: {
     timeout: 60 * 1000,
   },
-  reporter: [
-    ['list'],
-    ['html', { open: 'never' }]
-  ],
+  reporter: process.env.CI ? [['list'], ['html', { open: 'never' }]] : [['list']],
   use: {
-    actionTimeout: 0,
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    // Disable local Playwright traces/videos/screenshots to avoid generating
+    // test-results folders locally. In CI, keep artifacts for debugging failures.
+    trace: process.env.CI ? 'on-first-retry' : 'off',
+    screenshot: process.env.CI ? 'only-on-failure' : 'off',
+    video: process.env.CI ? 'retain-on-failure' : 'off',
   },
 
   /* Configure projects for major browsers */
