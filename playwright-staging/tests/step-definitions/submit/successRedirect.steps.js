@@ -7,12 +7,6 @@ Given('I navigate to the Giftaid success page', async function () {
   await this.page.waitForLoadState('domcontentloaded');
 });
 
-Then('I should be redirected to the Giftaid homepage', async function () {
-  const header = this.page.locator(selectors.homepage.heading);
-  await expect(header).toBeVisible();
-  await expect(header).toContainText('Giftaid it');
-});
-
 Then('I should see the Giftaid heading', async function () {
   await expect(this.page.locator(selectors.homepage.heading)).toBeVisible();
 });

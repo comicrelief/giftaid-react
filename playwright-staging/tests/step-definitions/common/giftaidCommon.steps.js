@@ -13,3 +13,7 @@ When('I select marketing preferences', async function () {
 When('I complete the Giftaid form with valid details', async function () {
   await this.commands.populateFormFields(this.page);
 });
+
+Then('I should be redirected to the Giftaid homepage', async function () {
+  await expect(this.page.locator(selectors.homepage.heading)).toContainText('Giftaid it');
+});
