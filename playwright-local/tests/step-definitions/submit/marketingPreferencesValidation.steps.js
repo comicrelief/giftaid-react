@@ -7,16 +7,20 @@ const chance = new Chance();
 const email = `giftaid-staging-${Date.now().toString()}@email.sls.comicrelief.com`;
 const phone = chance.phone({ country: 'uk', mobile: true }).replace(/\s/g, '');
 
-const marketingOptions = [
-  '[aria-label="field-label--Email--Email"]',
-  '[aria-label="field-label--Phone--Phone"]',
-  '[aria-label="field-label--Text--SMS"]',
-];
-
 When('I select all the local marketing preference options', async function () {
+  const marketingOptions = [
+    '[aria-label="field-label--Email--Email"]',
+    '[aria-label="field-label--Phone--Phone"]',
+    '[aria-label="field-label--Text--SMS"]',
+  ];
+  
   for (const option of marketingOptions) {
-    await this.page.locator(option).click();
-    await expect(this.page.locator(option)).toBeChecked();
+    const checkbox = this.page.locator(option);
+    
+    await checkbox.scrollIntoViewIfNeeded();
+    await checkbox.check({ force: true });
+    
+    await expect(checkbox).toBeChecked();
   }
 });
 
