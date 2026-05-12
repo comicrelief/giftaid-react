@@ -8,4 +8,4 @@ Feature: Valid Giftaid update submission
     When I complete the Giftaid update form with valid details
     And I select yes for GiftAid declaration
     And I submit the Giftaid update form
-    Then I should see update thank you message
+    Then I should see the update thank you message

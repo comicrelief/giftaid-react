@@ -6,11 +6,11 @@ Feature: Giftaid update form validation
 
   Scenario: Empty input fields should show error messages
     When I submit the Giftaid update form
-    Then I should see required update form error messages
+    Then I should see the required update form error messages
 
   Scenario Outline: Invalid first name values should show error message on update form
-    When I enter update first name "<firstName>"
-    Then I should see update first name error message "<message>"
+    When I enter the update first name "<firstName>"
+    Then I should see the update first name error message "<message>"
 
     Examples:
       | firstName | message                                           |
@@ -25,8 +25,8 @@ Feature: Giftaid update form validation
     Then I should see update thank you message for "John"
 
   Scenario Outline: Invalid email values should show error message on update form
-    When I enter update email "<email>"
-    Then I should see update email error message "<message>"
+    When I enter the update email "<email>"
+    Then I should see the update email error message "<message>"
 
     Examples:
       | email                                              | message                              |
@@ -36,14 +36,14 @@ Feature: Giftaid update form validation
       | Test0-9!#$%&'*+/=?^_{\|}~-@comicrelief_9-8.com.uk  | Please fill in a valid email address |
 
   Scenario: Valid email should submit update form with no declaration
-    When I complete the Giftaid update form with generated email
+    When I complete the Giftaid update form with the email
     And I select no for GiftAid declaration
     And I submit the Giftaid update form
     Then I should see update no declaration message
 
   Scenario Outline: Invalid mobile numbers should show error message on update form
-    When I enter update mobile number "<mobile>"
-    Then I should see update mobile error message "<message>"
+    When I enter the update mobile number "<mobile>"
+    Then I should see the update mobile error message "<message>"
 
     Examples:
       | mobile        | message                                                                                 |
@@ -53,8 +53,8 @@ Feature: Giftaid update form validation
       | 0780ab5694245 | Please enter a valid mobile phone number - it must be the same number associated with your donation. |
 
   Scenario Outline: Valid mobile numbers should not show error message on update form
-    When I enter update mobile number "<mobile>"
-    Then I should not see update mobile error message
+    When I enter the update mobile number "<mobile>"
+    Then I should not see the update mobile error message
 
     Examples:
       | mobile      |
@@ -62,7 +62,7 @@ Feature: Giftaid update form validation
       | 07340707252 |
 
   Scenario: Valid mobile number should submit update form
-    When I complete the Giftaid update form with generated mobile and last name "test"
+    When I complete the Giftaid update form with the mobile and last name "test"
     And I select yes for GiftAid declaration
     And I submit the Giftaid update form
     Then I should see update thank you message for " test"
@@ -80,8 +80,8 @@ Feature: Giftaid update form validation
   Scenario: Valid postcode should submit update form
     When I enter update postcode "SE1 7TP"
     And I search for the update postcode
-    And I select update address from lookup or enter address manually
-    And I complete remaining update form fields
+    And I select the update address from lookup or enter address manually
+    And I complete the remaining update form fields
     And I select yes for GiftAid declaration
     And I submit the Giftaid update form
     Then I should see update thank you message for " test"

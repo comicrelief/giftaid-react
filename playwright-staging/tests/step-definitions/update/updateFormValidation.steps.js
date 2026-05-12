@@ -14,7 +14,7 @@ When('I submit the Giftaid update form', async function () {
   await this.page.click(selectors.formFields.submitButton);
 });
 
-Then('I should see required update form error messages', async function () {
+Then('I should see the required update form error messages', async function () {
   await expect(this.page.locator(selectors.errorMessages.firstName)).toHaveText('Please fill in your first name');
   await expect(this.page.locator(selectors.errorMessages.lastName)).toHaveText('Please fill in your last name');
   await expect(this.page.locator(selectors.errorMessages.email)).toHaveText('Please fill in your email address');
@@ -23,13 +23,13 @@ Then('I should see required update form error messages', async function () {
   await expect(this.page.locator(selectors.errorMessages.giftAidClaimChoice)).toHaveText('This field is required');
 });
 
-When('I enter update first name {string}', async function (firstName) {
+When('I enter the update first name {string}', async function (firstName) {
   const value = firstName === 'SPACE' ? ' ' : firstName;
   await this.page.fill(selectors.formFields.firstName, value);
   await this.page.keyboard.press('Enter');
 });
 
-Then('I should see update first name error message {string}', async function (message) {
+Then('I should see the update first name error message {string}', async function (message) {
   await expect(this.page.locator(selectors.errorMessages.firstName)).toHaveText(message);
 });
 
@@ -38,55 +38,55 @@ When('I complete the Giftaid update form with first name {string}', async functi
   await this.commands.populateUpdateFormFields(this.page, { firstName });
 });
 
-When('I select yes for GiftAid declaration', async function () {
+When('I select yes for the GiftAid declaration', async function () {
   await this.page.click(selectors.giftAidClaimChoice.yes);
 });
 
-When('I select no for GiftAid declaration', async function () {
+When('I select no for the GiftAid declaration', async function () {
   await this.page.click(selectors.giftAidClaimChoice.no);
 });
 
-Then('I should see update thank you message for {string}', async function (firstName) {
+Then('I should see the update thank you message for {string}', async function (firstName) {
   await expect(
     this.page.locator(selectors.success.heading)).toHaveText(`Thank you, ${firstName}!`);
 });
 
-When('I enter update email {string}', async function (email) {
+When('I enter the update email {string}', async function (email) {
   await this.page.fill(selectors.marketingPreferences.fields.email, '');
   await this.page.fill(selectors.marketingPreferences.fields.email, email);
   await this.page.keyboard.press('Enter');
 });
 
-Then('I should see update email error message {string}', async function (message) {
+Then('I should see the update email error message {string}', async function (message) {
   await expect(this.page.locator(selectors.errorMessages.email)).toBeVisible();
   await expect(this.page.locator(selectors.errorMessages.email)).toHaveText(message);
 });
 
-When('I complete the Giftaid update form with generated email', async function () {
+When('I complete the Giftaid update form with the email', async function () {
   const validEmail = `giftaid-update-staging-${chance.email()}`;
   await this.page.fill(selectors.marketingPreferences.fields.email, '');
   await this.commands.populateUpdateFormFields(this.page, { email: validEmail });
 });
 
-Then('I should see update no declaration message', async function () {
+Then('I should see the update no declaration message', async function () {
   await expect(
     this.page.locator(selectors.success.heading)).toHaveText('Thanks for letting us know');
 });
 
-When('I enter update mobile number {string}', async function (mobile) {
+When('I enter the update mobile number {string}', async function (mobile) {
   await this.page.locator(selectors.formFields.mobile).fill('');
   await this.page.locator(selectors.formFields.mobile).type(mobile, { delay: 100 });
 });
 
-Then('I should see update mobile error message {string}', async function (message) {
+Then('I should see the update mobile error message {string}', async function (message) {
   await expect(this.page.locator(selectors.errorMessages.mobile)).toHaveText(message);
 });
 
-Then('I should not see update mobile error message', async function () {
+Then('I should not see the update mobile error message', async function () {
   await expect(this.page.locator(selectors.errorMessages.mobile)).not.toBeVisible();
 });
 
-When('I complete the Giftaid update form with generated mobile and last name {string}', async function (lastName) {
+When('I complete the Giftaid update form with the mobile and last name {string}', async function (lastName) {
   const prefixes = ['071', '073', '074', '075', '077', '078', '079'];
   const prefix = chance.pickone(prefixes);
   const mobile = `${prefix}${chance.string({ pool: '0123456789', length: 8 })}`;
@@ -95,12 +95,12 @@ When('I complete the Giftaid update form with generated mobile and last name {st
   await this.commands.populateUpdateFormFields(this.page, { lastName, mobile });
 });
 
-When('I enter update postcode {string}', async function (postcode) {
+When('I enter the update postcode {string}', async function (postcode) {
   await this.page.fill(selectors.formFields.postcode, '');
   await this.page.type(selectors.formFields.postcode, postcode);
 });
 
-Then('I should see update postcode error message {string}', async function (message) {
+Then('I should see the update postcode error message {string}', async function (message) {
   await expect(this.page.locator(selectors.errorMessages.postcode)).toBeVisible();
   await expect(this.page.locator(selectors.errorMessages.postcode)).toHaveText(message);
 });
@@ -109,7 +109,7 @@ When('I search for the update postcode', async function () {
   await this.page.click(selectors.formFields.postcodeLookup);
 });
 
-When('I select update address from lookup or enter address manually', async function () {
+When('I select the update address from lookup or enter address manually', async function () {
   if (await this.page.locator(selectors.address.addressSelect).isVisible()) {
     const options = await this.page.$$eval(selectors.address.addressSelectOptions, options => options.map(option => option.value));
     await this.page.selectOption(selectors.address.addressSelect, options[1]);
@@ -124,7 +124,7 @@ When('I select update address from lookup or enter address manually', async func
   }
 });
 
-When('I complete remaining update form fields', async function () {
+When('I complete the remaining update form fields', async function () {
   await this.page.locator(selectors.formFields.firstName).fill('test');
   await this.page.locator(selectors.formFields.lastName).fill(chance.last());
   await this.page.locator(selectors.marketingPreferences.fields.email).fill(`giftaid-update-staging-${chance.email()}`);

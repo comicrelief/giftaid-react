@@ -49,7 +49,7 @@ module.exports = defineConfig({
     }
   ],
 
-  /* Run your local dev server before starting the tests */
+  /* Run 'yarn start' before starting the tests */
   webServer: {
     command: 'yarn start',
     port: 3000,

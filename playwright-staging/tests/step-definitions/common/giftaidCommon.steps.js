@@ -6,7 +6,7 @@ When('I submit the Giftaid form', async function () {
   await this.page.click(selectors.formFields.submitButton);
 });
 
-When('I select marketing preferences', async function () {
+When('I select the marketing preferences', async function () {
   await this.commands.selectMarketingPrefs(this.page);
 });
 

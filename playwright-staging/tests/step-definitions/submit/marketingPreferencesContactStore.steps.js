@@ -6,7 +6,7 @@ const { selectors } = require('../../utils/locators');
 
 const chance = new Chance();
 
-When('I populate the Giftaid form with generated supporter details', async function () {
+When('I populate the Giftaid form with the generated supporter details', async function () {
   this.supporter = {
     firstName: chance.first(),
     lastName: chance.last(),
@@ -34,7 +34,7 @@ When('I populate the Giftaid form with generated supporter details', async funct
   });
 });
 
-When('I select generated marketing preferences', async function () {
+When('I select the marketing preferences', async function () {
   // Select marketing preferences using Commands class
   await this.commands.selectMarketingPrefs(this.page, {
     email: this.supporter.email,
@@ -42,12 +42,12 @@ When('I select generated marketing preferences', async function () {
   });
 });
 
-Then('I should see the generated supporter thank you message', async function () {
+Then('I should see the supporter thank you message', async function () {
   // Verify success message
   await expect(this.page.locator(selectors.success.heading)).toHaveText(`Thank you, ${this.supporter.firstName}!`);
 });
 
-Then('the marketing preferences data should be stored in contact-store', async function () {
+Then('the marketing preferences data should be stored in the contact-store', async function () {
   // Retrieve and verify marketing preferences data
   const mpData = await MarketingPrefsVerify.get(this.supporter.email);
   

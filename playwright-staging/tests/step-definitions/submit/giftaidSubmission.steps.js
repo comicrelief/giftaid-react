@@ -7,7 +7,7 @@ Given('I am on the Giftaid page', async function () {
   await this.page.waitForLoadState('domcontentloaded');
 });
 
-When('I select Giftaid', async function () {
+When('I select the Giftaid option', async function () {
   await this.page.click(selectors.giftaid.option);
 });
 
