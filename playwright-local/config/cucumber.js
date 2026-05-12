@@ -5,9 +5,11 @@ module.exports = {
       'tests/support/**/*.js',
       'tests/step-definitions/**/*.js',
     ],
-    format: ['progress', 'summary'],
     // Use 'pretty' locally for readable step-by-step output.
     // On CI keep the output minimal to avoid noisy logs.
+    format: ['progress', 'summary'],
+    retry: 2, // Retry failed scenarios twice
+    parallel: 3, // Run scenarios in parallel workers
     publishQuiet: true,
   },
 };
