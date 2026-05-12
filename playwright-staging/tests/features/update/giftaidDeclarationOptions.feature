@@ -14,4 +14,4 @@ Feature: Giftaid declaration claim selection
     Then no option should be selected and yes option should not be selected
 
     When I submit the Giftaid update form
-    Then I should see update no declaration message
+    Then I should see the update no declaration message

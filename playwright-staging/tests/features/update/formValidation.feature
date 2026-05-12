@@ -22,7 +22,7 @@ Feature: Giftaid update form validation
     When I complete the Giftaid update form with first name "John"
     And I select yes for GiftAid declaration
     And I submit the Giftaid update form
-    Then I should see update thank you message for "John"
+    Then I should see the update thank you message for "John"
 
   Scenario Outline: Invalid email values should show error message on update form
     When I enter the update email "<email>"
@@ -39,7 +39,7 @@ Feature: Giftaid update form validation
     When I complete the Giftaid update form with the email
     And I select no for GiftAid declaration
     And I submit the Giftaid update form
-    Then I should see update no declaration message
+    Then I should see the update no declaration message
 
   Scenario Outline: Invalid mobile numbers should show error message on update form
     When I enter the update mobile number "<mobile>"
@@ -65,11 +65,11 @@ Feature: Giftaid update form validation
     When I complete the Giftaid update form with the mobile and last name "test"
     And I select yes for GiftAid declaration
     And I submit the Giftaid update form
-    Then I should see update thank you message for " test"
+    Then I should see the update thank you message for " test"
 
   Scenario Outline: Invalid postcode values should show error message on update form
-    When I enter update postcode "<postcode>"
-    Then I should see update postcode error message "<message>"
+    When I enter the update postcode "<postcode>"
+    Then I should see the update postcode error message "<message>"
 
     Examples:
       | postcode    | message                                                                                  |
@@ -78,10 +78,10 @@ Feature: Giftaid update form validation
       | cro 7tp     | Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below. |
 
   Scenario: Valid postcode should submit update form
-    When I enter update postcode "SE1 7TP"
+    When I enter the update postcode "SE1 7TP"
     And I search for the update postcode
     And I select the update address from lookup or enter address manually
     And I complete the remaining update form fields
     And I select yes for GiftAid declaration
     And I submit the Giftaid update form
-    Then I should see update thank you message for " test"
+    Then I should see the update thank you message for " test"
