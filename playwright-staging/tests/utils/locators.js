@@ -63,7 +63,7 @@ const selectors = {
   },
   
   success: {
-    heading: 'div.success-wrapper--inner h1',
+    heading: 'h1',
   },
   sorry: {
     heading: 'div > h1',

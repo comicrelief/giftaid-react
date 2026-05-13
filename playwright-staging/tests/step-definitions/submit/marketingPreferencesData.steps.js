@@ -6,7 +6,7 @@ const { selectors } = require('../../utils/locators');
 
 const chance = new Chance();
 
-When('I populate the Giftaid form with the generated supporter details', async function () {
+When('I populate the Giftaid form with the supporter details', async function () {
   this.supporter = {
     firstName: chance.first(),
     lastName: chance.last(),
@@ -31,14 +31,6 @@ When('I populate the Giftaid form with the generated supporter details', async f
     town: this.supporter.town,
     postcode: this.supporter.postcode,
     email: this.supporter.email,
-  });
-});
-
-When('I select the marketing preferences', async function () {
-  // Select marketing preferences using Commands class
-  await this.commands.selectMarketingPrefs(this.page, {
-    email: this.supporter.email,
-    phone: this.supporter.phone,
   });
 });
 

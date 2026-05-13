@@ -1,5 +1,5 @@
 @sanity @nightly-sanity
-Feature: Giftaid submission
+Feature: Valid Giftaid submission
 
   Scenario: Valid Giftaid submission
     Given I am on the Giftaid page

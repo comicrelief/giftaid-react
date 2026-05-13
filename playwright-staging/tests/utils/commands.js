@@ -46,14 +46,16 @@ class Commands {
    * @param options - Optional marketing preferences.
    */
   async selectMarketingPrefs(page, {
-    email = `giftaid-staging-${chance.email()}`,
-    phone = chance.phone({ country: 'uk', mobile: false }).replace(/\s/g, '') // UK phone number
+    email = `giftaid-staging-${Date.now()}@email.sls.comicrelief.com`,
+    phone = chance.phone({ country: 'uk', mobile: false }).replace(/\s/g, '')
   } = {}) {
     await page.locator('#field-wrapper--Email > div').click();
-    await page.locator('input#field-input--email').type(email);
+    await page.locator('input#field-input--email').fill(email);
+  
     await page.locator('#field-wrapper--Phone > div').click();
-    await page.locator('input#field-input--phone').type(phone, { delay: 200 });
-    await page.locator('input#field-label--Text--SMS').click();
+    await page.locator('input#field-input--phone').fill(phone);
+  
+    await page.locator('input#field-label--Text--SMS').check({ force: true });
   }
 
   /**

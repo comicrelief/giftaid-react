@@ -3,11 +3,15 @@ const { expect } = require('@playwright/test');
 const { selectors } = require('../../utils/locators');
 
 When('I submit the Giftaid form', async function () {
-  await this.page.click(selectors.formFields.submitButton);
+  await this.page.locator(selectors.formFields.submitButton).click();
+  await this.page.waitForLoadState('networkidle');
 });
 
 When('I select the marketing preferences', async function () {
-  await this.commands.selectMarketingPrefs(this.page);
+  await this.commands.selectMarketingPrefs(this.page, {
+    email: this.supporter.email,
+    phone: this.supporter.phone,
+  });
 });
 
 When('I complete the Giftaid form with valid details', async function () {
