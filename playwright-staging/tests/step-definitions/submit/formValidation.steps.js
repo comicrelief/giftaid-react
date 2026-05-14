@@ -13,7 +13,7 @@ Then('I should see the mobile error message {string}', async function (message) 
 
 When('I complete the Giftaid form with the mobile number {string}', async function (mobile) {
   await this.page.locator(selectors.formFields.mobile).fill('');
-  await this.commands.populateFormFields(this.page, { mobile });
+  await this.commands.populateFormFields({ mobile });
 });
 
 When('I enter the first name {string}', async function (firstName) {
@@ -27,7 +27,7 @@ Then('I should see the first name error message {string}', async function (messa
 
 When('I complete the Giftaid form with the first name {string}', async function (firstName) {
   await this.page.locator(selectors.formFields.firstName).fill('');
-  await this.commands.populateFormFields(this.page, { firstName });
+  await this.commands.populateFormFields({ firstName });
 });
 
 Then('I should see the thank you message for {string}', async function (firstName) {

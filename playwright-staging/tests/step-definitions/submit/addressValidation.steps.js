@@ -3,7 +3,9 @@ const { expect } = require('@playwright/test');
 const { selectors } = require('../../utils/locators');
 
 When('I clear the postcode field', async function () {
-  await this.page.locator(selectors.formFields.postcode).fill('');
+  const postcodeField = this.page.locator(selectors.formFields.postcode);
+  await postcodeField.fill('');
+  await expect(postcodeField).toHaveValue('');
 });
 
 Then('I should see the address dropdown', async function () {

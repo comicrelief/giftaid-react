@@ -9,7 +9,12 @@ Given('I enter the supporter details', async function () {
 });
 
 When('I enter the postcode {string}', async function (postcode) {
-  await this.page.fill(selectors.formFields.postcode, postcode);
+  const postcodeField = this.page.locator(selectors.formFields.postcode);
+  
+  await postcodeField.fill('');
+  await postcodeField.fill(postcode);
+  
+  await expect(postcodeField).toHaveValue(postcode);
 });
 
 Then('I should see the postcode error message {string}', async function (message) {

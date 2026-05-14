@@ -8,7 +8,7 @@ Given('I am on the Giftaid update page', async function () {
 });
 
 When('I complete the Giftaid update form with valid details', async function () {
-  await this.commands.populateUpdateFormFields(this.page);
+  await this.commands.populateUpdateFormFields();
 });
 
 When('I submit the Giftaid update form', async function () {

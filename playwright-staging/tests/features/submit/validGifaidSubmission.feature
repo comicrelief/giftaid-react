@@ -1,4 +1,4 @@
-@sanity @nightly-sanity
+@sanity @nightly-sanity @validSubmission
 Feature: Valid Giftaid submission
 
   Scenario: Valid Giftaid submission

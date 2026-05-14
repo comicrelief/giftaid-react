@@ -1,10 +1,6 @@
-const { When, Then } = require('@cucumber/cucumber');
+const { Then } = require('@cucumber/cucumber');
 const { expect } = require('@playwright/test');
 const { selectors } = require('../../utils/locators');
-
-When('I complete the Giftaid update form with valid details', async function () {
-  await this.commands.populateUpdateFormFields(this.page);
-});
 
 Then('I should see the Giftaid declaration section', async function () {
   await expect(this.page.locator(selectors.giftAidClaimChoice.yes)).toBeVisible();

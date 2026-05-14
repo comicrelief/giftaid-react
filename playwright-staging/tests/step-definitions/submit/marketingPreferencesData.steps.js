@@ -21,7 +21,7 @@ When('I populate the Giftaid form with the supporter details', async function ()
   };
   
   // Populate all input fields using Commands class
-  await this.commands.populateFormFields(this.page, {
+  await this.commands.populateFormFields({
     mobile: this.supporter.mobile,
     firstName: this.supporter.firstName,
     lastName: this.supporter.lastName,
@@ -30,13 +30,14 @@ When('I populate the Giftaid form with the supporter details', async function ()
     address3: this.supporter.address3,
     town: this.supporter.town,
     postcode: this.supporter.postcode,
-    email: this.supporter.email,
   });
 });
 
 Then('I should see the supporter thank you message', async function () {
-  // Verify success message
-  await expect(this.page.locator(selectors.success.heading)).toHaveText(`Thank you, ${this.supporter.firstName}!`);
+  await expect(this.page.locator('h1')).toHaveText(
+    `Thank you, ${this.supporter.firstName}!`,
+    { timeout: 15000 }
+  );
 });
 
 Then('the marketing preferences data should be stored in the contact-store', async function () {

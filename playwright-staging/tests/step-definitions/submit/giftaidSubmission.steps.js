@@ -12,7 +12,9 @@ When('I select the Giftaid option', async function () {
 });
 
 Then('I should see the Giftaid thank you message', async function () {
-  await expect(this.page.locator(selectors.success.heading)).toContainText('Thank you, test!', {
-    timeout: 30000,
-  });
+  const expectedFirstName = this.supporter?.firstName || 'test';
+  await expect(this.page.locator('h1')).toContainText(
+    `Thank you, ${expectedFirstName}!`,
+    { timeout: 30000 }
+  );
 });

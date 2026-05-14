@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const { Before, After, Status, setDefaultTimeout } = require('@cucumber/cucumber');
 const { chromium } = require('@playwright/test');
-const { Commands } = require('../utils/commands');
+const Commands = require('../utils/commands');
 
 setDefaultTimeout(300 * 1000); // 5 mins
 
@@ -56,6 +56,7 @@ Before(async function (scenario) {
     bounds: { windowState: 'maximized' },
   });
   
+  /** @type {Commands} */
   this.commands = new Commands(this.page);
 });
 

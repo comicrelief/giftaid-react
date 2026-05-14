@@ -1,18 +1,9 @@
-const { Given, When, Then } = require('@cucumber/cucumber');
+const { When, Then } = require('@cucumber/cucumber');
 const { expect } = require('@playwright/test');
 const Chance = require('chance');
 const { selectors } = require('../../utils/locators');
 
 const chance = new Chance();
-
-Given('I am on the Giftaid update page', async function () {
-  await this.page.goto(`${process.env.BASE_URL}update`, { timeout: 30000 });
-  await this.page.waitForLoadState('domcontentloaded');
-});
-
-When('I submit the Giftaid update form', async function () {
-  await this.page.click(selectors.formFields.submitButton);
-});
 
 Then('I should see the required update form error messages', async function () {
   await expect(this.page.locator(selectors.errorMessages.firstName)).toHaveText('Please fill in your first name');
@@ -29,10 +20,6 @@ When('I enter the update first name {string}', async function (firstName) {
   await this.page.keyboard.press('Enter');
 });
 
-Then('I should see the update first name error message {string}', async function (message) {
-  await expect(this.page.locator(selectors.errorMessages.firstName)).toHaveText(message);
-});
-
 When('I complete the Giftaid update form with first name {string}', async function (firstName) {
   await this.page.fill(selectors.formFields.firstName, '');
   await this.commands.populateUpdateFormFields(this.page, { firstName });
@@ -44,11 +31,6 @@ When('I select yes for the GiftAid declaration', async function () {
 
 When('I select no for the GiftAid declaration', async function () {
   await this.page.click(selectors.giftAidClaimChoice.no);
-});
-
-Then('I should see the update thank you message for {string}', async function (firstName) {
-  await expect(
-    this.page.locator(selectors.success.heading)).toHaveText(`Thank you, ${firstName}!`);
 });
 
 When('I enter the update email {string}', async function (email) {
@@ -65,12 +47,7 @@ Then('I should see the update email error message {string}', async function (mes
 When('I complete the Giftaid update form with the email', async function () {
   const validEmail = `giftaid-update-staging-${chance.email()}`;
   await this.page.fill(selectors.marketingPreferences.fields.email, '');
-  await this.commands.populateUpdateFormFields(this.page, { email: validEmail });
-});
-
-Then('I should see the update no declaration message', async function () {
-  await expect(
-    this.page.locator(selectors.success.heading)).toHaveText('Thanks for letting us know');
+  await this.commands.populateUpdateFormFields({ email: validEmail });
 });
 
 When('I enter the update mobile number {string}', async function (mobile) {
@@ -92,17 +69,7 @@ When('I complete the Giftaid update form with the mobile and last name {string}'
   const mobile = `${prefix}${chance.string({ pool: '0123456789', length: 8 })}`;
   
   await this.page.locator(selectors.formFields.mobile).fill('');
-  await this.commands.populateUpdateFormFields(this.page, { lastName, mobile });
-});
-
-When('I enter the update postcode {string}', async function (postcode) {
-  await this.page.fill(selectors.formFields.postcode, '');
-  await this.page.type(selectors.formFields.postcode, postcode);
-});
-
-Then('I should see the update postcode error message {string}', async function (message) {
-  await expect(this.page.locator(selectors.errorMessages.postcode)).toBeVisible();
-  await expect(this.page.locator(selectors.errorMessages.postcode)).toHaveText(message);
+  await this.commands.populateUpdateFormFields({ lastName, mobile });
 });
 
 When('I search for the update postcode', async function () {
