@@ -1,4 +1,4 @@
-@sanity @nightly-sanity @update-valid-submission
+@sanity @update-valid-submission
 Feature: Valid Giftaid update submission
 
   # Step definitions for this feature are implemented in:

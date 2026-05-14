@@ -1,4 +1,4 @@
-@sanity @nightly-sanity @update-success-redirect
+@sanity @update-success-redirect
 Feature: Giftaid update success page redirect
 
   Scenario: Accessing success page should redirect to giftaid update homepage

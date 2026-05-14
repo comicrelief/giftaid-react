@@ -1,4 +1,4 @@
-@sanity @nightly-sanity @postcode
+@sanity @postcode
 Feature: Postcode validation
 
   Background:

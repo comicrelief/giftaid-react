@@ -1,4 +1,4 @@
-@sanity @nightly-sanity @international
+@sanity @international
 Feature: International address validation
 
   Scenario: Selecting a non-UK country and entering a non-UK postcode should submit the form

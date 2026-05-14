@@ -1,4 +1,4 @@
-@sanity @nightly-sanity @update-declaration
+@sanity @update-declaration
 Feature: Giftaid declaration claim selection
 
   Scenario: Validate Giftaid declaration claim selections

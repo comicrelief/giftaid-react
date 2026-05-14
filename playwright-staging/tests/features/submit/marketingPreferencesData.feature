@@ -1,4 +1,4 @@
-@sanity @nightly-sanity @marketing-preferences-data
+@sanity @marketing-preferences-data
 Feature: Giftaid marketing preferences contact-store verification
 
   Scenario: Verify giftaid marketing preferences data in contact-store

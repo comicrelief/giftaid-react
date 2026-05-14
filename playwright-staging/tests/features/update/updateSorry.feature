@@ -1,4 +1,4 @@
-@sanity @nightly-sanity @update-sorry
+@sanity @update-sorry
 Feature: Giftaid update sorry page
 
   Scenario: Accessing giftaid update sorry page should show the sorry message
