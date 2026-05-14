@@ -44,7 +44,7 @@ Then('the marketing preferences data should be stored in the contact-store', asy
   // Retrieve and verify marketing preferences data
   const mpData = await MarketingPrefsVerify.get(this.supporter.email);
   
-  expect(mpData.campaign).toEqual('RND26');
+  expect(mpData.campaign).toEqual('SR26');
   expect(mpData.firstname).toEqual(this.supporter.firstName);
   expect(mpData.lastname).toEqual(this.supporter.lastName);
   expect(mpData.email).toEqual(this.supporter.email);
