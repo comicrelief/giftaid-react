@@ -48,6 +48,12 @@ Before(async function (scenario) {
   
   this.page = await this.context.newPage();
   
+  // Keep default Playwright action/assertion timeout consistent across Cucumber tests
+  this.page.setDefaultTimeout(30000);
+  
+  // Increase navigation timeout for slower redirects/page loads on BrowserStack
+  this.page.setDefaultNavigationTimeout(45000);
+  
   // Maximise browser window
   const session = await this.context.newCDPSession(this.page);
   const { windowId } = await session.send('Browser.getWindowForTarget');
