@@ -17,8 +17,6 @@
     "uuid": "8.3.2"
   },
   "scripts": {
-    "test:sanity": "FORCE_COLOR=1 playwright test --grep '@sanity'",
-    "test:cucumber": "FORCE_COLOR=1 cucumber-js --config config/cucumber.js",
-    "test:cucumber:sanity": "FORCE_COLOR=1 cucumber-js --config config/cucumber.js --tags '@sanity'"
+    "test:sanity": "FORCE_COLOR=1 cucumber-js --config config/cucumber.js --tags '@sanity'"
   }
 }
