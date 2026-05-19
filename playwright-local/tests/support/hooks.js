@@ -36,6 +36,10 @@ Before(async function () {
   );
   
   this.page = await this.context.newPage();
+  
+  // Increase navigation timeout for slower redirects/page loads
+  this.page.setDefaultNavigationTimeout(45000);
+  
   this.commands = new Commands(this.page);
 });
 
