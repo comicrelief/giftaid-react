@@ -52,7 +52,7 @@ Then('the marketing preferences data should be stored in the contact-store', asy
   expect(mpData.town).toEqual(this.supporter.town);
   expect(mpData.country).toEqual('GB');
   expect(mpData.transsourceurl).toContain(process.env.BASE_URL);
-  expect(mpData.transsource).toEqual('RND26_GiftAid');
+  expect(mpData.transsource).toEqual('SR26_GiftAid');
   expect(mpData.transtype).toEqual('prefs');
   expect(mpData.permissionemail).toEqual('1');
   expect(mpData.permissionsms).toEqual('1');
