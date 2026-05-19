@@ -20,9 +20,13 @@ When('I enter the update first name {string}', async function (firstName) {
   await this.page.keyboard.press('Enter');
 });
 
+Then('I should see the update first name error message {string}', async function (message) {
+  await expect(this.page.locator(selectors.errorMessages.firstName)).toHaveText(message);
+});
+
 When('I complete the Giftaid update form with first name {string}', async function (firstName) {
   await this.page.fill(selectors.formFields.firstName, '');
-  await this.commands.populateUpdateFormFields(this.page, { firstName });
+  await this.commands.populateUpdateFormFields({ firstName });
 });
 
 When('I select yes for the GiftAid declaration', async function () {
