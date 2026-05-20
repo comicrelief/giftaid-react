@@ -1,7 +1,7 @@
 @sanity @valid-submission
-Feature: Valid Giftaid submission
+Feature: Valid Giftaid Submission
 
-  Scenario: Valid Giftaid submission
+  Scenario: Valid Giftaid Submission
     Given I am on the Giftaid page
     And I select the Giftaid option
     And I complete the Giftaid form with valid details

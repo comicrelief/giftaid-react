@@ -2,7 +2,6 @@ const { When, Then } = require('@cucumber/cucumber');
 const { expect } = require('@playwright/test');
 const Chance = require('chance');
 const { MarketingPrefsVerify } = require('../../utils/marketingPrefsVerify');
-const { selectors } = require('../../utils/locators');
 
 const chance = new Chance();
 

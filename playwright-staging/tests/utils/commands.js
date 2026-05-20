@@ -1,3 +1,4 @@
+const { selectors } = require('./locators');
 const Chance = require('chance');
 const chance = new Chance();
 
@@ -28,15 +29,15 @@ class Commands {
     address3 = 'test address 3',
     town = chance.city(),
   } = {}) {
-    await this.page.locator('#field-input--mobile').fill(mobile);
-    await this.page.locator('input#field-input--firstname').fill(firstName);
-    await this.page.locator('input#field-input--lastname').fill(lastName);
-    await this.page.locator('input#field-input--postcode').fill(postcode);
-    await this.page.locator('a[aria-describedby=field-error--addressDetails]').click();
-    await this.page.locator('input#field-input--address1').fill(address1);
-    await this.page.locator('input#field-input--address2').fill(address2);
-    await this.page.locator('input#field-input--address3').fill(address3);
-    await this.page.locator('input#field-input--town').fill(town);
+    await this.page.locator(selectors.formFields.mobile).fill(mobile);
+    await this.page.locator(selectors.formFields.firstName).fill(firstName);
+    await this.page.locator(selectors.formFields.lastName).fill(lastName);
+    await this.page.locator(selectors.formFields.postcode).fill(postcode);
+    await this.page.locator(selectors.address.manualAddressLink).click();
+    await this.page.locator(selectors.address.address1).fill(address1);
+    await this.page.locator(selectors.address.address2).fill(address2);
+    await this.page.locator(selectors.address.address3).fill(address3);
+    await this.page.locator(selectors.address.town).fill(town);
   }
 
   /**
@@ -47,13 +48,13 @@ class Commands {
     email = `giftaid-staging-${Date.now()}@email.sls.comicrelief.com`,
     phone = chance.phone({ country: 'uk', mobile: false }).replace(/\s/g, '')
   } = {}) {
-    await this.page.locator('#field-wrapper--Email > div').click();
-    await this.page.locator('input#field-input--email').fill(email);
+    await this.page.locator(selectors.marketingPreferences.options.email).click();
+    await this.page.locator(selectors.marketingPreferences.fields.email).fill(email);
   
-    await this.page.locator('#field-wrapper--Phone > div').click();
-    await this.page.locator('input#field-input--phone').fill(phone);
+    await this.page.locator(selectors.marketingPreferences.options.phone).click();
+    await this.page.locator(selectors.marketingPreferences.fields.phone).fill(phone);
   
-    await this.page.locator('input#field-label--Text--SMS').check({ force: true });
+    await this.page.locator(selectors.marketingPreferences.options.text).check({ force: true });
   }
 
   /**
@@ -71,16 +72,16 @@ class Commands {
     address3 = 'test address 3',
     town = chance.city(),
   } = {}) {
-    await this.page.locator('input#field-input--firstname').fill(firstName);
-    await this.page.locator('input#field-input--lastname').fill(lastName);
-    await this.page.locator('input#field-input--postcode').fill(postcode);
-    await this.page.locator('input#field-input--email').fill(email);
-    await this.page.locator('#field-input--mobile').fill(mobile);
-    await this.page.locator('a[aria-describedby=field-error--addressDetails]').click();
-    await this.page.locator('input#field-input--address1').fill(address1);
-    await this.page.locator('input#field-input--address2').fill(address2);
-    await this.page.locator('input#field-input--address3').fill(address3);
-    await this.page.locator('input#field-input--town').fill(town);
+    await this.page.locator(selectors.formFields.firstName).fill(firstName);
+    await this.page.locator(selectors.formFields.lastName).fill(lastName);
+    await this.page.locator(selectors.formFields.postcode).fill(postcode);
+    await this.page.locator(selectors.formFields.email).fill(email);
+    await this.page.locator(selectors.formFields.mobile).fill(mobile);
+    await this.page.locator(selectors.address.manualAddressLink).click();
+    await this.page.locator(selectors.address.address1).fill(address1);
+    await this.page.locator(selectors.address.address2).fill(address2);
+    await this.page.locator(selectors.address.address3).fill(address3);
+    await this.page.locator(selectors.address.town).fill(town);
   }
 }
 

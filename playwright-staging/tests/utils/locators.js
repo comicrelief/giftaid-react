@@ -18,6 +18,7 @@ const selectors = {
     mobile: '#field-input--mobile',
     firstName: 'input#field-input--firstname',
     lastName: 'input#field-input--lastname',
+    email: 'input#field-input--email',
     postcode: 'input#field-input--postcode',
     postcodeLookup: '#postcode_button',
     submitButton: 'button[type=submit]',
