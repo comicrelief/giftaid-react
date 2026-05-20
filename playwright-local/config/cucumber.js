@@ -9,7 +9,7 @@ module.exports = {
     // On CI keep the output minimal to avoid noisy logs.
     format: ['progress', 'summary'],
     retry: 2, // Retry failed scenarios twice
-    parallel: 3, // Run scenarios in parallel workers
+    parallel: 2, // Run scenarios in parallel workers
     publishQuiet: true,
   },
 };
