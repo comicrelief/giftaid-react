@@ -1,4 +1,4 @@
-@sanity @international-address-validation
+@international-address-validation
 Feature: International address validation
 
   Background:

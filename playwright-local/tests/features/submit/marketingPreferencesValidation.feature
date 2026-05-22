@@ -1,4 +1,4 @@
-@sanity @marketing-preferences-validation
+@marketing-preferences-validation
 Feature: Marketing preferences validation
 
   Background:

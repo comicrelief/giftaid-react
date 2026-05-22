@@ -1,4 +1,4 @@
-@sanity @postcode-lookup
+@postcode-lookup
 Feature: Postcode lookup validation
 
   Background:

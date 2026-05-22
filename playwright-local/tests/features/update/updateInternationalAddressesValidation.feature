@@ -1,4 +1,4 @@
-@sanity @update-international-address-validation
+@update-international-address-validation
 Feature: International address validation on the update form
 
   Background:

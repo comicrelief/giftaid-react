@@ -1,4 +1,4 @@
-@sanity @update-form-validation
+@update-form-validation
 Feature: Giftaid update form validation
 
   Background:

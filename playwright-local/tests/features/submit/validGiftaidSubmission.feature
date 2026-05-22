@@ -1,4 +1,4 @@
-@sanity @valid-giftaid-submission
+@valid-giftaid-submission
 Feature: Valid Giftaid Submission
 
   Background:

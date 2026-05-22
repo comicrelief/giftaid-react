@@ -1,4 +1,4 @@
-@sanity @address-validation
+@address-validation
 Feature: Address validation
 
   Background:

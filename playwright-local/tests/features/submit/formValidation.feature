@@ -1,4 +1,4 @@
-@sanity @form-validation
+@form-validation
 Feature: Form validation
 
   Background:

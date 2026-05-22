@@ -1,4 +1,4 @@
-@sanity @update-valid-form-submission
+@update-valid-form-submission
 Feature: Valid Giftaid update submission
 
   Background:

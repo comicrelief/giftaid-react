@@ -35,7 +35,7 @@ jobs:
         run: yarn playwright install chromium
 
       - name: Run Cucumber Giftaid Sanity Tests
-        run: yarn test:cucumber:ci:chromium:sanity
+        run: yarn test:ci:chromium
         continue-on-error: false
         env:
           NODE_ENV: development
@@ -86,7 +86,7 @@ jobs:
         run: yarn playwright install webkit
 
       - name: Run Mobile Cucumber Tests
-        run: yarn test:cucumber:ci:mobile:sanity
+        run: yarn test:ci:mobile
         continue-on-error: false
         env:
           NODE_ENV: development
