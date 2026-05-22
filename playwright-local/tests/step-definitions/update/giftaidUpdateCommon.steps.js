@@ -9,7 +9,7 @@ Given('I am on the local Giftaid update page', async function () {
 });
 
 When('I complete the local Giftaid update form with valid details', async function () {
-  await this.commands.populateUpdateFormFields(this.page);
+  await this.commands.populateUpdateFormFields();
 });
 
 When('I complete the local update supporter details', async function () {

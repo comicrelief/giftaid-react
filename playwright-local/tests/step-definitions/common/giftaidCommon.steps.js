@@ -53,9 +53,9 @@ Then('I should see the local thank you message containing {string}', async funct
 });
 
 When('I complete the local Giftaid form with valid details', async function () {
-  await this.commands.populateFormFields(this.page, { mobile: '07123456789' });
+  await this.commands.populateFormFields({ mobile: '07123456789' });
 });
 
 When('I select the local marketing preferences', async function () {
-  await this.commands.selectMarketingPrefs(this.page);
+  await this.commands.selectMarketingPrefs();
 });
