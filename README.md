@@ -67,36 +67,106 @@ The domains for giftaid are as follows
 
 ## Testing
 
-### Playwright-Local Tests
+### Playwright-Local Cucumber Tests
 
-To run PR Playwright Tests locally (after running `yarn playwright install` if you haven't previously), you need to first export `REACT_APP_ENDPOINT_URL=https://giftaid-sandbox.sls.comicrelief.com/` in your terminal for the form to get submitted and then run the script `test:playwright-local:local` found in package.json; this script starts the http://localhost:3000 server in the background, config for this is found in `playwright-local/playwright-local.config.js` file and runs the tests in headless mode. 
+Local end-to-end tests use:
+- Cucumber
+- Playwright
+- Chromium and Mobile Safari
+- A locally running React app on `http://localhost:3000`
 
-To view a test in a _headed_ mode locally, use the according command; `test:playwright-local--h`.
+### Start the local server
 
-To run a single test, add `only` annotation
+Before running the tests locally, start the React app:
 
-eg: test.only('Valid giftaid submission', async ({ page }) => {
-    });
-    
-### Staging Playwright Tests
+```bash
+yarn start
+```
+This starts the application on: http://localhost:3000
 
-In order to run Playwright end-to-end tests locally you need to change directory to playwright folder `cd playwright` and export the following environment variables to your terminal:`BASE_URL, BROWSERSTACK_ACCESS_KEY, BROWSERSTACK_USERNAME`
-Browserstack credentials can be found in https://github.com/comicrelief/serverless-giftaid/blob/master/concourse/private.yml
+### Running Local Tests
+
+Run all local tests:
+
+```bash
+yarn test:local
+```
+
+Run Chromium tests:
+
+```bash
+yarn test:local:chromium
+```
+
+Run Mobile Safari tests:
+
+```bash
+yarn test:local:mobile
+```
+
+### Run Tests in Headed Mode
+
+Run Chromium in headed mode:
+
+```bash
+yarn test:local:chromium:headed
+```
+
+Run Mobile Safari in headed mode:
+
+```bash
+yarn test:local:mobile:headed
+```
+
+### Run Specific Tests by Tag
+
+Example:
+
+```bash
+yarn test:local --tags "@valid-giftaid-submission"
+```
+
+Run address validation tests:
+
+```bash
+yarn test:local --tags "@address-validation"
+```
+
+### Local Test Structure
+
+```text
+playwright-local/
+├── tests/features
+├── tests/step-definitions
+├── tests/support
+└── tests/utils
+```
+
+- Feature files contain readable Gherkin scenarios using the `.feature` extension
+- Step definitions contain the Playwright automation implementation
+- Hooks create a fresh browser context and page for every scenario
+- Shared selectors are stored in `utils/locators.js`
+- Shared reusable helper methods are stored in `utils/commands.js`
+
+### Staging BrowserStack Tests
+
+Staging tests run against BrowserStack and require the following environment variables:
+
 ```bash
 export BASE_URL='https://giftaid-staging.comicrelief.com/'
 export BROWSERSTACK_USERNAME='<INSERT_USERNAME>'
 export BROWSERSTACK_ACCESS_KEY='<INSERT_ACCESS_KEY>'
 ```
-### Running tests 
 
-To run spa-feature-test or nightly-test-sanity, check the commands in playwright/package.json eg: `yarn test:sanity` 
+BrowserStack credentials can be found in:
 
-To run a single test, add `only` annotation
+```text
+serverless-giftaid/concourse/private.yml
+```
 
-eg: test.only('submit form with valid inputs', async ({ page }) => {
-    });
-        
-Check serverless-giftaid in order to get the right values and then you can run the test executing:
+### Running Staging Tests
+
+Run staging tests:
 
 ```bash
 yarn test:sanity
