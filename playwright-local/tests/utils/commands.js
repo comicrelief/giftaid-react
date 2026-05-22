@@ -1,5 +1,6 @@
 const Chance = require('chance');
 const chance = new Chance();
+const { selectors } = require('./../utils/locators');
 
 class Commands {
   constructor(page) {
@@ -21,15 +22,15 @@ class Commands {
     address3 = 'test address 3',
     town = chance.city(),
   } = {}) {
-    await page.locator('#field-input--mobile').type(mobile);
-    await page.locator('input#field-input--firstname').type(firstName);
-    await page.locator('input#field-input--lastname').type(lastName);
-    await page.locator('input#field-input--postcode').type(postcode);
-    await page.locator('a[aria-describedby=field-error--addressDetails]').click();
-    await page.locator('input#field-input--address1').type(address1);
-    await page.locator('input#field-input--address2').type(address2);
-    await page.locator('input#field-input--address3').type(address3);
-    await page.locator('input#field-input--town').type(town);
+    await page.locator(selectors.formFields.mobile).type(mobile);
+    await page.locator(selectors.formFields.firstName).type(firstName);
+    await page.locator(selectors.formFields.lastName).type(lastName);
+    await page.locator(selectors.formFields.postcode).type(postcode);
+    await page.locator(selectors.address.manualAddressLink).click();
+    await page.locator(selectors.address.address1).type(address1);
+    await page.locator(selectors.address.address2).type(address2);
+    await page.locator(selectors.address.address3).type(address3);
+    await page.locator(selectors.address.town).type(town);
   }
   
   /**
@@ -41,11 +42,11 @@ class Commands {
     email = `giftaid-staging-${chance.email()}`,
     phone = chance.phone({ country: 'uk', mobile: false }).replace(/\s/g, '') // UK phone number
   } = {}) {
-    await page.locator('#field-wrapper--Email > div').click();
-    await page.locator('input#field-input--email').type(email);
-    await page.locator('#field-wrapper--Phone > div').click();
-    await page.locator('input#field-input--phone').type(phone, { delay: 200 });
-    await page.locator('input#field-label--Text--SMS').click();
+    await page.locator(selectors.marketingPreferences.options.email).click();
+    await page.locator(selectors.marketingPreferences.fields.email).type(email);
+    await page.locator(selectors.marketingPreferences.options.phone).click();
+    await page.locator(selectors.marketingPreferences.fields.phone).type(phone, { delay: 200 });
+    await page.locator(selectors.formFields.mobile).click();
   }
   
   /**
@@ -64,16 +65,16 @@ class Commands {
     town = chance.city(),
     mobile = '07516144519'
   } = {}) {
-    await page.locator('input#field-input--firstname').fill(firstName);
-    await page.locator('input#field-input--lastname').fill(lastName);
-    await page.locator('input#field-input--postcode').fill(postcode);
-    await page.locator('input#field-input--email').fill(email);
-    await page.locator('a[aria-describedby=field-error--addressDetails]').click();
-    await page.locator('input#field-input--address1').fill(address1);
-    await page.locator('input#field-input--address2').fill(address2);
-    await page.locator('input#field-input--address3').fill(address3);
-    await page.locator('input#field-input--town').fill(town);
-    await page.locator('#field-input--mobile').type(mobile);
+    await page.locator(selectors.formFields.firstName).fill(firstName);
+    await page.locator(selectors.formFields.lastName).fill(lastName);
+    await page.locator(selectors.formFields.postcode).fill(postcode);
+    await page.locator(selectors.formFields.email).fill(email);
+    await page.locator(selectors.address.manualAddressLink).click();
+    await page.locator(selectors.address.address1).fill(address1);
+    await page.locator(selectors.address.address2).fill(address2);
+    await page.locator(selectors.address.address3).fill(address3);
+    await page.locator(selectors.address.town).fill(town);
+    await page.locator(selectors.formFields.mobile).type(mobile);
   }
 }
 

@@ -1,5 +1,6 @@
 const { When, Then } = require('@cucumber/cucumber');
 const { expect } = require('@playwright/test');
+const { selectors } = require('../../utils/locators');
 
 const Chance = require('chance');
 const chance = new Chance();
@@ -9,9 +10,9 @@ const phone = chance.phone({ country: 'uk', mobile: true }).replace(/\s/g, '');
 
 When('I select all the local marketing preference options', async function () {
   const marketingOptions = [
-    '[aria-label="field-label--Email--Email"]',
-    '[aria-label="field-label--Phone--Phone"]',
-    '[aria-label="field-label--Text--SMS"]',
+    selectors.marketingPreferences.options.email,
+    selectors.marketingPreferences.options.phone,
+    selectors.marketingPreferences.options.text,
   ];
   
   for (const option of marketingOptions) {
@@ -25,43 +26,43 @@ When('I select all the local marketing preference options', async function () {
 });
 
 When('I select the local email marketing preference', async function () {
-  await this.page.locator('[aria-label="field-label--Email--Email"]').click();
+  await this.page.locator(selectors.marketingPreferences.options.email).click();
 });
 
 When('I select the local phone marketing preference', async function () {
-  await this.page.locator('[aria-label="field-label--Phone--Phone"]').click();
+  await this.page.locator(selectors.marketingPreferences.options.phone).click();
 });
 
 When('I enter the local marketing email', async function () {
-  await expect(this.page.locator('input#field-input--email')).toBeVisible();
-  await this.page.locator('input#field-input--email').fill(email);
+  await expect(this.page.locator(selectors.marketingPreferences.fields.email)).toBeVisible();
+  await this.page.locator(selectors.marketingPreferences.fields.email).fill(email);
 });
 
 When('I clear the local marketing email', async function () {
-  await this.page.locator('input#field-input--email').fill('');
+  await this.page.locator(selectors.marketingPreferences.fields.email).fill('');
 });
 
 When('I enter an invalid local marketing email {string}', async function (invalidEmail) {
-  await this.page.locator('input#field-input--email').fill(invalidEmail);
+  await this.page.locator(selectors.marketingPreferences.fields.email).fill(invalidEmail);
 });
 
 Then('I should see the local marketing email error message {string}', async function (message) {
-  await expect(this.page.locator('#field-error--email')).toHaveText(message);
+  await expect(this.page.locator(selectors.errorMessages.email)).toHaveText(message);
 });
 
 When('I enter the local marketing phone', async function () {
-  await expect(this.page.locator('input#field-input--phone')).toBeVisible();
-  await this.page.locator('input#field-input--phone').fill(phone);
+  await expect(this.page.locator(selectors.marketingPreferences.fields.phone)).toBeVisible();
+  await this.page.locator(selectors.marketingPreferences.fields.phone).fill(phone);
 });
 
 When('I clear the local marketing phone', async function () {
-  await this.page.locator('input#field-input--phone').fill('');
+  await this.page.locator(selectors.marketingPreferences.fields.phone).fill('');
 });
 
 When('I enter an invalid local marketing phone {string}', async function (invalidPhone) {
-  await this.page.locator('input#field-input--phone').fill(invalidPhone);
+  await this.page.locator(selectors.marketingPreferences.fields.phone).fill(invalidPhone);
 });
 
 Then('I should see the local marketing phone error message {string}', async function (message) {
-  await expect(this.page.locator('div#field-error--phone > span')).toHaveText(message);
+  await expect(this.page.locator(selectors.errorMessages.phone)).toHaveText(message);
 });

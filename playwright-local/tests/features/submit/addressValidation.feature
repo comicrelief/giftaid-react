@@ -22,20 +22,20 @@ Feature: Address validation
       | cro 7tp      | Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below. |
 
   Scenario: Entering a postcode without selecting an address should show an error message
-    When I enter the local postcode "SE1 7TP"
+    When I enter the local postcode "E1 8QS"
     And I search for the local postcode
     Then I should see the local address dropdown
     When I submit the local Giftaid form
     Then I should see the local address select error message "Please select your address"
 
   Scenario: Clicking the manual address link should show the address fields
-    When I enter the local postcode "SE1 7TP"
+    When I enter the local postcode "E1 8QS"
     Then I should see the local manual address link
     When I click the local manual address link
     Then I should see the local manual address fields
 
   Scenario: Invalid address fields should show error messages
-    When I enter the local postcode "SE1 7TP"
+    When I enter the local postcode "E1 8QS"
     And I click the local manual address link
     And I enter the local invalid address line 1
     Then I should see the local address line 1 error message

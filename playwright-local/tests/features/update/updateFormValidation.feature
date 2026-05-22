@@ -96,7 +96,7 @@ Feature: Giftaid update form validation
 
   Scenario: Entering a valid UK postcode on the update form using postcode lookup should submit the form
     When I complete the local update supporter details
-    And I enter the local postcode "SE1 7TP"
+    And I enter the local postcode "E1 8QS"
     And I search for the local postcode
     And I select the local update lookup address or enter the address manually
     And I select yes for the local update GiftAid declaration

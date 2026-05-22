@@ -1,5 +1,6 @@
 const { Given, When, Then } = require('@cucumber/cucumber');
 const { expect } = require('@playwright/test');
+const { selectors } = require('../../utils/locators');
 
 Given('I am on the local Giftaid page', async function () {
   await this.page.goto(process.env.BASE_URL, {
@@ -9,46 +10,46 @@ Given('I am on the local Giftaid page', async function () {
 });
 
 Given('I select the local Giftaid option', async function () {
-  await this.page.locator('#field-label--giftaid').click();
+  await this.page.locator(selectors.giftaid.option).click();
 });
 
 Given('I enter the local supporter details', async function () {
-  await this.page.locator('#field-input--mobile').fill('07123456789');
-  await this.page.locator('input#field-input--firstname').fill('test');
-  await this.page.locator('input#field-input--lastname').fill('user');
+  await this.page.locator(selectors.formFields.mobile).fill('07123456789');
+  await this.page.locator(selectors.formFields.firstName).fill('test');
+  await this.page.locator(selectors.formFields.lastName).fill('user');
 });
 
 When('I submit the local Giftaid form', async function () {
-  await this.page.locator('button[type=submit]').click();
+  await this.page.locator(selectors.formFields.submitButton).click();
 });
 
 When('I enter the local postcode {string}', async function (postcode) {
-  await this.page.locator('input#field-input--postcode').fill(postcode);
+  await this.page.locator(selectors.formFields.postcode).fill(postcode);
 });
 
 When('I search for the local postcode', async function () {
-  await this.page.locator('#postcode_button').click();
+  await this.page.locator(selectors.formFields.postcodeLookup).click();
 });
 
 When('I click the local manual address link', async function () {
-  await this.page.locator('a[aria-describedby=field-error--addressDetails]').click();
+  await this.page.locator(selectors.address.manualAddressLink).click();
 });
 
 Then('I should see the local postcode error message {string}', async function (message) {
-  await expect(this.page.locator('div#field-error--postcode > span')).toBeVisible();
-  await expect(this.page.locator('div#field-error--postcode > span')).toContainText(message);
+  await expect(this.page.locator(selectors.errorMessages.postcode)).toBeVisible();
+  await expect(this.page.locator(selectors.errorMessages.postcode)).toContainText(message);
 });
 
 Then('I should not see the local postcode error message', async function () {
-  await expect(this.page.locator('div#field-error--postcode > span')).not.toBeVisible();
+  await expect(this.page.locator(selectors.errorMessages.postcode)).not.toBeVisible();
 });
 
 Then('I should see the local thank you message {string}', async function (message) {
-  await expect(this.page.locator('div > h1')).toHaveText(message, { timeout: 15000 });
+  await expect(this.page.locator(selectors.success.heading)).toHaveText(message, { timeout: 15000 });
 });
 
 Then('I should see the local thank you message containing {string}', async function (message) {
-  await expect(this.page.locator('div > h1')).toContainText(message, { timeout: 15000 });
+  await expect(this.page.locator(selectors.success.heading)).toContainText(message, { timeout: 15000 });
 });
 
 When('I complete the local Giftaid form with valid details', async function () {

@@ -1,14 +1,14 @@
-const { When, Then } = require('@cucumber/cucumber');
-const { expect } = require('@playwright/test');
+const { When } = require('@cucumber/cucumber');
+const { selectors } = require('../../utils/locators');
 
 When('I enter the local international address details', async function () {
-  await this.page.locator('#field-input--address1').fill('219 Beacon St');
-  await this.page.locator('#field-input--address2').fill('Winder');
-  await this.page.locator('input#field-input--town').fill('GA');
+  await this.page.locator(selectors.address.address1).fill('219 Beacon St');
+  await this.page.locator(selectors.address.address2).fill('Winder');
+  await this.page.locator(selectors.address.town).fill('GA');
 });
 
 When('I select a random local non-UK country', async function () {
-  const countries = await this.page.$$eval('select#field-select--country > option', options =>
+  const countries = await this.page.$$eval(selectors.address.countryOptions, options =>
     options
       .map(option => option.value)
       .filter(value => value && value !== 'GB')
@@ -16,5 +16,5 @@ When('I select a random local non-UK country', async function () {
   
   const randomCountryCode = countries[Math.floor(Math.random() * countries.length)];
   
-  await this.page.selectOption('select[name="country"]', { value: randomCountryCode });
+  await this.page.selectOption(selectors.address.countryByName, { value: randomCountryCode });
 });
