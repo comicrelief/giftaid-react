@@ -25,7 +25,7 @@ Feature: Giftaid update form validation
     When I complete the local Giftaid update form with valid details
     And I select yes for the local update GiftAid declaration
     And I submit the local Giftaid form
-    Then I should see the local thank you message containing "Thank you,"
+    Then I should see the local thank you message "Thank you, test!"
 
   Scenario Outline: Invalid update last names should show an error message
     When I enter the local last name "<lastName>"
@@ -101,4 +101,4 @@ Feature: Giftaid update form validation
     And I select the local update lookup address or enter the address manually
     And I select yes for the local update GiftAid declaration
     And I submit the local Giftaid form
-    Then I should see the local thank you message containing "Thank you,"
+    Then I should see the local thank you message "Thank you, test!"

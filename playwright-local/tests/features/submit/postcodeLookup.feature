@@ -20,4 +20,4 @@ Feature: Postcode lookup validation
     And I search for the local postcode
     And I select the local lookup address or enter the address manually
     And I submit the local Giftaid form
-    Then I should see the local thank you message containing "Thank you,"
+    Then I should see the local thank you message "Thank you, test!"

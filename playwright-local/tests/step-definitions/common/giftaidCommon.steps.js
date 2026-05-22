@@ -48,10 +48,6 @@ Then('I should see the local thank you message {string}', async function (messag
   await expect(this.page.locator(selectors.success.heading)).toHaveText(message, { timeout: 15000 });
 });
 
-Then('I should see the local thank you message containing {string}', async function (message) {
-  await expect(this.page.locator(selectors.success.heading)).toContainText(message, { timeout: 15000 });
-});
-
 When('I complete the local Giftaid form with valid details', async function () {
   await this.commands.populateFormFields({ mobile: '07123456789' });
 });

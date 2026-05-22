@@ -33,4 +33,4 @@ Feature: Marketing preferences validation
     Then I should see the local marketing phone error message "Please fill in a valid UK phone number, with no spaces"
     When I enter the local marketing phone
     And I submit the local Giftaid form
-    Then I should see the local thank you message containing "Thank you,"
+    Then I should see the local thank you message "Thank you, test!"

@@ -15,4 +15,4 @@ Feature: International address validation
     Then I should not see the local postcode error message
     When I select the local marketing preferences
     And I submit the local Giftaid form
-    Then I should see the local thank you message containing "Thank you,"
+    Then I should see the local thank you message "Thank you, test!"

@@ -14,4 +14,4 @@ Feature: International address validation on the update form
     Then I should not see the local postcode error message
     When I select yes for the local update GiftAid declaration
     And I submit the local Giftaid form
-    Then I should see the local thank you message containing "Thank you,"
+    Then I should see the local thank you message "Thank you, test!"

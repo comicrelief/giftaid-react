@@ -52,4 +52,4 @@ Feature: Form validation
   Scenario: Valid last name should submit the form
     When I complete the local Giftaid form with valid details
     And I submit the local Giftaid form
-    Then I should see the local thank you message containing "Thank you,"
+    Then I should see the local thank you message "Thank you, test!"

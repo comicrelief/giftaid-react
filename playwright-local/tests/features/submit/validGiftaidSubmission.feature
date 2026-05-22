@@ -8,5 +8,5 @@ Feature: Valid Giftaid Submission
   Scenario: Valid Giftaid Submission
     When I complete the local Giftaid form with valid details
     And I select the local marketing preferences
-    And I submit the local Giftaid form and wait for the navigation
-    Then I should see the local thank you message containing "Thank you,"
+    And I submit the local Giftaid form
+    Then I should see the local thank you message "Thank you, test!"

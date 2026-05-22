@@ -10,6 +10,6 @@ module.exports = {
     format: ['progress', 'summary'],
     retry: 2, // Retry failed scenarios twice
     parallel: 2, // Run scenarios in parallel workers
-    publishQuiet: true,
+    publishQuiet: true, // Hide the default Cucumber report publishing link (we check on Github actions)
   },
 };
