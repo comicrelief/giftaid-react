@@ -2,12 +2,14 @@ const { Given, When, Then } = require('@cucumber/cucumber');
 const { expect } = require('@playwright/test');
 const { selectors } = require('../../utils/locators');
 
+// Given steps
 Given('I enter the supporter details', async function () {
   await this.page.fill(selectors.formFields.mobile, '07123456789');
   await this.page.fill(selectors.formFields.firstName, 'test');
   await this.page.fill(selectors.formFields.lastName, 'user');
 });
 
+// When steps
 When('I enter the postcode {string}', async function (postcode) {
   const postcodeField = this.page.locator(selectors.formFields.postcode);
   
@@ -15,11 +17,6 @@ When('I enter the postcode {string}', async function (postcode) {
   await postcodeField.fill(postcode);
   
   await expect(postcodeField).toHaveValue(postcode);
-});
-
-Then('I should see the postcode error message {string}', async function (message) {
-  await expect(this.page.locator(selectors.errorMessages.postcode)).toBeVisible();
-  await expect(this.page.locator(selectors.errorMessages.postcode)).toContainText(message);
 });
 
 When('I search for the postcode', async function () {
@@ -37,6 +34,12 @@ When('I select the address from lookup or enter address manually', async functio
     await this.page.fill(selectors.address.address3, 'ALBERT EMBANKMENT');
     await this.page.fill(selectors.address.town, 'LONDON');
   }
+});
+
+// Then steps
+Then('I should see the postcode error message {string}', async function (message) {
+  await expect(this.page.locator(selectors.errorMessages.postcode)).toBeVisible();
+  await expect(this.page.locator(selectors.errorMessages.postcode)).toContainText(message);
 });
 
 Then('I should see the Giftaid thank you message with line break', async function () {

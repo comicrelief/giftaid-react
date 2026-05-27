@@ -1,6 +1,7 @@
 const { Given, When } = require('@cucumber/cucumber');
 const { selectors } = require('../../utils/locators');
 
+// Given steps
 Given('I am on the local Giftaid update page', async function () {
   await this.page.goto(`${process.env.BASE_URL}/update`, {
     waitUntil: 'networkidle',
@@ -8,6 +9,7 @@ Given('I am on the local Giftaid update page', async function () {
   });
 });
 
+// When steps
 When('I complete the local Giftaid update form with valid details', async function () {
   await this.commands.populateUpdateFormFields();
 });

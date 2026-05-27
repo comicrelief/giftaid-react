@@ -2,14 +2,9 @@ const { When, Then } = require('@cucumber/cucumber');
 const { expect } = require('@playwright/test');
 const { selectors } = require('../../utils/locators');
 
+// When steps
 When('I enter a non UK postcode', async function () {
   await this.page.fill(selectors.formFields.postcode, '30916-395');
-});
-
-Then('I should see the postcode validation error for UK format', async function () {
-  await expect(this.page.locator(selectors.errorMessages.postcode)).toContainText(
-    'Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.'
-  );
 });
 
 When('I enter the international address details manually', async function () {
@@ -28,6 +23,13 @@ When('I select a non UK country', async function () {
   
   const randomCountryCode = countries[Math.floor(Math.random() * countries.length)];
   await this.page.selectOption(selectors.address.countryByName, { value: randomCountryCode });
+});
+
+// Then steps
+Then('I should see the postcode validation error for UK format', async function () {
+  await expect(this.page.locator(selectors.errorMessages.postcode)).toContainText(
+    'Please enter a valid UK postcode, using a space. For non-UK addresses, please use manual entry below.'
+  );
 });
 
 Then('the postcode error should disappear', async function () {

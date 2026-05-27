@@ -5,25 +5,7 @@ const { selectors } = require('../../utils/locators');
 
 const chance = new Chance();
 
-Then('I should see the required update form error messages', async function () {
-  await expect(this.page.locator(selectors.errorMessages.firstName)).toHaveText('Please fill in your first name');
-  await expect(this.page.locator(selectors.errorMessages.lastName)).toHaveText('Please fill in your last name');
-  await expect(this.page.locator(selectors.errorMessages.email)).toHaveText('Please fill in your email address');
-  await expect(this.page.locator(selectors.errorMessages.postcode)).toHaveText('Please enter your postcode');
-  await expect(this.page.locator(selectors.errorMessages.addressDetails)).toHaveText('Please fill in your address');
-  await expect(this.page.locator(selectors.errorMessages.giftAidClaimChoice)).toHaveText('This field is required');
-});
-
-When('I enter the update first name {string}', async function (firstName) {
-  const value = firstName === 'SPACE' ? ' ' : firstName;
-  await this.page.fill(selectors.formFields.firstName, value);
-  await this.page.keyboard.press('Enter');
-});
-
-Then('I should see the update first name error message {string}', async function (message) {
-  await expect(this.page.locator(selectors.errorMessages.firstName)).toHaveText(message);
-});
-
+// When steps
 When('I complete the Giftaid update form with first name {string}', async function (firstName) {
   await this.page.fill(selectors.formFields.firstName, '');
   await this.commands.populateUpdateFormFields({ firstName });
@@ -43,9 +25,10 @@ When('I enter the update email {string}', async function (email) {
   await this.page.keyboard.press('Enter');
 });
 
-Then('I should see the update email error message {string}', async function (message) {
-  await expect(this.page.locator(selectors.errorMessages.email)).toBeVisible();
-  await expect(this.page.locator(selectors.errorMessages.email)).toHaveText(message);
+When('I enter the update first name {string}', async function (firstName) {
+  const value = firstName === 'SPACE' ? ' ' : firstName;
+  await this.page.fill(selectors.formFields.firstName, value);
+  await this.page.keyboard.press('Enter');
 });
 
 When('I complete the Giftaid update form with the email', async function () {
@@ -57,14 +40,6 @@ When('I complete the Giftaid update form with the email', async function () {
 When('I enter the update mobile number {string}', async function (mobile) {
   await this.page.locator(selectors.formFields.mobile).fill('');
   await this.page.locator(selectors.formFields.mobile).type(mobile, { delay: 100 });
-});
-
-Then('I should see the update mobile error message {string}', async function (message) {
-  await expect(this.page.locator(selectors.errorMessages.mobile)).toHaveText(message);
-});
-
-Then('I should not see the update mobile error message', async function () {
-  await expect(this.page.locator(selectors.errorMessages.mobile)).not.toBeVisible();
 });
 
 When('I complete the Giftaid update form with the mobile and last name {string}', async function (lastName) {
@@ -100,4 +75,31 @@ When('I complete the remaining update form fields', async function () {
   await this.page.locator(selectors.formFields.lastName).fill(chance.last());
   await this.page.locator(selectors.marketingPreferences.fields.email).fill(`giftaid-update-staging-${chance.email()}`);
   await this.page.fill(selectors.formFields.postcode, 'SE1 7TP');
+});
+
+// Then steps
+Then('I should see the required update form error messages', async function () {
+  await expect(this.page.locator(selectors.errorMessages.firstName)).toHaveText('Please fill in your first name');
+  await expect(this.page.locator(selectors.errorMessages.lastName)).toHaveText('Please fill in your last name');
+  await expect(this.page.locator(selectors.errorMessages.email)).toHaveText('Please fill in your email address');
+  await expect(this.page.locator(selectors.errorMessages.postcode)).toHaveText('Please enter your postcode');
+  await expect(this.page.locator(selectors.errorMessages.addressDetails)).toHaveText('Please fill in your address');
+  await expect(this.page.locator(selectors.errorMessages.giftAidClaimChoice)).toHaveText('This field is required');
+});
+
+Then('I should see the update first name error message {string}', async function (message) {
+  await expect(this.page.locator(selectors.errorMessages.firstName)).toHaveText(message);
+});
+
+Then('I should see the update email error message {string}', async function (message) {
+  await expect(this.page.locator(selectors.errorMessages.email)).toBeVisible();
+  await expect(this.page.locator(selectors.errorMessages.email)).toHaveText(message);
+});
+
+Then('I should see the update mobile error message {string}', async function (message) {
+  await expect(this.page.locator(selectors.errorMessages.mobile)).toHaveText(message);
+});
+
+Then('I should not see the update mobile error message', async function () {
+  await expect(this.page.locator(selectors.errorMessages.mobile)).not.toBeVisible();
 });

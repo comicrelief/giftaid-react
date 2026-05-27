@@ -2,11 +2,13 @@ const { Given, When, Then } = require('@cucumber/cucumber');
 const { expect } = require('@playwright/test');
 const { selectors } = require('../../utils/locators');
 
+// Given steps
 Given('I am on the Giftaid update page', async function () {
   await this.page.goto(`${process.env.BASE_URL}update`, { timeout: 30000 });
   await this.page.waitForLoadState('domcontentloaded');
 });
 
+// When steps
 When('I complete the Giftaid update form with valid details', async function () {
   await this.commands.populateUpdateFormFields();
 });
@@ -28,6 +30,7 @@ When('I enter the update postcode {string}', async function (postcode) {
   await this.page.type(selectors.formFields.postcode, postcode);
 });
 
+// Then steps
 Then('I should see the update postcode error message {string}', async function (message) {
   await expect(this.page.locator(selectors.errorMessages.postcode)).toBeVisible();
   await expect(this.page.locator(selectors.errorMessages.postcode)).toHaveText(message);

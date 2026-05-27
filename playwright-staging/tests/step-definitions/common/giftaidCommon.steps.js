@@ -5,21 +5,15 @@ const { selectors } = require('../../utils/locators');
 
 const chance = new Chance();
 
+// Given steps
 Given('I am on the Giftaid page', async function () {
   await this.page.goto(process.env.BASE_URL, { timeout: 30000 });
   await this.page.waitForLoadState('domcontentloaded');
 });
 
+// When steps
 When('I select the Giftaid option', async function () {
   await this.page.click(selectors.giftaid.option);
-});
-
-Then('I should see the Giftaid thank you message', async function () {
-  const expectedFirstName = this.supporter?.firstName || 'test';
-  await expect(this.page.locator('h1')).toContainText(
-    `Thank you, ${expectedFirstName}!`,
-    { timeout: 30000 }
-  );
 });
 
 When('I submit the Giftaid form', async function () {
@@ -46,6 +40,15 @@ When('I complete the Giftaid form with valid details', async function () {
   };
   
   await this.commands.populateFormFields(this.supporter);
+});
+
+// Then steps
+Then('I should see the Giftaid thank you message', async function () {
+  const expectedFirstName = this.supporter?.firstName || 'test';
+  await expect(this.page.locator('h1')).toContainText(
+    `Thank you, ${expectedFirstName}!`,
+    { timeout: 30000 }
+  );
 });
 
 Then('I should be redirected to the Giftaid homepage', async function () {

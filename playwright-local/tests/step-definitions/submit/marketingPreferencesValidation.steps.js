@@ -46,10 +46,6 @@ When('I enter an invalid local marketing email {string}', async function (invali
   await this.page.locator(selectors.marketingPreferences.fields.email).fill(invalidEmail);
 });
 
-Then('I should see the local marketing email error message {string}', async function (message) {
-  await expect(this.page.locator(selectors.errorMessages.email)).toHaveText(message);
-});
-
 When('I enter the local marketing phone', async function () {
   await expect(this.page.locator(selectors.marketingPreferences.fields.phone)).toBeVisible();
   await this.page.locator(selectors.marketingPreferences.fields.phone).fill(phone);
@@ -65,4 +61,8 @@ When('I enter an invalid local marketing phone {string}', async function (invali
 
 Then('I should see the local marketing phone error message {string}', async function (message) {
   await expect(this.page.locator(selectors.errorMessages.phone)).toHaveText(message);
+});
+
+Then('I should see the local marketing email error message {string}', async function (message) {
+  await expect(this.page.locator(selectors.errorMessages.email)).toHaveText(message);
 });

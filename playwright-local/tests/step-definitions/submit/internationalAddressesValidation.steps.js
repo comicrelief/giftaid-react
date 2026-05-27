@@ -1,6 +1,7 @@
 const { When } = require('@cucumber/cucumber');
 const { selectors } = require('../../utils/locators');
 
+// When steps
 When('I enter the local international address details', async function () {
   await this.page.locator(selectors.address.address1).fill('219 Beacon St');
   await this.page.locator(selectors.address.address2).fill('Winder');
