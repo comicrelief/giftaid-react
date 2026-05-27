@@ -1,3 +1,4 @@
+/** @type {Partial<import('@cucumber/cucumber').IConfiguration>} */
 module.exports = {
   default: {
     paths: ['tests/features/**/*.feature'],
