@@ -21,15 +21,15 @@ class Commands {
     address3 = 'test address 3',
     town = chance.city(),
   } = {}) {
-    await this.page.locator(selectors.formFields.mobile).type(mobile);
-    await this.page.locator(selectors.formFields.firstName).type(firstName);
-    await this.page.locator(selectors.formFields.lastName).type(lastName);
-    await this.page.locator(selectors.formFields.postcode).type(postcode);
+    await this.page.locator(selectors.formFields.mobile).fill(mobile);
+    await this.page.locator(selectors.formFields.firstName).fill(firstName);
+    await this.page.locator(selectors.formFields.lastName).fill(lastName);
+    await this.page.locator(selectors.formFields.postcode).fill(postcode);
     await this.page.locator(selectors.address.manualAddressLink).click();
-    await this.page.locator(selectors.address.address1).type(address1);
-    await this.page.locator(selectors.address.address2).type(address2);
-    await this.page.locator(selectors.address.address3).type(address3);
-    await this.page.locator(selectors.address.town).type(town);
+    await this.page.locator(selectors.address.address1).fill(address1);
+    await this.page.locator(selectors.address.address2).fill(address2);
+    await this.page.locator(selectors.address.address3).fill(address3);
+    await this.page.locator(selectors.address.town).fill(town);
   }
   
   /**
@@ -41,9 +41,9 @@ class Commands {
     phone = chance.phone({ country: 'uk', mobile: false }).replace(/\s/g, '') // UK phone number
   } = {}) {
     await this.page.locator(selectors.marketingPreferences.options.email).click();
-    await this.page.locator(selectors.marketingPreferences.fields.email).type(email);
+    await this.page.locator(selectors.marketingPreferences.fields.email).fill(email);
     await this.page.locator(selectors.marketingPreferences.options.phone).click();
-    await this.page.locator(selectors.marketingPreferences.fields.phone).type(phone, { delay: 200 });
+    await this.page.locator(selectors.marketingPreferences.fields.phone).fill(phone, { delay: 200 });
     await this.page.locator(selectors.marketingPreferences.options.text).check({ force: true });
   }
   
@@ -71,7 +71,7 @@ class Commands {
     await this.page.locator(selectors.address.address2).fill(address2);
     await this.page.locator(selectors.address.address3).fill(address3);
     await this.page.locator(selectors.address.town).fill(town);
-    await this.page.locator(selectors.formFields.mobile).type(mobile);
+    await this.page.locator(selectors.formFields.mobile).fill(mobile);
   }
 }
 
