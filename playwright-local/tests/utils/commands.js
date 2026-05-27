@@ -44,7 +44,7 @@ class Commands {
     await this.page.locator(selectors.marketingPreferences.fields.email).type(email);
     await this.page.locator(selectors.marketingPreferences.options.phone).click();
     await this.page.locator(selectors.marketingPreferences.fields.phone).type(phone, { delay: 200 });
-    await this.page.locator(selectors.formFields.mobile).click();
+    await this.page.locator(selectors.marketingPreferences.options.text).check({ force: true });
   }
   
   /**
