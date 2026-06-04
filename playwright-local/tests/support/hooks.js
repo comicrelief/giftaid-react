@@ -25,7 +25,8 @@ Before(async function () {
     isMobileSafari
       ? {
         ...devices['iPhone 12'],
-        serviceWorkers: 'block', // Blocks service workers to reduce caching/flaky behaviour
+        serviceWorkers: 'block',
+        recordVideo: process.env.CI ? { dir: 'test-results/videos/' } : undefined,
       }
       : {
         viewport: {
@@ -33,6 +34,7 @@ Before(async function () {
           height: 1000,
         },
         serviceWorkers: 'block',
+        recordVideo: process.env.CI ? { dir: 'test-results/videos/' } : undefined,
       }
   );
   
