@@ -1,6 +1,8 @@
 require('dotenv').config();
 
-const { Before, After, setDefaultTimeout } = require('@cucumber/cucumber');
+const fs = require('fs');
+const path = require('path');
+const { Before, After, Status, setDefaultTimeout } = require('@cucumber/cucumber');
 const { chromium, webkit, devices } = require('@playwright/test'); // imports playwright browsers and devices
 const { Commands } = require('../utils/commands');
 
@@ -38,6 +40,14 @@ Before(async function () {
       }
   );
   
+  if (process.env.CI) {
+    await this.context.tracing.start({
+      screenshots: true,
+      snapshots: true,
+      sources: true,
+    });
+  }
+  
   this.page = await this.context.newPage();
   
   // Increase navigation timeout for slower redirects/page loads
@@ -47,13 +57,46 @@ Before(async function () {
 });
 
 // Runs after each scenario
-After(async function () {
-  if (this.page) {
-    await this.page.close();
+After(async function (scenario) {
+  const isFailed = scenario.result?.status !== Status.PASSED;
+  const scenarioFileName = scenario.pickle.name.replace(/[^a-z0-9]/gi, '-').toLowerCase();
+  
+  if (process.env.CI && this.context) {
+    if (isFailed) {
+      await this.context.tracing.stop({
+        path: `test-results/traces/${scenarioFileName}.zip`,
+      });
+    } else {
+      await this.context.tracing.stop();
+    }
   }
-  // Close context and browser
+  
+  let videoPath;
+  
+  if (this.page) {
+    const video = process.env.CI ? this.page.video() : null;
+    
+    await this.page.close();
+    
+    if (video) {
+      videoPath = await video.path();
+    }
+  }
+  
   if (this.context) {
     await this.context.close();
+  }
+  
+  if (process.env.CI && videoPath) {
+    if (isFailed) {
+      const failedVideosDir = 'test-results/failed-videos';
+      fs.mkdirSync(failedVideosDir, { recursive: true });
+      
+      const failedVideoPath = path.join(failedVideosDir, `${scenarioFileName}.webm`);
+      fs.copyFileSync(videoPath, failedVideoPath);
+    }
+    
+    fs.unlinkSync(videoPath);
   }
   
   if (this.browser) {

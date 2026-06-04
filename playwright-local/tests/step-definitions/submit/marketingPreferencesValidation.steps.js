@@ -6,7 +6,8 @@ const Chance = require('chance');
 const chance = new Chance();
 
 const email = `giftaid-staging-${Date.now().toString()}@email.sls.comicrelief.com`;
-const phone = chance.phone({ country: 'uk', mobile: true }).replace(/\s/g, '');
+// Use a standard UK phone number for the marketing preference phone field
+const phone = chance.phone({ country: 'uk', mobile: false }).replace(/\s/g, '');
 
 When('I select all the local marketing preference options', async function () {
   const marketingOptions = [

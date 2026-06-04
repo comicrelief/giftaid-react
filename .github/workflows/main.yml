@@ -43,12 +43,14 @@ jobs:
           FORCE_COLOR: 1
 
       # Test run video was always captured, so this action uses "always()" condition
-      - name: Upload videos
+      - name: playwright-chromium-artifacts
+        if: failure()
         uses: actions/upload-artifact@v4
-        if: always()
         with:
-          name: playwright-report
-          path: playwright-report/
+          name: playwright-failure-artifacts
+          path: |
+            playwright-local/test-results/failed-videos/
+            playwright-local/test-results/traces/
           retention-days: 3
 
   playwright-mobile:
@@ -94,12 +96,14 @@ jobs:
           FORCE_COLOR: 1
 
       # Test run video was always captured, so this action uses "always()" condition
-      - name: Upload videos
+      - name: playwright-mobile-artifacts
+        if: failure()
         uses: actions/upload-artifact@v4
-        if: always()
         with:
-          name: playwright-videos
-          path: playwright-local/test-results/videos/
+          name: playwright-failure-artifacts-mobile
+          path: |
+            playwright-local/test-results/failed-videos/
+            playwright-local/test-results/traces/
           retention-days: 3
 
   lint:
