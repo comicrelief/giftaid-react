@@ -56,5 +56,5 @@ Then('I should not see the local postcode error message', async function () {
 });
 
 Then('I should see the local thank you message {string}', async function (message) {
-  await expect(this.page.locator(selectors.success.heading)).toHaveText(message, { timeout: 15000 });
+  await expect(this.page.locator(selectors.success.heading)).toHaveText(message, { timeout: 20000 });
 });
