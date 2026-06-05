@@ -42,10 +42,13 @@ jobs:
           REACT_APP_ENDPOINT_URL: ${{ secrets.REACT_APP_ENDPOINT_URL }}
           FORCE_COLOR: 1
 
+      - name: List Playwright artifacts
+        if: failure()
+        run: find playwright-local/test-results -type f || true
+
       # Upload Playwright video and trace artifacts for failed scenarios only
       - name: playwright-chromium-artifacts
         if: failure()
-        run: find playwright-local/test-results -type f || true
         uses: actions/upload-artifact@v4
         with:
           name: playwright-failure-artifacts
@@ -95,6 +98,10 @@ jobs:
           NODE_ENV: development
           REACT_APP_ENDPOINT_URL: ${{ secrets.REACT_APP_ENDPOINT_URL }}
           FORCE_COLOR: 1
+
+      - name: List Playwright artifacts
+        if: failure()
+        run: find playwright-local/test-results -type f || true
 
       # Upload Playwright video and trace artifacts for failed scenarios only
       - name: playwright-mobile-artifacts
