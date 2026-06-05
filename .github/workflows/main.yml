@@ -49,8 +49,8 @@ jobs:
         with:
           name: playwright-failure-artifacts
           path: |
-            playwright-local/test-results/failed-videos/
-            playwright-local/test-results/traces/
+            playwright-local/test-results/failed-videos/**/*.webm
+            playwright-local/test-results/traces/**/*.zip
           retention-days: 3
 
   playwright-mobile:
@@ -102,8 +102,8 @@ jobs:
         with:
           name: playwright-failure-artifacts-mobile
           path: |
-            playwright-local/test-results/failed-videos/
-            playwright-local/test-results/traces/
+            playwright-local/test-results/failed-videos/**/*.webm
+            playwright-local/test-results/traces/**/*.zip
           retention-days: 3
 
   lint:
