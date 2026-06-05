@@ -5,7 +5,7 @@ const { selectors } = require('../../utils/locators');
 // When steps
 When('I enter the local mobile number {string}', async function (mobile) {
   await this.page.locator(selectors.formFields.mobile).fill('');
-  await this.page.locator(selectors.formFields.mobile).fill(mobile, { delay: 100 });
+  await this.page.locator(selectors.formFields.mobile).fill(mobile);
 });
 
 When('I complete the local Giftaid form with the first name {string}', async function (firstName) {
