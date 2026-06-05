@@ -9,4 +9,4 @@ Feature: Valid Giftaid Submission
     When I complete the local Giftaid form with valid details
     And I select the local marketing preferences
     And I submit the local Giftaid form
-    Then I should see the local thank you message "This will fail"
+    Then I should see the local thank you message "Thank you, test!"

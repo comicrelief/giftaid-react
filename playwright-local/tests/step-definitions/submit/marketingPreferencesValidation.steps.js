@@ -2,12 +2,9 @@ const { When, Then } = require('@cucumber/cucumber');
 const { expect } = require('@playwright/test');
 const { selectors } = require('../../utils/locators');
 
-const Chance = require('chance');
-const chance = new Chance();
-
 const email = `giftaid-staging-${Date.now().toString()}@email.sls.comicrelief.com`;
 // Use a standard UK phone number for the marketing preference phone field
-const phone = chance.phone({ country: 'uk', mobile: false }).replace(/\s/g, '');
+const phone = '02085694240';
 
 When('I select all the local marketing preference options', async function () {
   const marketingOptions = [
