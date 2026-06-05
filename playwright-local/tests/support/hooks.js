@@ -62,29 +62,33 @@ After(async function (scenario) {
   const scenarioFileName = scenario.pickle.name.replace(/[^a-z0-9]/gi, '-').toLowerCase();
   
   if (process.env.CI && this.context) {
+    const tracesDir = 'test-results/traces';
+    
     if (isFailed) {
+      fs.mkdirSync(tracesDir, { recursive: true });
+      
       await this.context.tracing.stop({
-        path: `test-results/traces/${scenarioFileName}.zip`,
+        path: `${tracesDir}/${scenarioFileName}.zip`,
       });
     } else {
       await this.context.tracing.stop();
     }
   }
   
+  let video;
   let videoPath;
   
   if (this.page) {
-    const video = process.env.CI ? this.page.video() : null;
-    
+    video = process.env.CI ? this.page.video() : null;
     await this.page.close();
-    
-    if (video) {
-      videoPath = await video.path();
-    }
   }
   
   if (this.context) {
     await this.context.close();
+  }
+  
+  if (video) {
+    videoPath = await video.path();
   }
   
   if (process.env.CI && videoPath) {

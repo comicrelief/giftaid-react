@@ -98,6 +98,7 @@ jobs:
       # Upload Playwright video and trace artifacts for failed scenarios only
       - name: playwright-mobile-artifacts
         if: failure()
+        run: find playwright-local/test-results -type f || true
         uses: actions/upload-artifact@v4
         with:
           name: playwright-failure-artifacts-mobile
