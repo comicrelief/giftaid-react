@@ -42,7 +42,7 @@ jobs:
           REACT_APP_ENDPOINT_URL: ${{ secrets.REACT_APP_ENDPOINT_URL }}
           FORCE_COLOR: 1
 
-      # Test run video was always captured, so this action uses "always()" condition
+      # Upload Playwright video and trace artifacts for failed scenarios only
       - name: playwright-chromium-artifacts
         if: failure()
         uses: actions/upload-artifact@v4
@@ -95,7 +95,7 @@ jobs:
           REACT_APP_ENDPOINT_URL: ${{ secrets.REACT_APP_ENDPOINT_URL }}
           FORCE_COLOR: 1
 
-      # Test run video was always captured, so this action uses "always()" condition
+      # Upload Playwright video and trace artifacts for failed scenarios only
       - name: playwright-mobile-artifacts
         if: failure()
         uses: actions/upload-artifact@v4
