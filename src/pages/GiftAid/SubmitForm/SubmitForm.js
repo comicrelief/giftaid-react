@@ -9,6 +9,7 @@ import FormHeader from '../../../components/FormHeader/FormHeader';
 import FormButton from '../../../components/Buttons/FormButton/index';
 import InputFields from '../../../components/InputFields/InputFields';
 import JustInTime from '../../../components/JustInTime/index';
+import { postcodeRegex } from '../utils/Utils';
 
 // fields data
 import { submitFormFields } from './SubmitFormFields';
@@ -103,6 +104,7 @@ function SubmitForm(props) {
             Object.keys(validation).map(key => setFieldValidity(validation[key], key));
           }
         }
+        postcodeValidation={postcodeRegex}
       />
 
       <MarketingConsent
@@ -114,10 +116,10 @@ function SubmitForm(props) {
         {...marketingProps}
       />
 
-      <FormButton 
+      <FormButton
         isSubmitting={isSubmitting}
         onClick={(e) => submitForm(e)}
-        text="Gift Aid your donation" 
+        text="Gift Aid your donation"
       />
 
       <JustInTime submit text={justInTimeLinkText} />
