@@ -34,6 +34,8 @@ import FooterCopy from './FooterCopy';
 
 import './app.scss';
 
+const SENTRY_ENABLED = false;
+
 const site = new SiteService();
 
 function App(props) {
@@ -110,7 +112,7 @@ function App(props) {
 				<meta name='keywords' content={site.get('meta').keywords} />
 			</MetaTags>
 
-			<Raven dsn='https://25f53d059e1f488f9d0f000ffd500585@sentry.io/1228720' />
+			{SENTRY_ENABLED ? <Raven dsn='https://25f53d059e1f488f9d0f000ffd500585@sentry.io/1228720' /> : ''}
 
 			<Router>
 				<AppProvider value={childProps}>
